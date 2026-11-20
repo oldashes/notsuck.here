@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>not suck here — vibe-coded toys that actually work</title>
+<meta name="description" content="A showcase of small WebGL games and toys, vibe-coded and shipped." />
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --line:#30363d; --text:#e6edf3; --muted:#8b949e; --accent:#7ee787; --accent2:#79c0ff; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; line-height:1.6; }
+  .wrap { max-width:880px; margin:0 auto; padding:48px 20px 64px; }
+  header h1 { font-size:52px; line-height:1.1; letter-spacing:-1.5px; }
+  header h1 span { color:var(--accent); }
+  header p { color:var(--muted); font-size:18px; margin-top:12px; max-width:560px; }
+  .demo { margin-top:32px; border:1px solid var(--line); border-radius:16px; overflow:hidden; background:#000; }
+  .demo canvas { display:block; width:100%; height:320px; }
+  .demo figcaption { padding:10px 16px; color:var(--muted); font-size:13px; border-top:1px solid var(--line); background:var(--card); }
+  h2 { font-size:22px; margin:48px 0 16px; letter-spacing:-.5px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
+  .card { border:1px solid var(--line); border-radius:14px; padding:20px; background:var(--card); }
+  .card h3 { font-size:17px; margin-bottom:6px; }
+  .card p { color:var(--muted); font-size:14px; }
+  .tag { display:inline-block; font-size:12px; color:var(--accent2); border:1px solid var(--line); border-radius:999px; padding:2px 10px; margin-bottom:10px; }
+  .card.soon { opacity:.65; border-style:dashed; }
+  footer { margin-top:56px; padding-top:20px; border-top:1px solid var(--line); color:var(--muted); font-size:14px; }
+  footer a { color:var(--accent2); text-decoration:none; }
+  footer a:hover { text-decoration:underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>not suck <span>here</span>.</h1>
+    <p>Small WebGL games and toys, vibe-coded and shipped. No sign-up, no install — just open and play.</p>
+  </header>
+
+  <figure class="demo">
+    <canvas id="scene"></canvas>
+    <figcaption>Live demo — a WebGL torus knot. Move your mouse over it, click to change its color. Built with Three.js.</figcaption>
+  </figure>
+
+  <h2>The toys</h2>
+  <div class="grid">
+    <div class="card">
+      <span class="tag">WebGL · live</span>
+      <h3>Torus Knot</h3>
+      <p>The little demo above. Spin it, poke it, watch it not suck.</p>
+    </div>
+    <div class="card soon">
+      <span class="tag">coming soon</span>
+      <h3>Your next toy</h3>
+      <p>This slot is waiting for the next vibe-coded game. Check back soon.</p>
+    </div>
+    <div class="card soon">
+      <span class="tag">coming soon</span>
+      <h3>Another one</h3>
+      <p>Yes, there will be more. The knot was just the warm-up.</p>
+    </div>
+  </div>
+
+  <footer>
+    Made with vibes. Source on <a href="https://github.com/oldashes/notsuck.here">GitHub</a> · <a href="https://github.com/oldashes/notsuck.here">oldashes/notsuck.here</a>
+  </footer>
+</div>
+
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+</script>
+<script type="module">
+import * as THREE from "three";
+const canvas = document.getElementById("scene");
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0d1117);
+const camera = new THREE.PerspectiveCamera(45, 2, 0.1, 100);
+camera.position.z = 6;
+const geo = new THREE.TorusKnotGeometry(1.1, 0.32, 220, 36);
+const mat = new THREE.MeshStandardMaterial({ color:0x7ee787, roughness:0.25, metalness:0.6 });
+const knot = new THREE.Mesh(geo, mat);
+scene.add(knot);
+scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+const light = new THREE.DirectionalLight(0xffffff, 2);
+light.position.set(4, 6, 6);
+scene.add(light);
+let mx = 0, my = 0;
+addEventListener("pointermove", e => { mx = (e.clientX / innerWidth - 0.5) * 2; my = (e.clientY / innerHeight - 0.5) * 2; });
+const palette = [0x7ee787, 0x79c0ff, 0xffa657, 0xff7b72, 0xd2a8ff];
+let ci = 0;
+canvas.addEventListener("click", () => { ci = (ci + 1) % palette.length; mat.color.setHex(palette[ci]); });
+function resize() {
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+addEventListener("resize", resize);
+resize();
+(function tick(t) {
+  knot.rotation.x = t * 0.0004 + my * 0.4;
+  knot.rotation.y = t * 0.0006 + mx * 0.6;
+  renderer.render(scene, camera);
+  requestAnimationFrame(tick);
+})(0);
+</script>
+</body>
+</html>
