@@ -19,6 +19,8 @@
   h2 { font-size:22px; margin:48px 0 16px; letter-spacing:-.5px; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
   .card { border:1px solid var(--line); border-radius:14px; padding:20px; background:var(--card); }
+  a.card { display:block; text-decoration:none; color:inherit; transition:border-color .15s, transform .15s; }
+  a.card:hover { border-color:var(--accent); transform:translateY(-2px); }
   .card h3 { font-size:17px; margin-bottom:6px; }
   .card p { color:var(--muted); font-size:14px; }
   .tag { display:inline-block; font-size:12px; color:var(--accent2); border:1px solid var(--line); border-radius:999px; padding:2px 10px; margin-bottom:10px; }
@@ -47,11 +49,11 @@
       <h3>Torus Knot</h3>
       <p>The little demo above. Spin it, poke it, watch it not suck.</p>
     </div>
-    <div class="card soon">
-      <span class="tag">coming soon</span>
-      <h3>Your next toy</h3>
-      <p>This slot is waiting for the next vibe-coded game. Check back soon.</p>
-    </div>
+    <a class="card" href="./wantangfeng/">
+      <span class="tag">AI Drama · preview</span>
+      <h3>晚棠风 · Wantangfeng</h3>
+      <p>12 集古装武侠短剧制作档案：改编大纲、分集剧本、角色卡司、演员定妆照、美术设定、开场站位与 468 帧分镜。</p>
+    </a>
     <div class="card soon">
       <span class="tag">coming soon</span>
       <h3>Another one</h3>

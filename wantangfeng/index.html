@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>晚棠风 · 制作档案与静态预览</title>
+<style>
+:root{
+  --paper:#eceded; --panel:#f5f6f5; --side:#e4e6e3; --ink:#191d21; --ink-2:#5b636a; --ink-3:#8c9298;
+  --rule:#d2d5d0; --rule-2:#c2c6bf; --seal:#8a3324; --seal-soft:#8a332412;
+  --serif:"Songti SC","STSong","Source Han Serif SC","Noto Serif CJK SC",Georgia,serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.7 var(--sans);-webkit-font-smoothing:antialiased}
+.page{max-width:1280px;margin:0 auto;padding:24px 28px 80px}
+.crumb{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;font-size:13px;color:var(--ink-2)}
+.crumb a{color:var(--ink-2);text-decoration:none;padding:4px 10px;border:1px solid var(--rule-2);border-radius:6px;background:var(--panel)}
+.crumb a:hover{border-color:var(--seal);color:var(--seal)}
+.hero{background:var(--panel);border:1px solid var(--rule-2);border-top:3px solid var(--ink);padding:28px 28px 24px}
+.hero-top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:14px}
+.hero-top h1{margin:0;font:400 36px/1.1 var(--serif);letter-spacing:.08em}
+.hero-top .sub{color:var(--ink-2);font-size:14px}
+.hero-top .badge{margin-left:auto;font-size:12px;color:var(--seal);border:1px solid var(--seal);background:var(--seal-soft);padding:2px 10px;border-radius:999px}
+.synopsis{margin:16px 0 20px;color:var(--ink-2);font-size:14px;line-height:1.85;max-width:960px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{background:var(--paper);border:1px solid var(--rule);padding:12px 14px}
+.kpi .l{font-size:12px;color:var(--ink-3)}
+.kpi .v{font:400 22px/1.25 var(--serif);margin-top:4px;color:var(--ink)}
+.kpi.accent .v{color:var(--seal)}
+h2.sec{margin:36px 0 14px;font:400 20px/1.2 var(--serif);letter-spacing:.05em;display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--rule-2);padding-bottom:8px}
+h2.sec span{font-family:var(--sans);font-size:12px;color:var(--ink-3)}
+h2.sec a{font-family:var(--sans);font-size:13px;color:var(--seal);text-decoration:none}
+h2.sec a:hover{text-decoration:underline}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.rcard{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--rule-2);padding:18px 18px 16px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s}
+.rcard:hover{border-color:var(--seal);transform:translateY(-2px)}
+.rnum{font:600 12px/1 var(--sans);color:var(--seal);letter-spacing:.08em;margin-bottom:8px}
+.rcard h3{margin:0 0 6px;font:400 19px/1.25 var(--serif)}
+.rcard p{margin:0;color:var(--ink-2);font-size:13px;flex:1}
+.rcard .go{margin-top:14px;font-size:12px;color:var(--seal);font-weight:500}
+.cgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.char-card{display:block;background:var(--panel);border:1px solid var(--rule-2);text-decoration:none;color:inherit;overflow:hidden;transition:border-color .15s,transform .15s}
+.char-card:hover{border-color:var(--seal);transform:translateY(-2px)}
+.char-card .thumb{aspect-ratio:3/4;background:var(--side);overflow:hidden}
+.char-card img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.char-card .cmeta{padding:10px 12px}
+.char-card .cmeta strong{display:block;font-size:14px;font-weight:600}
+.char-card .cmeta span{display:block;font-size:12px;color:var(--ink-2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.char-card .cmeta em{display:inline-block;font-style:normal;font-size:11px;color:var(--seal);margin-top:4px}
+footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--rule-2);color:var(--ink-3);font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+@media(max-width:960px){.cgrid{grid-template-columns:repeat(3,1fr)}.kpis{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.page{padding:16px 14px 72px}.cgrid{grid-template-columns:repeat(2,1fr)}.hero{padding:18px 16px}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="crumb">
+    <a href="../">← not suck here</a>
+    <span>静态制作档案 · 仅文本与设定图预览</span>
+  </div>
+
+  <section class="hero">
+    <div class="hero-top">
+      <h1>晚棠风</h1>
+      <span class="sub">12 集 × 2 分钟 · 古装武侠 · 凄美救赎 · AI 短剧全流程制作档案</span>
+      <span class="badge">Static Web Preview</span>
+    </div>
+    <p class="synopsis">北宋风貌的繁华都城永安城中，江湖黑白两道的消息与暗杀买卖多经由听风楼流出，人称“扇底寸银”的年轻中间人温如风以冷酷算账、只认银钱闻名。某日，落魄的林家庶出书生林慕白跪求听风楼，愿出区区三百两银子买凶手刃虐杀其意中人的武馆恶霸厉狂澜。素心阁弃徒、为给体弱幼女续命而沦为暗杀刀手的单亲母亲江晚棠不顾温如风阻拦强行接下这桩赔本死单，更因林慕白的一腔“痴情”渐渐动摇尘封之心。当一纸行踪记录、一柄四十八骨紫竹伞与各自背负的隐痛在听风楼、三更面馆与长乐街雨夜间交织，看似无情的掮客与心存幻梦的刀手被推向难以抽身的险局。</p>
+    <div class="kpis">
+      <div class="kpi accent"><div class="l">剧本篇幅</div><div class="v">12 集剧本</div></div>
+      <div class="kpi"><div class="l">核心卡司</div><div class="v">10 位角色</div></div>
+      <div class="kpi"><div class="l">美术资产</div><div class="v">6 场景 + 5 道具</div></div>
+      <div class="kpi"><div class="l">分镜关键帧</div><div class="v">468 帧分镜</div></div>
+    </div>
+  </section>
+
+  <h2 class="sec">制作档案入口<span>点击进入各环节交互式报告</span></h2>
+  <div class="rgrid">
+    <a class="rcard" href="./outline-report.html"><div class="rnum">01</div><h3>改编大纲</h3><p>12 集节奏骨架、爽点分布与角色/场景调度矩阵</p><span class="go">进入预览 →</span></a><a class="rcard" href="./script-report.html"><div class="rnum">02</div><h3>分集剧本</h3><p>第 1–12 集场次、动作节拍与逐句台词本</p><span class="go">进入预览 →</span></a><a class="rcard" href="./cast-report.html"><div class="rnum">03</div><h3>角色卡司</h3><p>10 位角色档案、性格小传、音色与形象设定图</p><span class="go">进入预览 →</span></a><a class="rcard" href="./character-refs/character-refs.html"><div class="rnum">04</div><h3>演员定妆照</h3><p>正脸、正面全身锚点、90° 侧面与背面参考图</p><span class="go">进入预览 →</span></a><a class="rcard" href="./art-report.html"><div class="rnum">05</div><h3>美术设定</h3><p>6 大主辅场景一致性锚点、时段光照与 5 件叙事道具</p><span class="go">进入预览 →</span></a><a class="rcard" href="./staging-report.html"><div class="rnum">06</div><h3>开场站位</h3><p>逐场俯视平面空间站位、朝向与群演调度</p><span class="go">进入预览 →</span></a><a class="rcard" href="./storyboard-report.html"><div class="rnum">07</div><h3>分镜故事板</h3><p>12 集分镜切点、画面提示词与 468 帧参考关键帧</p><span class="go">进入预览 →</span></a>
+  </div>
+
+  <h2 class="sec">卡司与演员定妆一览<a href="./cast-report.html">查看完整角色卡司 →</a></h2>
+  <div class="cgrid">
+    <a class="char-card" href="./character-refs/character-refs.html"><div class="thumb"><img src="./character-refs/温如风/default/face-front.v1.webp" alt="温如风" loading="lazy"></div><div class="cmeta"><strong>温如风</strong><span>常态 · 天青直裰</span><em>第 2 档</em></div></a><a class="char-card" href="./character-refs/character-refs.html"><div class="thumb"><img src="./character-refs/江晚棠/default/face-front.v1.webp" alt="江晚棠" loading="lazy"></div><div class="cmeta"><strong>江晚棠</strong><span>常态 · 月白麻布长褙子</span><em>第 2 档</em></div></a><a class="char-card" href="./character-refs/character-refs.html"><div class="thumb"><img src="./character-refs/林慕白/default/face-front.v1.webp" alt="林慕白" loading="lazy"></div><div class="cmeta"><strong>林慕白</strong><span>常态 · 月白襕衫</span><em>第 2 档</em></div></a><a class="char-card" href="./character-refs/character-refs.html"><div class="thumb"><img src="./character-refs/厉狂澜/default/face-front.v1.webp" alt="厉狂澜" loading="lazy"></div><div class="cmeta"><strong>厉狂澜</strong><span>常态 · 玄黑织锦窄袖武袍</span><em>第 2 档</em></div></a><a class="char-card" href="./character-refs/character-refs.html"><div class="thumb"><img src="./character-refs/秦不争/default/face-front.v1.webp" alt="秦不争" loading="lazy"></div><div class="cmeta"><strong>秦不争</strong><span>常态 · 酱紫团花员领袍</span><em>第 2 档</em></div></a><a class="char-card" href="./character-refs/character-refs.html"><div class="thumb"><img src="./character-refs/小满/default/front-full.v1.webp" alt="小满" loading="lazy"></div><div class="cmeta"><strong>小满</strong><span>常态 · 藕粉小袄配豆绿背子</span><em>第 1 档</em></div></a><a class="char-card" href="./character-refs/character-refs.html"><div class="thumb"><img src="./character-refs/崔断水/default/face-front.v1.webp" alt="崔断水" loading="lazy"></div><div class="cmeta"><strong>崔断水</strong><span>常态 · 暗绿儒衫缠腿靴</span><em>第 2 档</em></div></a><a class="char-card" href="./character-refs/character-refs.html"><div class="thumb"><img src="./character-refs/绾音/default/face-front.v1.webp" alt="绾音" loading="lazy"></div><div class="cmeta"><strong>绾音</strong><span>常态 · 胭脂粉轻纱大衫配抹胸裙</span><em>第 2 档</em></div></a><a class="char-card" href="./character-refs/character-refs.html"><div class="thumb"><img src="./character-refs/三更面馆掌柜/default/face-front.v1.webp" alt="三更面馆掌柜" loading="lazy"></div><div class="cmeta"><strong>三更面馆掌柜</strong><span>常态 · 灰褐短打配油渍麻围裙</span><em>第 2 档</em></div></a><a class="char-card" href="./character-refs/character-refs.html"><div class="thumb"><img src="./character-refs/栖霞观老庙祝/default/face-front.v1.webp" alt="栖霞观老庙祝" loading="lazy"></div><div class="cmeta"><strong>栖霞观老庙祝</strong><span>常态 · 鸦青粗麻旧道袍</span><em>第 2 档</em></div></a>
+  </div>
+
+  <footer>
+    <span>《晚棠风》静态预览站 · 图片已按原始分辨率无损尺寸转为 WebP</span>
+    <span>注：视频片段与成片（h3-videos / seedance-pack 等）已按要求排除，未上传至静态仓库</span>
+  </footer>
+</div>
+</body>
+</html>

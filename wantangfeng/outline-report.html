@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="zh"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>晚棠风 · 短剧改编大纲</title>
+<style>
+:root{
+  --paper:#eceded; --panel:#f5f6f5; --side:#e4e6e3; --ink:#191d21; --ink-2:#5b636a; --ink-3:#8c9298;
+  --rule:#d2d5d0; --rule-2:#c2c6bf; --seal:#8a3324; --seal-2:#c56a4e; --seal-3:#e0a98c; --seal-soft:#8a332412; --ok:#3d6b4f;
+  --serif:"Songti SC","STSong","Source Han Serif SC","Noto Serif CJK SC",Georgia,serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.7 var(--sans);-webkit-font-smoothing:antialiased}
+.page{max-width:1600px;margin:0 auto;padding:24px 32px 90px}
+h1,h2,h3{margin:0;font-weight:400}
+
+.hd{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:12px}
+.hd h1{font:400 28px/1.1 var(--serif);letter-spacing:.06em}
+.hd .sub{font-size:13px;color:var(--ink-2)}
+.hd .right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.gatepill{display:inline-flex;align-items:center;gap:6px;font:500 12px/1 var(--sans);border-radius:99px;padding:6px 12px}
+.gatepill.pass{color:var(--ok);border:1px solid var(--ok)}
+.gatepill.fail{color:var(--seal);border:1px solid var(--seal);background:var(--seal-soft)}
+.expo{font:500 11px/1 var(--sans);color:var(--ink-2);background:var(--panel);
+  border:1px solid var(--rule-2);border-radius:2px;padding:7px 11px;cursor:pointer;transition:.15s}
+.expo:hover{border-color:var(--seal);color:var(--seal)}
+.expo:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin:18px 0 6px}
+@media(max-width:980px){.kpis{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:11px 14px 9px}
+.kpi .l{font:500 10px/1 var(--sans);letter-spacing:.18em;color:var(--ink-3)}
+.kpi .v{font:400 28px/1.15 var(--serif);margin-top:5px}
+.kpi .v small{font:400 14px var(--serif);color:var(--ink-2)}
+.kpi .v.mode{font-size:21px;padding-top:5px}
+.kpi .d{font-size:11px;color:var(--ink-2);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kpi.accent{border-top:2px solid var(--seal)}
+
+.galert{margin:14px 0 0;border:1px solid var(--seal);background:var(--seal-soft);border-radius:2px;
+  padding:10px 14px;font-size:13px}
+.galert b{color:var(--seal)}
+.galert span{display:block;font-size:12px;color:var(--ink-2)}
+
+section{margin-top:34px}
+.sec-h{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--rule-2);padding-bottom:8px;margin-bottom:16px}
+.sec-h .no{font:500 12px/1 var(--mono);color:var(--seal)}
+.sec-h h2{font:400 20px/1.2 var(--serif);letter-spacing:.05em}
+.sec-h .note{margin-left:auto;font-size:12px;color:var(--ink-3)}
+
+/* beat-rhythm chart/table tabs */
+.tabs{display:flex;width:max-content;margin-bottom:12px;border:1px solid var(--rule-2);
+  border-radius:2px;overflow:hidden}
+.tab{font:500 12px/1 var(--sans);letter-spacing:.06em;padding:7px 16px;background:var(--panel);
+  border:0;cursor:pointer;color:var(--ink-2);transition:.15s}
+.tab + .tab{border-left:1px solid var(--rule-2)}
+.tab.on{background:var(--seal);color:#fff}
+.tab:focus-visible{outline:2px solid var(--seal);outline-offset:-2px}
+.tabpane{display:none}
+.tabpane.on{display:block}
+
+/* episode overview: first three cards, fade-out + expand */
+.epswrap{position:relative}
+.eps{position:relative}
+.epswrap.clip .eps .ep:nth-child(n+4){display:none}
+.epswrap.clip .eps::after{content:'';position:absolute;left:0;right:0;bottom:0;height:90px;
+  background:linear-gradient(180deg,transparent,var(--paper));pointer-events:none}
+.epsmore{display:block;margin:10px auto 0;font:500 12px/1 var(--sans);letter-spacing:.06em;
+  color:var(--ink-2);background:var(--panel);border:1px solid var(--rule-2);border-radius:2px;
+  padding:8px 18px;cursor:pointer;transition:.15s}
+.epsmore:hover{border-color:var(--seal);color:var(--seal)}
+.epsmore:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+
+/* key decisions: the three sign-off items */
+.dec3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;align-items:start}
+@media(max-width:1080px){.dec3{grid-template-columns:1fr}}
+.dcol{background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:4px 18px 14px}
+.dhead{margin:8px 0 0;font-size:12.5px;color:var(--ink-2)}
+.dlist{list-style:none;margin:8px 0 0;padding:0}
+.dlist li{padding:7px 0;border-top:1px solid var(--rule)}
+.dlist li:first-child{border-top:0}
+.dlist b{display:block;font:400 13.5px/1.6 var(--serif)}
+.dlist small{display:block;font-size:11.5px;color:var(--ink-2);line-height:1.6}
+.dnote{margin:10px 0 0;font-size:12px;color:var(--ink-2);line-height:1.7}
+.dnote.seal{color:var(--seal);background:var(--seal-soft);padding:7px 10px;border-radius:2px}
+.dmaj{list-style:none;margin:8px 0 0;padding:0}
+.dmaj li{display:flex;gap:9px;align-items:baseline;padding:5.5px 0;border-top:1px solid var(--rule);font-size:12.5px}
+.dmaj li:first-child{border-top:0}
+.dmaj i{flex:none;font:500 11px/1 var(--mono);color:var(--seal);font-style:normal;min-width:38px}
+.dmaj b{font:400 12.5px var(--serif)}
+.dmaj span{min-width:0}
+.dmaj em{flex:none;margin-left:auto;font:500 10px/1 var(--sans);letter-spacing:.1em;font-style:normal;
+  color:var(--seal);border:1px solid var(--seal);border-radius:99px;padding:2px 7px}
+
+/* beat-rhythm timeline */
+.chart{background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:16px 20px 10px}
+.chart .legend{display:flex;gap:18px;font-size:12px;color:var(--ink-2);margin-bottom:2px}
+.chart .legend i{font-style:normal;display:inline-flex;align-items:center;gap:6px}
+.dotk{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--seal-2)}
+.dotk.major{width:12px;height:12px;background:var(--seal)}
+.rhythm svg{display:block;width:100%;height:auto}
+.rhythm .axis{stroke:var(--rule-2);stroke-width:1.5}
+.rhythm .tick{font:400 10.5px var(--mono);fill:var(--ink-3);paint-order:stroke;stroke:var(--panel);stroke-width:3px}
+.rhythm .stem{stroke:var(--seal-2);stroke-width:1.5}
+.rhythm .stem.major{stroke:var(--seal)}
+.rhythm .bdot{fill:var(--seal-2);stroke:var(--panel);stroke-width:2}
+.rhythm .bdot.major{fill:var(--seal)}
+.rhythm .blabel{font:500 12px var(--sans);fill:var(--ink)}
+.rhythm .bsub{font:400 10.5px var(--sans);fill:var(--ink-2)}
+.rhythm .gapnote{font:400 10.5px var(--sans);fill:var(--ink-3)}
+.rhythm .gapnote.bad{fill:var(--seal);font-weight:500}
+
+/* beat detail table + generic tables */
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--rule);font-size:13px}
+th,td{padding:8px 12px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+th{font:500 11px/1 var(--sans);letter-spacing:.1em;color:var(--ink-3);background:var(--side)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-family:var(--mono);font-size:12px;color:var(--ink-2);white-space:nowrap}
+q{quotes:"「" "」";font-family:var(--serif);border-left:2px solid var(--seal);padding-left:8px;display:inline-block}
+
+/* episode cards */
+.eps{display:grid;grid-template-columns:repeat(auto-fill,minmax(430px,1fr));gap:13px}
+.ep{background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:14px 16px 12px;position:relative}
+.ep .num{position:absolute;top:10px;right:14px;font:400 30px/1 var(--serif);color:var(--rule-2)}
+.ep header{display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-right:44px;flex-wrap:wrap}
+.ep header b{font:500 15px var(--serif);letter-spacing:.04em}
+.bt{font-style:normal;font-size:11px;padding:2px 8px;border:1px solid var(--seal);border-radius:99px;color:var(--seal)}
+.bt.major{background:var(--seal);color:#fff}
+.ep .syn{margin:0 0 8px;font-size:13px;line-height:1.75}
+.hk{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px;font-size:12.5px;padding:6px 0;border-top:1px solid var(--rule)}
+.hk b{font:500 11px/1.8 var(--sans);letter-spacing:.14em;color:var(--seal);white-space:nowrap}
+:root[lang="en"] .hk b,html[lang="en"] .hk b{letter-spacing:.06em}
+.ep .meta{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.ep .meta i{font-style:normal;font:400 10.5px/1.5 var(--mono);border:1px solid var(--rule-2);
+  border-radius:2px;padding:0 5px;background:var(--paper);color:var(--ink-2)}
+.ep .meta .warn{border-color:var(--seal);color:var(--seal);background:var(--seal-soft)}
+
+/* dispatch matrix */
+.matrix{background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:16px 18px;overflow-x:auto}
+.matrix table{border-collapse:separate;border-spacing:3px;font-size:12px;background:none;border:0;width:auto}
+.matrix th,.matrix td{border:0;padding:0}
+.matrix th{font:500 10px/1 var(--sans);letter-spacing:.1em;color:var(--ink-3);background:none;
+  text-align:left;padding:0 8px 5px 0;white-space:nowrap}
+.matrix th.ep-h{text-align:center;padding:0 0 5px;font-family:var(--mono)}
+.matrix td.name{padding-right:10px;white-space:nowrap;font-family:var(--serif);font-size:13px}
+.matrix td.tier{padding-right:10px;color:var(--ink-3);font-size:11px;white-space:nowrap}
+.matrix td.mc{width:var(--cw,26px);min-width:var(--cw,26px);height:22px;border-radius:2px;
+  background:var(--paper);border:1px solid var(--rule)}
+.matrix td.mc.on{background:var(--seal);border-color:var(--seal)}
+.matrix td.mc.on.sc{background:var(--seal-2);border-color:var(--seal-2)}
+.matrix td.mc.on.pp{background:var(--seal-3);border-color:var(--seal-3)}
+.matrix td.n{padding-left:10px;font-family:var(--mono);font-size:11px;color:var(--ink-2);white-space:nowrap}
+.matrix tr.div td{padding:8px 0 3px;font:500 10px/1 var(--sans);letter-spacing:.18em;color:var(--ink-3)}
+.matrix .mnote{font-size:11px;color:var(--ink-3);margin:10px 0 0}
+
+/* scene overview cards: full-width multi-column grid */
+.scenes{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:13px;align-items:start}
+.scard{position:relative;background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:14px 16px}
+.snum{position:absolute;top:10px;right:16px;font:400 26px/1 var(--serif);color:var(--rule-2);letter-spacing:.04em}
+.scard h3{font:400 16px/1.3 var(--serif);letter-spacing:.03em;display:flex;align-items:center;gap:8px;
+  padding-right:90px;flex-wrap:wrap}
+.scard h3 .id{font:400 10.5px var(--mono);color:var(--ink-3)}
+.badge{font:500 10.5px/1 var(--sans);padding:2px 8px;border-radius:99px;border:1px solid var(--seal);color:var(--seal)}
+.badge.once{border-color:var(--seal-2);color:var(--seal-2)}
+.strip{display:flex;flex-wrap:wrap;gap:3px;margin:7px 0 6px}
+.strip i{width:16px;height:10px;border-radius:2px;background:var(--paper);border:1px solid var(--rule)}
+.strip i.on{background:var(--seal);border-color:var(--seal)}
+.strip i.on.lt{background:var(--seal-2);border-color:var(--seal-2)}
+.srow{font-size:11.5px;color:var(--ink-2);display:flex;gap:6px;flex-wrap:wrap;align-items:baseline;margin-top:3px}
+.srow b{font:500 10px/1.8 var(--sans);letter-spacing:.12em;color:var(--ink-3);flex:none}
+.srow i{font-style:normal;font:400 10.5px/1.5 var(--mono);border:1px solid var(--rule-2);
+  border-radius:2px;padding:0 5px;background:var(--paper)}
+.srow .reuse{color:var(--seal)}
+
+/* asset conversion */
+.plan{background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:16px 18px}
+.plan table{background:none;border:0}
+.plan th{background:none;padding-left:0}
+.plan td{padding-left:0;border-top:1px solid var(--rule);border-bottom:0}
+.plan tr:first-child td{border-top:0}
+.plan td:first-child{font-family:var(--serif);font-size:13px;color:var(--ink)}
+
+/* adaptation notes */
+.core{font:400 17px/1.9 var(--serif);margin:0 0 6px}
+h3.sub{font:500 12px/1 var(--sans);letter-spacing:.18em;color:var(--seal);margin:20px 0 8px}
+
+/* quality gates */
+.gate{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:2px 28px}
+@media(max-width:900px){.gate{grid-template-columns:1fr}}
+.gate li{display:flex;gap:8px;padding:5px 0;font-size:12.5px;line-height:1.55}
+.gate .m{flex:none;font-weight:700}
+.gate .ok .m,.gate li.ok .m{color:var(--ok)}
+.gate li.bad .m{color:var(--seal)}
+.gate li.bad{background:var(--seal-soft);border-radius:2px;padding-left:6px}
+.gate small{display:block;color:var(--ink-3)}
+.gsum{margin:10px 0 0;font-size:12px;color:var(--ink-2)}
+.gsum b{color:var(--seal)}
+
+.foot{margin-top:40px;font-size:11px;color:var(--ink-3);border-top:1px solid var(--rule);padding-top:14px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* print: expand everything — both tab panes, all episode cards */
+@media print{
+  .expo,.tabs,.epsmore{display:none!important}
+  .tabpane{display:block!important;margin-bottom:14px}
+  .epswrap.clip .eps .ep{display:block!important}
+  .epswrap.clip .eps::after{display:none}
+  .page{max-width:none;padding:0}
+  section,.ep,.scard{page-break-inside:avoid}
+  body{background:#fff}
+}
+</style></head><body>
+<div class="page">
+
+<header class="hd">
+  <h1>晚棠风</h1>
+  <span class="sub">短剧改编大纲 · 12 集 × 2 分钟 · 古装武侠·凄美救赎 · 抽核改编</span>
+  <span class="right">
+    <span class="gatepill pass">✓ 质量门 14 / 14</span>
+    <button class="expo" data-name="晚棠风-outline.json">导出 JSON</button>
+  </span>
+</header>
+
+<div class="kpis">
+  <div class="kpi accent"><div class="l">总集数</div><div class="v">12 <small>× 2 分钟</small></div><div class="d">正片约 24 分钟</div></div>
+  <div class="kpi"><div class="l">爽点</div><div class="v">10</div><div class="d">4 大爆点 · 最大间隔 2 集</div></div>
+  <div class="kpi"><div class="l">角色</div><div class="v">10</div><div class="d">主角 4 · 配角 4 · 功能 2</div></div>
+  <div class="kpi"><div class="l">主场景</div><div class="v">5 <small>+1</small></div><div class="d">一次性场景 1，需复用方案</div></div>
+  <div class="kpi"><div class="l">生成难点</div><div class="v">18</div><div class="d">肢体接触 ×7（第 2、3、6、7、10、11、…</div></div>
+  <div class="kpi"><div class="l">改编幅度</div><div class="v mode">抽核</div><div class="d">砍 3 线 · 合 2 组</div></div>
+</div>
+
+
+<section id="sec-rhythm">
+  <div class="sec-h"><span class="no">01</span><h2>爽点节奏</h2></div>
+  <div class="tabs" role="tablist">
+    <button class="tab on" data-pane="pane-timeline">时间轴</button>
+    <button class="tab" data-pane="pane-table">明细表</button>
+  </div>
+  <div class="tabpane on" id="pane-timeline"><div class="chart rhythm">
+  <div class="legend">
+    <i><span class="dotk major"></span>大爆点</i>
+    <i><span class="dotk"></span>常规爽点</i>
+  </div>
+  <svg viewBox="0 0 1520 176" role="img" aria-label="爽点节奏">
+    <line class="axis" x1="30" y1="92" x2="1490" y2="92"/>
+    <line class="axis" x1="90.8" y1="88" x2="90.8" y2="96"/>
+    <line class="axis" x1="212.5" y1="88" x2="212.5" y2="96"/>
+    <line class="axis" x1="334.2" y1="88" x2="334.2" y2="96"/>
+    <line class="axis" x1="455.8" y1="88" x2="455.8" y2="96"/>
+    <line class="axis" x1="577.5" y1="88" x2="577.5" y2="96"/>
+    <line class="axis" x1="699.2" y1="88" x2="699.2" y2="96"/>
+    <line class="axis" x1="820.8" y1="88" x2="820.8" y2="96"/>
+    <line class="axis" x1="942.5" y1="88" x2="942.5" y2="96"/>
+    <line class="axis" x1="1064.2" y1="88" x2="1064.2" y2="96"/>
+    <line class="axis" x1="1185.8" y1="88" x2="1185.8" y2="96"/>
+    <line class="axis" x1="1307.5" y1="88" x2="1307.5" y2="96"/>
+    <line class="axis" x1="1429.2" y1="88" x2="1429.2" y2="96"/>
+    <text class="gapnote" x="455.9" y="80" text-anchor="middle">— 1 集空档 —</text>
+    <text class="gapnote" x="942.5" y="80" text-anchor="middle">— 1 集空档 —</text>
+    <line class="stem" x1="90.8" y1="92" x2="90.8" y2="62"/>
+    <circle class="bdot" cx="90.8" cy="56" r="6"><title>B01 人设反差｜白衣书生林慕白磕头跪求三百两买凶杀厉狂澜，崔断水斥为送死价并邀赴醉花阴十美夜宴 → 温如风慢条斯理用银刀修甲冷拒压价，却暗中推掉醉花阴风月，深夜独赴三更面馆寻江晚棠</title></circle>
+    <text class="blabel" x="90.8" y="34" text-anchor="middle">人设反差</text>
+    <text class="bsub" x="90.8" y="20" text-anchor="middle">白衣书生林慕白磕头跪求三百两…</text>
+    <line class="stem" x1="212.5" y1="92" x2="212.5" y2="122"/>
+    <circle class="bdot" cx="212.5" cy="128" r="6"><title>B02 痛点拉扯｜江晚棠买醉求单给女儿筹紫雪参药钱，温如风故意抛出三分利借贷与弃养毒舌激将 → 温如风挨了一记耳光却不怒，趁江晚棠醉倒背她走七里夜路送回槐花巷小院严实盖被</title></circle>
+    <text class="blabel" x="212.5" y="150" text-anchor="middle">痛点拉扯</text>
+    <text class="bsub" x="212.5" y="164" text-anchor="middle">江晚棠买醉求单给女儿筹紫雪参…</text>
+    <line class="stem major" x1="334.2" y1="92" x2="334.2" y2="57"/>
+    <circle class="bdot major" cx="334.2" cy="48" r="9"><title>B03 暗线反转｜江晚棠蒙黑纱突现听风楼扣住温如风劳宫穴强行接下三百两死单；秦不争质疑温如风失了中间人规矩 → 止戈轩对弈揭晓惊天隐情：两年前正是温如风接了漕帮三千两暗单替她除掉负心汉顾云峥，却独自背负骂名隐瞒至今</title></circle>
+    <text class="blabel" x="334.2" y="26" text-anchor="middle">暗线反转</text>
+    <text class="bsub" x="334.2" y="12" text-anchor="middle">江晚棠蒙黑纱突现听风楼扣住温…</text>
+    <line class="stem" x1="577.5" y1="92" x2="577.5" y2="122"/>
+    <circle class="bdot" cx="577.5" cy="128" r="6"><title>B04 错位冲击｜栖霞观测得前乱后吉姻缘签，温如风与崔断水冷血敲定五百两黄金、五成抽头的铁面巡检暗杀大单 → 温如风一转头撞见白衣江晚棠在古银杏树下温柔扶起扭伤脚的林慕白，素来淡雅镇定的掮客当场失态走神</title></circle>
+    <text class="blabel" x="577.5" y="150" text-anchor="middle">错位冲击</text>
+    <text class="bsub" x="577.5" y="164" text-anchor="middle">栖霞观测得前乱后吉姻缘签，温…</text>
+    <line class="stem major" x1="699.2" y1="92" x2="699.2" y2="57"/>
+    <circle class="bdot major" cx="699.2" cy="48" r="9"><title>B05 情绪撕裂｜江晚棠气色转柔赴约三更面馆，温如风借酒冷笑甩出写满约会时辰的行踪小册子警告其莫犯大忌 → 江晚棠掀翻面碗两度掌掴，温如风反扣她手腕厉声对吼“一分银子买命”，离去时手中寸银小刀竟罕见失手坠地</title></circle>
+    <text class="blabel" x="699.2" y="26" text-anchor="middle">情绪撕裂</text>
+    <text class="bsub" x="699.2" y="12" text-anchor="middle">江晚棠气色转柔赴约三更面馆，…</text>
+    <line class="stem" x1="820.8" y1="92" x2="820.8" y2="122"/>
+    <circle class="bdot" cx="820.8" cy="128" r="6"><title>B06 宿命借伞｜醉花阴台上演《断桥借伞》，温如风怀拥头牌绾音却失神望见窗外长乐街一对白衣男女相互搀扶走过 → 次日晨雨，温如风在屋檐撞见刚从林家过夜归来的江晚棠，明知她在骗自己却亲手递出四十八骨紫竹伞助她去接心上人</title></circle>
+    <text class="blabel" x="820.8" y="150" text-anchor="middle">宿命借伞</text>
+    <text class="bsub" x="820.8" y="164" text-anchor="middle">醉花阴台上演《断桥借伞》，温…</text>
+    <line class="stem" x1="1064.2" y1="92" x2="1064.2" y2="62"/>
+    <circle class="bdot" cx="1064.2" cy="56" r="6"><title>B07 卖院诀别｜中秋火烧云下，换上夜行黑衣的江晚棠归还已被林慕白绘上雨打海棠的紫竹伞 → 江晚棠豁达免去六十两尾款，坦白已卖掉小院得七百两银子准备得手后带小满远走北境苍山，一去不复返</title></circle>
+    <text class="blabel" x="1064.2" y="34" text-anchor="middle">卖院诀别</text>
+    <text class="bsub" x="1064.2" y="20" text-anchor="middle">中秋火烧云下，换上夜行黑衣的…</text>
+    <line class="stem major" x1="1185.8" y1="92" x2="1185.8" y2="127"/>
+    <circle class="bdot major" cx="1185.8" cy="136" r="9"><title>B08 绝杀高潮｜镇山武馆内院，江晚棠以流风折柳剑压制厉狂澜，却在最后劈落一剑时被跪地求饶的恶贼偷袭 → 厉狂澜袖出寒鸦双匕刺穿江晚棠胸膛瞬间，暗中潜伏的温如风暴起，以修甲寸银小刀钻透其太阳穴，暴雨中提人头掷于听风楼桌面拒收尾款</title></circle>
+    <text class="blabel" x="1185.8" y="158" text-anchor="middle">绝杀高潮</text>
+    <text class="bsub" x="1185.8" y="172" text-anchor="middle">镇山武馆内院，江晚棠以流风折…</text>
+    <line class="stem major" x1="1307.5" y1="92" x2="1307.5" y2="57"/>
+    <circle class="bdot major" cx="1307.5" cy="48" r="9"><title>B09 虐渣立债｜三年后听风楼春茶飘香，已娶富商三小姐得子的林慕白意气风发，面对温如风追问竟轻佻笑称早已忘记当年痴傻旧事 → 温如风瞬间褪去淡雅暴起掐住其脖颈抵在墙上，当众勒令将一百五十两尾款按十分利每年索债，余生永世不得忘却那个傻瓜</title></circle>
+    <text class="blabel" x="1307.5" y="26" text-anchor="middle">虐渣立债</text>
+    <text class="bsub" x="1307.5" y="12" text-anchor="middle">三年后听风楼春茶飘香，已娶富…</text>
+    <line class="stem" x1="1429.2" y1="92" x2="1429.2" y2="122"/>
+    <circle class="bdot" cx="1429.2" cy="128" r="6"><title>B10 救赎收束｜温如风向秦不争坦言已买回西城三进小院，惊雷骤起大雨泼洒长乐古街，秦老递来一把画着海棠花的旧紫竹伞 → 温如风怀抱粉嫩的小满撑开海棠伞走入春雨，听着怀中幼女撒娇要吃豆沙粽，温柔低声问她今后改口唤一声爹爹</title></circle>
+    <text class="blabel" x="1429.2" y="150" text-anchor="middle">救赎收束</text>
+    <text class="bsub" x="1429.2" y="164" text-anchor="middle">温如风向秦不争坦言已买回西城…</text>
+    <text class="tick" x="90.8" y="112" text-anchor="middle">1</text>
+    <text class="tick" x="212.5" y="112" text-anchor="middle">2</text>
+    <text class="tick" x="334.2" y="112" text-anchor="middle">3</text>
+    <text class="tick" x="455.8" y="112" text-anchor="middle">4</text>
+    <text class="tick" x="577.5" y="112" text-anchor="middle">5</text>
+    <text class="tick" x="699.2" y="112" text-anchor="middle">6</text>
+    <text class="tick" x="820.8" y="112" text-anchor="middle">7</text>
+    <text class="tick" x="942.5" y="112" text-anchor="middle">8</text>
+    <text class="tick" x="1064.2" y="112" text-anchor="middle">9</text>
+    <text class="tick" x="1185.8" y="112" text-anchor="middle">10</text>
+    <text class="tick" x="1307.5" y="112" text-anchor="middle">11</text>
+    <text class="tick" x="1429.2" y="112" text-anchor="middle">12</text>
+  </svg>
+</div></div>
+  <div class="tabpane" id="pane-table">
+  <table><thead><tr><th>ID</th><th>类型</th><th>量级</th><th>集</th><th>铺垫</th><th>兑现</th></tr></thead>
+<tbody><tr><td>B01</td><td>人设反差</td><td>常规</td><td>1</td><td>白衣书生林慕白磕头跪求三百两买凶杀厉狂澜，崔断水斥为送死价并邀赴醉花阴十美夜宴</td><td>温如风慢条斯理用银刀修甲冷拒压价，却暗中推掉醉花阴风月，深夜独赴三更面馆寻江晚棠</td></tr>
+<tr><td>B02</td><td>痛点拉扯</td><td>常规</td><td>2</td><td>江晚棠买醉求单给女儿筹紫雪参药钱，温如风故意抛出三分利借贷与弃养毒舌激将</td><td>温如风挨了一记耳光却不怒，趁江晚棠醉倒背她走七里夜路送回槐花巷小院严实盖被</td></tr>
+<tr><td>B03</td><td>暗线反转</td><td>大爆点</td><td>3</td><td>江晚棠蒙黑纱突现听风楼扣住温如风劳宫穴强行接下三百两死单；秦不争质疑温如风失了中间人规矩</td><td>止戈轩对弈揭晓惊天隐情：两年前正是温如风接了漕帮三千两暗单替她除掉负心汉顾云峥，却独自背负骂名隐瞒至今</td></tr>
+<tr><td>B04</td><td>错位冲击</td><td>常规</td><td>5</td><td>栖霞观测得前乱后吉姻缘签，温如风与崔断水冷血敲定五百两黄金、五成抽头的铁面巡检暗杀大单</td><td>温如风一转头撞见白衣江晚棠在古银杏树下温柔扶起扭伤脚的林慕白，素来淡雅镇定的掮客当场失态走神</td></tr>
+<tr><td>B05</td><td>情绪撕裂</td><td>大爆点</td><td>6</td><td>江晚棠气色转柔赴约三更面馆，温如风借酒冷笑甩出写满约会时辰的行踪小册子警告其莫犯大忌</td><td>江晚棠掀翻面碗两度掌掴，温如风反扣她手腕厉声对吼“一分银子买命”，离去时手中寸银小刀竟罕见失手坠地</td></tr>
+<tr><td>B06</td><td>宿命借伞</td><td>常规</td><td>7</td><td>醉花阴台上演《断桥借伞》，温如风怀拥头牌绾音却失神望见窗外长乐街一对白衣男女相互搀扶走过</td><td>次日晨雨，温如风在屋檐撞见刚从林家过夜归来的江晚棠，明知她在骗自己却亲手递出四十八骨紫竹伞助她去接心上人</td></tr>
+<tr><td>B07</td><td>卖院诀别</td><td>常规</td><td>9</td><td>中秋火烧云下，换上夜行黑衣的江晚棠归还已被林慕白绘上雨打海棠的紫竹伞</td><td>江晚棠豁达免去六十两尾款，坦白已卖掉小院得七百两银子准备得手后带小满远走北境苍山，一去不复返</td></tr>
+<tr><td>B08</td><td>绝杀高潮</td><td>大爆点</td><td>10</td><td>镇山武馆内院，江晚棠以流风折柳剑压制厉狂澜，却在最后劈落一剑时被跪地求饶的恶贼偷袭</td><td>厉狂澜袖出寒鸦双匕刺穿江晚棠胸膛瞬间，暗中潜伏的温如风暴起，以修甲寸银小刀钻透其太阳穴，暴雨中提人头掷于听风楼桌面拒收尾款</td></tr>
+<tr><td>B09</td><td>虐渣立债</td><td>大爆点</td><td>11</td><td>三年后听风楼春茶飘香，已娶富商三小姐得子的林慕白意气风发，面对温如风追问竟轻佻笑称早已忘记当年痴傻旧事</td><td>温如风瞬间褪去淡雅暴起掐住其脖颈抵在墙上，当众勒令将一百五十两尾款按十分利每年索债，余生永世不得忘却那个傻瓜</td></tr>
+<tr><td>B10</td><td>救赎收束</td><td>常规</td><td>12</td><td>温如风向秦不争坦言已买回西城三进小院，惊雷骤起大雨泼洒长乐古街，秦老递来一把画着海棠花的旧紫竹伞</td><td>温如风怀抱粉嫩的小满撑开海棠伞走入春雨，听着怀中幼女撒娇要吃豆沙粽，温柔低声问她今后改口唤一声爹爹</td></tr></tbody></table>
+  </div>
+</section>
+
+<section id="sec-episodes">
+  <div class="sec-h"><span class="no">02</span><h2>分集概览</h2><span class="note">核心交付 · 每集三栏齐全</span></div>
+  <div class="epswrap clip">
+    <div class="eps">
+<article class="ep" id="ep-1">
+  <span class="num">1</span>
+  <header><b>第 1 集</b><i class="bt">人设反差</i></header>
+  <p class="syn">听风楼雅阁内，温如风握着寸银小刀慢条斯理修指甲，面对白衣书生林慕白磕头泣血出三百两买凶杀镇山武馆教头厉狂澜的恳求，冷言咬死七百两底价，最终只敷衍应下代为打听。林慕白退下后，名刀手崔断水登门，听闻三百两杀厉狂澜当场斥为送死买卖，转而力邀温如风同赴醉花阴十美夜宴撑场面。温如风笑着推掉无边风月，深夜独自走进冷清的三更面馆，按住正往劣酒掺水的掌柜换上琥珀春，坐到烂醉如泥的素心阁弃徒江晚棠身旁。</p>
+  <div class="hk"><b>钩子</b><span>推掉五百两十美夜宴的冷血中间人，为何深夜独赴寒酸面馆陪一个落魄女酒鬼买醉</span></div>
+  <div class="hk"><b>悬念</b><span>江晚棠连耳环都已当尽，究竟是什么死穴逼得昔日名门高足沦落至此</span></div>
+  <div class="meta"><i>S01</i><i>S02</i><i>C01</i><i>C02</i><i>C03</i><i>C07</i><i>C09</i><i class="warn" title="五人分处听风楼日景与三更面馆夜景两场，听风楼拆为桌案正反打，面馆将掌柜置于远景汤锅后虚化带过">同框拆解 ✓</i></div>
+</article>
+<article class="ep" id="ep-2">
+  <span class="num">2</span>
+  <header><b>第 2 集</b><i class="bt">痛点拉扯</i></header>
+  <p class="syn">三更面馆油灯下，江晚棠呛酒剧咳，哭诉两岁幼女小满全靠昂贵的百年紫雪参药丸吊命，如今分文皆无急需接单，却因无法离开永安照看女儿而接不了北上刺杀铁面巡检的大买卖。温如风故意冷酷抛出三分利放贷扣工钱和干脆弃养小满两个主意，挨了江晚棠愤怒一记耳光仍不恼火，随口提起林慕白为惨死有孕心上人阿沅出三百两杀厉狂澜的疯事，引得江晚棠捏紧他的手怔怔动容。一坛琥珀春饮尽，温如风替醉倒的江晚棠结账，搀扶背负她走过七里夜路送回空荡的槐花巷小院盖严棉被，听见她在睡梦中含泪呢喃峥哥哥与小满，只能靠在院外冷墙下孤寂旋绕指尖的寸银小刀。</p>
+  <div class="hk"><b>钩子</b><span>江晚棠梦里含泪呼唤的峥哥哥究竟是谁，又为何害她们母女流落黑道</span></div>
+  <div class="hk"><b>悬念</b><span>听完阿沅惨死始末的江晚棠眼神异样，已暗自打起那桩三百两送死买卖的主意</span></div>
+  <div class="meta"><i>S02</i><i>S03</i><i>C01</i><i>C02</i><i>C06</i><i>C09</i><i class="warn">肢体接触</i><i class="warn">手部特写</i><i class="warn" title="四人分处面馆对饮与小院安顿两场，面馆掌柜守锅背景带过，小院内仅温如风照看熟睡母女分切近景">同框拆解 ✓</i></div>
+</article>
+<article class="ep" id="ep-3">
+  <span class="num">3</span>
+  <header><b>第 3 集</b><i class="bt major">暗线反转</i></header>
+  <p class="syn">次日清晨听风楼雅阁，江晚棠头戴斗笠黑纱执意旁听买凶原委，林慕白泣诉与阿沅有缘无分、愿以余生念佛报恩，温如风暗自冷笑出言劝退，江晚棠却在桌下运起真力死死按穿温如风的劳宫穴，压低嗓音替他强行接下这桩三百两杀厉狂澜的死单，只为给小满凑齐紫雪参药钱并攒下嫁妆。事后退隐龙头秦不争邀温如风入止戈轩饮茶，质疑他破了中间人不让刀手见主顾的铁律；谈及两年前太华剑宗弟子顾云峥始乱终弃污蔑江晚棠后横死胭脂渡的旧闻，温如风淡然道出隐情：当年正是他接下江南漕帮三千两暗单，请人在妓院杀了顾云峥，却任由傻气的江晚棠至今还想替负心人报仇。</p>
+  <div class="hk"><b>钩子</b><span>满口只认银子的温如风破例放任江晚棠见主顾，究竟是贪图九十两抽头还是另有隐情</span></div>
+  <div class="hk"><b>悬念</b><span>接下死单的江晚棠对林慕白的痴情深信不疑，一场杀手与主顾的危险越界悄然萌芽</span></div>
+  <div class="meta"><i>S01</i><i>C01</i><i>C02</i><i>C03</i><i>C05</i><i class="warn">肢体接触</i><i class="warn">手部特写</i><i class="warn" title="雅阁三人在场时以桌案分隔，林慕白跪拜正面单切，温如风与黑纱江晚棠并排中近景配桌下按手特写；止戈轩仅温秦二人对坐">同框拆解 ✓</i></div>
+</article>
+<article class="ep" id="ep-4">
+  <span class="num">4</span>
+  <header><b>第 4 集</b></header>
+  <p class="syn">拿到一百五十两定金的江晚棠为小满兑回救命的百年紫雪参药丸，心中却对那个变卖亡母首饰为心上人报仇的林三公子生出同病相怜的牵挂，换回素净白裙屡次悄悄前往栖霞观，躲在古银杏树影后远远凝望每日来为亡人上香祈福的林慕白。原本苍白枯槁的她渐渐添了红润气色，对镜梳拢青丝时流露出久违的少女柔情。殊不知这一切全落在暗中盯梢的温如风眼里，他在听风楼临窗翻看亲手记下的行踪时辰小册子，眉宇间寒意渐深，深知刀手一旦对主顾动心便是灭顶之灾。</p>
+  <div class="hk"><b>钩子</b><span>拿了买命定金的女刀手为何频频换上白裙跟踪自己的雇主</span></div>
+  <div class="hk"><b>悬念</b><span>温如风小册子上的记录越写越密，江晚棠终究按捺不住要走到林慕白面前</span></div>
+  <div class="meta"><i>S03</i><i>S04</i><i>S01</i><i>C01</i><i>C02</i><i>C03</i><i class="warn" title="三人同处栖霞观外景时采用景深拆解，前景林慕白上香、中景树后江晚棠窥视、远景廊下温如风冷眼旁观，不拍三人同框交谈">同框拆解 ✓</i></div>
+</article>
+<article class="ep" id="ep-5">
+  <span class="num">5</span>
+  <header><b>第 5 集</b><i class="bt">错位冲击</i></header>
+  <p class="syn">午后栖霞观香炉前，温如风随手向老庙祝求了一支姻缘签，得来最初有所乱、后面还是好的批语，只当笑谈一哂而过。崔断水悄然现身求接五百两黄金刺杀铁面巡检的惊天大单，温如风寸步不让强抽五成佣金，尽显扇底寸银的狠辣精明。不料交易刚定，温如风目光扫向远处古银杏树下竟瞬间僵住：林慕白祈福伤心扭伤脚腕跌坐树下，白衣江晚棠柔声上前关切，更找人扎了竹竿凉轿一路羞怯相陪送医。素来滴水不漏的温如风在崔断水面前罕见失态走神，回止戈轩向秦不争吐露忧虑，秦老一句抹不匀不如趁早扔掉免招祸害，令温如风心头凛然。</p>
+  <div class="hk"><b>钩子</b><span>谈着七千两白银惊天血案都面不改色的温如风，为何瞥见银杏树下一幕便当场失神</span></div>
+  <div class="hk"><b>悬念</b><span>秦不争力劝弃子保命，温如风连夜约江晚棠到三更面馆摊牌</span></div>
+  <div class="meta"><i>S04</i><i>S01</i><i>C01</i><i>C02</i><i>C03</i><i>C05</i><i>C07</i><i>C10</i><i class="warn" title="六人拆为栖霞观香炉前（温如风与老庙祝、崔断水先后二人对手戏）、银杏树下远景（江晚棠扶助林慕白）与止戈轩（温秦二人）三组独立机位">同框拆解 ✓</i></div>
+</article>
+<article class="ep" id="ep-6">
+  <span class="num">6</span>
+  <header><b>第 6 集</b><i class="bt major">情绪撕裂</i></header>
+  <p class="syn">刚赴完盐帮醉花阴谢宴的温如风带着酒意在三更面馆吃面等候，姗姗来迟的江晚棠面颊粉润、青丝如瀑，早已不是昔日憔悴模样。温如风借酒调侃醉花阴风月试探，惹得江晚棠大怒将他的面碗挥砸上墙；温如风劝她检点莫对主顾动情，换来江晚棠狠狠一记耳光。温如风彻底沉下脸甩出行踪时辰小册子，逐条点破她私会林慕白的行迹，在江晚棠再度扬掌时一把死死抓住她手腕，厉声怒斥杀手动心必连累全行陪葬。两人就着琥珀春流泪痛饮、嘶吼银子与人命的残酷，温如风故意提及死去的顾云峥刺痛她，伸手欲替她拭泪却被冷声喝止，踉跄离去时连从不离身的修甲寸银小刀都叮当失手坠地。</p>
+  <div class="hk"><b>钩子</b><span>向来优雅从容的温如风为何在面馆失控怒吼，连随身寸银小刀都握不住掉在地上</span></div>
+  <div class="hk"><b>悬念</b><span>决裂之后江晚棠非但没有收手，反而一步步踏进林慕白的温柔幻梦</span></div>
+  <div class="meta"><i>S02</i><i>C01</i><i>C02</i><i>C09</i><i class="warn">肢体接触</i><i class="warn">手部特写</i><i class="warn" title="面馆内温如风与江晚棠桌前正反打及抓腕近景扛住主戏，掌柜缩在灶台阴影处单切反应镜头">同框拆解 ✓</i></div>
+</article>
+<article class="ep" id="ep-7">
+  <span class="num">7</span>
+  <header><b>第 7 集</b><i class="bt">宿命借伞</i></header>
+  <p class="syn">铁面巡检遇刺结案，崔断水在醉花阴大摆庆功宴答谢财神爷温如风，头牌红姑娘绾音轻纱曼妙将烂醉的温如风搂在怀中百般温存，楼下戏台正凄婉唱着折子戏断桥借伞。温如风醉眼越过绾音肩头望向窗外寂静的长乐街，恍惚看见白衣江晚棠与白衣林慕白相扶走过，呢喃感叹二人恰似台上戏文，随后在绾音怀里沉沉睡去却整夜衣冠整齐未曾逾矩。次日清晨细雨蒙蒙，温如风提着戏台柳生用过的四十八骨紫竹伞下楼，竟在醉花阴屋檐下撞见避雨的江晚棠，一眼看穿她刚在林家留宿一夜。面对双颊绯红、支吾借伞去书塾接林慕白的江晚棠，温如风苦涩轻笑，亲手将紫竹伞递到她手中目送她跑进春雨。</p>
+  <div class="hk"><b>钩子</b><span>怀拥全城最娇媚头牌过夜却衣衫未乱的温如风，清晨撞见自林家归来的江晚棠会如何反应</span></div>
+  <div class="hk"><b>悬念</b><span>那把借出去的四十八骨紫竹伞，究竟能不能替江晚棠遮住名分与出身的风雨</span></div>
+  <div class="meta"><i>S05</i><i>C01</i><i>C02</i><i>C03</i><i>C05</i><i>C07</i><i>C08</i><i class="warn">雨戏</i><i class="warn">肢体接触</i><i class="warn" title="夜宴四人在楼座分拆为温如风与绾音近景、秦不争与崔断水侧席中景、窗外长乐街远景俯拍；次日清晨屋檐下仅温江二人对手戏">同框拆解 ✓</i></div>
+</article>
+<article class="ep" id="ep-8">
+  <span class="num">8</span>
+  <header><b>第 8 集</b></header>
+  <p class="syn">细雨长乐街尽头的书塾外，江晚棠撑着四十八骨紫竹伞接住林慕白，林慕白感念她清雅温存，在青纸伞面上亲手绘下一枝雨打海棠相赠，言语间却流露出无力违逆家族门第、难以许她正妻名分的怯懦退缩。回到槐花巷小院的江晚棠指尖摩挲着伞上未干的海棠墨迹，看着病榻上年幼的小满与腰间染血的长剑，终于从短暂的春梦里清醒过来，明白自己戴罪弃徒与黑道刀手的残破之身绝无可能踏入富贵林家大门。暗处默默护送她归家却未现身的温如风独自走过醉花阴雨檐，婉拒绾音挽留，察觉一个月刺杀期限将至而江晚棠已悄然挂牌变卖祖宅。</p>
+  <div class="hk"><b>钩子</b><span>林慕白在紫竹伞面画下风雅海棠致谢，为何反而让满心欢喜的江晚棠彻底清醒死心</span></div>
+  <div class="hk"><b>悬念</b><span>江晚棠秘密将三进小院折价七百两卖掉，在中秋刺杀前夕做好了远走高飞的诀别准备</span></div>
+  <div class="meta"><i>S05</i><i>S03</i><i>C01</i><i>C02</i><i>C03</i><i>C08</i><i class="warn">雨戏</i><i class="warn">手部特写</i><i class="warn" title="四人分处书塾街口送伞（江林二人）、小院独处（江晚棠单人）与醉花阴门前偶遇（温绾二人）三场，无三人同框">同框拆解 ✓</i></div>
+</article>
+<article class="ep" id="ep-9">
+  <span class="num">9</span>
+  <header><b>第 9 集</b><i class="bt">卖院诀别</i></header>
+  <p class="syn">八月十五中秋黄昏，漫天火烧云下，江晚棠在槐花巷小院里仔细为小满沐浴更衣、备妥百年紫雪参药丸，随后换上一袭利落夜行黑衣束发佩剑走出院门。等候在墙外的温如风叮嘱她提防厉狂澜子母鸳鸯剑右手合璧杀招，江晚棠一反常态温顺应下，微笑着免去温如风剩余六十两工钱抵作多年照拂之恩，坦白已卖院七百两准备今夜杀完厉狂澜便带小满远走北境嫁个不讲究的采参人，并将绘有海棠花的紫竹伞归还温如风转身没入暮色。另一边厉狂澜正将淬毒寒鸦双匕暗藏入袖，而在止戈轩与秦不争对弈的温如风心神难安，不等秦老点破他对江晚棠的情意便施展惊人轻功瞬间消失在夜色中。</p>
+  <div class="hk"><b>钩子</b><span>一向倔强带刺的江晚棠临行前突然温婉道谢还伞，这场看似十拿九稳的刺杀藏着什么凶兆</span></div>
+  <div class="hk"><b>悬念</b><span>素来不显山露水的温如风展现出连秦不争都看不清的鬼魅身法，全速赶往镇山武馆救人</span></div>
+  <div class="meta"><i>S03</i><i>S01</i><i>C01</i><i>C02</i><i>C04</i><i>C05</i><i>C06</i><i class="warn" title="五人分处槐花巷院门诀别（温江二人，小满仅院内沐浴局部）、厉狂澜藏匕备战单人特写与止戈轩对弈（温秦二人）三组独立场次，无三人同框">同框拆解 ✓</i></div>
+</article>
+<article class="ep" id="ep-10">
+  <span class="num">10</span>
+  <header><b>第 10 集</b><i class="bt major">绝杀高潮</i></header>
+  <p class="syn">中秋夜镇山武馆内院，江晚棠使出素心阁流风折柳剑打得厉狂澜子母鸳鸯剑溃不成军，银剑架颈逼问阿沅死因；厉狂澜磕头求饶之际，江晚棠悲愤叱责两情相悦岂容强逼，挥剑劈落瞬间却被老奸巨猾的厉狂澜闪身抖出袖中寒鸦双匕狠狠刺穿胸膛拧转刀刃。就在厉狂澜狞笑快意的一刹那，一道刺破光阴的银华破空而至，温如风掷出的修甲寸银小刀精准钻透厉狂澜太阳穴将其当场钉死，却终究慢了一步未能救回倒在血泊中的江晚棠。狂风暴雨席卷永安城，独自在听风楼瑟瑟发抖的林慕白正幻想温柔乡，闪电劈亮夜空，浑身湿透长发遮面的温如风悄然现身，将包着厉狂澜人头的白布包袱重重放在桌上宣告两清，对身后追喊的一百五十两尾款充耳不闻，决绝消失在风雨楼梯口。</p>
+  <div class="hk"><b>钩子</b><span>武功高出一筹的江晚棠剑已架在恶贼脖颈上，为何会在最后一瞬惨遭反杀</span></div>
+  <div class="hk"><b>悬念</b><span>江晚棠香消玉殒、温如风分文未取销声匿迹，独留槐花巷年幼的小满生死未卜</span></div>
+  <div class="meta"><i>S06</i><i>S01</i><i>C01</i><i>C02</i><i>C03</i><i>C04</i><i class="warn">雨戏</i><i class="warn">肢体接触</i><i class="warn">手部特写</i><i class="warn" title="武馆决战以江厉二人近身拆招对峙为主，温如风现身用暗处飞刀主观视角与落地背影接力；听风楼仅温林二人雨夜交接">同框拆解 ✓</i></div>
+</article>
+<article class="ep" id="ep-11">
+  <span class="num">11</span>
+  <header><b>第 11 集</b><i class="bt major">虐渣立债</i></header>
+  <p class="syn">三年后春日微风，厉狂澜太阳穴中银刀悬案已被永安府搁置，听风楼内衣冠楚楚的林慕白悠闲品着新龙井，回首惊见略带风霜却眼神淡雅依旧的青衫温如风站在身后。林慕白强作镇定炫耀自己已遵父命迎娶绸缎庄富家三小姐并喜得贵子，内心只遗憾当年没能留下那个貌美温存的白衣女子享齐人之福，嘴上更轻佻敷衍温如风称年轻时为一点女色犯法太过荒唐滑稽，往事早已忘却。温如风闻言笑容骤敛，瞬间露出暴戾残忍之色，在满堂茶客惊恐注视下猛地掐住林慕白咽喉将其死死推抵在墙上直至几乎窒息，冷笑痛斥他竟敢忘记那个傻瓜，随即松手贴耳立下死规矩：当年未付的一百五十两尾款按十分利计算，今后每年必须偿还一百五十两，少一分随时掐死他。</p>
+  <div class="hk"><b>钩子</b><span>销声匿迹三年的温如风重返听风楼坐到林慕白面前，要如何替九泉之下的傻姑娘讨债</span></div>
+  <div class="hk"><b>悬念</b><span>摇扇下楼的温如风在门口被须发皆白拄杖含笑的秦不争拦住，他这三年的真实去向即将揭晓</span></div>
+  <div class="meta"><i>S01</i><i>C01</i><i>C03</i><i>C05</i><i class="warn">肢体接触</i><i class="warn">人群</i><i class="warn" title="茶楼内温林二人桌前对话转墙角掐脖特写扛住主戏，满堂茶客用虚化前景惊恐侧影带过，秦不争在楼下门口单独拦截构成第二机位">同框拆解 ✓</i></div>
+</article>
+<article class="ep" id="ep-12">
+  <span class="num">12</span>
+  <header><b>第 12 集</b><i class="bt">救赎收束</i></header>
+  <p class="syn">听风楼门口，温如风向苍老的秦不争拱手叙旧，坦言这两年金盆洗手远赴北境苍山贩卖紫雪参药材赚钱，如今已在西城重新买下那座三进三出的槐花巷小院安顿下来，自嘲当年满口黑道无情规矩才是真的愚昧。伙计将睡得粉雕玉琢的五岁小满抱到温如风怀中，面对秦老询问，温如风含笑轻拍女孩后背认作亲女。门外惊雷骤雨洗刷长乐古街，秦不争命人取出那把不知何年留下的四十八骨海棠紫竹伞赠予温如风遮雨。温如风撑开青纸伞步入蒙蒙春雨，伞面那枝海棠花在雨丝中晕成温柔空幻，怀中醒来的小满顽皮扯着他的脸撒娇要回家吃豆沙粽；路过醉花阴宽檐下避雨的人群与猛回头避雨处风景依然的熟悉戏声，温如风轻拍小满后背，温柔问她以后改口叫自己爹爹好不好，在一声软糯答应中一大一小身影融进槐花巷细雨深处。</p>
+  <div class="hk"><b>钩子</b><span>洗手退隐去北境苍山贩药三年的温如风，重返永安城买回旧院究竟是为了守护谁</span></div>
+  <div class="hk"><b>悬念</b><span>春雨洗净江湖血色，海棠紫竹伞下的一声爹爹，将两代孤苦人余生的悲欢稳稳安放在烟火人间</span></div>
+  <div class="meta"><i>S01</i><i>S05</i><i>S03</i><i>C01</i><i>C05</i><i>C06</i><i class="warn">雨戏</i><i class="warn">肢体接触</i><i class="warn">人群</i><i class="warn" title="听风楼门口温秦二人与怀抱熟睡小满构成三角近景；长乐街雨中以温如风怀抱小满伞下双人特写为主，醉花阴屋檐避雨人群做远景气氛衬托">同框拆解 ✓</i></div>
+</article>
+    </div>
+    <button class="epsmore">▾ 展开全部 12 集</button>
+  </div>
+</section>
+
+<section id="sec-scenes">
+  <div class="sec-h"><span class="no">03</span><h2>场景概览</h2><span class="note">右上 = 出现集</span></div>
+  <div class="scenes">
+<article class="scard">
+  <span class="snum">8 集</span>
+  <h3><span class="id">S01</span>听风楼雅阁与止戈轩<span class="badge">主场景</span></h3>
+  <div class="strip"><i class="on"></i><i class=""></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+  <div class="srow"><b>承载爽点</b><span>人设反差 · 暗线反转 · 错位冲击 · 卖院诀别 · 绝杀高潮 · 虐渣立债 · 救赎收束</span></div>
+  <div class="srow"><b>出场角色</b><i>C01</i><i>C02</i><i>C03</i><i>C07</i><i>C09</i><i>C05</i><i>C10</i><i>C04</i><i>C06</i></div>
+</article>
+<article class="scard">
+  <span class="snum">1 · 2 · 6</span>
+  <h3><span class="id">S02</span>三更面馆<span class="badge">主场景</span></h3>
+  <div class="strip"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div>
+  <div class="srow"><b>承载爽点</b><span>人设反差 · 痛点拉扯 · 情绪撕裂</span></div>
+  <div class="srow"><b>出场角色</b><i>C01</i><i>C02</i><i>C03</i><i>C07</i><i>C09</i><i>C06</i></div>
+</article>
+<article class="scard">
+  <span class="snum">5 集</span>
+  <h3><span class="id">S03</span>西城槐花巷小院<span class="badge">主场景</span></h3>
+  <div class="strip"><i class=""></i><i class="on"></i><i class=""></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class="on"></i></div>
+  <div class="srow"><b>承载爽点</b><span>痛点拉扯 · 卖院诀别 · 救赎收束</span></div>
+  <div class="srow"><b>出场角色</b><i>C01</i><i>C02</i><i>C06</i><i>C09</i><i>C03</i><i>C08</i><i>C04</i><i>C05</i></div>
+</article>
+<article class="scard">
+  <span class="snum">4–5</span>
+  <h3><span class="id">S04</span>栖霞观银杏树下<span class="badge">主场景</span></h3>
+  <div class="strip"><i class=""></i><i class=""></i><i class=""></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div>
+  <div class="srow"><b>承载爽点</b><span>错位冲击</span></div>
+  <div class="srow"><b>出场角色</b><i>C01</i><i>C02</i><i>C03</i><i>C05</i><i>C07</i><i>C10</i></div>
+</article>
+<article class="scard">
+  <span class="snum">7 · 8 · 12</span>
+  <h3><span class="id">S05</span>醉花阴戏馆与长乐街雨檐<span class="badge">主场景</span></h3>
+  <div class="strip"><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class="on"></i></div>
+  <div class="srow"><b>承载爽点</b><span>宿命借伞 · 救赎收束</span></div>
+  <div class="srow"><b>出场角色</b><i>C01</i><i>C02</i><i>C03</i><i>C05</i><i>C07</i><i>C08</i><i>C06</i></div>
+</article>
+<article class="scard">
+  <span class="snum">10</span>
+  <h3><span class="id">S06</span>镇山武馆内院<span class="badge once">一次性</span></h3>
+  <div class="strip"><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="on lt"></i><i class=""></i><i class=""></i></div>
+  <div class="srow"><b>承载爽点</b><span>绝杀高潮</span></div>
+  <div class="srow"><b>复用方案</b><span class="reuse">复用西城槐花巷小院夜间院落基底，替换兵器架、红灯笼与暴雨积水光影改建</span></div>
+</article>
+  </div>
+</section>
+
+<section id="sec-decisions">
+  <div class="sec-h"><span class="no">04</span><h2>关键决策</h2><span class="note">拍板过的三件事，落进纸面</span></div>
+  <div class="dec3">
+  <div class="dcol">
+    <h3 class="sub">砍了哪条线</h3>
+    <ul class="dlist"><li><b>东市屠夫、崔家红叶姑娘、赵太夫人等零散买凶报单支线</b><small>两分钟一集的短剧节奏无法容纳无关路人支线，仅保留“五百两黄金刺杀铁面巡检”作为温如风与崔断水大案对照</small></li><li><b>温如风金盆洗手后去北境苍山贩卖药材三年的过程戏</b><small>外景跨度过大且偏离永安城核心舞台，三年空白改为听风楼重逢时的对白交代与西城小院收束</small></li><li><b>林慕白端午看龙舟初识阿沅及阿沅父母卖女的前史实拍</b><small>避免前期节奏拖沓与过度分散女主戏份，相关背景压缩进听风楼买凶谈判及三更面馆交底对话中</small></li></ul>
+    <p class="dnote seal">这意味着：全剧严格收束在永安城四幕（春末买凶→夏初动情→中秋血夜→三年后春雨重逢），砍掉零散杂单与北境经商外景，终点落在长乐街雨中海棠伞下小满改口唤爹爹。</p>
+  </div>
+  <div class="dcol">
+    <h3 class="sub">合了哪些人</h3>
+    <p class="dhead">10 个角色位（主角组 4 · 重要配角 4 · 功能性 2）</p>
+    <p class="dhead">主角组：温如风、江晚棠、林慕白、厉狂澜</p>
+    <ul class="dlist"><li><b>将莽汉杀手耿彪（原著熊灿）拒接三百两单与邀赴醉花阴十美局的功能并入阴沉刀手崔断水</b><small>两个同质化刀手在短剧中容易稀释记忆点，合二为一后既能对比低价与五百两黄金大案，也能集中体现崔断水与温如风的利益交锋</small></li><li><b>醉花阴递伞龟奴与听风楼抱娃伙计的功能并入秦不争及场内无名侍从</b><small>递伞、抱娃属纯过场动作，无需单独立脸占用角色资产额度</small></li></ul>
+    <p class="dnote seal">主角组锁定温如风、江晚棠、林慕白、厉狂澜四人（完整构成中间人—刀手—伪痴情主顾—恶霸目标的闭环）；同行刀手耿彪并入崔断水，集中呈现黑道利益对照。</p>
+  </div>
+  <div class="dcol">
+    <h3 class="sub">大爆点落在第几集</h3>
+    <ul class="dmaj"><li><i>ep3</i><span><b>暗线反转</b> 止戈轩对弈揭晓惊天隐情：两年前正是温如风…</span><em>首个</em></li><li><i>ep6</i><span><b>情绪撕裂</b> 江晚棠掀翻面碗两度掌掴，温如风反扣她手腕…</span></li><li><i>ep10</i><span><b>绝杀高潮</b> 厉狂澜袖出寒鸦双匕刺穿江晚棠胸膛瞬间，暗…</span></li><li><i>ep11</i><span><b>虐渣立债</b> 温如风瞬间褪去淡雅暴起掐住其脖颈抵在墙上…</span><em>终局</em></li></ul>
+  </div>
+</div>
+</section>
+
+<section id="sec-matrix">
+  <div class="sec-h"><span class="no">05</span><h2>每集调度矩阵</h2><span class="note">一列 = 这一集要谁、在哪拍</span></div>
+  <div class="matrix" style="--cw:26px">
+  <table>
+    <tr><th>角色 / 场景 / 道具</th><th>层级</th><th class="ep-h">1</th><th class="ep-h">2</th><th class="ep-h">3</th><th class="ep-h">4</th><th class="ep-h">5</th><th class="ep-h">6</th><th class="ep-h">7</th><th class="ep-h">8</th><th class="ep-h">9</th><th class="ep-h">10</th><th class="ep-h">11</th><th class="ep-h">12</th><th>合计</th></tr>
+    <tr><td class="name">温如风</td><td class="tier">主角组</td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="n">12</td></tr>
+<tr><td class="name">江晚棠</td><td class="tier">主角组</td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc"></td><td class="mc"></td><td class="n">10</td></tr>
+<tr><td class="name">林慕白</td><td class="tier">主角组</td><td class="mc on"></td><td class="mc"></td><td class="mc on"></td><td class="mc on"></td><td class="mc on"></td><td class="mc"></td><td class="mc on"></td><td class="mc on"></td><td class="mc"></td><td class="mc on"></td><td class="mc on"></td><td class="mc"></td><td class="n">8</td></tr>
+<tr><td class="name">厉狂澜</td><td class="tier">主角组</td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on"></td><td class="mc on"></td><td class="mc"></td><td class="mc"></td><td class="n">2</td></tr>
+<tr><td class="name">秦不争</td><td class="tier">重要配角</td><td class="mc"></td><td class="mc"></td><td class="mc on"></td><td class="mc"></td><td class="mc on"></td><td class="mc"></td><td class="mc on"></td><td class="mc"></td><td class="mc on"></td><td class="mc"></td><td class="mc on"></td><td class="mc on"></td><td class="n">6</td></tr>
+<tr><td class="name">小满</td><td class="tier">重要配角</td><td class="mc"></td><td class="mc on"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on"></td><td class="mc"></td><td class="mc"></td><td class="mc on"></td><td class="n">3</td></tr>
+<tr><td class="name">崔断水</td><td class="tier">重要配角</td><td class="mc on"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on"></td><td class="mc"></td><td class="mc on"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="n">3</td></tr>
+<tr><td class="name">绾音</td><td class="tier">重要配角</td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on"></td><td class="mc on"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="n">2</td></tr>
+<tr><td class="name">三更面馆掌柜</td><td class="tier">功能性角色</td><td class="mc on"></td><td class="mc on"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="n">3</td></tr>
+<tr><td class="name">栖霞观老庙祝</td><td class="tier">功能性角色</td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="n">1</td></tr>
+<tr class="div"><td colspan="15">场　景</td></tr>
+<tr><td class="name">听风楼雅阁与止戈轩</td><td class="tier">主场景</td><td class="mc on sc"></td><td class="mc"></td><td class="mc on sc"></td><td class="mc on sc"></td><td class="mc on sc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on sc"></td><td class="mc on sc"></td><td class="mc on sc"></td><td class="mc on sc"></td><td class="n">8</td></tr>
+<tr><td class="name">三更面馆</td><td class="tier">主场景</td><td class="mc on sc"></td><td class="mc on sc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on sc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="n">3</td></tr>
+<tr><td class="name">西城槐花巷小院</td><td class="tier">主场景</td><td class="mc"></td><td class="mc on sc"></td><td class="mc"></td><td class="mc on sc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on sc"></td><td class="mc on sc"></td><td class="mc"></td><td class="mc"></td><td class="mc on sc"></td><td class="n">5</td></tr>
+<tr><td class="name">栖霞观银杏树下</td><td class="tier">主场景</td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on sc"></td><td class="mc on sc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="n">2</td></tr>
+<tr><td class="name">醉花阴戏馆与长乐街雨檐</td><td class="tier">主场景</td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on sc"></td><td class="mc on sc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on sc"></td><td class="n">3</td></tr>
+<tr><td class="name">镇山武馆内院</td><td class="tier">一次性</td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on sc"></td><td class="mc"></td><td class="mc"></td><td class="n">1 ⚠</td></tr>
+<tr class="div"><td colspan="15">道　具</td></tr>
+<tr><td class="name">修甲寸银小刀</td><td class="tier">B01、B05、B08</td><td class="mc on pp"></td><td class="mc on pp"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on pp"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on pp"></td><td class="mc on pp"></td><td class="mc"></td><td class="n">5</td></tr>
+<tr><td class="name">四十八骨海棠紫竹伞</td><td class="tier">B06、B07、B10</td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on pp"></td><td class="mc on pp"></td><td class="mc on pp"></td><td class="mc"></td><td class="mc"></td><td class="mc on pp"></td><td class="n">4</td></tr>
+<tr><td class="name">百年紫雪参药丸</td><td class="tier">B02、B03、B10</td><td class="mc"></td><td class="mc on pp"></td><td class="mc on pp"></td><td class="mc on pp"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on pp"></td><td class="mc"></td><td class="mc"></td><td class="mc on pp"></td><td class="n">5</td></tr>
+<tr><td class="name">行踪时辰小册子</td><td class="tier">B04、B05</td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on pp"></td><td class="mc on pp"></td><td class="mc on pp"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="n">3</td></tr>
+<tr><td class="name">寒鸦双匕</td><td class="tier">B08</td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc"></td><td class="mc on pp"></td><td class="mc on pp"></td><td class="mc"></td><td class="mc"></td><td class="n">2</td></tr>
+  </table>
+  <p class="mnote">⚠ 镇山武馆内院 · 复用方案：复用西城槐花巷小院夜间院落基底，替换兵器架、红灯笼与暴雨积水光影改建</p>
+</div>
+</section>
+
+<section id="sec-plan">
+  <div class="sec-h"><span class="no">06</span><h2>资产量折算</h2><span class="note">按档自动折算 · 不让模型写</span></div>
+  <div class="plan">
+  <table><thead><tr><th>层级</th><th>人数</th><th>角色</th><th>资产量</th></tr></thead>
+<tbody><tr><td>主角组</td><td>4</td><td>温如风、江晚棠、林慕白、厉狂澜</td><td>全套角色设定图 + 逐镜一致性核对</td></tr>
+<tr><td>重要配角</td><td>4</td><td>秦不争、小满、崔断水、绾音</td><td>半身参考图，关键戏核对</td></tr>
+<tr><td>功能性角色</td><td>2</td><td>三更面馆掌柜、栖霞观老庙祝</td><td>提示词直出，松散一致即可</td></tr>
+<tr><td>场景环境</td><td>5+1</td><td>听风楼雅阁与止戈轩、三更面馆、西城槐花巷小院、栖霞观银杏树下、醉花阴戏馆与长乐街雨檐（+镇山武馆内院复用）</td><td>主场景各一套环境参考 + 光照基调</td></tr>
+<tr><td>叙事道具</td><td>5</td><td>修甲寸银小刀、四十八骨海棠紫竹伞、百年紫雪参药丸、行踪时辰小册子、寒鸦双匕</td><td>每件一套白底设定图 + 状态变体，跨集要长一样</td></tr>
+<tr><td>生成难点</td><td>18</td><td>肢体接触 ×7（第 2、3、6、7、10、11、12 集） · 手部特写 ×5（第 2、3、6、8、10 集） · 雨戏 ×4（第 7、8、10、12 集） · 人群 ×2（第 11、12 集）</td><td>拍摄前逐条过预警清单</td></tr></tbody></table>
+  </div>
+</section>
+
+<section id="sec-characters">
+  <div class="sec-h"><span class="no">07</span><h2>人物表</h2></div>
+  <table><thead><tr><th>ID</th><th>角色</th><th>层级</th><th>定位</th><th>人物弧</th><th>← 改动记录</th></tr></thead>
+<tbody><tr><td>C01</td><td>温如风</td><td>主角组</td><td>男主 / 外号“扇底寸银”的黑道中间人</td><td>从嘴硬心冷、事事算清三成抽头的江湖掮客，到为护江晚棠动用致命银刀打破行规，最终金盆洗手买回旧院抚养小满、真正放下“无情”执念</td><td>原著舒十七（袖里生杀）</td></tr>
+<tr><td>C02</td><td>江晚棠</td><td>主角组</td><td>女主 / 素心阁弃徒、单亲女刀手</td><td>从麻木卖命赚药钱的落魄女刺客，到被伪痴情书生唤醒对爱的幻梦，最终为女儿与道义赴死于中秋夜，成为温如风余生不可忘却的白月光</td><td>原著叶莲（阿莲）</td></tr>
+<tr><td>C03</td><td>林慕白</td><td>主角组</td><td>核心对比人物 / 林家庶出三公子</td><td>从痛哭跪求买凶的痴情寒门书生，到受江晚棠照拂后重拾体面却在三年间攀附富贵、忘却亡人，暴露骨子里的凉薄与虚伪</td><td>原著计明康</td></tr>
+<tr><td>C04</td><td>厉狂澜</td><td>主角组</td><td>核心武力反派 / 镇山武馆教头</td><td>昔日辣手淫贼摇身变为永安城开馆恶霸，虐杀有孕阿沅后自恃子母鸳鸯剑横行无忌，最终虽凭阴毒双匕反杀刺客，仍难逃温如风寸银绝杀</td><td>原著慕容涛</td></tr>
+<tr><td>C05</td><td>秦不争</td><td>重要配角</td><td>关键配角 / 听风楼老掌柜、退隐中间人龙头</td><td>从看似看破红尘、劝温如风当断则断的冷眼老狐狸，到被自己老境寂寞与温如风的改变打动，亲手递出那把画着海棠花的紫竹伞成全温氏父女</td><td>原著苏无骄</td></tr>
+<tr><td>C06</td><td>小满</td><td>重要配角</td><td>情感纽带 / 江晚棠之女</td><td>从两岁体弱、靠百年紫雪参吊命的无助幼女，到五年后被温如风抚养得粉雕玉琢，最终在春雨海棠伞下改口唤温如风“爹爹”</td><td>原著蓉蓉</td></tr>
+<tr><td>C07</td><td>崔断水</td><td>重要配角</td><td>黑道对照配角 / 承接大单的冷酷名刀手</td><td>先拒接三百两赔本买卖并笑看温如风的算盘精，后以五成高佣金接下五百两黄金刺杀铁面巡检大案，成为照见江湖纯利益法则与温如风失态反常的镜子</td><td>原著陈方鹤；合并：耿彪（原著熊灿）拒单与邀酒戏份</td></tr>
+<tr><td>C08</td><td>绾音</td><td>重要配角</td><td>风月场配角 / 醉花阴头牌红姑娘</td><td>醉花阴台下极尽娇媚试探温如风，欲借这位黑道红人寻个依靠，却彻夜只换得他醉眼望向窗外长乐街的清冷疏离</td><td>原著荔香</td></tr>
+<tr><td>C09</td><td>三更面馆掌柜</td><td>功能性角色</td><td>深夜煮面的面馆掌柜（胡锅头），见证温如风与江晚棠醉酒交心与决裂</td><td>—</td><td>原著黑小三（胡锅头）</td></tr>
+<tr><td>C10</td><td>栖霞观老庙祝</td><td>功能性角色</td><td>观外好利测签的老庙祝，为温如风摇出“前乱后吉”姻缘签</td><td>—</td><td>原著大相国寺测签和尚</td></tr></tbody></table>
+</section>
+
+<section id="sec-adaptation">
+  <div class="sec-h"><span class="no">08</span><h2>改编说明</h2><span class="note">为什么这么改 · 附原文依据</span></div>
+  <p class="core">号称只认银子的黑道中间人温如风，嘴硬心软暗护单亲女刀手江晚棠母女；一桩三百两的低价买凶案，照见伪痴情书生的凉薄，也逼出冷血掮客藏在寸银小刀背后的半生深情与救赎。</p>
+  <h3 class="sub">保留</h3><table><thead><tr><th>内容</th><th>理由</th><th>原文依据</th></tr></thead>
+<tbody><tr><td>三百两低价买凶杀厉狂澜的错位三角局</td><td>形成“伪情痴主顾—真柔情女刀手—口冷心热中间人”的三重戏剧张力，推动女主接下死单</td><td><q>就这三百两银子，还是小生变卖了母亲留下的首饰所得，您就是剥了小生的皮，也难再多出半两了。</q></td></tr>
+<tr><td>温如风嘴硬心软的反差与两年前替江晚棠暗除顾云峥的真相</td><td>解释江晚棠流落江湖的根由与温如风多年隐忍克制的暗恋守望，制造早期高能反转</td><td><q>江南漕帮和顾云峥结了梁子，那时候出三千两银子找的我。我请人在胭脂渡的妓院杀了他。</q></td></tr>
+<tr><td>修甲寸银小刀与四十八骨海棠紫竹伞的首尾闭环意象</td><td>小刀既是日常风度也是致命绝杀；紫竹伞承载借伞动情、画海棠还伞与三年后雨中归宿，贯穿全剧</td><td><q>伞还给你，他在上面画了一枝雨打海棠谢我，他是个雅致的人儿你不要介意。</q></td></tr>
+<tr><td>中秋夜寸银绝杀厉狂澜、三年后听风楼立债惩渣与长乐街春雨认爹结局</td><td>先以暴烈反杀与忘恩打脸释放虐渣情绪，再以海棠伞下幼女改口唤爹完成悲喜交织的情感救赎</td><td><q>你还欠我一百五十两银子呢，算十分利，每年还我一百五十两！</q></td></tr></tbody></table>
+  <h3 class="sub">砍掉</h3><table><thead><tr><th>内容</th><th>理由</th></tr></thead>
+<tbody><tr><td>东市屠夫、崔家红叶姑娘、赵太夫人等零散买凶报单支线</td><td>两分钟一集的短剧节奏无法容纳无关路人支线，仅保留“五百两黄金刺杀铁面巡检”作为温如风与崔断水大案对照</td></tr>
+<tr><td>温如风金盆洗手后去北境苍山贩卖药材三年的过程戏</td><td>外景跨度过大且偏离永安城核心舞台，三年空白改为听风楼重逢时的对白交代与西城小院收束</td></tr>
+<tr><td>林慕白端午看龙舟初识阿沅及阿沅父母卖女的前史实拍</td><td>避免前期节奏拖沓与过度分散女主戏份，相关背景压缩进听风楼买凶谈判及三更面馆交底对话中</td></tr></tbody></table>
+  <h3 class="sub">合并</h3><table><thead><tr><th>内容</th><th>理由</th></tr></thead>
+<tbody><tr><td>将莽汉杀手耿彪（原著熊灿）拒接三百两单与邀赴醉花阴十美局的功能并入阴沉刀手崔断水</td><td>两个同质化刀手在短剧中容易稀释记忆点，合二为一后既能对比低价与五百两黄金大案，也能集中体现崔断水与温如风的利益交锋</td></tr>
+<tr><td>醉花阴递伞龟奴与听风楼抱娃伙计的功能并入秦不争及场内无名侍从</td><td>递伞、抱娃属纯过场动作，无需单独立脸占用角色资产额度</td></tr></tbody></table>
+  <h3 class="sub">风险与对策</h3><table><thead><tr><th>内容</th><th>对策</th></tr></thead>
+<tbody><tr><td>第7集、第10集、第12集涉及大量雨景与青石街湿滑反光镜头，AI 生成易出现雨丝闪烁或人物湿发不一致</td><td>在美术设定阶段固化“微雨青石反光”与“倾盆夜雨雷电”两套光照状态，雨中撑伞戏多用中近景伞檐构图降低全身崩坏风险</td></tr>
+<tr><td>第10集镇山武馆决战涉及流风折柳剑法、子母鸳鸯剑与袖藏寒鸦双匕贴身反杀及寸银小刀飞刺特写，复杂打斗易穿帮</td><td>拆解为凌厉定格起势—眼神与兵刃交错—近身匕首刺入与银光一闪钻透太阳穴的蒙太奇短切，规避长连招缠斗</td></tr></tbody></table>
+</section>
+
+<section id="sec-gates">
+  <div class="sec-h"><span class="no">09</span><h2>质量门</h2></div>
+  <ul class="gate">
+  <li class="ok"><span class="m">✓</span><span>主角组 1–4 人</span></li>
+  <li class="ok"><span class="m">✓</span><span>重要配角 ≤ 6 人</span></li>
+  <li class="ok"><span class="m">✓</span><span>功能性角色 ≤ 5 人</span></li>
+  <li class="ok"><span class="m">✓</span><span>主场景 ≤ 6</span></li>
+  <li class="ok"><span class="m">✓</span><span>叙事道具 ≤ 6 件</span></li>
+  <li class="ok"><span class="m">✓</span><span>一次性场景已标注规避方案</span></li>
+  <li class="ok"><span class="m">✓</span><span>爽点间隔 ≤ 3 集，无真空区</span></li>
+  <li class="ok"><span class="m">✓</span><span>第 1 集有钩子</span></li>
+  <li class="ok"><span class="m">✓</span><span>大爆点不在最后一集才首次出现</span></li>
+  <li class="ok"><span class="m">✓</span><span>每集梗概三栏齐全（含【钩子】【悬念】）</span></li>
+  <li class="ok"><span class="m">✓</span><span>三人以上同框已标注拆解方案</span></li>
+  <li class="ok"><span class="m">✓</span><span>生成难点已进预警清单</span></li>
+  <li class="ok"><span class="m">✓</span><span>场景/角色/道具引用完整，无失业角色、无空转场景、无零集道具</span></li>
+  <li class="ok"><span class="m">✓</span><span>梗概是叙述体，无引号对白</span></li>
+</ul>
+  <p class="gsum">全部通过</p>
+</section>
+
+<p class="foot">大纲由模型依据原文生成，质量门由脚本确定性检查。</p>
+</div>
+
+<script type="application/json" id="outline-data">{"source":"晚棠风","lang":"zh","params":{"episodes":12,"minutesPerEpisode":2,"genre":"古装武侠·凄美救赎","adaptMode":"抽核","preferences":["保留江晚棠中秋夜身死、温如风养大小满并惩戒林慕白的悲喜交织刀感","重构每集冷开场钩子与集末悬念，完整铺开买凶、动情、刺杀、重逢四幕","启用《晚棠风》全套架空人物与场景设定"],"thresholds":{"maxLeads":4,"maxSupport":6,"maxFunctional":5,"maxBeatGap":3,"maxProps":6}},"adaptation":{"core":"号称只认银子的黑道中间人温如风，嘴硬心软暗护单亲女刀手江晚棠母女；一桩三百两的低价买凶案，照见伪痴情书生的凉薄，也逼出冷血掮客藏在寸银小刀背后的半生深情与救赎。","keep":[{"what":"三百两低价买凶杀厉狂澜的错位三角局","why":"形成“伪情痴主顾—真柔情女刀手—口冷心热中间人”的三重戏剧张力，推动女主接下死单","evidence":"就这三百两银子，还是小生变卖了母亲留下的首饰所得，您就是剥了小生的皮，也难再多出半两了。"},{"what":"温如风嘴硬心软的反差与两年前替江晚棠暗除顾云峥的真相","why":"解释江晚棠流落江湖的根由与温如风多年隐忍克制的暗恋守望，制造早期高能反转","evidence":"江南漕帮和顾云峥结了梁子，那时候出三千两银子找的我。我请人在胭脂渡的妓院杀了他。"},{"what":"修甲寸银小刀与四十八骨海棠紫竹伞的首尾闭环意象","why":"小刀既是日常风度也是致命绝杀；紫竹伞承载借伞动情、画海棠还伞与三年后雨中归宿，贯穿全剧","evidence":"伞还给你，他在上面画了一枝雨打海棠谢我，他是个雅致的人儿你不要介意。"},{"what":"中秋夜寸银绝杀厉狂澜、三年后听风楼立债惩渣与长乐街春雨认爹结局","why":"先以暴烈反杀与忘恩打脸释放虐渣情绪，再以海棠伞下幼女改口唤爹完成悲喜交织的情感救赎","evidence":"你还欠我一百五十两银子呢，算十分利，每年还我一百五十两！"}],"cut":[{"what":"东市屠夫、崔家红叶姑娘、赵太夫人等零散买凶报单支线","why":"两分钟一集的短剧节奏无法容纳无关路人支线，仅保留“五百两黄金刺杀铁面巡检”作为温如风与崔断水大案对照"},{"what":"温如风金盆洗手后去北境苍山贩卖药材三年的过程戏","why":"外景跨度过大且偏离永安城核心舞台，三年空白改为听风楼重逢时的对白交代与西城小院收束"},{"what":"林慕白端午看龙舟初识阿沅及阿沅父母卖女的前史实拍","why":"避免前期节奏拖沓与过度分散女主戏份，相关背景压缩进听风楼买凶谈判及三更面馆交底对话中"}],"merge":[{"what":"将莽汉杀手耿彪（原著熊灿）拒接三百两单与邀赴醉花阴十美局的功能并入阴沉刀手崔断水","why":"两个同质化刀手在短剧中容易稀释记忆点，合二为一后既能对比低价与五百两黄金大案，也能集中体现崔断水与温如风的利益交锋"},{"what":"醉花阴递伞龟奴与听风楼抱娃伙计的功能并入秦不争及场内无名侍从","why":"递伞、抱娃属纯过场动作，无需单独立脸占用角色资产额度"}],"risks":[{"what":"第7集、第10集、第12集涉及大量雨景与青石街湿滑反光镜头，AI 生成易出现雨丝闪烁或人物湿发不一致","plan":"在美术设定阶段固化“微雨青石反光”与“倾盆夜雨雷电”两套光照状态，雨中撑伞戏多用中近景伞檐构图降低全身崩坏风险"},{"what":"第10集镇山武馆决战涉及流风折柳剑法、子母鸳鸯剑与袖藏寒鸦双匕贴身反杀及寸银小刀飞刺特写，复杂打斗易穿帮","plan":"拆解为凌厉定格起势—眼神与兵刃交错—近身匕首刺入与银光一闪钻透太阳穴的蒙太奇短切，规避长连招缠斗"}],"cutNote":"这意味着：全剧严格收束在永安城四幕（春末买凶→夏初动情→中秋血夜→三年后春雨重逢），砍掉零散杂单与北境经商外景，终点落在长乐街雨中海棠伞下小满改口唤爹爹。","mergeNote":"主角组锁定温如风、江晚棠、林慕白、厉狂澜四人（完整构成中间人—刀手—伪痴情主顾—恶霸目标的闭环）；同行刀手耿彪并入崔断水，集中呈现黑道利益对照。"},"characters":[{"id":"C01","name":"温如风","role":"男主 / 外号“扇底寸银”的黑道中间人","tier":"lead","arc":"从嘴硬心冷、事事算清三成抽头的江湖掮客，到为护江晚棠动用致命银刀打破行规，最终金盆洗手买回旧院抚养小满、真正放下“无情”执念","from":["原著舒十七（袖里生杀）"]},{"id":"C02","name":"江晚棠","role":"女主 / 素心阁弃徒、单亲女刀手","tier":"lead","arc":"从麻木卖命赚药钱的落魄女刺客，到被伪痴情书生唤醒对爱的幻梦，最终为女儿与道义赴死于中秋夜，成为温如风余生不可忘却的白月光","from":["原著叶莲（阿莲）"]},{"id":"C03","name":"林慕白","role":"核心对比人物 / 林家庶出三公子","tier":"lead","arc":"从痛哭跪求买凶的痴情寒门书生，到受江晚棠照拂后重拾体面却在三年间攀附富贵、忘却亡人，暴露骨子里的凉薄与虚伪","from":["原著计明康"]},{"id":"C04","name":"厉狂澜","role":"核心武力反派 / 镇山武馆教头","tier":"lead","arc":"昔日辣手淫贼摇身变为永安城开馆恶霸，虐杀有孕阿沅后自恃子母鸳鸯剑横行无忌，最终虽凭阴毒双匕反杀刺客，仍难逃温如风寸银绝杀","from":["原著慕容涛"]},{"id":"C05","name":"秦不争","role":"关键配角 / 听风楼老掌柜、退隐中间人龙头","tier":"support","arc":"从看似看破红尘、劝温如风当断则断的冷眼老狐狸，到被自己老境寂寞与温如风的改变打动，亲手递出那把画着海棠花的紫竹伞成全温氏父女","from":["原著苏无骄"]},{"id":"C06","name":"小满","role":"情感纽带 / 江晚棠之女","tier":"support","arc":"从两岁体弱、靠百年紫雪参吊命的无助幼女，到五年后被温如风抚养得粉雕玉琢，最终在春雨海棠伞下改口唤温如风“爹爹”","from":["原著蓉蓉"]},{"id":"C07","name":"崔断水","role":"黑道对照配角 / 承接大单的冷酷名刀手","tier":"support","arc":"先拒接三百两赔本买卖并笑看温如风的算盘精，后以五成高佣金接下五百两黄金刺杀铁面巡检大案，成为照见江湖纯利益法则与温如风失态反常的镜子","from":["原著陈方鹤","合并：耿彪（原著熊灿）拒单与邀酒戏份"]},{"id":"C08","name":"绾音","role":"风月场配角 / 醉花阴头牌红姑娘","tier":"support","arc":"醉花阴台下极尽娇媚试探温如风，欲借这位黑道红人寻个依靠，却彻夜只换得他醉眼望向窗外长乐街的清冷疏离","from":["原著荔香"]},{"id":"C09","name":"三更面馆掌柜","role":"深夜煮面的面馆掌柜（胡锅头），见证温如风与江晚棠醉酒交心与决裂","tier":"functional","from":["原著黑小三（胡锅头）"]},{"id":"C10","name":"栖霞观老庙祝","role":"观外好利测签的老庙祝，为温如风摇出“前乱后吉”姻缘签","tier":"functional","from":["原著大相国寺测签和尚"]}],"scenes":[{"id":"S01","name":"听风楼雅阁与止戈轩","primary":true},{"id":"S02","name":"三更面馆","primary":true},{"id":"S03","name":"西城槐花巷小院","primary":true},{"id":"S04","name":"栖霞观银杏树下","primary":true},{"id":"S05","name":"醉花阴戏馆与长乐街雨檐","primary":true},{"id":"S06","name":"镇山武馆内院","primary":false,"reusePlan":"复用西城槐花巷小院夜间院落基底，替换兵器架、红灯笼与暴雨积水光影改建"}],"props":[{"id":"P01","name":"修甲寸银小刀","function":"温如风的人设象征与终极暗器：日常优雅修甲压迫对手，决裂时失手坠地显露动摇，第10集一击钻透厉狂澜太阳穴揭示深藏的绝顶武功与护短深情","beatIds":["B01","B05","B08"]},{"id":"P02","name":"四十八骨海棠紫竹伞","function":"贯穿全剧的情感信物：醉花阴戏台道具→晨雨借给江晚棠接心上人→被林慕白绘上雨打海棠归还→三年后秦不争交还温如风为小满遮雨，完成悲喜闭环","beatIds":["B06","B07","B10"]},{"id":"P03","name":"百年紫雪参药丸","function":"江晚棠接单卖命的生存软肋：每月上百两续命费逼出她甘愿冒死接三百两低价单，也照见她作为母亲的孤勇与悲情","beatIds":["B02","B03","B10"]},{"id":"P04","name":"行踪时辰小册子","function":"温如风暗中护卫却嘴硬伪装的物证：记录江晚棠与林慕白每次相见的时辰地点，面馆甩出戳破窗户纸，成为两人激烈撕裂的导火索","beatIds":["B04","B05"]},{"id":"P05","name":"寒鸦双匕","function":"厉狂澜藏于袖中的致命底牌：表面跪地求饶实则偷袭得手，直接导致江晚棠香消玉殒并逼出温如风现身绝杀","beatIds":["B08"]}],"beats":[{"id":"B01","type":"人设反差","weight":"minor","episode":1,"setup":"白衣书生林慕白磕头跪求三百两买凶杀厉狂澜，崔断水斥为送死价并邀赴醉花阴十美夜宴","payoff":"温如风慢条斯理用银刀修甲冷拒压价，却暗中推掉醉花阴风月，深夜独赴三更面馆寻江晚棠"},{"id":"B02","type":"痛点拉扯","weight":"minor","episode":2,"setup":"江晚棠买醉求单给女儿筹紫雪参药钱，温如风故意抛出三分利借贷与弃养毒舌激将","payoff":"温如风挨了一记耳光却不怒，趁江晚棠醉倒背她走七里夜路送回槐花巷小院严实盖被"},{"id":"B03","type":"暗线反转","weight":"major","episode":3,"setup":"江晚棠蒙黑纱突现听风楼扣住温如风劳宫穴强行接下三百两死单；秦不争质疑温如风失了中间人规矩","payoff":"止戈轩对弈揭晓惊天隐情：两年前正是温如风接了漕帮三千两暗单替她除掉负心汉顾云峥，却独自背负骂名隐瞒至今"},{"id":"B04","type":"错位冲击","weight":"minor","episode":5,"setup":"栖霞观测得前乱后吉姻缘签，温如风与崔断水冷血敲定五百两黄金、五成抽头的铁面巡检暗杀大单","payoff":"温如风一转头撞见白衣江晚棠在古银杏树下温柔扶起扭伤脚的林慕白，素来淡雅镇定的掮客当场失态走神"},{"id":"B05","type":"情绪撕裂","weight":"major","episode":6,"setup":"江晚棠气色转柔赴约三更面馆，温如风借酒冷笑甩出写满约会时辰的行踪小册子警告其莫犯大忌","payoff":"江晚棠掀翻面碗两度掌掴，温如风反扣她手腕厉声对吼“一分银子买命”，离去时手中寸银小刀竟罕见失手坠地"},{"id":"B06","type":"宿命借伞","weight":"minor","episode":7,"setup":"醉花阴台上演《断桥借伞》，温如风怀拥头牌绾音却失神望见窗外长乐街一对白衣男女相互搀扶走过","payoff":"次日晨雨，温如风在屋檐撞见刚从林家过夜归来的江晚棠，明知她在骗自己却亲手递出四十八骨紫竹伞助她去接心上人"},{"id":"B07","type":"卖院诀别","weight":"minor","episode":9,"setup":"中秋火烧云下，换上夜行黑衣的江晚棠归还已被林慕白绘上雨打海棠的紫竹伞","payoff":"江晚棠豁达免去六十两尾款，坦白已卖掉小院得七百两银子准备得手后带小满远走北境苍山，一去不复返"},{"id":"B08","type":"绝杀高潮","weight":"major","episode":10,"setup":"镇山武馆内院，江晚棠以流风折柳剑压制厉狂澜，却在最后劈落一剑时被跪地求饶的恶贼偷袭","payoff":"厉狂澜袖出寒鸦双匕刺穿江晚棠胸膛瞬间，暗中潜伏的温如风暴起，以修甲寸银小刀钻透其太阳穴，暴雨中提人头掷于听风楼桌面拒收尾款"},{"id":"B09","type":"虐渣立债","weight":"major","episode":11,"setup":"三年后听风楼春茶飘香，已娶富商三小姐得子的林慕白意气风发，面对温如风追问竟轻佻笑称早已忘记当年痴傻旧事","payoff":"温如风瞬间褪去淡雅暴起掐住其脖颈抵在墙上，当众勒令将一百五十两尾款按十分利每年索债，余生永世不得忘却那个傻瓜"},{"id":"B10","type":"救赎收束","weight":"minor","episode":12,"setup":"温如风向秦不争坦言已买回西城三进小院，惊雷骤起大雨泼洒长乐古街，秦老递来一把画着海棠花的旧紫竹伞","payoff":"温如风怀抱粉嫩的小满撑开海棠伞走入春雨，听着怀中幼女撒娇要吃豆沙粽，温柔低声问她今后改口唤一声爹爹"}],"episodes":[{"ep":1,"synopsis":"听风楼雅阁内，温如风握着寸银小刀慢条斯理修指甲，面对白衣书生林慕白磕头泣血出三百两买凶杀镇山武馆教头厉狂澜的恳求，冷言咬死七百两底价，最终只敷衍应下代为打听。林慕白退下后，名刀手崔断水登门，听闻三百两杀厉狂澜当场斥为送死买卖，转而力邀温如风同赴醉花阴十美夜宴撑场面。温如风笑着推掉无边风月，深夜独自走进冷清的三更面馆，按住正往劣酒掺水的掌柜换上琥珀春，坐到烂醉如泥的素心阁弃徒江晚棠身旁。","hook":"推掉五百两十美夜宴的冷血中间人，为何深夜独赴寒酸面馆陪一个落魄女酒鬼买醉","suspense":"江晚棠连耳环都已当尽，究竟是什么死穴逼得昔日名门高足沦落至此","sceneIds":["S01","S02"],"characterIds":["C01","C02","C03","C07","C09"],"propIds":["P01"],"crowdPlan":"五人分处听风楼日景与三更面馆夜景两场，听风楼拆为桌案正反打，面馆将掌柜置于远景汤锅后虚化带过","warnings":[]},{"ep":2,"synopsis":"三更面馆油灯下，江晚棠呛酒剧咳，哭诉两岁幼女小满全靠昂贵的百年紫雪参药丸吊命，如今分文皆无急需接单，却因无法离开永安照看女儿而接不了北上刺杀铁面巡检的大买卖。温如风故意冷酷抛出三分利放贷扣工钱和干脆弃养小满两个主意，挨了江晚棠愤怒一记耳光仍不恼火，随口提起林慕白为惨死有孕心上人阿沅出三百两杀厉狂澜的疯事，引得江晚棠捏紧他的手怔怔动容。一坛琥珀春饮尽，温如风替醉倒的江晚棠结账，搀扶背负她走过七里夜路送回空荡的槐花巷小院盖严棉被，听见她在睡梦中含泪呢喃峥哥哥与小满，只能靠在院外冷墙下孤寂旋绕指尖的寸银小刀。","hook":"江晚棠梦里含泪呼唤的峥哥哥究竟是谁，又为何害她们母女流落黑道","suspense":"听完阿沅惨死始末的江晚棠眼神异样，已暗自打起那桩三百两送死买卖的主意","sceneIds":["S02","S03"],"characterIds":["C01","C02","C06","C09"],"propIds":["P01","P03"],"crowdPlan":"四人分处面馆对饮与小院安顿两场，面馆掌柜守锅背景带过，小院内仅温如风照看熟睡母女分切近景","warnings":["肢体接触","手部特写"]},{"ep":3,"synopsis":"次日清晨听风楼雅阁，江晚棠头戴斗笠黑纱执意旁听买凶原委，林慕白泣诉与阿沅有缘无分、愿以余生念佛报恩，温如风暗自冷笑出言劝退，江晚棠却在桌下运起真力死死按穿温如风的劳宫穴，压低嗓音替他强行接下这桩三百两杀厉狂澜的死单，只为给小满凑齐紫雪参药钱并攒下嫁妆。事后退隐龙头秦不争邀温如风入止戈轩饮茶，质疑他破了中间人不让刀手见主顾的铁律；谈及两年前太华剑宗弟子顾云峥始乱终弃污蔑江晚棠后横死胭脂渡的旧闻，温如风淡然道出隐情：当年正是他接下江南漕帮三千两暗单，请人在妓院杀了顾云峥，却任由傻气的江晚棠至今还想替负心人报仇。","hook":"满口只认银子的温如风破例放任江晚棠见主顾，究竟是贪图九十两抽头还是另有隐情","suspense":"接下死单的江晚棠对林慕白的痴情深信不疑，一场杀手与主顾的危险越界悄然萌芽","sceneIds":["S01"],"characterIds":["C01","C02","C03","C05"],"propIds":["P03"],"crowdPlan":"雅阁三人在场时以桌案分隔，林慕白跪拜正面单切，温如风与黑纱江晚棠并排中近景配桌下按手特写；止戈轩仅温秦二人对坐","warnings":["肢体接触","手部特写"]},{"ep":4,"synopsis":"拿到一百五十两定金的江晚棠为小满兑回救命的百年紫雪参药丸，心中却对那个变卖亡母首饰为心上人报仇的林三公子生出同病相怜的牵挂，换回素净白裙屡次悄悄前往栖霞观，躲在古银杏树影后远远凝望每日来为亡人上香祈福的林慕白。原本苍白枯槁的她渐渐添了红润气色，对镜梳拢青丝时流露出久违的少女柔情。殊不知这一切全落在暗中盯梢的温如风眼里，他在听风楼临窗翻看亲手记下的行踪时辰小册子，眉宇间寒意渐深，深知刀手一旦对主顾动心便是灭顶之灾。","hook":"拿了买命定金的女刀手为何频频换上白裙跟踪自己的雇主","suspense":"温如风小册子上的记录越写越密，江晚棠终究按捺不住要走到林慕白面前","sceneIds":["S03","S04","S01"],"characterIds":["C01","C02","C03"],"propIds":["P03","P04"],"crowdPlan":"三人同处栖霞观外景时采用景深拆解，前景林慕白上香、中景树后江晚棠窥视、远景廊下温如风冷眼旁观，不拍三人同框交谈","warnings":[]},{"ep":5,"synopsis":"午后栖霞观香炉前，温如风随手向老庙祝求了一支姻缘签，得来最初有所乱、后面还是好的批语，只当笑谈一哂而过。崔断水悄然现身求接五百两黄金刺杀铁面巡检的惊天大单，温如风寸步不让强抽五成佣金，尽显扇底寸银的狠辣精明。不料交易刚定，温如风目光扫向远处古银杏树下竟瞬间僵住：林慕白祈福伤心扭伤脚腕跌坐树下，白衣江晚棠柔声上前关切，更找人扎了竹竿凉轿一路羞怯相陪送医。素来滴水不漏的温如风在崔断水面前罕见失态走神，回止戈轩向秦不争吐露忧虑，秦老一句抹不匀不如趁早扔掉免招祸害，令温如风心头凛然。","hook":"谈着七千两白银惊天血案都面不改色的温如风，为何瞥见银杏树下一幕便当场失神","suspense":"秦不争力劝弃子保命，温如风连夜约江晚棠到三更面馆摊牌","sceneIds":["S04","S01"],"characterIds":["C01","C02","C03","C05","C07","C10"],"propIds":["P04"],"crowdPlan":"六人拆为栖霞观香炉前（温如风与老庙祝、崔断水先后二人对手戏）、银杏树下远景（江晚棠扶助林慕白）与止戈轩（温秦二人）三组独立机位","warnings":[]},{"ep":6,"synopsis":"刚赴完盐帮醉花阴谢宴的温如风带着酒意在三更面馆吃面等候，姗姗来迟的江晚棠面颊粉润、青丝如瀑，早已不是昔日憔悴模样。温如风借酒调侃醉花阴风月试探，惹得江晚棠大怒将他的面碗挥砸上墙；温如风劝她检点莫对主顾动情，换来江晚棠狠狠一记耳光。温如风彻底沉下脸甩出行踪时辰小册子，逐条点破她私会林慕白的行迹，在江晚棠再度扬掌时一把死死抓住她手腕，厉声怒斥杀手动心必连累全行陪葬。两人就着琥珀春流泪痛饮、嘶吼银子与人命的残酷，温如风故意提及死去的顾云峥刺痛她，伸手欲替她拭泪却被冷声喝止，踉跄离去时连从不离身的修甲寸银小刀都叮当失手坠地。","hook":"向来优雅从容的温如风为何在面馆失控怒吼，连随身寸银小刀都握不住掉在地上","suspense":"决裂之后江晚棠非但没有收手，反而一步步踏进林慕白的温柔幻梦","sceneIds":["S02"],"characterIds":["C01","C02","C09"],"propIds":["P01","P04"],"crowdPlan":"面馆内温如风与江晚棠桌前正反打及抓腕近景扛住主戏，掌柜缩在灶台阴影处单切反应镜头","warnings":["肢体接触","手部特写"]},{"ep":7,"synopsis":"铁面巡检遇刺结案，崔断水在醉花阴大摆庆功宴答谢财神爷温如风，头牌红姑娘绾音轻纱曼妙将烂醉的温如风搂在怀中百般温存，楼下戏台正凄婉唱着折子戏断桥借伞。温如风醉眼越过绾音肩头望向窗外寂静的长乐街，恍惚看见白衣江晚棠与白衣林慕白相扶走过，呢喃感叹二人恰似台上戏文，随后在绾音怀里沉沉睡去却整夜衣冠整齐未曾逾矩。次日清晨细雨蒙蒙，温如风提着戏台柳生用过的四十八骨紫竹伞下楼，竟在醉花阴屋檐下撞见避雨的江晚棠，一眼看穿她刚在林家留宿一夜。面对双颊绯红、支吾借伞去书塾接林慕白的江晚棠，温如风苦涩轻笑，亲手将紫竹伞递到她手中目送她跑进春雨。","hook":"怀拥全城最娇媚头牌过夜却衣衫未乱的温如风，清晨撞见自林家归来的江晚棠会如何反应","suspense":"那把借出去的四十八骨紫竹伞，究竟能不能替江晚棠遮住名分与出身的风雨","sceneIds":["S05"],"characterIds":["C01","C02","C03","C05","C07","C08"],"propIds":["P02"],"crowdPlan":"夜宴四人在楼座分拆为温如风与绾音近景、秦不争与崔断水侧席中景、窗外长乐街远景俯拍；次日清晨屋檐下仅温江二人对手戏","warnings":["雨戏","肢体接触"]},{"ep":8,"synopsis":"细雨长乐街尽头的书塾外，江晚棠撑着四十八骨紫竹伞接住林慕白，林慕白感念她清雅温存，在青纸伞面上亲手绘下一枝雨打海棠相赠，言语间却流露出无力违逆家族门第、难以许她正妻名分的怯懦退缩。回到槐花巷小院的江晚棠指尖摩挲着伞上未干的海棠墨迹，看着病榻上年幼的小满与腰间染血的长剑，终于从短暂的春梦里清醒过来，明白自己戴罪弃徒与黑道刀手的残破之身绝无可能踏入富贵林家大门。暗处默默护送她归家却未现身的温如风独自走过醉花阴雨檐，婉拒绾音挽留，察觉一个月刺杀期限将至而江晚棠已悄然挂牌变卖祖宅。","hook":"林慕白在紫竹伞面画下风雅海棠致谢，为何反而让满心欢喜的江晚棠彻底清醒死心","suspense":"江晚棠秘密将三进小院折价七百两卖掉，在中秋刺杀前夕做好了远走高飞的诀别准备","sceneIds":["S05","S03"],"characterIds":["C01","C02","C03","C08"],"propIds":["P02"],"crowdPlan":"四人分处书塾街口送伞（江林二人）、小院独处（江晚棠单人）与醉花阴门前偶遇（温绾二人）三场，无三人同框","warnings":["雨戏","手部特写"]},{"ep":9,"synopsis":"八月十五中秋黄昏，漫天火烧云下，江晚棠在槐花巷小院里仔细为小满沐浴更衣、备妥百年紫雪参药丸，随后换上一袭利落夜行黑衣束发佩剑走出院门。等候在墙外的温如风叮嘱她提防厉狂澜子母鸳鸯剑右手合璧杀招，江晚棠一反常态温顺应下，微笑着免去温如风剩余六十两工钱抵作多年照拂之恩，坦白已卖院七百两准备今夜杀完厉狂澜便带小满远走北境嫁个不讲究的采参人，并将绘有海棠花的紫竹伞归还温如风转身没入暮色。另一边厉狂澜正将淬毒寒鸦双匕暗藏入袖，而在止戈轩与秦不争对弈的温如风心神难安，不等秦老点破他对江晚棠的情意便施展惊人轻功瞬间消失在夜色中。","hook":"一向倔强带刺的江晚棠临行前突然温婉道谢还伞，这场看似十拿九稳的刺杀藏着什么凶兆","suspense":"素来不显山露水的温如风展现出连秦不争都看不清的鬼魅身法，全速赶往镇山武馆救人","sceneIds":["S03","S01"],"characterIds":["C01","C02","C04","C05","C06"],"propIds":["P02","P03","P05"],"crowdPlan":"五人分处槐花巷院门诀别（温江二人，小满仅院内沐浴局部）、厉狂澜藏匕备战单人特写与止戈轩对弈（温秦二人）三组独立场次，无三人同框","warnings":[]},{"ep":10,"synopsis":"中秋夜镇山武馆内院，江晚棠使出素心阁流风折柳剑打得厉狂澜子母鸳鸯剑溃不成军，银剑架颈逼问阿沅死因；厉狂澜磕头求饶之际，江晚棠悲愤叱责两情相悦岂容强逼，挥剑劈落瞬间却被老奸巨猾的厉狂澜闪身抖出袖中寒鸦双匕狠狠刺穿胸膛拧转刀刃。就在厉狂澜狞笑快意的一刹那，一道刺破光阴的银华破空而至，温如风掷出的修甲寸银小刀精准钻透厉狂澜太阳穴将其当场钉死，却终究慢了一步未能救回倒在血泊中的江晚棠。狂风暴雨席卷永安城，独自在听风楼瑟瑟发抖的林慕白正幻想温柔乡，闪电劈亮夜空，浑身湿透长发遮面的温如风悄然现身，将包着厉狂澜人头的白布包袱重重放在桌上宣告两清，对身后追喊的一百五十两尾款充耳不闻，决绝消失在风雨楼梯口。","hook":"武功高出一筹的江晚棠剑已架在恶贼脖颈上，为何会在最后一瞬惨遭反杀","suspense":"江晚棠香消玉殒、温如风分文未取销声匿迹，独留槐花巷年幼的小满生死未卜","sceneIds":["S06","S01"],"characterIds":["C01","C02","C03","C04"],"propIds":["P01","P05"],"crowdPlan":"武馆决战以江厉二人近身拆招对峙为主，温如风现身用暗处飞刀主观视角与落地背影接力；听风楼仅温林二人雨夜交接","warnings":["雨戏","肢体接触","手部特写"]},{"ep":11,"synopsis":"三年后春日微风，厉狂澜太阳穴中银刀悬案已被永安府搁置，听风楼内衣冠楚楚的林慕白悠闲品着新龙井，回首惊见略带风霜却眼神淡雅依旧的青衫温如风站在身后。林慕白强作镇定炫耀自己已遵父命迎娶绸缎庄富家三小姐并喜得贵子，内心只遗憾当年没能留下那个貌美温存的白衣女子享齐人之福，嘴上更轻佻敷衍温如风称年轻时为一点女色犯法太过荒唐滑稽，往事早已忘却。温如风闻言笑容骤敛，瞬间露出暴戾残忍之色，在满堂茶客惊恐注视下猛地掐住林慕白咽喉将其死死推抵在墙上直至几乎窒息，冷笑痛斥他竟敢忘记那个傻瓜，随即松手贴耳立下死规矩：当年未付的一百五十两尾款按十分利计算，今后每年必须偿还一百五十两，少一分随时掐死他。","hook":"销声匿迹三年的温如风重返听风楼坐到林慕白面前，要如何替九泉之下的傻姑娘讨债","suspense":"摇扇下楼的温如风在门口被须发皆白拄杖含笑的秦不争拦住，他这三年的真实去向即将揭晓","sceneIds":["S01"],"characterIds":["C01","C03","C05"],"propIds":["P01"],"crowdPlan":"茶楼内温林二人桌前对话转墙角掐脖特写扛住主戏，满堂茶客用虚化前景惊恐侧影带过，秦不争在楼下门口单独拦截构成第二机位","warnings":["肢体接触","人群"]},{"ep":12,"synopsis":"听风楼门口，温如风向苍老的秦不争拱手叙旧，坦言这两年金盆洗手远赴北境苍山贩卖紫雪参药材赚钱，如今已在西城重新买下那座三进三出的槐花巷小院安顿下来，自嘲当年满口黑道无情规矩才是真的愚昧。伙计将睡得粉雕玉琢的五岁小满抱到温如风怀中，面对秦老询问，温如风含笑轻拍女孩后背认作亲女。门外惊雷骤雨洗刷长乐古街，秦不争命人取出那把不知何年留下的四十八骨海棠紫竹伞赠予温如风遮雨。温如风撑开青纸伞步入蒙蒙春雨，伞面那枝海棠花在雨丝中晕成温柔空幻，怀中醒来的小满顽皮扯着他的脸撒娇要回家吃豆沙粽；路过醉花阴宽檐下避雨的人群与猛回头避雨处风景依然的熟悉戏声，温如风轻拍小满后背，温柔问她以后改口叫自己爹爹好不好，在一声软糯答应中一大一小身影融进槐花巷细雨深处。","hook":"洗手退隐去北境苍山贩药三年的温如风，重返永安城买回旧院究竟是为了守护谁","suspense":"春雨洗净江湖血色，海棠紫竹伞下的一声爹爹，将两代孤苦人余生的悲欢稳稳安放在烟火人间","sceneIds":["S01","S05","S03"],"characterIds":["C01","C05","C06"],"propIds":["P02","P03"],"crowdPlan":"听风楼门口温秦二人与怀抱熟睡小满构成三角近景；长乐街雨中以温如风怀抱小满伞下双人特写为主，醉花阴屋檐避雨人群做远景气氛衬托","warnings":["雨戏","肢体接触","人群"]}]}</script>
+<script>
+// beat rhythm: chart / table toggle
+document.querySelectorAll('.tab').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach((b) => b.classList.toggle('on', b === btn));
+    document.querySelectorAll('.tabpane').forEach((p) => p.classList.toggle('on', p.id === btn.dataset.pane));
+  });
+});
+
+// episode overview: first three by default, one click expands for good
+const epsMore = document.querySelector('.epsmore');
+if (epsMore) {
+  epsMore.addEventListener('click', () => {
+    document.querySelector('.epswrap').classList.remove('clip');
+    epsMore.remove();
+  });
+}
+
+// export: the report carries outline.json verbatim; the download is byte-identical
+document.querySelector('.expo').addEventListener('click', (e) => {
+  const btn = e.currentTarget;
+  const url = URL.createObjectURL(
+    new Blob([document.getElementById('outline-data').textContent], { type: 'application/json' }),
+  );
+  const a = Object.assign(document.createElement('a'), { href: url, download: btn.dataset.name });
+  a.click();
+  // don't revoke immediately — Safari may kill the blob before the download finishes reading
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+});
+</script>
+
+<style id="wtf-dock-css">#wtf-dock{position:fixed;right:16px;bottom:16px;z-index:40;display:flex;flex-wrap:wrap;align-items:center;gap:4px;max-width:calc(100vw - 32px);padding:6px 8px;background:rgba(25,29,33,.92);color:#f5f6f5;border:1px solid rgba(255,255,255,.14);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.22);font:500 12px/1.2 -apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",sans-serif;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}#wtf-dock .wtf-brand{padding:4px 8px;color:#e0a98c;font-weight:600;letter-spacing:.04em;border-right:1px solid rgba(255,255,255,.15);margin-right:2px}#wtf-dock a{color:#e4e6e3;text-decoration:none;padding:5px 9px;border-radius:6px;transition:background .15s,color .15s;white-space:nowrap}#wtf-dock a:hover{background:rgba(255,255,255,.12);color:#fff}#wtf-dock a.wtf-on{background:#8a3324;color:#fff;font-weight:600}@media(max-width:640px){#wtf-dock{left:12px;right:12px;bottom:12px;justify-content:center;font-size:11px}#wtf-dock .wtf-brand{display:none}}@media print{#wtf-dock{display:none!important}}</style><nav id="wtf-dock" aria-label="晚棠风报告导航"><span class="wtf-brand">晚棠风</span><a href="./index.html">总览</a><a href="./outline-report.html" class="wtf-on">改编大纲</a><a href="./script-report.html">分集剧本</a><a href="./cast-report.html">角色卡司</a><a href="./character-refs/character-refs.html">演员定妆照</a><a href="./art-report.html">美术设定</a><a href="./staging-report.html">开场站位</a><a href="./storyboard-report.html">分镜故事板</a></nav>
+</body></html>

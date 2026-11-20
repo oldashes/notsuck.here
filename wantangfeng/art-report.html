@@ -1,0 +1,1377 @@
+<!doctype html>
+<html lang="zh"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>晚棠风 · 美术设定集</title>
+<style>
+:root{
+  --paper:#eceded; --panel:#f5f6f5; --side:#e4e6e3; --ink:#191d21; --ink-2:#5b636a; --ink-3:#8c9298;
+  --rule:#d2d5d0; --rule-2:#c2c6bf; --seal:#8a3324; --seal-2:#c56a4e; --seal-soft:#8a332412; --ok:#3d6b4f;
+  --serif:"Songti SC","STSong","Source Han Serif SC","Noto Serif CJK SC",Georgia,serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.7 var(--sans);-webkit-font-smoothing:antialiased}
+.page{max-width:1600px;margin:0 auto;padding:24px 32px 90px}
+h1,h2,h3,h4{margin:0;font-weight:400}
+
+.hd{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:12px}
+.hd h1{font:400 28px/1.1 var(--serif);letter-spacing:.06em}
+.hd .sub{font-size:13px;color:var(--ink-2)}
+.hd .right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.gatepill{display:inline-flex;align-items:center;gap:6px;font:500 12px/1 var(--sans);border-radius:99px;padding:6px 12px}
+.gatepill.pass{color:var(--ok);border:1px solid var(--ok)}
+.gatepill.fail{color:var(--seal);border:1px solid var(--seal);background:var(--seal-soft)}
+.expo{font:500 11px/1 var(--sans);color:var(--ink-2);background:var(--panel);
+  border:1px solid var(--rule-2);border-radius:2px;padding:7px 11px;cursor:pointer;transition:.15s}
+.expo:hover{border-color:var(--seal);color:var(--seal)}
+.expo:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 6px}
+@media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:11px 14px 9px}
+.kpi .l{font:500 10px/1 var(--sans);letter-spacing:.18em;color:var(--ink-3)}
+.kpi .v{font:400 28px/1.15 var(--serif);margin-top:5px}
+.kpi .d{font-size:11px;color:var(--ink-2);margin-top:1px}
+.kpi.accent{border-top:2px solid var(--seal)}
+.galert{margin:14px 0 0;border:1px solid var(--seal);background:var(--seal-soft);border-radius:2px;
+  padding:10px 14px;font-size:13px}
+.galert b{color:var(--seal)}
+.galert span{display:block;font-size:12px;color:var(--ink-2)}
+
+section.top-sec{margin-top:34px}
+.sec-h{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--rule-2);padding-bottom:8px;margin-bottom:16px}
+.sec-h .no{font:500 12px/1 var(--mono);color:var(--seal)}
+.sec-h h2{font:400 20px/1.2 var(--serif);letter-spacing:.05em}
+.sec-h .note{margin-left:auto;font-size:12px;color:var(--ink-3)}
+
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--rule);font-size:13px}
+th,td{padding:8px 12px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+th{font:500 11px/1 var(--sans);letter-spacing:.1em;color:var(--ink-3);background:var(--side)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-family:var(--mono);font-size:12px;color:var(--ink-2);white-space:nowrap}
+.mono{font:400 11.5px/1.7 var(--mono);color:var(--ink-2);word-break:break-word}
+
+/* 场景设定卡：一排两张（方便截图宣传），卡内纵排、设定图占满卡宽 */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+@media(max-width:1100px){.cards{grid-template-columns:1fr}}
+.scene{background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:18px 20px}
+.sc-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--rule-2);padding-bottom:10px}
+.sc-id{font:500 12px/1 var(--mono);color:var(--seal)}
+.sc-h h3{font:400 20px/1.2 var(--serif);letter-spacing:.04em}
+.badge{font:500 10.5px/1 var(--sans);padding:2px 8px;border-radius:99px;border:1px solid var(--seal);color:var(--seal)}
+.badge.once{border-color:var(--seal-2);color:var(--seal-2)}
+.sc-use{margin-left:auto;font-size:12px;color:var(--ink-2)}
+.sc-sum{margin:10px 0 12px;font:400 14.5px/1.9 var(--serif)}
+.scene .blk{margin-top:16px}
+.scene .pgroup{margin-top:16px}
+
+.plate{margin:0;background:#fff;border:1px solid var(--rule-2);border-radius:2px;overflow:hidden}
+.plate .zoom{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in}
+.plate .zoom:focus-visible{outline:2px solid var(--seal);outline-offset:-2px}
+.plate img{display:block;width:100%;height:auto}
+/* 图片弹层 */
+.lightbox{position:fixed;inset:0;z-index:50;display:none;place-items:center;
+  background:#191d21e6;padding:32px;cursor:zoom-out}
+.lightbox.on{display:grid}
+.lightbox img{max-width:100%;max-height:100%;background:#fff;border-radius:2px;
+  box-shadow:0 8px 40px #0006}
+.lightbox-x{position:absolute;top:18px;right:22px;font:500 13px/1 var(--sans);color:#fff;
+  background:none;border:1px solid #fff6;border-radius:3px;padding:8px 12px;cursor:pointer}
+.lightbox-x:hover{border-color:#fff}
+.plate figcaption{font-size:11px;letter-spacing:.08em;color:var(--ink-3);padding:6px 10px;border-top:1px solid var(--rule)}
+.plate-empty{display:grid;place-items:center;min-height:180px;text-align:center;
+  border:1px dashed var(--rule-2);background:var(--paper);color:var(--ink-3);font-size:13px}
+.plate-empty em{font-style:normal;font-size:12px;opacity:.8}
+.variant{margin:10px 0 0;font-size:12.5px;color:var(--seal);background:var(--seal-soft);padding:7px 10px;border-radius:2px}
+.variant b{font-family:var(--mono);font-weight:500}
+
+.blk{margin-bottom:16px}
+.blk h4{font:500 11px/1.6 var(--sans);letter-spacing:.18em;color:var(--seal);margin-bottom:8px}
+.blk h4 small{display:block;letter-spacing:0;font-weight:400;color:var(--ink-3);font-size:11px}
+.anchors{margin:0;padding:0 0 0 2px;list-style:none;counter-reset:an}
+/* ::before 序号也是网格项，desc 必须显式钉在第二列，否则会掉进 22px 窄列一字一行 */
+.anchors li{counter-increment:an;display:grid;grid-template-columns:22px minmax(0,1fr);column-gap:8px;
+  padding:6px 0;border-top:1px solid var(--rule);font-size:13px}
+.anchors li:first-child{border-top:0}
+.anchors li::before{content:counter(an,decimal-leading-zero);grid-column:1;grid-row:1;
+  font:500 11px/1.9 var(--mono);color:var(--seal)}
+.anchors b{grid-column:2;font-weight:500}
+.anchors span{grid-column:2;display:block;font-size:12px;color:var(--ink-2)}
+.lights{display:flex;flex-direction:column;gap:6px}
+.light{display:flex;align-items:baseline;gap:10px;background:var(--paper);border:1px solid var(--rule);
+  border-radius:2px;padding:7px 10px}
+.light i{flex:none;font-style:normal;font:500 12px/1.6 var(--sans);color:var(--ink)}
+.light .mono{flex:1;min-width:0}
+
+.pgroup{border:1px solid var(--rule);border-radius:2px;background:var(--paper);padding:4px 12px 8px;margin-top:12px}
+.pr{border-bottom:1px solid var(--rule)}
+.pgroup .pr:last-of-type{border-bottom:0}
+.pr summary{display:flex;align-items:center;gap:10px;padding:10px 0;cursor:pointer;list-style:none;
+  font:500 12px/1 var(--sans);letter-spacing:.04em}
+.pr summary::-webkit-details-marker{display:none}
+.pr summary::before{content:"▸";color:var(--seal);font-size:11px;transition:transform .15s}
+.pr[open] summary::before{transform:rotate(90deg)}
+.pr summary span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pr p{margin:0 0 10px;padding:10px 12px;background:var(--panel);border:1px solid var(--rule);
+  border-radius:2px;font:400 12px/1.75 var(--mono);white-space:pre-wrap;word-break:break-word}
+.pgroup-f{padding:10px 0 4px}
+.copy{flex:none;font:500 11px/1 var(--sans);color:var(--ink-2);background:var(--panel);
+  border:1px solid var(--rule-2);border-radius:2px;padding:4px 10px;cursor:pointer;transition:.15s}
+.copy:hover{border-color:var(--seal);color:var(--seal)}
+.copy:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+.copy[data-done]{border-color:var(--seal);color:var(--seal)}
+.copy.wide{width:100%;padding:9px}
+.copy.mini{padding:2px 7px;font-size:10.5px}
+
+.gate{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:2px 28px}
+@media(max-width:900px){.gate{grid-template-columns:1fr}}
+.gate li{display:flex;gap:8px;padding:5px 0;font-size:12.5px;line-height:1.55}
+.gate .m{flex:none;font-weight:700}
+.gate li.ok .m{color:var(--ok)}
+.gate li.bad .m{color:var(--seal)}
+.gate li.bad{background:var(--seal-soft);border-radius:2px;padding-left:6px}
+.gate small{display:block;color:var(--ink-3)}
+.gsum{margin:10px 0 0;font-size:12px;color:var(--ink-2)}
+.gsum b{color:var(--seal)}
+
+.foot{margin-top:40px;font-size:11px;color:var(--ink-3);border-top:1px solid var(--rule);padding-top:14px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{
+  .expo,.copy{display:none!important}
+  .pr p{display:block!important}
+  .pr summary::before{content:""}
+  .page{max-width:none;padding:0}
+  section.top-sec,.scene{page-break-inside:avoid}
+  body{background:#fff}
+}
+</style></head><body>
+<div class="page">
+
+<header class="hd">
+  <h1>晚棠风</h1>
+  <span class="sub">美术设定集</span>
+  <span class="right">
+    <span class="gatepill pass">✓ 质量门 10 / 10</span>
+    <button class="expo" data-name="晚棠风-art.json">导出 JSON</button>
+  </span>
+</header>
+
+<div class="kpis">
+  <div class="kpi accent"><div class="l">场景</div><div class="v">6</div><div class="d">主场景 5 · 变体 1</div></div>
+  <div class="kpi"><div class="l">叙事道具</div><div class="v">5</div><div class="d">10 个状态变体</div></div>
+  <div class="kpi"><div class="l">一致性锚点</div><div class="v">44</div><div class="d">生成镜头的核对表（场景 + 道具）</div></div>
+  <div class="kpi"><div class="l">光照状态</div><div class="v">13</div><div class="d">换时段 = 重新生成</div></div>
+</div>
+
+
+<section class="top-sec" id="sec-list">
+  <div class="sec-h"><span class="no">01</span><h2>场景清单</h2></div>
+  <table><thead><tr><th>ID</th><th>场景</th><th>类型</th><th>出现集</th><th>锚点</th><th>光照</th><th>变体</th></tr></thead>
+<tbody><tr><td>S01</td><td>听风楼雅阁与止戈轩</td><td>主场景</td><td>1、3、4、5、9、10、11、12</td><td>4</td><td>晨光暖软、午后斜阳、暮色夜灯、雷雨晦暗</td><td>—</td></tr>
+<tr><td>S02</td><td>三更面馆</td><td>主场景</td><td>1、2、6</td><td>4</td><td>深夜孤灯</td><td>—</td></tr>
+<tr><td>S03</td><td>西城槐花巷小院</td><td>主场景</td><td>2、4、8、9、12</td><td>4</td><td>冷月寒夜、清昼天光、中秋火烧云、蒙蒙春雨</td><td>—</td></tr>
+<tr><td>S04</td><td>栖霞观银杏树下</td><td>主场景</td><td>4、5</td><td>4</td><td>午后香烟晴光</td><td>—</td></tr>
+<tr><td>S05</td><td>醉花阴戏馆与长乐街雨檐</td><td>主场景</td><td>7、8、12</td><td>4</td><td>华灯夜宴、春雨晨雾</td><td>—</td></tr>
+<tr><td>S06</td><td>镇山武馆内院</td><td>变体 ← S03</td><td>10</td><td>4</td><td>中秋寒夜暗影</td><td>沿用 S03 西城小院夜间院落三面青砖高墙与灰瓦木柱回廊几何基底，撤除院角老槐树、正房雕花木榻与廊下粗陶水缸木盆，在院内与廊前石阶改设一字排开硬木十八般兵器架及成对青石练功石锁，回廊换挂随风摇晃的红纸气死风灯，并将地面改为中秋风雨夜湿润泛反光的青砖浅水洼</td></tr></tbody></table>
+</section>
+
+<section class="top-sec" id="sec-cards">
+  <div class="sec-h"><span class="no">02</span><h2>场景设定卡</h2></div>
+  <div class="cards">
+<article class="scene" id="sc-S01">
+  <header class="sc-h">
+    <span class="sc-id">S01</span>
+    <h3>听风楼雅阁与止戈轩</h3>
+    <span class="badge">主场景</span>
+    <span class="sc-use">出现集 1、3、4、5、9、10、11、12　承载爽点 人设反差 · 暗线反转 · 错位冲击 · 卖院诀别 · 绝杀高潮 · 虐渣立债 · 救赎收束</span>
+  </header>
+  <p class="sc-sum">全剧表面最雅致、内里最冷酷的黑道权力场：听风楼二楼临街雅阁与连通的止戈轩棋室。宋式雕花支摘窗与紫檀隔扇把楼下酒客喧嚣隔绝在外，素净得宛如文人书斋；正因这份秩序与体面，才让跪地哭求三百两买凶、揭开两年前三千两暗单旧账、暴雨夜血淋淋白布包袱砸桌，以及三年后掐喉索债的压迫感倍增。空间为“优雅皮囊下的算计与破戒”而生。</p>
+  <figure class="plate">
+  <button class="zoom" data-src="images/听风楼雅阁与止戈轩-sheet.webp" aria-label="放大查看">
+    <img src="images/听风楼雅阁与止戈轩-sheet.webp" alt="听风楼雅阁与止戈轩 主视角＋底部与右侧细节条" loading="lazy">
+  </button>
+  <figcaption>主视角＋底部与右侧细节条</figcaption>
+</figure>
+  
+  <section class="blk">
+    <h4>一致性锚点<small>每次生成都必须出现的特征——认场景靠它，QC 也靠它</small></h4>
+    <ol class="anchors"><li><b>雕花支摘窗与外景垂柳</b><span>临街一面两扇宋式冰裂纹雕花支摘窗向上支起，窗格木棂清晰可辨，窗外一树嫩绿垂柳枝叶拂过屋檐，远景可见长乐街青瓦屋脊</span></li><li><b>墙角青瓷瓶桃花枝</b><span>靠墙转角紫檀高几上置一只北宋影青釉长颈瓷瓶，瓶内斜插一枝半开粉红桃花，侧旁素墙悬一幅宋式水墨山水立轴</span></li><li><b>小方桌黑白围棋局</b><span>室心一张北宋紫檀束腰小方桌配两只鼓凳，桌面摆厚木棋盘与两只竹编棋罐，黑白云子错落成残局，桌角搁一只素白瓷盖碗茶盏</span></li><li><b>紫铜兽耳香炉与隔扇</b><span>四扇紫檀雕格隔扇前的小几上立一只三足紫铜兽耳香炉，镂空炉盖袅出细缕青烟；隔扇挂半掀青灰素纱帘连通雅阁与棋室</span></li></ol>
+  </section>
+  <section class="blk">
+    <h4>光照与时段</h4>
+    <div class="lights"><div class="light"><i>晨光暖软</i><span class="mono">soft warm morning sunlight pouring sideways through the propped carved lattice casement windows onto the black-and-white go board and celadon vase, gentle sunlit air across polished Northern Song dark hardwood surfaces, composed cool shadow inside the recessed alcove</span><button class="copy mini" data-copy="soft warm morning sunlight pouring sideways through the propped carved lattice casement windows onto the black-and-white go board and celadon vase, gentle sunlit air across polished Northern Song dark hardwood surfaces, composed cool shadow inside the recessed alcove">复制</button></div><div class="light"><i>午后斜阳</i><span class="mono">low golden late-afternoon sun slanting steeply through the carved lattice window screens, casting crisp geometric wood-lattice shadows across the square chess table and swept timber floorboards, warm amber highlights along the celadon porcelain glaze and dark bronze censer</span><button class="copy mini" data-copy="low golden late-afternoon sun slanting steeply through the carved lattice window screens, casting crisp geometric wood-lattice shadows across the square chess table and swept timber floorboards, warm amber highlights along the celadon porcelain glaze and dark bronze censer">复制</button></div><div class="light"><i>暮色夜灯</i><span class="mono">deep indigo twilight and cool moonlight filtering past weeping willow branches outside the open casement windows, warm flickering candle and oil-lamp glow from Song-style octagonal silk-shaded standing lanterns indoors illuminating the go board while corners drop into quiet darkness</span><button class="copy mini" data-copy="deep indigo twilight and cool moonlight filtering past weeping willow branches outside the open casement windows, warm flickering candle and oil-lamp glow from Song-style octagonal silk-shaded standing lanterns indoors illuminating the go board while corners drop into quiet darkness">复制</button></div><div class="light"><i>雷雨晦暗</i><span class="mono">storm-swept dark night outside the rattled open-lattice casement windows, a stark cold bluish-white lightning flash slicing diagonally across the floor and chess tabletop, rain-glistened timber window sills, dim trembling amber lantern light casting restless shadows over the empty board and bronze censer</span><button class="copy mini" data-copy="storm-swept dark night outside the rattled open-lattice casement windows, a stark cold bluish-white lightning flash slicing diagonally across the floor and chess tabletop, rain-glistened timber window sills, dim trembling amber lantern light casting restless shadows over the empty board and bronze censer">复制</button></div></div>
+  </section>
+  <div class="pgroup">
+    <details class="pr">
+  <summary><span>主视角 EN</span><button class="copy" data-copy="Interior of an upscale Northern Song dynasty China second-floor teahouse private parlor and connected chess study, propped street-facing carved ice-crack lattice casement windows with green weeping willow branches outside, a pale celadon long-necked vase holding a blossoming pink peach branch on a corner stand beneath a hanging ink landscape scroll, a waisted rosewood square table set with a black-and-white go board and two bamboo stone bowls, a three-legged bronze beast-ear incense burner before carved wooden partition screens with a half-drawn grey gauze curtain, soft warm morning sunlight pouring through the windows, empty scene with no people">复制</button></summary>
+  <p>Interior of an upscale Northern Song dynasty China second-floor teahouse private parlor and connected chess study, propped street-facing carved ice-crack lattice casement windows with green weeping willow branches outside, a pale celadon long-necked vase holding a blossoming pink peach branch on a corner stand beneath a hanging ink landscape scroll, a waisted rosewood square table set with a black-and-white go board and two bamboo stone bowls, a three-legged bronze beast-ear incense burner before carved wooden partition screens with a half-drawn grey gauze curtain, soft warm morning sunlight pouring through the windows, empty scene with no people</p>
+</details>
+    <details class="pr">
+  <summary><span>设定图 EN</span><button class="copy" data-copy="Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide interior shot of the Northern Song dynasty China second-floor teahouse private parlor and chess study in soft warm morning sunlight, propped carved lattice casement windows with weeping willow branches outside, corner celadon vase with pink peach branch, waisted square table with go board in center, bronze beast-ear censer before carved partition screens — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the propped carved ice-crack lattice casement window framing weeping willow leaves, and the Northern Song pale celadon vase holding the pink peach branch beside the ink scroll corner. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the waisted rosewood square table with black-and-white go board and bamboo bowls, the three-legged bronze beast-ear incense burner before the carved lattice partition screen, and tight timber joinery along the worn wooden doorway threshold. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows">复制</button></summary>
+  <p>Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide interior shot of the Northern Song dynasty China second-floor teahouse private parlor and chess study in soft warm morning sunlight, propped carved lattice casement windows with weeping willow branches outside, corner celadon vase with pink peach branch, waisted square table with go board in center, bronze beast-ear censer before carved partition screens — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the propped carved ice-crack lattice casement window framing weeping willow leaves, and the Northern Song pale celadon vase holding the pink peach branch beside the ink scroll corner. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the waisted rosewood square table with black-and-white go board and bamboo bowls, the three-legged bronze beast-ear incense burner before the carved lattice partition screen, and tight timber joinery along the worn wooden doorway threshold. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows</p>
+</details>
+    <details class="pr">
+  <summary><span>反向提示词</span><button class="copy" data-copy="people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature">复制</button></summary>
+  <p>people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature</p>
+</details>
+    <div class="pgroup-f"><button class="copy wide" data-copy="{
+  &quot;id&quot;: &quot;S01&quot;,
+  &quot;name&quot;: &quot;听风楼雅阁与止戈轩&quot;,
+  &quot;primary&quot;: true,
+  &quot;summary&quot;: &quot;全剧表面最雅致、内里最冷酷的黑道权力场：听风楼二楼临街雅阁与连通的止戈轩棋室。宋式雕花支摘窗与紫檀隔扇把楼下酒客喧嚣隔绝在外，素净得宛如文人书斋；正因这份秩序与体面，才让跪地哭求三百两买凶、揭开两年前三千两暗单旧账、暴雨夜血淋淋白布包袱砸桌，以及三年后掐喉索债的压迫感倍增。空间为“优雅皮囊下的算计与破戒”而生。&quot;,
+  &quot;anchors&quot;: [
+    {
+      &quot;name&quot;: &quot;雕花支摘窗与外景垂柳&quot;,
+      &quot;desc&quot;: &quot;临街一面两扇宋式冰裂纹雕花支摘窗向上支起，窗格木棂清晰可辨，窗外一树嫩绿垂柳枝叶拂过屋檐，远景可见长乐街青瓦屋脊&quot;
+    },
+    {
+      &quot;name&quot;: &quot;墙角青瓷瓶桃花枝&quot;,
+      &quot;desc&quot;: &quot;靠墙转角紫檀高几上置一只北宋影青釉长颈瓷瓶，瓶内斜插一枝半开粉红桃花，侧旁素墙悬一幅宋式水墨山水立轴&quot;
+    },
+    {
+      &quot;name&quot;: &quot;小方桌黑白围棋局&quot;,
+      &quot;desc&quot;: &quot;室心一张北宋紫檀束腰小方桌配两只鼓凳，桌面摆厚木棋盘与两只竹编棋罐，黑白云子错落成残局，桌角搁一只素白瓷盖碗茶盏&quot;
+    },
+    {
+      &quot;name&quot;: &quot;紫铜兽耳香炉与隔扇&quot;,
+      &quot;desc&quot;: &quot;四扇紫檀雕格隔扇前的小几上立一只三足紫铜兽耳香炉，镂空炉盖袅出细缕青烟；隔扇挂半掀青灰素纱帘连通雅阁与棋室&quot;
+    }
+  ],
+  &quot;lighting&quot;: [
+    {
+      &quot;state&quot;: &quot;晨光暖软&quot;,
+      &quot;prompt&quot;: &quot;soft warm morning sunlight pouring sideways through the propped carved lattice casement windows onto the black-and-white go board and celadon vase, gentle sunlit air across polished Northern Song dark hardwood surfaces, composed cool shadow inside the recessed alcove&quot;
+    },
+    {
+      &quot;state&quot;: &quot;午后斜阳&quot;,
+      &quot;prompt&quot;: &quot;low golden late-afternoon sun slanting steeply through the carved lattice window screens, casting crisp geometric wood-lattice shadows across the square chess table and swept timber floorboards, warm amber highlights along the celadon porcelain glaze and dark bronze censer&quot;
+    },
+    {
+      &quot;state&quot;: &quot;暮色夜灯&quot;,
+      &quot;prompt&quot;: &quot;deep indigo twilight and cool moonlight filtering past weeping willow branches outside the open casement windows, warm flickering candle and oil-lamp glow from Song-style octagonal silk-shaded standing lanterns indoors illuminating the go board while corners drop into quiet darkness&quot;
+    },
+    {
+      &quot;state&quot;: &quot;雷雨晦暗&quot;,
+      &quot;prompt&quot;: &quot;storm-swept dark night outside the rattled open-lattice casement windows, a stark cold bluish-white lightning flash slicing diagonally across the floor and chess tabletop, rain-glistened timber window sills, dim trembling amber lantern light casting restless shadows over the empty board and bronze censer&quot;
+    }
+  ],
+  &quot;image&quot;: {
+    &quot;prompt&quot;: &quot;Interior of an upscale Northern Song dynasty China second-floor teahouse private parlor and connected chess study, propped street-facing carved ice-crack lattice casement windows with green weeping willow branches outside, a pale celadon long-necked vase holding a blossoming pink peach branch on a corner stand beneath a hanging ink landscape scroll, a waisted rosewood square table set with a black-and-white go board and two bamboo stone bowls, a three-legged bronze beast-ear incense burner before carved wooden partition screens with a half-drawn grey gauze curtain, soft warm morning sunlight pouring through the windows, empty scene with no people&quot;,
+    &quot;negativePrompt&quot;: &quot;people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature&quot;,
+    &quot;sheet&quot;: &quot;Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide interior shot of the Northern Song dynasty China second-floor teahouse private parlor and chess study in soft warm morning sunlight, propped carved lattice casement windows with weeping willow branches outside, corner celadon vase with pink peach branch, waisted square table with go board in center, bronze beast-ear censer before carved partition screens — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the propped carved ice-crack lattice casement window framing weeping willow leaves, and the Northern Song pale celadon vase holding the pink peach branch beside the ink scroll corner. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the waisted rosewood square table with black-and-white go board and bamboo bowls, the three-legged bronze beast-ear incense burner before the carved lattice partition screen, and tight timber joinery along the worn wooden doorway threshold. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows&quot;,
+    &quot;tags&quot;: [
+      &quot;environment sheet&quot;,
+      &quot;Northern Song teahouse&quot;,
+      &quot;maintained timber interior&quot;,
+      &quot;chess study&quot;
+    ]
+  },
+  &quot;usage&quot;: {
+    &quot;episodes&quot;: [
+      1,
+      3,
+      4,
+      5,
+      9,
+      10,
+      11,
+      12
+    ],
+    &quot;beats&quot;: [
+      &quot;人设反差&quot;,
+      &quot;暗线反转&quot;,
+      &quot;错位冲击&quot;,
+      &quot;卖院诀别&quot;,
+      &quot;绝杀高潮&quot;,
+      &quot;虐渣立债&quot;,
+      &quot;救赎收束&quot;
+    ]
+  },
+  &quot;sheetImage&quot;: &quot;images/听风楼雅阁与止戈轩-sheet.webp&quot;
+}">复制整个场景 JSON</button></div>
+  </div>
+</article>
+<article class="scene" id="sc-S02">
+  <header class="sc-h">
+    <span class="sc-id">S02</span>
+    <h3>三更面馆</h3>
+    <span class="badge">主场景</span>
+    <span class="sc-use">出现集 1、2、6　承载爽点 人设反差 · 痛点拉扯 · 情绪撕裂</span>
+  </header>
+  <p class="sc-sum">永安城最冷清的深夜市井窄铺：专供江湖人在夜深后卸下防备、摊开穷困与秘密的孤岛空间。砌砖大灶腾起的浓重白雾把掌柜隔在背景暗处，桌面一豆孤灯把对坐二人锁进极近的距离——买醉求单的自尊拉扯、甩出行踪小册子的暴怒决裂、耳光与掉在地上的寸银小刀，全都要在这方油亮磨白的榆木方桌前近身爆发。</p>
+  <figure class="plate">
+  <button class="zoom" data-src="images/三更面馆-sheet.webp" aria-label="放大查看">
+    <img src="images/三更面馆-sheet.webp" alt="三更面馆 主视角＋底部与右侧细节条" loading="lazy">
+  </button>
+  <figcaption>主视角＋底部与右侧细节条</figcaption>
+</figure>
+  
+  <section class="blk">
+    <h4>一致性锚点<small>每次生成都必须出现的特征——认场景靠它，QC 也靠它</small></h4>
+    <ol class="anchors"><li><b>砌砖大灶与沸腾汤锅</b><span>铺面深处一座青砖垒砌、灶口烟熏发黑的北方大灶，铁皮深口大汤锅滚沸翻腾，升起浓密白雾蒸汽，灶台旁堆放粗瓷大海碗与竹笊篱</span></li><li><b>磨白榆木方桌长凳</b><span>窄小堂屋正中摆一张老旧榆木小方桌配两条长条木凳，桌沿与凳心经年擦拭磨得油亮发白，木纹清晰起包浆</span></li><li><b>熏黑油灯与豁口酒坛</b><span>方桌中央搁一盏灯盏被烟熏黑的粗陶豆油灯，桌角与靠墙木架上摆着几只泥封启开、坛沿有细小豁口的粗陶酒坛与粗瓷酒杯</span></li><li><b>半卷破旧蓝布招幌</b><span>临街木门楣下垂挂一幅半卷起来的褪色靛蓝粗布面馆招幌，布角打着补丁，门外即是漆黑冷清的夜市石板小巷</span></li></ol>
+  </section>
+  <section class="blk">
+    <h4>光照与时段</h4>
+    <div class="lights"><div class="light"><i>深夜孤灯</i><span class="mono">deep midnight darkness outside the open timber doorway, a single flickering clay dish oil lamp casting a tight warm amber pool onto the worn pale elmwood table and chipped stoneware wine jars, faint reddish charcoal glow beneath the brick stove cauldron, cool night air meeting thick white steam rising through the shadowed room</span><button class="copy mini" data-copy="deep midnight darkness outside the open timber doorway, a single flickering clay dish oil lamp casting a tight warm amber pool onto the worn pale elmwood table and chipped stoneware wine jars, faint reddish charcoal glow beneath the brick stove cauldron, cool night air meeting thick white steam rising through the shadowed room">复制</button></div></div>
+  </section>
+  <div class="pgroup">
+    <details class="pr">
+  <summary><span>主视角 EN</span><button class="copy" data-copy="Interior of a cramped modest late-night noodle shop in Northern Song dynasty China, soot-stained grey brick cooking stove with a boiling iron cauldron pouring thick white steam in the rear, a small worn pale-grain elmwood square table and two long wooden benches polished smooth from use in the foreground, a soot-blackened clay dish oil lamp and chipped rough stoneware wine jars with ceramic cups on the tabletop, a half-rolled faded patched indigo cloth shop banner hanging across the wooden doorway opening to a pitch-black alley, late-night single-lamp lighting, empty scene with no people">复制</button></summary>
+  <p>Interior of a cramped modest late-night noodle shop in Northern Song dynasty China, soot-stained grey brick cooking stove with a boiling iron cauldron pouring thick white steam in the rear, a small worn pale-grain elmwood square table and two long wooden benches polished smooth from use in the foreground, a soot-blackened clay dish oil lamp and chipped rough stoneware wine jars with ceramic cups on the tabletop, a half-rolled faded patched indigo cloth shop banner hanging across the wooden doorway opening to a pitch-black alley, late-night single-lamp lighting, empty scene with no people</p>
+</details>
+    <details class="pr">
+  <summary><span>设定图 EN</span><button class="copy" data-copy="Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide interior shot of the cramped Northern Song dynasty China late-night noodle shop lit by a single flickering table oil lamp, boiling brick stove steaming in the back, worn elmwood square table and benches in front, half-rolled indigo cloth banner at the dark street doorway — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the soot-stained brick stove with boiling iron soup cauldron and bamboo skimmer, and the soot-blackened clay dish oil lamp beside a chipped rough stoneware wine jar. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the worn pale-grain elmwood tabletop and bench surface, the half-rolled faded patched indigo cloth doorway banner against night air, and greasy soot-darkened mortar joints along the brick stove base. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows">复制</button></summary>
+  <p>Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide interior shot of the cramped Northern Song dynasty China late-night noodle shop lit by a single flickering table oil lamp, boiling brick stove steaming in the back, worn elmwood square table and benches in front, half-rolled indigo cloth banner at the dark street doorway — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the soot-stained brick stove with boiling iron soup cauldron and bamboo skimmer, and the soot-blackened clay dish oil lamp beside a chipped rough stoneware wine jar. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the worn pale-grain elmwood tabletop and bench surface, the half-rolled faded patched indigo cloth doorway banner against night air, and greasy soot-darkened mortar joints along the brick stove base. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows</p>
+</details>
+    <details class="pr">
+  <summary><span>反向提示词</span><button class="copy" data-copy="people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature">复制</button></summary>
+  <p>people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature</p>
+</details>
+    <div class="pgroup-f"><button class="copy wide" data-copy="{
+  &quot;id&quot;: &quot;S02&quot;,
+  &quot;name&quot;: &quot;三更面馆&quot;,
+  &quot;primary&quot;: true,
+  &quot;summary&quot;: &quot;永安城最冷清的深夜市井窄铺：专供江湖人在夜深后卸下防备、摊开穷困与秘密的孤岛空间。砌砖大灶腾起的浓重白雾把掌柜隔在背景暗处，桌面一豆孤灯把对坐二人锁进极近的距离——买醉求单的自尊拉扯、甩出行踪小册子的暴怒决裂、耳光与掉在地上的寸银小刀，全都要在这方油亮磨白的榆木方桌前近身爆发。&quot;,
+  &quot;anchors&quot;: [
+    {
+      &quot;name&quot;: &quot;砌砖大灶与沸腾汤锅&quot;,
+      &quot;desc&quot;: &quot;铺面深处一座青砖垒砌、灶口烟熏发黑的北方大灶，铁皮深口大汤锅滚沸翻腾，升起浓密白雾蒸汽，灶台旁堆放粗瓷大海碗与竹笊篱&quot;
+    },
+    {
+      &quot;name&quot;: &quot;磨白榆木方桌长凳&quot;,
+      &quot;desc&quot;: &quot;窄小堂屋正中摆一张老旧榆木小方桌配两条长条木凳，桌沿与凳心经年擦拭磨得油亮发白，木纹清晰起包浆&quot;
+    },
+    {
+      &quot;name&quot;: &quot;熏黑油灯与豁口酒坛&quot;,
+      &quot;desc&quot;: &quot;方桌中央搁一盏灯盏被烟熏黑的粗陶豆油灯，桌角与靠墙木架上摆着几只泥封启开、坛沿有细小豁口的粗陶酒坛与粗瓷酒杯&quot;
+    },
+    {
+      &quot;name&quot;: &quot;半卷破旧蓝布招幌&quot;,
+      &quot;desc&quot;: &quot;临街木门楣下垂挂一幅半卷起来的褪色靛蓝粗布面馆招幌，布角打着补丁，门外即是漆黑冷清的夜市石板小巷&quot;
+    }
+  ],
+  &quot;lighting&quot;: [
+    {
+      &quot;state&quot;: &quot;深夜孤灯&quot;,
+      &quot;prompt&quot;: &quot;deep midnight darkness outside the open timber doorway, a single flickering clay dish oil lamp casting a tight warm amber pool onto the worn pale elmwood table and chipped stoneware wine jars, faint reddish charcoal glow beneath the brick stove cauldron, cool night air meeting thick white steam rising through the shadowed room&quot;
+    }
+  ],
+  &quot;image&quot;: {
+    &quot;prompt&quot;: &quot;Interior of a cramped modest late-night noodle shop in Northern Song dynasty China, soot-stained grey brick cooking stove with a boiling iron cauldron pouring thick white steam in the rear, a small worn pale-grain elmwood square table and two long wooden benches polished smooth from use in the foreground, a soot-blackened clay dish oil lamp and chipped rough stoneware wine jars with ceramic cups on the tabletop, a half-rolled faded patched indigo cloth shop banner hanging across the wooden doorway opening to a pitch-black alley, late-night single-lamp lighting, empty scene with no people&quot;,
+    &quot;negativePrompt&quot;: &quot;people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature&quot;,
+    &quot;sheet&quot;: &quot;Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide interior shot of the cramped Northern Song dynasty China late-night noodle shop lit by a single flickering table oil lamp, boiling brick stove steaming in the back, worn elmwood square table and benches in front, half-rolled indigo cloth banner at the dark street doorway — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the soot-stained brick stove with boiling iron soup cauldron and bamboo skimmer, and the soot-blackened clay dish oil lamp beside a chipped rough stoneware wine jar. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the worn pale-grain elmwood tabletop and bench surface, the half-rolled faded patched indigo cloth doorway banner against night air, and greasy soot-darkened mortar joints along the brick stove base. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows&quot;,
+    &quot;tags&quot;: [
+      &quot;environment sheet&quot;,
+      &quot;Northern Song noodle shop&quot;,
+      &quot;weathered materials&quot;,
+      &quot;late-night interior&quot;
+    ]
+  },
+  &quot;usage&quot;: {
+    &quot;episodes&quot;: [
+      1,
+      2,
+      6
+    ],
+    &quot;beats&quot;: [
+      &quot;人设反差&quot;,
+      &quot;痛点拉扯&quot;,
+      &quot;情绪撕裂&quot;
+    ]
+  },
+  &quot;sheetImage&quot;: &quot;images/三更面馆-sheet.webp&quot;
+}">复制整个场景 JSON</button></div>
+  </div>
+</article>
+<article class="scene" id="sc-S03">
+  <header class="sc-h">
+    <span class="sc-id">S03</span>
+    <h3>西城槐花巷小院</h3>
+    <span class="badge">主场景</span>
+    <span class="sc-use">出现集 2、4、8、9、12　承载爽点 痛点拉扯 · 卖院诀别 · 救赎收束</span>
+  </header>
+  <p class="sc-sum">西城平民区里一座规整却清冷素净的三进旧院落：正房空旷得没有一点值钱摆设，却守着母女相依的最后一点安稳体面。院角老槐树、斑驳照壁和廊下日常水缸木盆，先在第 2 集冷月寒夜承托背负醉归的克制守望，继而在第 9 集中秋火烧云下见证卖院诀别，最终在第 12 集蒙蒙春雨里收束为重新买回的家。同时作为 S06 武馆夜院的几何复用母版。</p>
+  <figure class="plate">
+  <button class="zoom" data-src="images/西城槐花巷小院-sheet.webp" aria-label="放大查看">
+    <img src="images/西城槐花巷小院-sheet.webp" alt="西城槐花巷小院 主视角＋底部与右侧细节条" loading="lazy">
+  </button>
+  <figcaption>主视角＋底部与右侧细节条</figcaption>
+</figure>
+  
+  <section class="blk">
+    <h4>一致性锚点<small>每次生成都必须出现的特征——认场景靠它，QC 也靠它</small></h4>
+    <ol class="anchors"><li><b>院角老槐树虬枝</b><span>前院东南角一株干皮粗裂的老槐树，苍劲虬枝斜探过青瓦廊檐，树下青石板缝间生着稀疏浅苔</span></li><li><b>斑驳青砖照壁与旧木门</b><span>院门内侧砌筑规整却灰浆微剥的青砖照壁，旁接两扇褪色原木厚板门与矮石门槛，门上铁环微锈</span></li><li><b>空旷正房雕花旧木榻</b><span>坐北朝南三开间正房敞开两扇木槅门，室内空旷无值钱摆设，唯靠后墙摆一张宋式素面雕花旧木榻，榻上折着粗布棉被</span></li><li><b>廊下粗陶水缸与木盆</b><span>正房前木柱回廊檐下并排放一只蓄水粗陶大水缸与一只箍铁旧木洗澡盆，缸沿与廊柱下端留有日常潮湿水渍</span></li></ol>
+  </section>
+  <section class="blk">
+    <h4>光照与时段</h4>
+    <div class="lights"><div class="light"><i>冷月寒夜</i><span class="mono">cold silvery moonlight beneath thin drifting night clouds flooding the quiet courtyard, crisp dark shadows of gnarled pagoda tree branches cast across the mottled grey brick screen wall and dry flagstones, dark unlit doorway opening into the sparse empty main room, chilly stillness</span><button class="copy mini" data-copy="cold silvery moonlight beneath thin drifting night clouds flooding the quiet courtyard, crisp dark shadows of gnarled pagoda tree branches cast across the mottled grey brick screen wall and dry flagstones, dark unlit doorway opening into the sparse empty main room, chilly stillness">复制</button></div><div class="light"><i>清昼天光</i><span class="mono">clear pale daytime light under a bright slightly hazy Northern Song sky filling the quiet courtyard evenly, soft neutral eaves shadows revealing weathered brick mortar, dusty timber pillars, and the plain carved wooden daybed inside the open main room</span><button class="copy mini" data-copy="clear pale daytime light under a bright slightly hazy Northern Song sky filling the quiet courtyard evenly, soft neutral eaves shadows revealing weathered brick mortar, dusty timber pillars, and the plain carved wooden daybed inside the open main room">复制</button></div><div class="light"><i>中秋火烧云</i><span class="mono">dramatic blazing crimson and burnt-orange Mid-Autumn sunset clouds stretching across the dusk sky above the dark tile roofs, long deep-violet shadows cast from the gnarled pagoda tree across the flagstones and corridor water vat, intense dying red-gold light grazing the weathered brick wall and old timber gate</span><button class="copy mini" data-copy="dramatic blazing crimson and burnt-orange Mid-Autumn sunset clouds stretching across the dusk sky above the dark tile roofs, long deep-violet shadows cast from the gnarled pagoda tree across the flagstones and corridor water vat, intense dying red-gold light grazing the weathered brick wall and old timber gate">复制</button></div><div class="light"><i>蒙蒙春雨</i><span class="mono">soft misty spring drizzle veiling the grey-tiled courtyard roofs, wet stone paving glistening quietly with damp moss along the joints, muted cool silver-grey daylight, tiny rain ripples across the water surface of the rough earthenware vat under the wooden eaves</span><button class="copy mini" data-copy="soft misty spring drizzle veiling the grey-tiled courtyard roofs, wet stone paving glistening quietly with damp moss along the joints, muted cool silver-grey daylight, tiny rain ripples across the water surface of the rough earthenware vat under the wooden eaves">复制</button></div></div>
+  </section>
+  <div class="pgroup">
+    <details class="pr">
+  <summary><span>主视角 EN</span><button class="copy" data-copy="Quiet modest three-courtyard Northern Song dynasty China residential compound in a commoner alley, high grey brick enclosure walls with dark-tiled timber eaves corridors, a gnarled old pagoda tree with twisting branches in the courtyard corner, a weathered mottled grey brick screen wall beside an aged plain wooden double gate with iron rings, open central hall doors revealing a sparse empty interior furnished only with a plain carved old wooden daybed and folded cotton quilt, a rough earthenware water vat and iron-hooped wooden wash tub beneath the corridor eaves, cold silvery moonlight at night, empty scene with no people">复制</button></summary>
+  <p>Quiet modest three-courtyard Northern Song dynasty China residential compound in a commoner alley, high grey brick enclosure walls with dark-tiled timber eaves corridors, a gnarled old pagoda tree with twisting branches in the courtyard corner, a weathered mottled grey brick screen wall beside an aged plain wooden double gate with iron rings, open central hall doors revealing a sparse empty interior furnished only with a plain carved old wooden daybed and folded cotton quilt, a rough earthenware water vat and iron-hooped wooden wash tub beneath the corridor eaves, cold silvery moonlight at night, empty scene with no people</p>
+</details>
+    <details class="pr">
+  <summary><span>设定图 EN</span><button class="copy" data-copy="Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide courtyard shot looking across the quiet Northern Song dynasty China three-courtyard commoner house under cold silvery moonlight, gnarled corner pagoda tree casting branch shadows, mottled grey brick screen wall and old wooden gate to one side, open central hall doorway showing the carved wooden daybed inside, earthenware water vat and wooden tub under the corridor eaves — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the gnarled pagoda tree trunk and twisting branches against the dark eaves, and the mottled grey brick screen wall with the aged wooden gate and rusted iron rings. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the sparse central hall interior with its carved old wooden daybed and folded cotton quilt, the rough earthenware water vat and iron-hooped wooden wash tub beneath the corridor, and weathered stone paving slabs with faint moss at the joints. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows">复制</button></summary>
+  <p>Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide courtyard shot looking across the quiet Northern Song dynasty China three-courtyard commoner house under cold silvery moonlight, gnarled corner pagoda tree casting branch shadows, mottled grey brick screen wall and old wooden gate to one side, open central hall doorway showing the carved wooden daybed inside, earthenware water vat and wooden tub under the corridor eaves — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the gnarled pagoda tree trunk and twisting branches against the dark eaves, and the mottled grey brick screen wall with the aged wooden gate and rusted iron rings. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the sparse central hall interior with its carved old wooden daybed and folded cotton quilt, the rough earthenware water vat and iron-hooped wooden wash tub beneath the corridor, and weathered stone paving slabs with faint moss at the joints. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows</p>
+</details>
+    <details class="pr">
+  <summary><span>反向提示词</span><button class="copy" data-copy="people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature">复制</button></summary>
+  <p>people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature</p>
+</details>
+    <div class="pgroup-f"><button class="copy wide" data-copy="{
+  &quot;id&quot;: &quot;S03&quot;,
+  &quot;name&quot;: &quot;西城槐花巷小院&quot;,
+  &quot;primary&quot;: true,
+  &quot;summary&quot;: &quot;西城平民区里一座规整却清冷素净的三进旧院落：正房空旷得没有一点值钱摆设，却守着母女相依的最后一点安稳体面。院角老槐树、斑驳照壁和廊下日常水缸木盆，先在第 2 集冷月寒夜承托背负醉归的克制守望，继而在第 9 集中秋火烧云下见证卖院诀别，最终在第 12 集蒙蒙春雨里收束为重新买回的家。同时作为 S06 武馆夜院的几何复用母版。&quot;,
+  &quot;anchors&quot;: [
+    {
+      &quot;name&quot;: &quot;院角老槐树虬枝&quot;,
+      &quot;desc&quot;: &quot;前院东南角一株干皮粗裂的老槐树，苍劲虬枝斜探过青瓦廊檐，树下青石板缝间生着稀疏浅苔&quot;
+    },
+    {
+      &quot;name&quot;: &quot;斑驳青砖照壁与旧木门&quot;,
+      &quot;desc&quot;: &quot;院门内侧砌筑规整却灰浆微剥的青砖照壁，旁接两扇褪色原木厚板门与矮石门槛，门上铁环微锈&quot;
+    },
+    {
+      &quot;name&quot;: &quot;空旷正房雕花旧木榻&quot;,
+      &quot;desc&quot;: &quot;坐北朝南三开间正房敞开两扇木槅门，室内空旷无值钱摆设，唯靠后墙摆一张宋式素面雕花旧木榻，榻上折着粗布棉被&quot;
+    },
+    {
+      &quot;name&quot;: &quot;廊下粗陶水缸与木盆&quot;,
+      &quot;desc&quot;: &quot;正房前木柱回廊檐下并排放一只蓄水粗陶大水缸与一只箍铁旧木洗澡盆，缸沿与廊柱下端留有日常潮湿水渍&quot;
+    }
+  ],
+  &quot;lighting&quot;: [
+    {
+      &quot;state&quot;: &quot;冷月寒夜&quot;,
+      &quot;prompt&quot;: &quot;cold silvery moonlight beneath thin drifting night clouds flooding the quiet courtyard, crisp dark shadows of gnarled pagoda tree branches cast across the mottled grey brick screen wall and dry flagstones, dark unlit doorway opening into the sparse empty main room, chilly stillness&quot;
+    },
+    {
+      &quot;state&quot;: &quot;清昼天光&quot;,
+      &quot;prompt&quot;: &quot;clear pale daytime light under a bright slightly hazy Northern Song sky filling the quiet courtyard evenly, soft neutral eaves shadows revealing weathered brick mortar, dusty timber pillars, and the plain carved wooden daybed inside the open main room&quot;
+    },
+    {
+      &quot;state&quot;: &quot;中秋火烧云&quot;,
+      &quot;prompt&quot;: &quot;dramatic blazing crimson and burnt-orange Mid-Autumn sunset clouds stretching across the dusk sky above the dark tile roofs, long deep-violet shadows cast from the gnarled pagoda tree across the flagstones and corridor water vat, intense dying red-gold light grazing the weathered brick wall and old timber gate&quot;
+    },
+    {
+      &quot;state&quot;: &quot;蒙蒙春雨&quot;,
+      &quot;prompt&quot;: &quot;soft misty spring drizzle veiling the grey-tiled courtyard roofs, wet stone paving glistening quietly with damp moss along the joints, muted cool silver-grey daylight, tiny rain ripples across the water surface of the rough earthenware vat under the wooden eaves&quot;
+    }
+  ],
+  &quot;image&quot;: {
+    &quot;prompt&quot;: &quot;Quiet modest three-courtyard Northern Song dynasty China residential compound in a commoner alley, high grey brick enclosure walls with dark-tiled timber eaves corridors, a gnarled old pagoda tree with twisting branches in the courtyard corner, a weathered mottled grey brick screen wall beside an aged plain wooden double gate with iron rings, open central hall doors revealing a sparse empty interior furnished only with a plain carved old wooden daybed and folded cotton quilt, a rough earthenware water vat and iron-hooped wooden wash tub beneath the corridor eaves, cold silvery moonlight at night, empty scene with no people&quot;,
+    &quot;negativePrompt&quot;: &quot;people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature&quot;,
+    &quot;sheet&quot;: &quot;Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide courtyard shot looking across the quiet Northern Song dynasty China three-courtyard commoner house under cold silvery moonlight, gnarled corner pagoda tree casting branch shadows, mottled grey brick screen wall and old wooden gate to one side, open central hall doorway showing the carved wooden daybed inside, earthenware water vat and wooden tub under the corridor eaves — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the gnarled pagoda tree trunk and twisting branches against the dark eaves, and the mottled grey brick screen wall with the aged wooden gate and rusted iron rings. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the sparse central hall interior with its carved old wooden daybed and folded cotton quilt, the rough earthenware water vat and iron-hooped wooden wash tub beneath the corridor, and weathered stone paving slabs with faint moss at the joints. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows&quot;,
+    &quot;tags&quot;: [
+      &quot;environment sheet&quot;,
+      &quot;Northern Song courtyard&quot;,
+      &quot;weathered materials&quot;,
+      &quot;moonlit residence&quot;
+    ]
+  },
+  &quot;usage&quot;: {
+    &quot;episodes&quot;: [
+      2,
+      4,
+      8,
+      9,
+      12
+    ],
+    &quot;beats&quot;: [
+      &quot;痛点拉扯&quot;,
+      &quot;卖院诀别&quot;,
+      &quot;救赎收束&quot;
+    ]
+  },
+  &quot;sheetImage&quot;: &quot;images/西城槐花巷小院-sheet.webp&quot;
+}">复制整个场景 JSON</button></div>
+  </div>
+</article>
+<article class="scene" id="sc-S04">
+  <header class="sc-h">
+    <span class="sc-id">S04</span>
+    <h3>栖霞观银杏树下</h3>
+    <span class="badge">主场景</span>
+    <span class="sc-use">出现集 4、5　承载爽点 错位冲击</span>
+  </header>
+  <p class="sc-sum">香火古观的前庭空间：专门为了拍出第 4、5 集“暗中交易与动情偷看在同一画面切出两层景深”而设。前景是青石双耳大香炉缭绕青烟与测签算账的冷血谈判，中远景则是百年古银杏浓荫与满枝祈福红绸下的温柔相扶——神明香火、七千两血单与少女春心在同一片午后晴光里并置，构成本剧最具反讽张力的构图纵深。</p>
+  <figure class="plate">
+  <button class="zoom" data-src="images/栖霞观银杏树下-sheet.webp" aria-label="放大查看">
+    <img src="images/栖霞观银杏树下-sheet.webp" alt="栖霞观银杏树下 主视角＋底部与右侧细节条" loading="lazy">
+  </button>
+  <figcaption>主视角＋底部与右侧细节条</figcaption>
+</figure>
+  
+  <section class="blk">
+    <h4>一致性锚点<small>每次生成都必须出现的特征——认场景靠它，QC 也靠它</small></h4>
+    <ol class="anchors"><li><b>合抱百年古银杏树</b><span>前庭侧畔一株数人合抱粗的百年老银杏树，主干苍劲皲裂、树冠宽阔，树脚青石板撒满层叠扇形银杏落叶</span></li><li><b>树枝祈福红绸条</b><span>老银杏树低矮横枝上密密悬垂数十条风吹轻摆的祈福红绸布条，红绸褪色深浅参差，尾部略带毛边</span></li><li><b>青石双耳大香炉</b><span>前庭中轴石台上立一只北宋雕刻缠枝纹青石双耳三足大香炉，炉壁烟熏乌黑，炉内积满香灰并升起缕缕青烟</span></li><li><b>青石板台阶与石栏</b><span>连接殿前石台与前庭的宽阔多层青石板台阶和宋式望柱石栏，石阶中段被常年踩踏磨光，栏柱雕刻微见风化</span></li></ol>
+  </section>
+  <section class="blk">
+    <h4>光照与时段</h4>
+    <div class="lights"><div class="light"><i>午后香烟晴光</i><span class="mono">warm clear late-afternoon sunlight slanting diagonally through the broad canopy of the centuries-old ginkgo tree, illuminating curling blue-grey temple incense smoke drifting from the stone censer into soft volumetric light shafts across the worn bluestone steps, prayer ribbons, and fallen ginkgo leaves</span><button class="copy mini" data-copy="warm clear late-afternoon sunlight slanting diagonally through the broad canopy of the centuries-old ginkgo tree, illuminating curling blue-grey temple incense smoke drifting from the stone censer into soft volumetric light shafts across the worn bluestone steps, prayer ribbons, and fallen ginkgo leaves">复制</button></div></div>
+  </section>
+  <div class="pgroup">
+    <details class="pr">
+  <summary><span>主视角 EN</span><button class="copy" data-copy="Open bluestone forecourt of a Northern Song dynasty China Taoist temple, a massive gnarled centuries-old ginkgo tree with fallen fan-shaped leaves blanketing the paving stones and dozens of weathered red silk prayer ribbons tied to its low branches, a heavy carved bluestone two-eared tripod incense burner stained dark with soot emitting curling wisps of incense smoke in the foreground terrace, broad worn bluestone stairs and carved Song-style stone balustrades bridging the upper terrace and tree courtyard, warm afternoon sunlight streaming through drifting incense smoke, empty scene with no people">复制</button></summary>
+  <p>Open bluestone forecourt of a Northern Song dynasty China Taoist temple, a massive gnarled centuries-old ginkgo tree with fallen fan-shaped leaves blanketing the paving stones and dozens of weathered red silk prayer ribbons tied to its low branches, a heavy carved bluestone two-eared tripod incense burner stained dark with soot emitting curling wisps of incense smoke in the foreground terrace, broad worn bluestone stairs and carved Song-style stone balustrades bridging the upper terrace and tree courtyard, warm afternoon sunlight streaming through drifting incense smoke, empty scene with no people</p>
+</details>
+    <details class="pr">
+  <summary><span>设定图 EN</span><button class="copy" data-copy="Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide forecourt shot of the Northern Song dynasty China Taoist temple showing the carved bluestone incense burner with curling smoke in the foreground, broad worn bluestone stairs and balustrades descending to the massive gnarled centuries-old ginkgo tree hung with red prayer ribbons and fallen leaves in warm afternoon sunlit incense haze — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the massive gnarled ginkgo trunk with weathered red prayer ribbons tied to low limbs, and the heavy soot-darkened bluestone two-eared tripod incense burner emitting curling blue-grey smoke. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of fallen fan-shaped ginkgo leaves scattered across weathered flagstones, worn bluestone staircase treads and weathered stone balustrade posts, and knotted faded red silk ribbon tails drifting in afternoon light. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows">复制</button></summary>
+  <p>Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide forecourt shot of the Northern Song dynasty China Taoist temple showing the carved bluestone incense burner with curling smoke in the foreground, broad worn bluestone stairs and balustrades descending to the massive gnarled centuries-old ginkgo tree hung with red prayer ribbons and fallen leaves in warm afternoon sunlit incense haze — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the massive gnarled ginkgo trunk with weathered red prayer ribbons tied to low limbs, and the heavy soot-darkened bluestone two-eared tripod incense burner emitting curling blue-grey smoke. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of fallen fan-shaped ginkgo leaves scattered across weathered flagstones, worn bluestone staircase treads and weathered stone balustrade posts, and knotted faded red silk ribbon tails drifting in afternoon light. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows</p>
+</details>
+    <details class="pr">
+  <summary><span>反向提示词</span><button class="copy" data-copy="people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature">复制</button></summary>
+  <p>people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature</p>
+</details>
+    <div class="pgroup-f"><button class="copy wide" data-copy="{
+  &quot;id&quot;: &quot;S04&quot;,
+  &quot;name&quot;: &quot;栖霞观银杏树下&quot;,
+  &quot;primary&quot;: true,
+  &quot;summary&quot;: &quot;香火古观的前庭空间：专门为了拍出第 4、5 集“暗中交易与动情偷看在同一画面切出两层景深”而设。前景是青石双耳大香炉缭绕青烟与测签算账的冷血谈判，中远景则是百年古银杏浓荫与满枝祈福红绸下的温柔相扶——神明香火、七千两血单与少女春心在同一片午后晴光里并置，构成本剧最具反讽张力的构图纵深。&quot;,
+  &quot;anchors&quot;: [
+    {
+      &quot;name&quot;: &quot;合抱百年古银杏树&quot;,
+      &quot;desc&quot;: &quot;前庭侧畔一株数人合抱粗的百年老银杏树，主干苍劲皲裂、树冠宽阔，树脚青石板撒满层叠扇形银杏落叶&quot;
+    },
+    {
+      &quot;name&quot;: &quot;树枝祈福红绸条&quot;,
+      &quot;desc&quot;: &quot;老银杏树低矮横枝上密密悬垂数十条风吹轻摆的祈福红绸布条，红绸褪色深浅参差，尾部略带毛边&quot;
+    },
+    {
+      &quot;name&quot;: &quot;青石双耳大香炉&quot;,
+      &quot;desc&quot;: &quot;前庭中轴石台上立一只北宋雕刻缠枝纹青石双耳三足大香炉，炉壁烟熏乌黑，炉内积满香灰并升起缕缕青烟&quot;
+    },
+    {
+      &quot;name&quot;: &quot;青石板台阶与石栏&quot;,
+      &quot;desc&quot;: &quot;连接殿前石台与前庭的宽阔多层青石板台阶和宋式望柱石栏，石阶中段被常年踩踏磨光，栏柱雕刻微见风化&quot;
+    }
+  ],
+  &quot;lighting&quot;: [
+    {
+      &quot;state&quot;: &quot;午后香烟晴光&quot;,
+      &quot;prompt&quot;: &quot;warm clear late-afternoon sunlight slanting diagonally through the broad canopy of the centuries-old ginkgo tree, illuminating curling blue-grey temple incense smoke drifting from the stone censer into soft volumetric light shafts across the worn bluestone steps, prayer ribbons, and fallen ginkgo leaves&quot;
+    }
+  ],
+  &quot;image&quot;: {
+    &quot;prompt&quot;: &quot;Open bluestone forecourt of a Northern Song dynasty China Taoist temple, a massive gnarled centuries-old ginkgo tree with fallen fan-shaped leaves blanketing the paving stones and dozens of weathered red silk prayer ribbons tied to its low branches, a heavy carved bluestone two-eared tripod incense burner stained dark with soot emitting curling wisps of incense smoke in the foreground terrace, broad worn bluestone stairs and carved Song-style stone balustrades bridging the upper terrace and tree courtyard, warm afternoon sunlight streaming through drifting incense smoke, empty scene with no people&quot;,
+    &quot;negativePrompt&quot;: &quot;people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature&quot;,
+    &quot;sheet&quot;: &quot;Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide forecourt shot of the Northern Song dynasty China Taoist temple showing the carved bluestone incense burner with curling smoke in the foreground, broad worn bluestone stairs and balustrades descending to the massive gnarled centuries-old ginkgo tree hung with red prayer ribbons and fallen leaves in warm afternoon sunlit incense haze — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the massive gnarled ginkgo trunk with weathered red prayer ribbons tied to low limbs, and the heavy soot-darkened bluestone two-eared tripod incense burner emitting curling blue-grey smoke. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of fallen fan-shaped ginkgo leaves scattered across weathered flagstones, worn bluestone staircase treads and weathered stone balustrade posts, and knotted faded red silk ribbon tails drifting in afternoon light. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows&quot;,
+    &quot;tags&quot;: [
+      &quot;environment sheet&quot;,
+      &quot;Northern Song temple courtyard&quot;,
+      &quot;weathered materials&quot;,
+      &quot;ginkgo and incense&quot;
+    ]
+  },
+  &quot;usage&quot;: {
+    &quot;episodes&quot;: [
+      4,
+      5
+    ],
+    &quot;beats&quot;: [
+      &quot;错位冲击&quot;
+    ]
+  },
+  &quot;sheetImage&quot;: &quot;images/栖霞观银杏树下-sheet.webp&quot;
+}">复制整个场景 JSON</button></div>
+  </div>
+</article>
+<article class="scene" id="sc-S05">
+  <header class="sc-h">
+    <span class="sc-id">S05</span>
+    <h3>醉花阴戏馆与长乐街雨檐</h3>
+    <span class="badge">主场景</span>
+    <span class="sc-use">出现集 7、8、12　承载爽点 宿命借伞 · 救赎收束</span>
+  </header>
+  <p class="sc-sum">长乐古街东侧连接声色幻梦与现世春雨的双面空间：门内是一楼四角飞檐水榭小戏台与二楼茜素红纱凭栏雅座，门外则是宽大黛瓦出檐、绛纱灯笼与湿润反光青石长街。借由大敞的宋式门廊把内外景深贯通，既能承托楼上《断桥借伞》醉看街景的宿命错觉，也能让次日清晨的雨檐借伞与第 12 集结局雨中撑伞归家在同一方建筑门面下完成闭环。</p>
+  <figure class="plate">
+  <button class="zoom" data-src="images/醉花阴戏馆与长乐街雨檐-sheet.webp" aria-label="放大查看">
+    <img src="images/醉花阴戏馆与长乐街雨檐-sheet.webp" alt="醉花阴戏馆与长乐街雨檐 主视角＋底部与右侧细节条" loading="lazy">
+  </button>
+  <figcaption>主视角＋底部与右侧细节条</figcaption>
+</figure>
+  
+  <section class="blk">
+    <h4>一致性锚点<small>每次生成都必须出现的特征——认场景靠它，QC 也靠它</small></h4>
+    <ol class="anchors"><li><b>一楼四角飞檐小戏台</b><span>一楼厅堂内架起一座宋式木构四角飞檐水榭小戏台，朱漆圆柱配镂空雕花矮栏与彩绘木额枋，台面木板光洁微反光</span></li><li><b>二楼茜素红纱凭栏雅座</b><span>二楼环绕大厅及临街一侧设宋式木格雅座凭栏，垂挂半透明茜素红轻纱帷幔，既可俯瞰楼下戏台又能凭窗远望长乐街</span></li><li><b>宽大黛瓦出檐与绛纱灯笼</b><span>临长乐街正门挑出深宽的宋式黛瓦重檐雨廊，檐下成排悬垂竹骨绛纱大灯笼，木构柱础与门前石阶干净规整</span></li><li><b>湿润青石板长街</b><span>门廊外宽阔笔直的永安长乐街，铺砌规整大块条形青石板，雨湿或夜露路面映出屋檐绛纱灯笼的幽微倒影</span></li></ol>
+  </section>
+  <section class="blk">
+    <h4>光照与时段</h4>
+    <div class="lights"><div class="light"><i>华灯夜宴</i><span class="mono">opulent night banquet glow inside the two-story pleasure house, dozens of warm crimson-silk and oiled-paper lanterns illuminating the upturned eaves of the ground-floor stage and the second-floor alizarin-crimson gauze gallery screens, warm amber light spilling through wide-open doorway screens onto the glistening evening-damp slate flagstones of the street outside</span><button class="copy mini" data-copy="opulent night banquet glow inside the two-story pleasure house, dozens of warm crimson-silk and oiled-paper lanterns illuminating the upturned eaves of the ground-floor stage and the second-floor alizarin-crimson gauze gallery screens, warm amber light spilling through wide-open doorway screens onto the glistening evening-damp slate flagstones of the street outside">复制</button></div><div class="light"><i>春雨晨雾</i><span class="mono">soft misty morning daylight veiled in steady fine silver spring rain threads, diffused cool grey light across the broad glistening dark-tile overhanging eaves and muted crimson silk lanterns, wet dark slate-paved avenue reflecting pale sky and architectural silhouettes in thin shimmering rain film beneath the sheltered porch</span><button class="copy mini" data-copy="soft misty morning daylight veiled in steady fine silver spring rain threads, diffused cool grey light across the broad glistening dark-tile overhanging eaves and muted crimson silk lanterns, wet dark slate-paved avenue reflecting pale sky and architectural silhouettes in thin shimmering rain film beneath the sheltered porch">复制</button></div></div>
+  </section>
+  <div class="pgroup">
+    <details class="pr">
+  <summary><span>主视角 EN</span><button class="copy" data-copy="Oblique architectural establishing view of a prosperous Northern Song dynasty China two-story pleasure house theater and its street-front rain porch, looking from the glistening damp slate-paved grand avenue under broad overhanging dark-tiled timber eaves hung with a row of crimson silk lanterns straight through wide-open carved front folding doors into the brightly lit hall, revealing the ground-floor four-cornered upturned-eave wooden miniature stage with red lacquered pillars and the second-floor gallery screened with translucent alizarin-crimson gauze curtains and carved wooden balustrades, opulent night lantern banquet glow, empty scene with no people">复制</button></summary>
+  <p>Oblique architectural establishing view of a prosperous Northern Song dynasty China two-story pleasure house theater and its street-front rain porch, looking from the glistening damp slate-paved grand avenue under broad overhanging dark-tiled timber eaves hung with a row of crimson silk lanterns straight through wide-open carved front folding doors into the brightly lit hall, revealing the ground-floor four-cornered upturned-eave wooden miniature stage with red lacquered pillars and the second-floor gallery screened with translucent alizarin-crimson gauze curtains and carved wooden balustrades, opulent night lantern banquet glow, empty scene with no people</p>
+</details>
+    <details class="pr">
+  <summary><span>设定图 EN</span><button class="copy" data-copy="Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide oblique shot from the damp slate-paved street looking beneath the broad dark-tile overhanging eaves and glowing crimson silk lanterns straight through the wide-open front folding doors into the Northern Song dynasty China pleasure house theater in warm night banquet lantern light, clearly showing the ground-floor four-cornered upturned-eave wooden stage and the second-floor alizarin-crimson gauze-screened balcony balustrades — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the ground-floor four-cornered upturned-eave wooden stage with red lacquered pillars and carved apron balustrade, and the second-floor gallery balustrade draped with translucent alizarin-crimson gauze curtains. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the broad overhanging dark-tile porch eaves with hanging crimson silk lanterns, the glistening damp slate-paved street flagstones catching lantern reflections, and tightly joined lacquered door thresholds polished by foot traffic. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows">复制</button></summary>
+  <p>Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide oblique shot from the damp slate-paved street looking beneath the broad dark-tile overhanging eaves and glowing crimson silk lanterns straight through the wide-open front folding doors into the Northern Song dynasty China pleasure house theater in warm night banquet lantern light, clearly showing the ground-floor four-cornered upturned-eave wooden stage and the second-floor alizarin-crimson gauze-screened balcony balustrades — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the ground-floor four-cornered upturned-eave wooden stage with red lacquered pillars and carved apron balustrade, and the second-floor gallery balustrade draped with translucent alizarin-crimson gauze curtains. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the broad overhanging dark-tile porch eaves with hanging crimson silk lanterns, the glistening damp slate-paved street flagstones catching lantern reflections, and tightly joined lacquered door thresholds polished by foot traffic. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows</p>
+</details>
+    <details class="pr">
+  <summary><span>反向提示词</span><button class="copy" data-copy="people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature">复制</button></summary>
+  <p>people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature</p>
+</details>
+    <div class="pgroup-f"><button class="copy wide" data-copy="{
+  &quot;id&quot;: &quot;S05&quot;,
+  &quot;name&quot;: &quot;醉花阴戏馆与长乐街雨檐&quot;,
+  &quot;primary&quot;: true,
+  &quot;summary&quot;: &quot;长乐古街东侧连接声色幻梦与现世春雨的双面空间：门内是一楼四角飞檐水榭小戏台与二楼茜素红纱凭栏雅座，门外则是宽大黛瓦出檐、绛纱灯笼与湿润反光青石长街。借由大敞的宋式门廊把内外景深贯通，既能承托楼上《断桥借伞》醉看街景的宿命错觉，也能让次日清晨的雨檐借伞与第 12 集结局雨中撑伞归家在同一方建筑门面下完成闭环。&quot;,
+  &quot;anchors&quot;: [
+    {
+      &quot;name&quot;: &quot;一楼四角飞檐小戏台&quot;,
+      &quot;desc&quot;: &quot;一楼厅堂内架起一座宋式木构四角飞檐水榭小戏台，朱漆圆柱配镂空雕花矮栏与彩绘木额枋，台面木板光洁微反光&quot;
+    },
+    {
+      &quot;name&quot;: &quot;二楼茜素红纱凭栏雅座&quot;,
+      &quot;desc&quot;: &quot;二楼环绕大厅及临街一侧设宋式木格雅座凭栏，垂挂半透明茜素红轻纱帷幔，既可俯瞰楼下戏台又能凭窗远望长乐街&quot;
+    },
+    {
+      &quot;name&quot;: &quot;宽大黛瓦出檐与绛纱灯笼&quot;,
+      &quot;desc&quot;: &quot;临长乐街正门挑出深宽的宋式黛瓦重檐雨廊，檐下成排悬垂竹骨绛纱大灯笼，木构柱础与门前石阶干净规整&quot;
+    },
+    {
+      &quot;name&quot;: &quot;湿润青石板长街&quot;,
+      &quot;desc&quot;: &quot;门廊外宽阔笔直的永安长乐街，铺砌规整大块条形青石板，雨湿或夜露路面映出屋檐绛纱灯笼的幽微倒影&quot;
+    }
+  ],
+  &quot;lighting&quot;: [
+    {
+      &quot;state&quot;: &quot;华灯夜宴&quot;,
+      &quot;prompt&quot;: &quot;opulent night banquet glow inside the two-story pleasure house, dozens of warm crimson-silk and oiled-paper lanterns illuminating the upturned eaves of the ground-floor stage and the second-floor alizarin-crimson gauze gallery screens, warm amber light spilling through wide-open doorway screens onto the glistening evening-damp slate flagstones of the street outside&quot;
+    },
+    {
+      &quot;state&quot;: &quot;春雨晨雾&quot;,
+      &quot;prompt&quot;: &quot;soft misty morning daylight veiled in steady fine silver spring rain threads, diffused cool grey light across the broad glistening dark-tile overhanging eaves and muted crimson silk lanterns, wet dark slate-paved avenue reflecting pale sky and architectural silhouettes in thin shimmering rain film beneath the sheltered porch&quot;
+    }
+  ],
+  &quot;image&quot;: {
+    &quot;prompt&quot;: &quot;Oblique architectural establishing view of a prosperous Northern Song dynasty China two-story pleasure house theater and its street-front rain porch, looking from the glistening damp slate-paved grand avenue under broad overhanging dark-tiled timber eaves hung with a row of crimson silk lanterns straight through wide-open carved front folding doors into the brightly lit hall, revealing the ground-floor four-cornered upturned-eave wooden miniature stage with red lacquered pillars and the second-floor gallery screened with translucent alizarin-crimson gauze curtains and carved wooden balustrades, opulent night lantern banquet glow, empty scene with no people&quot;,
+    &quot;negativePrompt&quot;: &quot;people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature&quot;,
+    &quot;sheet&quot;: &quot;Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide oblique shot from the damp slate-paved street looking beneath the broad dark-tile overhanging eaves and glowing crimson silk lanterns straight through the wide-open front folding doors into the Northern Song dynasty China pleasure house theater in warm night banquet lantern light, clearly showing the ground-floor four-cornered upturned-eave wooden stage and the second-floor alizarin-crimson gauze-screened balcony balustrades — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the ground-floor four-cornered upturned-eave wooden stage with red lacquered pillars and carved apron balustrade, and the second-floor gallery balustrade draped with translucent alizarin-crimson gauze curtains. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the broad overhanging dark-tile porch eaves with hanging crimson silk lanterns, the glistening damp slate-paved street flagstones catching lantern reflections, and tightly joined lacquered door thresholds polished by foot traffic. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows&quot;,
+    &quot;tags&quot;: [
+      &quot;environment sheet&quot;,
+      &quot;Northern Song pleasure house&quot;,
+      &quot;maintained timber theater&quot;,
+      &quot;rain eaves street&quot;
+    ]
+  },
+  &quot;usage&quot;: {
+    &quot;episodes&quot;: [
+      7,
+      8,
+      12
+    ],
+    &quot;beats&quot;: [
+      &quot;宿命借伞&quot;,
+      &quot;救赎收束&quot;
+    ]
+  },
+  &quot;sheetImage&quot;: &quot;images/醉花阴戏馆与长乐街雨檐-sheet.webp&quot;
+}">复制整个场景 JSON</button></div>
+  </div>
+</article>
+<article class="scene" id="sc-S06">
+  <header class="sc-h">
+    <span class="sc-id">S06</span>
+    <h3>镇山武馆内院</h3>
+    <span class="badge once">变体</span>
+    <span class="sc-use">出现集 10　承载爽点 绝杀高潮</span>
+  </header>
+  <p class="sc-sum">第 10 集中秋血战的肃杀闭环死地：复用 S03 的高墙合围夜院格局，却将人间烟火抽空为冷硬兵器架、练功石锁与狂风摇晃的红纸风灯。紧闭的高墙把刺客与恶霸逼入避无可避的近身对峙，积水青砖上摇晃的红灯倒影衬托流风折柳剑与袖底寒鸦双匕的生死反转，也留出破空一点寸银钻透太阳穴的凌厉暗影景深。</p>
+  <figure class="plate">
+  <button class="zoom" data-src="images/镇山武馆内院-sheet.webp" aria-label="放大查看">
+    <img src="images/镇山武馆内院-sheet.webp" alt="镇山武馆内院 主视角＋底部与右侧细节条" loading="lazy">
+  </button>
+  <figcaption>主视角＋底部与右侧细节条</figcaption>
+</figure>
+  <p class="variant">变体来源：<b>S03</b>　改动：沿用 S03 西城小院夜间院落三面青砖高墙与灰瓦木柱回廊几何基底，撤除院角老槐树、正房雕花木榻与廊下粗陶水缸木盆，在院内与廊前石阶改设一字排开硬木十八般兵器架及成对青石练功石锁，回廊换挂随风摇晃的红纸气死风灯，并将地面改为中秋风雨夜湿润泛反光的青砖浅水洼</p>
+  <section class="blk">
+    <h4>一致性锚点<small>每次生成都必须出现的特征——认场景靠它，QC 也靠它</small></h4>
+    <ol class="anchors"><li><b>硬木十八般兵器架</b><span>回廊前石阶下与院墙一侧一字排开三座厚重硬木兵器架，架上整整齐齐插满长枪、大刀、铁棍等冷光练功兵器</span></li><li><b>青石练功石锁</b><span>庭院空地两侧整齐摆着两对雕槽琢孔的沉重青石练功石锁，锁柄经年抓握摩擦得光滑泛白</span></li><li><b>红纸气死风灯</b><span>沿灰瓦木柱回廊屋檐下成排悬吊的宋式竹篾骨架红纸气死风灯，在风中微微倾斜摇晃，透出暗红微光</span></li><li><b>青砖浅水洼倒影</b><span>院中铺地青砖因常年习武踩磨微有凹陷，中秋夜雨积成数洼浅亮积水，清晰倒映红纸风灯与兵器架黑影</span></li></ol>
+  </section>
+  <section class="blk">
+    <h4>光照与时段</h4>
+    <div class="lights"><div class="light"><i>中秋寒夜暗影</i><span class="mono">gloomy cold Mid-Autumn night shadowed beneath fast-moving storm clouds and gusting wind-driven rain, faint pale moonlight barely filtering through cloud breaks, swaying crimson paper storm lanterns under the veranda casting erratic dark-red pools and sharp silhouettes across rain-wet grey bricks and shallow glistening courtyard puddles</span><button class="copy mini" data-copy="gloomy cold Mid-Autumn night shadowed beneath fast-moving storm clouds and gusting wind-driven rain, faint pale moonlight barely filtering through cloud breaks, swaying crimson paper storm lanterns under the veranda casting erratic dark-red pools and sharp silhouettes across rain-wet grey bricks and shallow glistening courtyard puddles">复制</button></div></div>
+  </section>
+  <div class="pgroup">
+    <details class="pr">
+  <summary><span>主视角 EN</span><button class="copy" data-copy="Enclosed martial arts inner courtyard at night in Northern Song dynasty China, based on the same three-section walled courtyard and dark-tiled wooden veranda geometry as the reference courtyard, with no tree, no water vat, and no domestic bed, converted into a stark training yard featuring a row of three heavy hardwood weapon racks holding spears, halberds, and broadswords along the stone step, two pairs of heavy carved bluestone training weight locks resting on the open yard, swaying red paper storm lanterns hanging beneath the timber veranda eaves, and shallow rain puddles on worn grey brick paving reflecting red lantern glow under a stormy Mid-Autumn night sky, empty scene with no people">复制</button></summary>
+  <p>Enclosed martial arts inner courtyard at night in Northern Song dynasty China, based on the same three-section walled courtyard and dark-tiled wooden veranda geometry as the reference courtyard, with no tree, no water vat, and no domestic bed, converted into a stark training yard featuring a row of three heavy hardwood weapon racks holding spears, halberds, and broadswords along the stone step, two pairs of heavy carved bluestone training weight locks resting on the open yard, swaying red paper storm lanterns hanging beneath the timber veranda eaves, and shallow rain puddles on worn grey brick paving reflecting red lantern glow under a stormy Mid-Autumn night sky, empty scene with no people</p>
+</details>
+    <details class="pr">
+  <summary><span>设定图 EN</span><button class="copy" data-copy="Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide courtyard shot adapting the enclosed three-section Northern Song dynasty China brick-walled courtyard and dark-tiled timber veranda of the reference image — keep the structure, materials and wear identical to the reference image — removing the corner tree, domestic daybed, and water vat, and installing a row of hardwood weapon racks, paired carved bluestone training weight locks, swaying red paper storm lanterns along the veranda, and shallow rain puddles across the worn grey bricks under a gloomy stormy Mid-Autumn night sky — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the heavy hardwood rack lined with gleaming steel spears and broadswords, and a swaying red paper storm lantern under the dark timber veranda eaves. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the heavy carved bluestone training weight locks with handle wear, shallow rain puddles across indented grey brick paving reflecting crimson lantern light, and weathered brick courtyard step treads at the veranda edge. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows">复制</button></summary>
+  <p>Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide courtyard shot adapting the enclosed three-section Northern Song dynasty China brick-walled courtyard and dark-tiled timber veranda of the reference image — keep the structure, materials and wear identical to the reference image — removing the corner tree, domestic daybed, and water vat, and installing a row of hardwood weapon racks, paired carved bluestone training weight locks, swaying red paper storm lanterns along the veranda, and shallow rain puddles across the worn grey bricks under a gloomy stormy Mid-Autumn night sky — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the heavy hardwood rack lined with gleaming steel spears and broadswords, and a swaying red paper storm lantern under the dark timber veranda eaves. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the heavy carved bluestone training weight locks with handle wear, shallow rain puddles across indented grey brick paving reflecting crimson lantern light, and weathered brick courtyard step treads at the veranda edge. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows</p>
+</details>
+    <details class="pr">
+  <summary><span>反向提示词</span><button class="copy" data-copy="people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature">复制</button></summary>
+  <p>people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature</p>
+</details>
+    <div class="pgroup-f"><button class="copy wide" data-copy="{
+  &quot;id&quot;: &quot;S06&quot;,
+  &quot;name&quot;: &quot;镇山武馆内院&quot;,
+  &quot;primary&quot;: false,
+  &quot;variantOf&quot;: &quot;S03&quot;,
+  &quot;changes&quot;: &quot;沿用 S03 西城小院夜间院落三面青砖高墙与灰瓦木柱回廊几何基底，撤除院角老槐树、正房雕花木榻与廊下粗陶水缸木盆，在院内与廊前石阶改设一字排开硬木十八般兵器架及成对青石练功石锁，回廊换挂随风摇晃的红纸气死风灯，并将地面改为中秋风雨夜湿润泛反光的青砖浅水洼&quot;,
+  &quot;summary&quot;: &quot;第 10 集中秋血战的肃杀闭环死地：复用 S03 的高墙合围夜院格局，却将人间烟火抽空为冷硬兵器架、练功石锁与狂风摇晃的红纸风灯。紧闭的高墙把刺客与恶霸逼入避无可避的近身对峙，积水青砖上摇晃的红灯倒影衬托流风折柳剑与袖底寒鸦双匕的生死反转，也留出破空一点寸银钻透太阳穴的凌厉暗影景深。&quot;,
+  &quot;anchors&quot;: [
+    {
+      &quot;name&quot;: &quot;硬木十八般兵器架&quot;,
+      &quot;desc&quot;: &quot;回廊前石阶下与院墙一侧一字排开三座厚重硬木兵器架，架上整整齐齐插满长枪、大刀、铁棍等冷光练功兵器&quot;
+    },
+    {
+      &quot;name&quot;: &quot;青石练功石锁&quot;,
+      &quot;desc&quot;: &quot;庭院空地两侧整齐摆着两对雕槽琢孔的沉重青石练功石锁，锁柄经年抓握摩擦得光滑泛白&quot;
+    },
+    {
+      &quot;name&quot;: &quot;红纸气死风灯&quot;,
+      &quot;desc&quot;: &quot;沿灰瓦木柱回廊屋檐下成排悬吊的宋式竹篾骨架红纸气死风灯，在风中微微倾斜摇晃，透出暗红微光&quot;
+    },
+    {
+      &quot;name&quot;: &quot;青砖浅水洼倒影&quot;,
+      &quot;desc&quot;: &quot;院中铺地青砖因常年习武踩磨微有凹陷，中秋夜雨积成数洼浅亮积水，清晰倒映红纸风灯与兵器架黑影&quot;
+    }
+  ],
+  &quot;lighting&quot;: [
+    {
+      &quot;state&quot;: &quot;中秋寒夜暗影&quot;,
+      &quot;prompt&quot;: &quot;gloomy cold Mid-Autumn night shadowed beneath fast-moving storm clouds and gusting wind-driven rain, faint pale moonlight barely filtering through cloud breaks, swaying crimson paper storm lanterns under the veranda casting erratic dark-red pools and sharp silhouettes across rain-wet grey bricks and shallow glistening courtyard puddles&quot;
+    }
+  ],
+  &quot;image&quot;: {
+    &quot;prompt&quot;: &quot;Enclosed martial arts inner courtyard at night in Northern Song dynasty China, based on the same three-section walled courtyard and dark-tiled wooden veranda geometry as the reference courtyard, with no tree, no water vat, and no domestic bed, converted into a stark training yard featuring a row of three heavy hardwood weapon racks holding spears, halberds, and broadswords along the stone step, two pairs of heavy carved bluestone training weight locks resting on the open yard, swaying red paper storm lanterns hanging beneath the timber veranda eaves, and shallow rain puddles on worn grey brick paving reflecting red lantern glow under a stormy Mid-Autumn night sky, empty scene with no people&quot;,
+    &quot;negativePrompt&quot;: &quot;people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature&quot;,
+    &quot;sheet&quot;: &quot;Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide courtyard shot adapting the enclosed three-section Northern Song dynasty China brick-walled courtyard and dark-tiled timber veranda of the reference image — keep the structure, materials and wear identical to the reference image — removing the corner tree, domestic daybed, and water vat, and installing a row of hardwood weapon racks, paired carved bluestone training weight locks, swaying red paper storm lanterns along the veranda, and shallow rain puddles across the worn grey bricks under a gloomy stormy Mid-Autumn night sky — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the heavy hardwood rack lined with gleaming steel spears and broadswords, and a swaying red paper storm lantern under the dark timber veranda eaves. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the heavy carved bluestone training weight locks with handle wear, shallow rain puddles across indented grey brick paving reflecting crimson lantern light, and weathered brick courtyard step treads at the veranda edge. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows&quot;,
+    &quot;tags&quot;: [
+      &quot;environment sheet&quot;,
+      &quot;Northern Song martial courtyard&quot;,
+      &quot;weathered materials&quot;,
+      &quot;stormy night variant&quot;
+    ]
+  },
+  &quot;usage&quot;: {
+    &quot;episodes&quot;: [
+      10
+    ],
+    &quot;beats&quot;: [
+      &quot;绝杀高潮&quot;
+    ]
+  },
+  &quot;sheetImage&quot;: &quot;images/镇山武馆内院-sheet.webp&quot;
+}">复制整个场景 JSON</button></div>
+  </div>
+</article>
+  </div>
+</section>
+
+<section class="top-sec" id="sec-prop-list">
+  <div class="sec-h"><span class="no">03</span><h2>道具清单</h2></div>
+  <table><thead><tr><th>ID</th><th>道具</th><th>尺度</th><th>状态</th><th>关联场景</th><th>出现集</th><th>锚点</th></tr></thead>
+<tbody><tr><td>P01</td><td>修甲寸银小刀</td><td>手持级</td><td>日常洁净、染血锋刃</td><td>S01、S02、S06</td><td>1、2、6、10、11</td><td>4</td></tr>
+<tr><td>P02</td><td>四十八骨海棠紫竹伞</td><td>手持级</td><td>素面收拢、雨打海棠撑开</td><td>S05、S03、S01</td><td>7、8、9、12</td><td>4</td></tr>
+<tr><td>P03</td><td>百年紫雪参药丸</td><td>手持级</td><td>蜡封药盒开启、单颗暗金药丸</td><td>S02、S03</td><td>2、3、4、9、12</td><td>4</td></tr>
+<tr><td>P04</td><td>行踪时辰小册子</td><td>手持级</td><td>蓝布封皮合拢、翻开密写蝇头小楷</td><td>S01、S02</td><td>4、5、6</td><td>4</td></tr>
+<tr><td>P05</td><td>寒鸦双匕</td><td>手持级</td><td>皮套并插、双刃出鞘泛蓝光</td><td>S06</td><td>9、10</td><td>4</td></tr></tbody></table>
+</section>
+
+<section class="top-sec" id="sec-prop-cards">
+  <div class="sec-h"><span class="no">04</span><h2>道具设定卡</h2></div>
+  <div class="cards">
+<article class="scene" id="pr-P01">
+  <header class="sc-h">
+    <span class="sc-id">P01</span>
+    <h3>修甲寸银小刀</h3>
+    <span class="badge">手持级</span>
+    <span class="sc-use">出现集 1、2、6、10、11　承载爽点 人设反差 · 情绪撕裂 · 绝杀高潮</span>
+  </header>
+  <p class="sc-sum">温如风的人设象征与终极暗器：日常优雅修甲压迫对手，决裂时失手坠地显露动摇，第10集一击钻透厉狂澜太阳穴揭示深藏的绝顶武功与护短深情</p>
+  <figure class="plate">
+  <button class="zoom" data-src="images/修甲寸银小刀-sheet.webp" aria-label="放大查看">
+    <img src="images/修甲寸银小刀-sheet.webp" alt="修甲寸银小刀 主视角＋底部与右侧细节条 · 纯白背景" loading="lazy">
+  </button>
+  <figcaption>主视角＋底部与右侧细节条 · 纯白背景</figcaption>
+</figure>
+  <p class="variant">关联场景：<b>S01、S02、S06</b>　关联角色：温如风</p>
+  <section class="blk">
+    <h4>一致性锚点<small>每次生成都必须出现的特征——认场景靠它，QC 也靠它</small></h4>
+    <ol class="anchors"><li><b>一寸柳叶银刃</b><span>通体纯银锻造的一寸三分微弧柳叶短刃，刃口锋利寒光凛冽，刃脊近柄处刻一道极细的云纹暗槽</span></li><li><b>缠银丝细短柄</b><span>长约三寸的纤细银质手柄，中段紧密缠绕细银丝防滑，比例袖珍隐蔽便于指缝旋绕</span></li><li><b>刀尾水滴穿孔</b><span>柄尾收成扁平水滴造型，正中钻有一枚穿绳小圆孔，边缘经长年指腹摩挲得温润锃亮</span></li><li><b>素面乌木插鞘</b><span>一只贴合刃型的袖珍黑檀木薄鞘，鞘口嵌一圈窄白银包边，平时严丝合缝藏于扇底或袖内</span></li></ol>
+  </section>
+  <section class="blk">
+    <h4>状态变体</h4>
+    <div class="lights"><div class="light"><i>日常洁净</i><span class="mono">the miniature Northern Song pure silver willow-leaf manicure knife resting horizontally beside its slim ebony sheath, spotless mirror-bright silver blade gleaming crisply, fine silver-wire grip clean and unblemished</span><button class="copy mini" data-copy="the miniature Northern Song pure silver willow-leaf manicure knife resting horizontally beside its slim ebony sheath, spotless mirror-bright silver blade gleaming crisply, fine silver-wire grip clean and unblemished">复制</button></div><div class="light"><i>染血锋刃</i><span class="mono">the miniature silver blade drawn free of its sheath, razor-sharp point and narrow cloud-scroll groove stained with fresh dark crimson blood droplets along the bright silver edge, sharp specular highlight on the honed tip</span><button class="copy mini" data-copy="the miniature silver blade drawn free of its sheath, razor-sharp point and narrow cloud-scroll groove stained with fresh dark crimson blood droplets along the bright silver edge, sharp specular highlight on the honed tip">复制</button></div></div>
+  </section>
+  <div class="pgroup">
+    <details class="pr">
+  <summary><span>主视角 EN</span><button class="copy" data-copy="A miniature Northern Song dynasty Chinese pure silver willow-leaf pocket manicure knife at handheld scale, tiny one-inch curved silver blade with a narrow fuller groove, slender three-inch hilt wrapped in fine silver wire with a teardrop pierced pommel, paired with a slim dark ebony sheath collared in white silver, isolated on a pure white background, no people, no hands">复制</button></summary>
+  <p>A miniature Northern Song dynasty Chinese pure silver willow-leaf pocket manicure knife at handheld scale, tiny one-inch curved silver blade with a narrow fuller groove, slender three-inch hilt wrapped in fine silver wire with a teardrop pierced pommel, paired with a slim dark ebony sheath collared in white silver, isolated on a pure white background, no people, no hands</p>
+</details>
+    <details class="pr">
+  <summary><span>设定图 EN</span><button class="copy" data-copy="Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the miniature Northern Song silver manicure knife clean and dry beside its slim silver-collared ebony sheath in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the teardrop pierced pommel and tight fine silver-wire grip wrapping, and the narrow cloud-scroll fuller groove where the blade meets the silver-collared ebony sheath. BOTTOM ROW beneath the main zone: the silver knife in its blood-stained blade state with dark crimson droplets along the honed point, a straight-on side profile showing the wafer-thin blade and sheath thickness, and a macro close-up of the razor-honed tip bevel. Every panel shows the SAME miniature silver knife — same proportions, same wire wrapping, same sheath fit. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows">复制</button></summary>
+  <p>Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the miniature Northern Song silver manicure knife clean and dry beside its slim silver-collared ebony sheath in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the teardrop pierced pommel and tight fine silver-wire grip wrapping, and the narrow cloud-scroll fuller groove where the blade meets the silver-collared ebony sheath. BOTTOM ROW beneath the main zone: the silver knife in its blood-stained blade state with dark crimson droplets along the honed point, a straight-on side profile showing the wafer-thin blade and sheath thickness, and a macro close-up of the razor-honed tip bevel. Every panel shows the SAME miniature silver knife — same proportions, same wire wrapping, same sheath fit. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows</p>
+</details>
+    <details class="pr">
+  <summary><span>反向提示词</span><button class="copy" data-copy="people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature">复制</button></summary>
+  <p>people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature</p>
+</details>
+    <div class="pgroup-f"><button class="copy wide" data-copy="{
+  &quot;id&quot;: &quot;P01&quot;,
+  &quot;name&quot;: &quot;修甲寸银小刀&quot;,
+  &quot;scale&quot;: &quot;手持级&quot;,
+  &quot;summary&quot;: &quot;温如风的人设象征与终极暗器：日常优雅修甲压迫对手，决裂时失手坠地显露动摇，第10集一击钻透厉狂澜太阳穴揭示深藏的绝顶武功与护短深情&quot;,
+  &quot;anchors&quot;: [
+    {
+      &quot;name&quot;: &quot;一寸柳叶银刃&quot;,
+      &quot;desc&quot;: &quot;通体纯银锻造的一寸三分微弧柳叶短刃，刃口锋利寒光凛冽，刃脊近柄处刻一道极细的云纹暗槽&quot;
+    },
+    {
+      &quot;name&quot;: &quot;缠银丝细短柄&quot;,
+      &quot;desc&quot;: &quot;长约三寸的纤细银质手柄，中段紧密缠绕细银丝防滑，比例袖珍隐蔽便于指缝旋绕&quot;
+    },
+    {
+      &quot;name&quot;: &quot;刀尾水滴穿孔&quot;,
+      &quot;desc&quot;: &quot;柄尾收成扁平水滴造型，正中钻有一枚穿绳小圆孔，边缘经长年指腹摩挲得温润锃亮&quot;
+    },
+    {
+      &quot;name&quot;: &quot;素面乌木插鞘&quot;,
+      &quot;desc&quot;: &quot;一只贴合刃型的袖珍黑檀木薄鞘，鞘口嵌一圈窄白银包边，平时严丝合缝藏于扇底或袖内&quot;
+    }
+  ],
+  &quot;states&quot;: [
+    {
+      &quot;state&quot;: &quot;日常洁净&quot;,
+      &quot;prompt&quot;: &quot;the miniature Northern Song pure silver willow-leaf manicure knife resting horizontally beside its slim ebony sheath, spotless mirror-bright silver blade gleaming crisply, fine silver-wire grip clean and unblemished&quot;
+    },
+    {
+      &quot;state&quot;: &quot;染血锋刃&quot;,
+      &quot;prompt&quot;: &quot;the miniature silver blade drawn free of its sheath, razor-sharp point and narrow cloud-scroll groove stained with fresh dark crimson blood droplets along the bright silver edge, sharp specular highlight on the honed tip&quot;
+    }
+  ],
+  &quot;relatedScenes&quot;: [
+    &quot;S01&quot;,
+    &quot;S02&quot;,
+    &quot;S06&quot;
+  ],
+  &quot;carriedBy&quot;: [
+    &quot;温如风&quot;
+  ],
+  &quot;image&quot;: {
+    &quot;prompt&quot;: &quot;A miniature Northern Song dynasty Chinese pure silver willow-leaf pocket manicure knife at handheld scale, tiny one-inch curved silver blade with a narrow fuller groove, slender three-inch hilt wrapped in fine silver wire with a teardrop pierced pommel, paired with a slim dark ebony sheath collared in white silver, isolated on a pure white background, no people, no hands&quot;,
+    &quot;negativePrompt&quot;: &quot;people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature&quot;,
+    &quot;sheet&quot;: &quot;Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the miniature Northern Song silver manicure knife clean and dry beside its slim silver-collared ebony sheath in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the teardrop pierced pommel and tight fine silver-wire grip wrapping, and the narrow cloud-scroll fuller groove where the blade meets the silver-collared ebony sheath. BOTTOM ROW beneath the main zone: the silver knife in its blood-stained blade state with dark crimson droplets along the honed point, a straight-on side profile showing the wafer-thin blade and sheath thickness, and a macro close-up of the razor-honed tip bevel. Every panel shows the SAME miniature silver knife — same proportions, same wire wrapping, same sheath fit. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows&quot;,
+    &quot;tags&quot;: [
+      &quot;prop sheet&quot;,
+      &quot;Northern Song silver knife&quot;,
+      &quot;handheld weapon&quot;,
+      &quot;white background&quot;
+    ]
+  },
+  &quot;usage&quot;: {
+    &quot;episodes&quot;: [
+      1,
+      2,
+      6,
+      10,
+      11
+    ],
+    &quot;beats&quot;: [
+      &quot;人设反差&quot;,
+      &quot;情绪撕裂&quot;,
+      &quot;绝杀高潮&quot;
+    ]
+  },
+  &quot;sheetImage&quot;: &quot;images/修甲寸银小刀-sheet.webp&quot;
+}">复制整个场景 JSON</button></div>
+  </div>
+</article>
+<article class="scene" id="pr-P02">
+  <header class="sc-h">
+    <span class="sc-id">P02</span>
+    <h3>四十八骨海棠紫竹伞</h3>
+    <span class="badge">手持级</span>
+    <span class="sc-use">出现集 7、8、9、12　承载爽点 宿命借伞 · 卖院诀别 · 救赎收束</span>
+  </header>
+  <p class="sc-sum">贯穿全剧的情感信物：醉花阴戏台道具→晨雨借给江晚棠接心上人→被林慕白绘上雨打海棠归还→三年后秦不争交还温如风为小满遮雨，完成悲喜闭环</p>
+  <figure class="plate">
+  <button class="zoom" data-src="images/四十八骨海棠紫竹伞-sheet.webp" aria-label="放大查看">
+    <img src="images/四十八骨海棠紫竹伞-sheet.webp" alt="四十八骨海棠紫竹伞 主视角＋底部与右侧细节条 · 纯白背景" loading="lazy">
+  </button>
+  <figcaption>主视角＋底部与右侧细节条 · 纯白背景</figcaption>
+</figure>
+  <p class="variant">关联场景：<b>S05、S03、S01</b>　关联角色：温如风、江晚棠、林慕白</p>
+  <section class="blk">
+    <h4>一致性锚点<small>每次生成都必须出现的特征——认场景靠它，QC 也靠它</small></h4>
+    <ol class="anchors"><li><b>紫竹节柄与青玉伞钮</b><span>深紫褐色斑纹紫竹长柄，竹节匀称且磨出温润包浆，柄尾嵌一枚素净青玉圆钮并系深青丝穗</span></li><li><b>四十八根细竹伞骨</b><span>伞架内密密排列四十八根削制极细的本色老竹伞骨，穿线扎结工整严密，是典型北宋江南精巧样式</span></li><li><b>天青油纸伞面</b><span>伞面蒙半透明桐油浸制天青色桑皮纸，透出柔和光泽，收拢时折痕挺括利落</span></li><li><b>墨绘雨打海棠枝</b><span>伞面一侧以水墨点染一枝斜出的春雨海棠花叶，淡粉朱砂花蕊与晕散墨迹清雅柔婉</span></li></ol>
+  </section>
+  <section class="blk">
+    <h4>状态变体</h4>
+    <div class="lights"><div class="light"><i>素面收拢</i><span class="mono">the forty-eight-rib Northern Song Jiangnan purple-bamboo oiled-paper umbrella tightly furled and secured by a slim dark silk tie, mottled dark purple bamboo shaft and pale celadon jade pommel polished smooth, crisp pale celadon-green oiled paper folds</span><button class="copy mini" data-copy="the forty-eight-rib Northern Song Jiangnan purple-bamboo oiled-paper umbrella tightly furled and secured by a slim dark silk tie, mottled dark purple bamboo shaft and pale celadon jade pommel polished smooth, crisp pale celadon-green oiled paper folds">复制</button></div><div class="light"><i>雨打海棠撑开</i><span class="mono">the forty-eight-rib purple-bamboo umbrella opened wide at a three-quarter angle, translucent pale celadon-green tung-oiled mulberry paper glowing softly to show the forty-eight radial bamboo ribs beneath, painted on one side with an elegant ink-and-mineral-pink flowering crabapple branch speckled as if kissed by spring rain</span><button class="copy mini" data-copy="the forty-eight-rib purple-bamboo umbrella opened wide at a three-quarter angle, translucent pale celadon-green tung-oiled mulberry paper glowing softly to show the forty-eight radial bamboo ribs beneath, painted on one side with an elegant ink-and-mineral-pink flowering crabapple branch speckled as if kissed by spring rain">复制</button></div></div>
+  </section>
+  <div class="pgroup">
+    <details class="pr">
+  <summary><span>主视角 EN</span><button class="copy" data-copy="A Northern Song dynasty Chinese Jiangnan forty-eight-rib purple-bamboo oiled-paper umbrella at handheld scale, tightly furled pale celadon-green tung-oiled mulberry paper canopy bound with a dark silk cord, mottled dark purple bamboo shaft with a smooth pale celadon jade pommel finial and dark silk tassel, isolated on a pure white background, no people, no hands">复制</button></summary>
+  <p>A Northern Song dynasty Chinese Jiangnan forty-eight-rib purple-bamboo oiled-paper umbrella at handheld scale, tightly furled pale celadon-green tung-oiled mulberry paper canopy bound with a dark silk cord, mottled dark purple bamboo shaft with a smooth pale celadon jade pommel finial and dark silk tassel, isolated on a pure white background, no people, no hands</p>
+</details>
+    <details class="pr">
+  <summary><span>设定图 EN</span><button class="copy" data-copy="Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the forty-eight-rib purple-bamboo oiled-paper umbrella tightly furled in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the mottled purple bamboo handle with its pale celadon jade finial and dark silk tassel, and a macro view of the tightly laced forty-eight slender bamboo ribs inside the umbrella crown. BOTTOM ROW beneath the main zone: the umbrella opened wide showing the translucent celadon-green oiled paper painted with a delicate ink-and-pink rain-kissed crabapple blossom branch, a straight-on side profile of the furled umbrella, and a macro detail of the painted crabapple blossom brush strokes on oiled mulberry paper. Every panel shows the SAME umbrella — same bamboo mottling, same forty-eight ribs, same proportions. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows">复制</button></summary>
+  <p>Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the forty-eight-rib purple-bamboo oiled-paper umbrella tightly furled in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the mottled purple bamboo handle with its pale celadon jade finial and dark silk tassel, and a macro view of the tightly laced forty-eight slender bamboo ribs inside the umbrella crown. BOTTOM ROW beneath the main zone: the umbrella opened wide showing the translucent celadon-green oiled paper painted with a delicate ink-and-pink rain-kissed crabapple blossom branch, a straight-on side profile of the furled umbrella, and a macro detail of the painted crabapple blossom brush strokes on oiled mulberry paper. Every panel shows the SAME umbrella — same bamboo mottling, same forty-eight ribs, same proportions. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows</p>
+</details>
+    <details class="pr">
+  <summary><span>反向提示词</span><button class="copy" data-copy="people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature">复制</button></summary>
+  <p>people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature</p>
+</details>
+    <div class="pgroup-f"><button class="copy wide" data-copy="{
+  &quot;id&quot;: &quot;P02&quot;,
+  &quot;name&quot;: &quot;四十八骨海棠紫竹伞&quot;,
+  &quot;scale&quot;: &quot;手持级&quot;,
+  &quot;summary&quot;: &quot;贯穿全剧的情感信物：醉花阴戏台道具→晨雨借给江晚棠接心上人→被林慕白绘上雨打海棠归还→三年后秦不争交还温如风为小满遮雨，完成悲喜闭环&quot;,
+  &quot;anchors&quot;: [
+    {
+      &quot;name&quot;: &quot;紫竹节柄与青玉伞钮&quot;,
+      &quot;desc&quot;: &quot;深紫褐色斑纹紫竹长柄，竹节匀称且磨出温润包浆，柄尾嵌一枚素净青玉圆钮并系深青丝穗&quot;
+    },
+    {
+      &quot;name&quot;: &quot;四十八根细竹伞骨&quot;,
+      &quot;desc&quot;: &quot;伞架内密密排列四十八根削制极细的本色老竹伞骨，穿线扎结工整严密，是典型北宋江南精巧样式&quot;
+    },
+    {
+      &quot;name&quot;: &quot;天青油纸伞面&quot;,
+      &quot;desc&quot;: &quot;伞面蒙半透明桐油浸制天青色桑皮纸，透出柔和光泽，收拢时折痕挺括利落&quot;
+    },
+    {
+      &quot;name&quot;: &quot;墨绘雨打海棠枝&quot;,
+      &quot;desc&quot;: &quot;伞面一侧以水墨点染一枝斜出的春雨海棠花叶，淡粉朱砂花蕊与晕散墨迹清雅柔婉&quot;
+    }
+  ],
+  &quot;states&quot;: [
+    {
+      &quot;state&quot;: &quot;素面收拢&quot;,
+      &quot;prompt&quot;: &quot;the forty-eight-rib Northern Song Jiangnan purple-bamboo oiled-paper umbrella tightly furled and secured by a slim dark silk tie, mottled dark purple bamboo shaft and pale celadon jade pommel polished smooth, crisp pale celadon-green oiled paper folds&quot;
+    },
+    {
+      &quot;state&quot;: &quot;雨打海棠撑开&quot;,
+      &quot;prompt&quot;: &quot;the forty-eight-rib purple-bamboo umbrella opened wide at a three-quarter angle, translucent pale celadon-green tung-oiled mulberry paper glowing softly to show the forty-eight radial bamboo ribs beneath, painted on one side with an elegant ink-and-mineral-pink flowering crabapple branch speckled as if kissed by spring rain&quot;
+    }
+  ],
+  &quot;relatedScenes&quot;: [
+    &quot;S05&quot;,
+    &quot;S03&quot;,
+    &quot;S01&quot;
+  ],
+  &quot;carriedBy&quot;: [
+    &quot;温如风&quot;,
+    &quot;江晚棠&quot;,
+    &quot;林慕白&quot;
+  ],
+  &quot;image&quot;: {
+    &quot;prompt&quot;: &quot;A Northern Song dynasty Chinese Jiangnan forty-eight-rib purple-bamboo oiled-paper umbrella at handheld scale, tightly furled pale celadon-green tung-oiled mulberry paper canopy bound with a dark silk cord, mottled dark purple bamboo shaft with a smooth pale celadon jade pommel finial and dark silk tassel, isolated on a pure white background, no people, no hands&quot;,
+    &quot;negativePrompt&quot;: &quot;people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature&quot;,
+    &quot;sheet&quot;: &quot;Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the forty-eight-rib purple-bamboo oiled-paper umbrella tightly furled in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the mottled purple bamboo handle with its pale celadon jade finial and dark silk tassel, and a macro view of the tightly laced forty-eight slender bamboo ribs inside the umbrella crown. BOTTOM ROW beneath the main zone: the umbrella opened wide showing the translucent celadon-green oiled paper painted with a delicate ink-and-pink rain-kissed crabapple blossom branch, a straight-on side profile of the furled umbrella, and a macro detail of the painted crabapple blossom brush strokes on oiled mulberry paper. Every panel shows the SAME umbrella — same bamboo mottling, same forty-eight ribs, same proportions. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows&quot;,
+    &quot;tags&quot;: [
+      &quot;prop sheet&quot;,
+      &quot;Northern Song umbrella&quot;,
+      &quot;purple bamboo&quot;,
+      &quot;white background&quot;
+    ]
+  },
+  &quot;usage&quot;: {
+    &quot;episodes&quot;: [
+      7,
+      8,
+      9,
+      12
+    ],
+    &quot;beats&quot;: [
+      &quot;宿命借伞&quot;,
+      &quot;卖院诀别&quot;,
+      &quot;救赎收束&quot;
+    ]
+  },
+  &quot;sheetImage&quot;: &quot;images/四十八骨海棠紫竹伞-sheet.webp&quot;
+}">复制整个场景 JSON</button></div>
+  </div>
+</article>
+<article class="scene" id="pr-P03">
+  <header class="sc-h">
+    <span class="sc-id">P03</span>
+    <h3>百年紫雪参药丸</h3>
+    <span class="badge">手持级</span>
+    <span class="sc-use">出现集 2、3、4、9、12　承载爽点 痛点拉扯 · 暗线反转 · 救赎收束</span>
+  </header>
+  <p class="sc-sum">江晚棠接单卖命的生存软肋：每月上百两续命费逼出她甘愿冒死接三百两低价单，也照见她作为母亲的孤勇与悲情</p>
+  <figure class="plate">
+  <button class="zoom" data-src="images/百年紫雪参药丸-sheet.webp" aria-label="放大查看">
+    <img src="images/百年紫雪参药丸-sheet.webp" alt="百年紫雪参药丸 主视角＋底部与右侧细节条 · 纯白背景" loading="lazy">
+  </button>
+  <figcaption>主视角＋底部与右侧细节条 · 纯白背景</figcaption>
+</figure>
+  <p class="variant">关联场景：<b>S02、S03</b>　关联角色：江晚棠、温如风</p>
+  <section class="blk">
+    <h4>一致性锚点<small>每次生成都必须出现的特征——认场景靠它，QC 也靠它</small></h4>
+    <ol class="anchors"><li><b>扁圆黑漆旧木药盒</b><span>掌心大小的扁圆形旧木药盒，盒沿漆面微有磨白掉漆，侧面嵌一只小巧铜扣与浅淡暗红药铺印痕</span></li><li><b>褶皱泛黄棉纸衬垫</b><span>盒底铺一张折痕深重的泛黄毛边棉纸药笺，纸边略显陈旧起毛</span></li><li><b>暗黄蜂蜡密封丸壳</b><span>三枚桂圆大小的暗黄棕色蜂蜡护壳，其中一枚已被掐开半裂露出厚实蜡壁</span></li><li><b>紫褐泛暗金药丸</b><span>剥出蜡壳的药丸呈深紫褐色，表面细密沾着一层暗金色药粉光泽与干燥参丝纹理</span></li></ol>
+  </section>
+  <section class="blk">
+    <h4>状态变体</h4>
+    <div class="lights"><div class="light"><i>蜡封药盒开启</i><span class="mono">the palm-sized weathered dark lacquer wood medicine box resting open with its lid beside it, creased yellowed mulberry paper liner inside holding three round amber-brown beeswax-sealed pill shells, one beeswax shell split open half-revealing the dark purplish-brown pill within</span><button class="copy mini" data-copy="the palm-sized weathered dark lacquer wood medicine box resting open with its lid beside it, creased yellowed mulberry paper liner inside holding three round amber-brown beeswax-sealed pill shells, one beeswax shell split open half-revealing the dark purplish-brown pill within">复制</button></div><div class="light"><i>单颗暗金药丸</i><span class="mono">a single dense deep purplish-brown Northern Song herbal ginseng restorative pill extracted from its cracked beeswax shell onto the unfolded yellowed paper sheet, finely dusted with muted dark-gold mineral sheen and visible dried root flecks</span><button class="copy mini" data-copy="a single dense deep purplish-brown Northern Song herbal ginseng restorative pill extracted from its cracked beeswax shell onto the unfolded yellowed paper sheet, finely dusted with muted dark-gold mineral sheen and visible dried root flecks">复制</button></div></div>
+  </section>
+  <div class="pgroup">
+    <details class="pr">
+  <summary><span>主视角 EN</span><button class="copy" data-copy="A small round Northern Song dynasty Chinese weathered dark-lacquered wooden medicine box at handheld scale, lid open beside the box revealing a creased yellowed mulberry paper liner and three round amber-brown beeswax pill shells with one shell cracked open to show a dense dark purplish-brown herbal ginseng pill dusted with faint muted gold sheen, isolated on a pure white background, no people, no hands">复制</button></summary>
+  <p>A small round Northern Song dynasty Chinese weathered dark-lacquered wooden medicine box at handheld scale, lid open beside the box revealing a creased yellowed mulberry paper liner and three round amber-brown beeswax pill shells with one shell cracked open to show a dense dark purplish-brown herbal ginseng pill dusted with faint muted gold sheen, isolated on a pure white background, no people, no hands</p>
+</details>
+    <details class="pr">
+  <summary><span>设定图 EN</span><button class="copy" data-copy="Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the weathered round dark-lacquered wooden medicine box open with its beeswax-sealed ginseng pills inside in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the worn small brass clasp and chipped lacquer rim of the round wooden box, and the cracked amber-brown beeswax shell wall around the pill. BOTTOM ROW beneath the main zone: a single extracted dark purplish-brown pill dusted with muted gold sheen resting on creased yellowed paper, a straight-on side profile of the closed round box showing its shallow depth, and a macro close-up of the dense herbal pill surface with fine root fiber flecks. Every panel shows the SAME wooden medicine box and pills — same wear, same clasps, same proportions. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows">复制</button></summary>
+  <p>Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the weathered round dark-lacquered wooden medicine box open with its beeswax-sealed ginseng pills inside in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the worn small brass clasp and chipped lacquer rim of the round wooden box, and the cracked amber-brown beeswax shell wall around the pill. BOTTOM ROW beneath the main zone: a single extracted dark purplish-brown pill dusted with muted gold sheen resting on creased yellowed paper, a straight-on side profile of the closed round box showing its shallow depth, and a macro close-up of the dense herbal pill surface with fine root fiber flecks. Every panel shows the SAME wooden medicine box and pills — same wear, same clasps, same proportions. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows</p>
+</details>
+    <details class="pr">
+  <summary><span>反向提示词</span><button class="copy" data-copy="people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature">复制</button></summary>
+  <p>people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature</p>
+</details>
+    <div class="pgroup-f"><button class="copy wide" data-copy="{
+  &quot;id&quot;: &quot;P03&quot;,
+  &quot;name&quot;: &quot;百年紫雪参药丸&quot;,
+  &quot;scale&quot;: &quot;手持级&quot;,
+  &quot;summary&quot;: &quot;江晚棠接单卖命的生存软肋：每月上百两续命费逼出她甘愿冒死接三百两低价单，也照见她作为母亲的孤勇与悲情&quot;,
+  &quot;anchors&quot;: [
+    {
+      &quot;name&quot;: &quot;扁圆黑漆旧木药盒&quot;,
+      &quot;desc&quot;: &quot;掌心大小的扁圆形旧木药盒，盒沿漆面微有磨白掉漆，侧面嵌一只小巧铜扣与浅淡暗红药铺印痕&quot;
+    },
+    {
+      &quot;name&quot;: &quot;褶皱泛黄棉纸衬垫&quot;,
+      &quot;desc&quot;: &quot;盒底铺一张折痕深重的泛黄毛边棉纸药笺，纸边略显陈旧起毛&quot;
+    },
+    {
+      &quot;name&quot;: &quot;暗黄蜂蜡密封丸壳&quot;,
+      &quot;desc&quot;: &quot;三枚桂圆大小的暗黄棕色蜂蜡护壳，其中一枚已被掐开半裂露出厚实蜡壁&quot;
+    },
+    {
+      &quot;name&quot;: &quot;紫褐泛暗金药丸&quot;,
+      &quot;desc&quot;: &quot;剥出蜡壳的药丸呈深紫褐色，表面细密沾着一层暗金色药粉光泽与干燥参丝纹理&quot;
+    }
+  ],
+  &quot;states&quot;: [
+    {
+      &quot;state&quot;: &quot;蜡封药盒开启&quot;,
+      &quot;prompt&quot;: &quot;the palm-sized weathered dark lacquer wood medicine box resting open with its lid beside it, creased yellowed mulberry paper liner inside holding three round amber-brown beeswax-sealed pill shells, one beeswax shell split open half-revealing the dark purplish-brown pill within&quot;
+    },
+    {
+      &quot;state&quot;: &quot;单颗暗金药丸&quot;,
+      &quot;prompt&quot;: &quot;a single dense deep purplish-brown Northern Song herbal ginseng restorative pill extracted from its cracked beeswax shell onto the unfolded yellowed paper sheet, finely dusted with muted dark-gold mineral sheen and visible dried root flecks&quot;
+    }
+  ],
+  &quot;relatedScenes&quot;: [
+    &quot;S02&quot;,
+    &quot;S03&quot;
+  ],
+  &quot;carriedBy&quot;: [
+    &quot;江晚棠&quot;,
+    &quot;温如风&quot;
+  ],
+  &quot;image&quot;: {
+    &quot;prompt&quot;: &quot;A small round Northern Song dynasty Chinese weathered dark-lacquered wooden medicine box at handheld scale, lid open beside the box revealing a creased yellowed mulberry paper liner and three round amber-brown beeswax pill shells with one shell cracked open to show a dense dark purplish-brown herbal ginseng pill dusted with faint muted gold sheen, isolated on a pure white background, no people, no hands&quot;,
+    &quot;negativePrompt&quot;: &quot;people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature&quot;,
+    &quot;sheet&quot;: &quot;Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the weathered round dark-lacquered wooden medicine box open with its beeswax-sealed ginseng pills inside in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the worn small brass clasp and chipped lacquer rim of the round wooden box, and the cracked amber-brown beeswax shell wall around the pill. BOTTOM ROW beneath the main zone: a single extracted dark purplish-brown pill dusted with muted gold sheen resting on creased yellowed paper, a straight-on side profile of the closed round box showing its shallow depth, and a macro close-up of the dense herbal pill surface with fine root fiber flecks. Every panel shows the SAME wooden medicine box and pills — same wear, same clasps, same proportions. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows&quot;,
+    &quot;tags&quot;: [
+      &quot;prop sheet&quot;,
+      &quot;Northern Song medicine box&quot;,
+      &quot;ginseng pill&quot;,
+      &quot;white background&quot;
+    ]
+  },
+  &quot;usage&quot;: {
+    &quot;episodes&quot;: [
+      2,
+      3,
+      4,
+      9,
+      12
+    ],
+    &quot;beats&quot;: [
+      &quot;痛点拉扯&quot;,
+      &quot;暗线反转&quot;,
+      &quot;救赎收束&quot;
+    ]
+  },
+  &quot;sheetImage&quot;: &quot;images/百年紫雪参药丸-sheet.webp&quot;
+}">复制整个场景 JSON</button></div>
+  </div>
+</article>
+<article class="scene" id="pr-P04">
+  <header class="sc-h">
+    <span class="sc-id">P04</span>
+    <h3>行踪时辰小册子</h3>
+    <span class="badge">手持级</span>
+    <span class="sc-use">出现集 4、5、6　承载爽点 错位冲击 · 情绪撕裂</span>
+  </header>
+  <p class="sc-sum">温如风暗中护卫却嘴硬伪装的物证：记录江晚棠与林慕白每次相见的时辰地点，面馆甩出戳破窗户纸，成为两人激烈撕裂的导火索</p>
+  <figure class="plate">
+  <button class="zoom" data-src="images/行踪时辰小册子-sheet.webp" aria-label="放大查看">
+    <img src="images/行踪时辰小册子-sheet.webp" alt="行踪时辰小册子 主视角＋底部与右侧细节条 · 纯白背景" loading="lazy">
+  </button>
+  <figcaption>主视角＋底部与右侧细节条 · 纯白背景</figcaption>
+</figure>
+  <p class="variant">关联场景：<b>S01、S02</b>　关联角色：温如风</p>
+  <section class="blk">
+    <h4>一致性锚点<small>每次生成都必须出现的特征——认场景靠它，QC 也靠它</small></h4>
+    <ol class="anchors"><li><b>蓝布软封皮与空白纸签</b><span>巴掌大的宋式袖珍蓝粗布包背软封皮，四角微磨起毛，右上角贴一枚素白泛黄竖条纸签，纸边微微翘起</span></li><li><b>四眼白棉线装脊</b><span>左侧书脊采用典型北宋四眼线装，粗白棉线针脚扎实，线身微染长期摩挲的暗灰包浆</span></li><li><b>微黄竹纸折页</b><span>内里对折竹纸书页轻薄微黄，页角留有反复翻阅的折痕与轻微卷曲</span></li><li><b>密写蝇头小楷墨迹</b><span>内页竖栏写满工整细密的黑色毛笔蝇头小楷记录，墨色随不同日记录微见浓淡差异</span></li></ol>
+  </section>
+  <section class="blk">
+    <h4>状态变体</h4>
+    <div class="lights"><div class="light"><i>蓝布封皮合拢</i><span class="mono">the pocket-sized Northern Song indigo cotton cloth notebook lying flat and closed, worn faded blue fabric edges slightly frayed, an aged blank cream paper strip pasted at the upper corner, white four-hole stitched spine darkened gently from handling</span><button class="copy mini" data-copy="the pocket-sized Northern Song indigo cotton cloth notebook lying flat and closed, worn faded blue fabric edges slightly frayed, an aged blank cream paper strip pasted at the upper corner, white four-hole stitched spine darkened gently from handling">复制</button></div><div class="light"><i>翻开密写蝇头小楷</i><span class="mono">the pocket notebook lying flat open across two facing creased pale-yellow bamboo paper pages, neatly filled top to bottom with dense vertical columns of minuscule black-ink brush calligraphy entries, subtle variation in ink tone across dates and lightly curled page corners</span><button class="copy mini" data-copy="the pocket notebook lying flat open across two facing creased pale-yellow bamboo paper pages, neatly filled top to bottom with dense vertical columns of minuscule black-ink brush calligraphy entries, subtle variation in ink tone across dates and lightly curled page corners">复制</button></div></div>
+  </section>
+  <div class="pgroup">
+    <details class="pr">
+  <summary><span>主视角 EN</span><button class="copy" data-copy="A pocket-sized Northern Song dynasty Chinese four-hole thread-bound ledger notebook at handheld scale, closed flat with a faded indigo coarse cotton cloth cover, frayed corners, a blank aged cream vertical paper strip pasted on the corner, and white cotton spine stitching darkened from handling, isolated on a pure white background, no people, no hands">复制</button></summary>
+  <p>A pocket-sized Northern Song dynasty Chinese four-hole thread-bound ledger notebook at handheld scale, closed flat with a faded indigo coarse cotton cloth cover, frayed corners, a blank aged cream vertical paper strip pasted on the corner, and white cotton spine stitching darkened from handling, isolated on a pure white background, no people, no hands</p>
+</details>
+    <details class="pr">
+  <summary><span>设定图 EN</span><button class="copy" data-copy="Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the pocket-sized indigo cotton thread-bound notebook closed flat in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the white four-hole cotton thread stitching along the faded indigo cloth spine, and the frayed cloth corner with its curled blank cream paper label slip. BOTTOM ROW beneath the main zone: the notebook lying open to show creased pale-yellow bamboo paper spreads filled with vertical columns of minuscule black-ink brush calligraphy, a straight-on side profile showing thin folded paper leaf edges, and a macro close-up of brush-ink strokes soaked into bamboo paper fibers. Every panel shows the SAME pocket notebook — same indigo weave, same stitching, same proportions. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows">复制</button></summary>
+  <p>Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the pocket-sized indigo cotton thread-bound notebook closed flat in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the white four-hole cotton thread stitching along the faded indigo cloth spine, and the frayed cloth corner with its curled blank cream paper label slip. BOTTOM ROW beneath the main zone: the notebook lying open to show creased pale-yellow bamboo paper spreads filled with vertical columns of minuscule black-ink brush calligraphy, a straight-on side profile showing thin folded paper leaf edges, and a macro close-up of brush-ink strokes soaked into bamboo paper fibers. Every panel shows the SAME pocket notebook — same indigo weave, same stitching, same proportions. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows</p>
+</details>
+    <details class="pr">
+  <summary><span>反向提示词</span><button class="copy" data-copy="people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature">复制</button></summary>
+  <p>people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature</p>
+</details>
+    <div class="pgroup-f"><button class="copy wide" data-copy="{
+  &quot;id&quot;: &quot;P04&quot;,
+  &quot;name&quot;: &quot;行踪时辰小册子&quot;,
+  &quot;scale&quot;: &quot;手持级&quot;,
+  &quot;summary&quot;: &quot;温如风暗中护卫却嘴硬伪装的物证：记录江晚棠与林慕白每次相见的时辰地点，面馆甩出戳破窗户纸，成为两人激烈撕裂的导火索&quot;,
+  &quot;anchors&quot;: [
+    {
+      &quot;name&quot;: &quot;蓝布软封皮与空白纸签&quot;,
+      &quot;desc&quot;: &quot;巴掌大的宋式袖珍蓝粗布包背软封皮，四角微磨起毛，右上角贴一枚素白泛黄竖条纸签，纸边微微翘起&quot;
+    },
+    {
+      &quot;name&quot;: &quot;四眼白棉线装脊&quot;,
+      &quot;desc&quot;: &quot;左侧书脊采用典型北宋四眼线装，粗白棉线针脚扎实，线身微染长期摩挲的暗灰包浆&quot;
+    },
+    {
+      &quot;name&quot;: &quot;微黄竹纸折页&quot;,
+      &quot;desc&quot;: &quot;内里对折竹纸书页轻薄微黄，页角留有反复翻阅的折痕与轻微卷曲&quot;
+    },
+    {
+      &quot;name&quot;: &quot;密写蝇头小楷墨迹&quot;,
+      &quot;desc&quot;: &quot;内页竖栏写满工整细密的黑色毛笔蝇头小楷记录，墨色随不同日记录微见浓淡差异&quot;
+    }
+  ],
+  &quot;states&quot;: [
+    {
+      &quot;state&quot;: &quot;蓝布封皮合拢&quot;,
+      &quot;prompt&quot;: &quot;the pocket-sized Northern Song indigo cotton cloth notebook lying flat and closed, worn faded blue fabric edges slightly frayed, an aged blank cream paper strip pasted at the upper corner, white four-hole stitched spine darkened gently from handling&quot;
+    },
+    {
+      &quot;state&quot;: &quot;翻开密写蝇头小楷&quot;,
+      &quot;prompt&quot;: &quot;the pocket notebook lying flat open across two facing creased pale-yellow bamboo paper pages, neatly filled top to bottom with dense vertical columns of minuscule black-ink brush calligraphy entries, subtle variation in ink tone across dates and lightly curled page corners&quot;
+    }
+  ],
+  &quot;relatedScenes&quot;: [
+    &quot;S01&quot;,
+    &quot;S02&quot;
+  ],
+  &quot;carriedBy&quot;: [
+    &quot;温如风&quot;
+  ],
+  &quot;image&quot;: {
+    &quot;prompt&quot;: &quot;A pocket-sized Northern Song dynasty Chinese four-hole thread-bound ledger notebook at handheld scale, closed flat with a faded indigo coarse cotton cloth cover, frayed corners, a blank aged cream vertical paper strip pasted on the corner, and white cotton spine stitching darkened from handling, isolated on a pure white background, no people, no hands&quot;,
+    &quot;negativePrompt&quot;: &quot;people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature&quot;,
+    &quot;sheet&quot;: &quot;Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the pocket-sized indigo cotton thread-bound notebook closed flat in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the white four-hole cotton thread stitching along the faded indigo cloth spine, and the frayed cloth corner with its curled blank cream paper label slip. BOTTOM ROW beneath the main zone: the notebook lying open to show creased pale-yellow bamboo paper spreads filled with vertical columns of minuscule black-ink brush calligraphy, a straight-on side profile showing thin folded paper leaf edges, and a macro close-up of brush-ink strokes soaked into bamboo paper fibers. Every panel shows the SAME pocket notebook — same indigo weave, same stitching, same proportions. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows&quot;,
+    &quot;tags&quot;: [
+      &quot;prop sheet&quot;,
+      &quot;Northern Song notebook&quot;,
+      &quot;thread-bound ledger&quot;,
+      &quot;white background&quot;
+    ]
+  },
+  &quot;usage&quot;: {
+    &quot;episodes&quot;: [
+      4,
+      5,
+      6
+    ],
+    &quot;beats&quot;: [
+      &quot;错位冲击&quot;,
+      &quot;情绪撕裂&quot;
+    ]
+  },
+  &quot;sheetImage&quot;: &quot;images/行踪时辰小册子-sheet.webp&quot;
+}">复制整个场景 JSON</button></div>
+  </div>
+</article>
+<article class="scene" id="pr-P05">
+  <header class="sc-h">
+    <span class="sc-id">P05</span>
+    <h3>寒鸦双匕</h3>
+    <span class="badge">手持级</span>
+    <span class="sc-use">出现集 9、10　承载爽点 绝杀高潮</span>
+  </header>
+  <p class="sc-sum">厉狂澜藏于袖中的致命底牌：表面跪地求饶实则偷袭得手，直接导致江晚棠香消玉殒并逼出温如风现身绝杀</p>
+  <figure class="plate">
+  <button class="zoom" data-src="images/寒鸦双匕-sheet.webp" aria-label="放大查看">
+    <img src="images/寒鸦双匕-sheet.webp" alt="寒鸦双匕 主视角＋底部与右侧细节条 · 纯白背景" loading="lazy">
+  </button>
+  <figcaption>主视角＋底部与右侧细节条 · 纯白背景</figcaption>
+</figure>
+  <p class="variant">关联场景：<b>S06</b>　关联角色：厉狂澜</p>
+  <section class="blk">
+    <h4>一致性锚点<small>每次生成都必须出现的特征——认场景靠它，QC 也靠它</small></h4>
+    <ol class="anchors"><li><b>鸦喙淬蓝窄刃</b><span>一对窄身直刃匕首，锋尖微弯似寒鸦利喙，经淬火泛幽冷青蓝寒光，刃侧开细窄血槽</span></li><li><b>黑绳鲨皮窄柄</b><span>匕柄以粗糙黑鲨鱼皮衬底外缠交叉细黑麻绳，无宽大护手，紧贴掌型极便暗藏衣袖</span></li><li><b>扁圆乌铁柄首</b><span>柄尾各嵌一枚扁圆乌铁小配重首，刻有简朴防滑斜纹，金属面沉冷泛暗光</span></li><li><b>双槽深褐皮套</b><span>一只扁平厚牛皮缝制的双槽并插护套，缝线工整紧密，背面配两道束臂窄皮带绊</span></li></ol>
+  </section>
+  <section class="blk">
+    <h4>状态变体</h4>
+    <div class="lights"><div class="light"><i>皮套并插</i><span class="mono">the matched pair of slender Northern Song concealed steel daggers sheathed tightly side-by-side inside their flat dark-brown stitched cowhide dual-slot sleeve holster, only the identical black-cord-wrapped hilts and flat dark-iron pommels protruding evenly</span><button class="copy mini" data-copy="the matched pair of slender Northern Song concealed steel daggers sheathed tightly side-by-side inside their flat dark-brown stitched cowhide dual-slot sleeve holster, only the identical black-cord-wrapped hilts and flat dark-iron pommels protruding evenly">复制</button></div><div class="light"><i>双刃出鞘泛蓝光</i><span class="mono">both slender crow-beak steel daggers drawn cleanly beside the empty flat leather dual-slot holster, dark quenched steel blades catching an ominous cold bluish metallic sheen along their subtly hooked tips and narrow blood grooves</span><button class="copy mini" data-copy="both slender crow-beak steel daggers drawn cleanly beside the empty flat leather dual-slot holster, dark quenched steel blades catching an ominous cold bluish metallic sheen along their subtly hooked tips and narrow blood grooves">复制</button></div></div>
+  </section>
+  <div class="pgroup">
+    <details class="pr">
+  <summary><span>主视角 EN</span><button class="copy" data-copy="A matched pair of slender Northern Song dynasty Chinese concealed steel daggers at handheld scale, sheathed side-by-side in a flat dark-brown stitched cowhide dual-slot sleeve holster, identical slim black-cord-over-shagreen hilts and flat dark-iron pommels protruding cleanly, isolated on a pure white background, no people, no hands">复制</button></summary>
+  <p>A matched pair of slender Northern Song dynasty Chinese concealed steel daggers at handheld scale, sheathed side-by-side in a flat dark-brown stitched cowhide dual-slot sleeve holster, identical slim black-cord-over-shagreen hilts and flat dark-iron pommels protruding cleanly, isolated on a pure white background, no people, no hands</p>
+</details>
+    <details class="pr">
+  <summary><span>设定图 EN</span><button class="copy" data-copy="Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the matched pair of concealed steel daggers sheathed side-by-side in their flat stitched leather dual-slot sleeve holster in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the black-cord-over-shagreen hilt with its notched flat dark-iron pommel, and the heavy saddle stitching and twin arm-strap loops on the flat brown leather holster. BOTTOM ROW beneath the main zone: both crow-beak steel daggers unsheathed beside the empty holster showing the cold bluish quenched steel blade sheen, a straight-on side profile showing the slim concealable flat thickness of the sheathed pair, and a macro close-up of the curved crow-beak blade tip and narrow blood groove. Every panel shows the SAME pair of daggers and holster — same hilts, same stitching, same proportions. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows">复制</button></summary>
+  <p>Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the matched pair of concealed steel daggers sheathed side-by-side in their flat stitched leather dual-slot sleeve holster in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the black-cord-over-shagreen hilt with its notched flat dark-iron pommel, and the heavy saddle stitching and twin arm-strap loops on the flat brown leather holster. BOTTOM ROW beneath the main zone: both crow-beak steel daggers unsheathed beside the empty holster showing the cold bluish quenched steel blade sheen, a straight-on side profile showing the slim concealable flat thickness of the sheathed pair, and a macro close-up of the curved crow-beak blade tip and narrow blood groove. Every panel shows the SAME pair of daggers and holster — same hilts, same stitching, same proportions. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows</p>
+</details>
+    <details class="pr">
+  <summary><span>反向提示词</span><button class="copy" data-copy="people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature">复制</button></summary>
+  <p>people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature</p>
+</details>
+    <div class="pgroup-f"><button class="copy wide" data-copy="{
+  &quot;id&quot;: &quot;P05&quot;,
+  &quot;name&quot;: &quot;寒鸦双匕&quot;,
+  &quot;scale&quot;: &quot;手持级&quot;,
+  &quot;summary&quot;: &quot;厉狂澜藏于袖中的致命底牌：表面跪地求饶实则偷袭得手，直接导致江晚棠香消玉殒并逼出温如风现身绝杀&quot;,
+  &quot;anchors&quot;: [
+    {
+      &quot;name&quot;: &quot;鸦喙淬蓝窄刃&quot;,
+      &quot;desc&quot;: &quot;一对窄身直刃匕首，锋尖微弯似寒鸦利喙，经淬火泛幽冷青蓝寒光，刃侧开细窄血槽&quot;
+    },
+    {
+      &quot;name&quot;: &quot;黑绳鲨皮窄柄&quot;,
+      &quot;desc&quot;: &quot;匕柄以粗糙黑鲨鱼皮衬底外缠交叉细黑麻绳，无宽大护手，紧贴掌型极便暗藏衣袖&quot;
+    },
+    {
+      &quot;name&quot;: &quot;扁圆乌铁柄首&quot;,
+      &quot;desc&quot;: &quot;柄尾各嵌一枚扁圆乌铁小配重首，刻有简朴防滑斜纹，金属面沉冷泛暗光&quot;
+    },
+    {
+      &quot;name&quot;: &quot;双槽深褐皮套&quot;,
+      &quot;desc&quot;: &quot;一只扁平厚牛皮缝制的双槽并插护套，缝线工整紧密，背面配两道束臂窄皮带绊&quot;
+    }
+  ],
+  &quot;states&quot;: [
+    {
+      &quot;state&quot;: &quot;皮套并插&quot;,
+      &quot;prompt&quot;: &quot;the matched pair of slender Northern Song concealed steel daggers sheathed tightly side-by-side inside their flat dark-brown stitched cowhide dual-slot sleeve holster, only the identical black-cord-wrapped hilts and flat dark-iron pommels protruding evenly&quot;
+    },
+    {
+      &quot;state&quot;: &quot;双刃出鞘泛蓝光&quot;,
+      &quot;prompt&quot;: &quot;both slender crow-beak steel daggers drawn cleanly beside the empty flat leather dual-slot holster, dark quenched steel blades catching an ominous cold bluish metallic sheen along their subtly hooked tips and narrow blood grooves&quot;
+    }
+  ],
+  &quot;relatedScenes&quot;: [
+    &quot;S06&quot;
+  ],
+  &quot;carriedBy&quot;: [
+    &quot;厉狂澜&quot;
+  ],
+  &quot;image&quot;: {
+    &quot;prompt&quot;: &quot;A matched pair of slender Northern Song dynasty Chinese concealed steel daggers at handheld scale, sheathed side-by-side in a flat dark-brown stitched cowhide dual-slot sleeve holster, identical slim black-cord-over-shagreen hilts and flat dark-iron pommels protruding cleanly, isolated on a pure white background, no people, no hands&quot;,
+    &quot;negativePrompt&quot;: &quot;people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature&quot;,
+    &quot;sheet&quot;: &quot;Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the matched pair of concealed steel daggers sheathed side-by-side in their flat stitched leather dual-slot sleeve holster in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the black-cord-over-shagreen hilt with its notched flat dark-iron pommel, and the heavy saddle stitching and twin arm-strap loops on the flat brown leather holster. BOTTOM ROW beneath the main zone: both crow-beak steel daggers unsheathed beside the empty holster showing the cold bluish quenched steel blade sheen, a straight-on side profile showing the slim concealable flat thickness of the sheathed pair, and a macro close-up of the curved crow-beak blade tip and narrow blood groove. Every panel shows the SAME pair of daggers and holster — same hilts, same stitching, same proportions. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows&quot;,
+    &quot;tags&quot;: [
+      &quot;prop sheet&quot;,
+      &quot;Northern Song twin daggers&quot;,
+      &quot;concealed weapons&quot;,
+      &quot;white background&quot;
+    ]
+  },
+  &quot;usage&quot;: {
+    &quot;episodes&quot;: [
+      9,
+      10
+    ],
+    &quot;beats&quot;: [
+      &quot;绝杀高潮&quot;
+    ]
+  },
+  &quot;sheetImage&quot;: &quot;images/寒鸦双匕-sheet.webp&quot;
+}">复制整个场景 JSON</button></div>
+  </div>
+</article>
+  </div>
+</section>
+
+<section class="top-sec" id="sec-gates">
+  <div class="sec-h"><span class="no">05</span><h2>质量门</h2></div>
+  <ul class="gate">
+  <li class="ok"><span class="m">✓</span><span>一致性锚点 3–5 个</span></li>
+  <li class="ok"><span class="m">✓</span><span>光照状态至少 1 个且落成提示词</span></li>
+  <li class="ok"><span class="m">✓</span><span>参考图无人：反向提示词禁人（场景与道具都查）</span></li>
+  <li class="ok"><span class="m">✓</span><span>出图提示词全部英文</span></li>
+  <li class="ok"><span class="m">✓</span><span>提示词不含角色名<small>未提供 cast.json，本门跳过（视为通过）</small></span></li>
+  <li class="ok"><span class="m">✓</span><span>变体引用完整（variantOf 存在且带 changes）</span></li>
+  <li class="ok"><span class="m">✓</span><span>道具状态至少 1 个且落成提示词</span></li>
+  <li class="ok"><span class="m">✓</span><span>道具尺度参照写进提示词</span></li>
+  <li class="ok"><span class="m">✓</span><span>道具参考图无手：反向提示词禁手</span></li>
+  <li class="ok"><span class="m">✓</span><span>道具设定图纯白背景可抠</span></li>
+</ul>
+  <p class="gsum">全部通过</p>
+</section>
+
+<p class="foot">设定与提示词由模型依据大纲/原文生成，质量门由脚本确定性检查。参考图一律无人——人是另一层资产；道具参考图另加无手、纯白背景。</p>
+</div>
+
+<div class="lightbox" role="dialog" aria-modal="true">
+  <button class="lightbox-x" aria-label="关闭">关闭</button>
+  <img alt="">
+</div>
+
+<script type="application/json" id="art-data">{"source":"晚棠风","dynasty":"北宋","scenes":[{"id":"S01","name":"听风楼雅阁与止戈轩","primary":true,"summary":"全剧表面最雅致、内里最冷酷的黑道权力场：听风楼二楼临街雅阁与连通的止戈轩棋室。宋式雕花支摘窗与紫檀隔扇把楼下酒客喧嚣隔绝在外，素净得宛如文人书斋；正因这份秩序与体面，才让跪地哭求三百两买凶、揭开两年前三千两暗单旧账、暴雨夜血淋淋白布包袱砸桌，以及三年后掐喉索债的压迫感倍增。空间为“优雅皮囊下的算计与破戒”而生。","anchors":[{"name":"雕花支摘窗与外景垂柳","desc":"临街一面两扇宋式冰裂纹雕花支摘窗向上支起，窗格木棂清晰可辨，窗外一树嫩绿垂柳枝叶拂过屋檐，远景可见长乐街青瓦屋脊"},{"name":"墙角青瓷瓶桃花枝","desc":"靠墙转角紫檀高几上置一只北宋影青釉长颈瓷瓶，瓶内斜插一枝半开粉红桃花，侧旁素墙悬一幅宋式水墨山水立轴"},{"name":"小方桌黑白围棋局","desc":"室心一张北宋紫檀束腰小方桌配两只鼓凳，桌面摆厚木棋盘与两只竹编棋罐，黑白云子错落成残局，桌角搁一只素白瓷盖碗茶盏"},{"name":"紫铜兽耳香炉与隔扇","desc":"四扇紫檀雕格隔扇前的小几上立一只三足紫铜兽耳香炉，镂空炉盖袅出细缕青烟；隔扇挂半掀青灰素纱帘连通雅阁与棋室"}],"lighting":[{"state":"晨光暖软","prompt":"soft warm morning sunlight pouring sideways through the propped carved lattice casement windows onto the black-and-white go board and celadon vase, gentle sunlit air across polished Northern Song dark hardwood surfaces, composed cool shadow inside the recessed alcove"},{"state":"午后斜阳","prompt":"low golden late-afternoon sun slanting steeply through the carved lattice window screens, casting crisp geometric wood-lattice shadows across the square chess table and swept timber floorboards, warm amber highlights along the celadon porcelain glaze and dark bronze censer"},{"state":"暮色夜灯","prompt":"deep indigo twilight and cool moonlight filtering past weeping willow branches outside the open casement windows, warm flickering candle and oil-lamp glow from Song-style octagonal silk-shaded standing lanterns indoors illuminating the go board while corners drop into quiet darkness"},{"state":"雷雨晦暗","prompt":"storm-swept dark night outside the rattled open-lattice casement windows, a stark cold bluish-white lightning flash slicing diagonally across the floor and chess tabletop, rain-glistened timber window sills, dim trembling amber lantern light casting restless shadows over the empty board and bronze censer"}],"image":{"prompt":"Interior of an upscale Northern Song dynasty China second-floor teahouse private parlor and connected chess study, propped street-facing carved ice-crack lattice casement windows with green weeping willow branches outside, a pale celadon long-necked vase holding a blossoming pink peach branch on a corner stand beneath a hanging ink landscape scroll, a waisted rosewood square table set with a black-and-white go board and two bamboo stone bowls, a three-legged bronze beast-ear incense burner before carved wooden partition screens with a half-drawn grey gauze curtain, soft warm morning sunlight pouring through the windows, empty scene with no people","negativePrompt":"people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature","sheet":"Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide interior shot of the Northern Song dynasty China second-floor teahouse private parlor and chess study in soft warm morning sunlight, propped carved lattice casement windows with weeping willow branches outside, corner celadon vase with pink peach branch, waisted square table with go board in center, bronze beast-ear censer before carved partition screens — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the propped carved ice-crack lattice casement window framing weeping willow leaves, and the Northern Song pale celadon vase holding the pink peach branch beside the ink scroll corner. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the waisted rosewood square table with black-and-white go board and bamboo bowls, the three-legged bronze beast-ear incense burner before the carved lattice partition screen, and tight timber joinery along the worn wooden doorway threshold. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows","tags":["environment sheet","Northern Song teahouse","maintained timber interior","chess study"]},"usage":{"episodes":[1,3,4,5,9,10,11,12],"beats":["人设反差","暗线反转","错位冲击","卖院诀别","绝杀高潮","虐渣立债","救赎收束"]},"sheetImage":"images/听风楼雅阁与止戈轩-sheet.webp"},{"id":"S02","name":"三更面馆","primary":true,"summary":"永安城最冷清的深夜市井窄铺：专供江湖人在夜深后卸下防备、摊开穷困与秘密的孤岛空间。砌砖大灶腾起的浓重白雾把掌柜隔在背景暗处，桌面一豆孤灯把对坐二人锁进极近的距离——买醉求单的自尊拉扯、甩出行踪小册子的暴怒决裂、耳光与掉在地上的寸银小刀，全都要在这方油亮磨白的榆木方桌前近身爆发。","anchors":[{"name":"砌砖大灶与沸腾汤锅","desc":"铺面深处一座青砖垒砌、灶口烟熏发黑的北方大灶，铁皮深口大汤锅滚沸翻腾，升起浓密白雾蒸汽，灶台旁堆放粗瓷大海碗与竹笊篱"},{"name":"磨白榆木方桌长凳","desc":"窄小堂屋正中摆一张老旧榆木小方桌配两条长条木凳，桌沿与凳心经年擦拭磨得油亮发白，木纹清晰起包浆"},{"name":"熏黑油灯与豁口酒坛","desc":"方桌中央搁一盏灯盏被烟熏黑的粗陶豆油灯，桌角与靠墙木架上摆着几只泥封启开、坛沿有细小豁口的粗陶酒坛与粗瓷酒杯"},{"name":"半卷破旧蓝布招幌","desc":"临街木门楣下垂挂一幅半卷起来的褪色靛蓝粗布面馆招幌，布角打着补丁，门外即是漆黑冷清的夜市石板小巷"}],"lighting":[{"state":"深夜孤灯","prompt":"deep midnight darkness outside the open timber doorway, a single flickering clay dish oil lamp casting a tight warm amber pool onto the worn pale elmwood table and chipped stoneware wine jars, faint reddish charcoal glow beneath the brick stove cauldron, cool night air meeting thick white steam rising through the shadowed room"}],"image":{"prompt":"Interior of a cramped modest late-night noodle shop in Northern Song dynasty China, soot-stained grey brick cooking stove with a boiling iron cauldron pouring thick white steam in the rear, a small worn pale-grain elmwood square table and two long wooden benches polished smooth from use in the foreground, a soot-blackened clay dish oil lamp and chipped rough stoneware wine jars with ceramic cups on the tabletop, a half-rolled faded patched indigo cloth shop banner hanging across the wooden doorway opening to a pitch-black alley, late-night single-lamp lighting, empty scene with no people","negativePrompt":"people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature","sheet":"Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide interior shot of the cramped Northern Song dynasty China late-night noodle shop lit by a single flickering table oil lamp, boiling brick stove steaming in the back, worn elmwood square table and benches in front, half-rolled indigo cloth banner at the dark street doorway — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the soot-stained brick stove with boiling iron soup cauldron and bamboo skimmer, and the soot-blackened clay dish oil lamp beside a chipped rough stoneware wine jar. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the worn pale-grain elmwood tabletop and bench surface, the half-rolled faded patched indigo cloth doorway banner against night air, and greasy soot-darkened mortar joints along the brick stove base. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows","tags":["environment sheet","Northern Song noodle shop","weathered materials","late-night interior"]},"usage":{"episodes":[1,2,6],"beats":["人设反差","痛点拉扯","情绪撕裂"]},"sheetImage":"images/三更面馆-sheet.webp"},{"id":"S03","name":"西城槐花巷小院","primary":true,"summary":"西城平民区里一座规整却清冷素净的三进旧院落：正房空旷得没有一点值钱摆设，却守着母女相依的最后一点安稳体面。院角老槐树、斑驳照壁和廊下日常水缸木盆，先在第 2 集冷月寒夜承托背负醉归的克制守望，继而在第 9 集中秋火烧云下见证卖院诀别，最终在第 12 集蒙蒙春雨里收束为重新买回的家。同时作为 S06 武馆夜院的几何复用母版。","anchors":[{"name":"院角老槐树虬枝","desc":"前院东南角一株干皮粗裂的老槐树，苍劲虬枝斜探过青瓦廊檐，树下青石板缝间生着稀疏浅苔"},{"name":"斑驳青砖照壁与旧木门","desc":"院门内侧砌筑规整却灰浆微剥的青砖照壁，旁接两扇褪色原木厚板门与矮石门槛，门上铁环微锈"},{"name":"空旷正房雕花旧木榻","desc":"坐北朝南三开间正房敞开两扇木槅门，室内空旷无值钱摆设，唯靠后墙摆一张宋式素面雕花旧木榻，榻上折着粗布棉被"},{"name":"廊下粗陶水缸与木盆","desc":"正房前木柱回廊檐下并排放一只蓄水粗陶大水缸与一只箍铁旧木洗澡盆，缸沿与廊柱下端留有日常潮湿水渍"}],"lighting":[{"state":"冷月寒夜","prompt":"cold silvery moonlight beneath thin drifting night clouds flooding the quiet courtyard, crisp dark shadows of gnarled pagoda tree branches cast across the mottled grey brick screen wall and dry flagstones, dark unlit doorway opening into the sparse empty main room, chilly stillness"},{"state":"清昼天光","prompt":"clear pale daytime light under a bright slightly hazy Northern Song sky filling the quiet courtyard evenly, soft neutral eaves shadows revealing weathered brick mortar, dusty timber pillars, and the plain carved wooden daybed inside the open main room"},{"state":"中秋火烧云","prompt":"dramatic blazing crimson and burnt-orange Mid-Autumn sunset clouds stretching across the dusk sky above the dark tile roofs, long deep-violet shadows cast from the gnarled pagoda tree across the flagstones and corridor water vat, intense dying red-gold light grazing the weathered brick wall and old timber gate"},{"state":"蒙蒙春雨","prompt":"soft misty spring drizzle veiling the grey-tiled courtyard roofs, wet stone paving glistening quietly with damp moss along the joints, muted cool silver-grey daylight, tiny rain ripples across the water surface of the rough earthenware vat under the wooden eaves"}],"image":{"prompt":"Quiet modest three-courtyard Northern Song dynasty China residential compound in a commoner alley, high grey brick enclosure walls with dark-tiled timber eaves corridors, a gnarled old pagoda tree with twisting branches in the courtyard corner, a weathered mottled grey brick screen wall beside an aged plain wooden double gate with iron rings, open central hall doors revealing a sparse empty interior furnished only with a plain carved old wooden daybed and folded cotton quilt, a rough earthenware water vat and iron-hooped wooden wash tub beneath the corridor eaves, cold silvery moonlight at night, empty scene with no people","negativePrompt":"people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature","sheet":"Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide courtyard shot looking across the quiet Northern Song dynasty China three-courtyard commoner house under cold silvery moonlight, gnarled corner pagoda tree casting branch shadows, mottled grey brick screen wall and old wooden gate to one side, open central hall doorway showing the carved wooden daybed inside, earthenware water vat and wooden tub under the corridor eaves — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the gnarled pagoda tree trunk and twisting branches against the dark eaves, and the mottled grey brick screen wall with the aged wooden gate and rusted iron rings. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the sparse central hall interior with its carved old wooden daybed and folded cotton quilt, the rough earthenware water vat and iron-hooped wooden wash tub beneath the corridor, and weathered stone paving slabs with faint moss at the joints. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows","tags":["environment sheet","Northern Song courtyard","weathered materials","moonlit residence"]},"usage":{"episodes":[2,4,8,9,12],"beats":["痛点拉扯","卖院诀别","救赎收束"]},"sheetImage":"images/西城槐花巷小院-sheet.webp"},{"id":"S04","name":"栖霞观银杏树下","primary":true,"summary":"香火古观的前庭空间：专门为了拍出第 4、5 集“暗中交易与动情偷看在同一画面切出两层景深”而设。前景是青石双耳大香炉缭绕青烟与测签算账的冷血谈判，中远景则是百年古银杏浓荫与满枝祈福红绸下的温柔相扶——神明香火、七千两血单与少女春心在同一片午后晴光里并置，构成本剧最具反讽张力的构图纵深。","anchors":[{"name":"合抱百年古银杏树","desc":"前庭侧畔一株数人合抱粗的百年老银杏树，主干苍劲皲裂、树冠宽阔，树脚青石板撒满层叠扇形银杏落叶"},{"name":"树枝祈福红绸条","desc":"老银杏树低矮横枝上密密悬垂数十条风吹轻摆的祈福红绸布条，红绸褪色深浅参差，尾部略带毛边"},{"name":"青石双耳大香炉","desc":"前庭中轴石台上立一只北宋雕刻缠枝纹青石双耳三足大香炉，炉壁烟熏乌黑，炉内积满香灰并升起缕缕青烟"},{"name":"青石板台阶与石栏","desc":"连接殿前石台与前庭的宽阔多层青石板台阶和宋式望柱石栏，石阶中段被常年踩踏磨光，栏柱雕刻微见风化"}],"lighting":[{"state":"午后香烟晴光","prompt":"warm clear late-afternoon sunlight slanting diagonally through the broad canopy of the centuries-old ginkgo tree, illuminating curling blue-grey temple incense smoke drifting from the stone censer into soft volumetric light shafts across the worn bluestone steps, prayer ribbons, and fallen ginkgo leaves"}],"image":{"prompt":"Open bluestone forecourt of a Northern Song dynasty China Taoist temple, a massive gnarled centuries-old ginkgo tree with fallen fan-shaped leaves blanketing the paving stones and dozens of weathered red silk prayer ribbons tied to its low branches, a heavy carved bluestone two-eared tripod incense burner stained dark with soot emitting curling wisps of incense smoke in the foreground terrace, broad worn bluestone stairs and carved Song-style stone balustrades bridging the upper terrace and tree courtyard, warm afternoon sunlight streaming through drifting incense smoke, empty scene with no people","negativePrompt":"people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature","sheet":"Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide forecourt shot of the Northern Song dynasty China Taoist temple showing the carved bluestone incense burner with curling smoke in the foreground, broad worn bluestone stairs and balustrades descending to the massive gnarled centuries-old ginkgo tree hung with red prayer ribbons and fallen leaves in warm afternoon sunlit incense haze — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the massive gnarled ginkgo trunk with weathered red prayer ribbons tied to low limbs, and the heavy soot-darkened bluestone two-eared tripod incense burner emitting curling blue-grey smoke. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of fallen fan-shaped ginkgo leaves scattered across weathered flagstones, worn bluestone staircase treads and weathered stone balustrade posts, and knotted faded red silk ribbon tails drifting in afternoon light. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows","tags":["environment sheet","Northern Song temple courtyard","weathered materials","ginkgo and incense"]},"usage":{"episodes":[4,5],"beats":["错位冲击"]},"sheetImage":"images/栖霞观银杏树下-sheet.webp"},{"id":"S05","name":"醉花阴戏馆与长乐街雨檐","primary":true,"summary":"长乐古街东侧连接声色幻梦与现世春雨的双面空间：门内是一楼四角飞檐水榭小戏台与二楼茜素红纱凭栏雅座，门外则是宽大黛瓦出檐、绛纱灯笼与湿润反光青石长街。借由大敞的宋式门廊把内外景深贯通，既能承托楼上《断桥借伞》醉看街景的宿命错觉，也能让次日清晨的雨檐借伞与第 12 集结局雨中撑伞归家在同一方建筑门面下完成闭环。","anchors":[{"name":"一楼四角飞檐小戏台","desc":"一楼厅堂内架起一座宋式木构四角飞檐水榭小戏台，朱漆圆柱配镂空雕花矮栏与彩绘木额枋，台面木板光洁微反光"},{"name":"二楼茜素红纱凭栏雅座","desc":"二楼环绕大厅及临街一侧设宋式木格雅座凭栏，垂挂半透明茜素红轻纱帷幔，既可俯瞰楼下戏台又能凭窗远望长乐街"},{"name":"宽大黛瓦出檐与绛纱灯笼","desc":"临长乐街正门挑出深宽的宋式黛瓦重檐雨廊，檐下成排悬垂竹骨绛纱大灯笼，木构柱础与门前石阶干净规整"},{"name":"湿润青石板长街","desc":"门廊外宽阔笔直的永安长乐街，铺砌规整大块条形青石板，雨湿或夜露路面映出屋檐绛纱灯笼的幽微倒影"}],"lighting":[{"state":"华灯夜宴","prompt":"opulent night banquet glow inside the two-story pleasure house, dozens of warm crimson-silk and oiled-paper lanterns illuminating the upturned eaves of the ground-floor stage and the second-floor alizarin-crimson gauze gallery screens, warm amber light spilling through wide-open doorway screens onto the glistening evening-damp slate flagstones of the street outside"},{"state":"春雨晨雾","prompt":"soft misty morning daylight veiled in steady fine silver spring rain threads, diffused cool grey light across the broad glistening dark-tile overhanging eaves and muted crimson silk lanterns, wet dark slate-paved avenue reflecting pale sky and architectural silhouettes in thin shimmering rain film beneath the sheltered porch"}],"image":{"prompt":"Oblique architectural establishing view of a prosperous Northern Song dynasty China two-story pleasure house theater and its street-front rain porch, looking from the glistening damp slate-paved grand avenue under broad overhanging dark-tiled timber eaves hung with a row of crimson silk lanterns straight through wide-open carved front folding doors into the brightly lit hall, revealing the ground-floor four-cornered upturned-eave wooden miniature stage with red lacquered pillars and the second-floor gallery screened with translucent alizarin-crimson gauze curtains and carved wooden balustrades, opulent night lantern banquet glow, empty scene with no people","negativePrompt":"people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature","sheet":"Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide oblique shot from the damp slate-paved street looking beneath the broad dark-tile overhanging eaves and glowing crimson silk lanterns straight through the wide-open front folding doors into the Northern Song dynasty China pleasure house theater in warm night banquet lantern light, clearly showing the ground-floor four-cornered upturned-eave wooden stage and the second-floor alizarin-crimson gauze-screened balcony balustrades — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the ground-floor four-cornered upturned-eave wooden stage with red lacquered pillars and carved apron balustrade, and the second-floor gallery balustrade draped with translucent alizarin-crimson gauze curtains. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the broad overhanging dark-tile porch eaves with hanging crimson silk lanterns, the glistening damp slate-paved street flagstones catching lantern reflections, and tightly joined lacquered door thresholds polished by foot traffic. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows","tags":["environment sheet","Northern Song pleasure house","maintained timber theater","rain eaves street"]},"usage":{"episodes":[7,8,12],"beats":["宿命借伞","救赎收束"]},"sheetImage":"images/醉花阴戏馆与长乐街雨檐-sheet.webp"},{"id":"S06","name":"镇山武馆内院","primary":false,"variantOf":"S03","changes":"沿用 S03 西城小院夜间院落三面青砖高墙与灰瓦木柱回廊几何基底，撤除院角老槐树、正房雕花木榻与廊下粗陶水缸木盆，在院内与廊前石阶改设一字排开硬木十八般兵器架及成对青石练功石锁，回廊换挂随风摇晃的红纸气死风灯，并将地面改为中秋风雨夜湿润泛反光的青砖浅水洼","summary":"第 10 集中秋血战的肃杀闭环死地：复用 S03 的高墙合围夜院格局，却将人间烟火抽空为冷硬兵器架、练功石锁与狂风摇晃的红纸风灯。紧闭的高墙把刺客与恶霸逼入避无可避的近身对峙，积水青砖上摇晃的红灯倒影衬托流风折柳剑与袖底寒鸦双匕的生死反转，也留出破空一点寸银钻透太阳穴的凌厉暗影景深。","anchors":[{"name":"硬木十八般兵器架","desc":"回廊前石阶下与院墙一侧一字排开三座厚重硬木兵器架，架上整整齐齐插满长枪、大刀、铁棍等冷光练功兵器"},{"name":"青石练功石锁","desc":"庭院空地两侧整齐摆着两对雕槽琢孔的沉重青石练功石锁，锁柄经年抓握摩擦得光滑泛白"},{"name":"红纸气死风灯","desc":"沿灰瓦木柱回廊屋檐下成排悬吊的宋式竹篾骨架红纸气死风灯，在风中微微倾斜摇晃，透出暗红微光"},{"name":"青砖浅水洼倒影","desc":"院中铺地青砖因常年习武踩磨微有凹陷，中秋夜雨积成数洼浅亮积水，清晰倒映红纸风灯与兵器架黑影"}],"lighting":[{"state":"中秋寒夜暗影","prompt":"gloomy cold Mid-Autumn night shadowed beneath fast-moving storm clouds and gusting wind-driven rain, faint pale moonlight barely filtering through cloud breaks, swaying crimson paper storm lanterns under the veranda casting erratic dark-red pools and sharp silhouettes across rain-wet grey bricks and shallow glistening courtyard puddles"}],"image":{"prompt":"Enclosed martial arts inner courtyard at night in Northern Song dynasty China, based on the same three-section walled courtyard and dark-tiled wooden veranda geometry as the reference courtyard, with no tree, no water vat, and no domestic bed, converted into a stark training yard featuring a row of three heavy hardwood weapon racks holding spears, halberds, and broadswords along the stone step, two pairs of heavy carved bluestone training weight locks resting on the open yard, swaying red paper storm lanterns hanging beneath the timber veranda eaves, and shallow rain puddles on worn grey brick paving reflecting red lantern glow under a stormy Mid-Autumn night sky, empty scene with no people","negativePrompt":"people, human figures, characters, crowds, silhouettes of people, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, text, watermark, signature","sheet":"Environment reference sheet on ONE 16:9 landscape canvas, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the master establishing view: wide courtyard shot adapting the enclosed three-section Northern Song dynasty China brick-walled courtyard and dark-tiled timber veranda of the reference image — keep the structure, materials and wear identical to the reference image — removing the corner tree, domestic daybed, and water vat, and installing a row of hardwood weapon racks, paired carved bluestone training weight locks, swaying red paper storm lanterns along the veranda, and shallow rain puddles across the worn grey bricks under a gloomy stormy Mid-Autumn night sky — the canonical look of this location. RIGHT COLUMN, full height along the right edge, stacked small panels: close-up detail studies of the heavy hardwood rack lined with gleaming steel spears and broadswords, and a swaying red paper storm lantern under the dark timber veranda eaves. BOTTOM ROW, spanning beneath the main zone: close-up detail studies of the heavy carved bluestone training weight locks with handle wear, shallow rain puddles across indented grey brick paving reflecting crimson lantern light, and weathered brick courtyard step treads at the veranda edge. Every detail panel is a close-up crop of the SAME space shown in the master view — same geometry, same materials, same wear marks; nothing invented that is not present in the master view. THE SPACE MUST BE IDENTICAL ACROSS ALL PANELS. Absolutely no people anywhere on the sheet. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows","tags":["environment sheet","Northern Song martial courtyard","weathered materials","stormy night variant"]},"usage":{"episodes":[10],"beats":["绝杀高潮"]},"sheetImage":"images/镇山武馆内院-sheet.webp"}],"props":[{"id":"P01","name":"修甲寸银小刀","scale":"手持级","summary":"温如风的人设象征与终极暗器：日常优雅修甲压迫对手，决裂时失手坠地显露动摇，第10集一击钻透厉狂澜太阳穴揭示深藏的绝顶武功与护短深情","anchors":[{"name":"一寸柳叶银刃","desc":"通体纯银锻造的一寸三分微弧柳叶短刃，刃口锋利寒光凛冽，刃脊近柄处刻一道极细的云纹暗槽"},{"name":"缠银丝细短柄","desc":"长约三寸的纤细银质手柄，中段紧密缠绕细银丝防滑，比例袖珍隐蔽便于指缝旋绕"},{"name":"刀尾水滴穿孔","desc":"柄尾收成扁平水滴造型，正中钻有一枚穿绳小圆孔，边缘经长年指腹摩挲得温润锃亮"},{"name":"素面乌木插鞘","desc":"一只贴合刃型的袖珍黑檀木薄鞘，鞘口嵌一圈窄白银包边，平时严丝合缝藏于扇底或袖内"}],"states":[{"state":"日常洁净","prompt":"the miniature Northern Song pure silver willow-leaf manicure knife resting horizontally beside its slim ebony sheath, spotless mirror-bright silver blade gleaming crisply, fine silver-wire grip clean and unblemished"},{"state":"染血锋刃","prompt":"the miniature silver blade drawn free of its sheath, razor-sharp point and narrow cloud-scroll groove stained with fresh dark crimson blood droplets along the bright silver edge, sharp specular highlight on the honed tip"}],"relatedScenes":["S01","S02","S06"],"carriedBy":["温如风"],"image":{"prompt":"A miniature Northern Song dynasty Chinese pure silver willow-leaf pocket manicure knife at handheld scale, tiny one-inch curved silver blade with a narrow fuller groove, slender three-inch hilt wrapped in fine silver wire with a teardrop pierced pommel, paired with a slim dark ebony sheath collared in white silver, isolated on a pure white background, no people, no hands","negativePrompt":"people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature","sheet":"Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the miniature Northern Song silver manicure knife clean and dry beside its slim silver-collared ebony sheath in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the teardrop pierced pommel and tight fine silver-wire grip wrapping, and the narrow cloud-scroll fuller groove where the blade meets the silver-collared ebony sheath. BOTTOM ROW beneath the main zone: the silver knife in its blood-stained blade state with dark crimson droplets along the honed point, a straight-on side profile showing the wafer-thin blade and sheath thickness, and a macro close-up of the razor-honed tip bevel. Every panel shows the SAME miniature silver knife — same proportions, same wire wrapping, same sheath fit. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows","tags":["prop sheet","Northern Song silver knife","handheld weapon","white background"]},"usage":{"episodes":[1,2,6,10,11],"beats":["人设反差","情绪撕裂","绝杀高潮"]},"sheetImage":"images/修甲寸银小刀-sheet.webp"},{"id":"P02","name":"四十八骨海棠紫竹伞","scale":"手持级","summary":"贯穿全剧的情感信物：醉花阴戏台道具→晨雨借给江晚棠接心上人→被林慕白绘上雨打海棠归还→三年后秦不争交还温如风为小满遮雨，完成悲喜闭环","anchors":[{"name":"紫竹节柄与青玉伞钮","desc":"深紫褐色斑纹紫竹长柄，竹节匀称且磨出温润包浆，柄尾嵌一枚素净青玉圆钮并系深青丝穗"},{"name":"四十八根细竹伞骨","desc":"伞架内密密排列四十八根削制极细的本色老竹伞骨，穿线扎结工整严密，是典型北宋江南精巧样式"},{"name":"天青油纸伞面","desc":"伞面蒙半透明桐油浸制天青色桑皮纸，透出柔和光泽，收拢时折痕挺括利落"},{"name":"墨绘雨打海棠枝","desc":"伞面一侧以水墨点染一枝斜出的春雨海棠花叶，淡粉朱砂花蕊与晕散墨迹清雅柔婉"}],"states":[{"state":"素面收拢","prompt":"the forty-eight-rib Northern Song Jiangnan purple-bamboo oiled-paper umbrella tightly furled and secured by a slim dark silk tie, mottled dark purple bamboo shaft and pale celadon jade pommel polished smooth, crisp pale celadon-green oiled paper folds"},{"state":"雨打海棠撑开","prompt":"the forty-eight-rib purple-bamboo umbrella opened wide at a three-quarter angle, translucent pale celadon-green tung-oiled mulberry paper glowing softly to show the forty-eight radial bamboo ribs beneath, painted on one side with an elegant ink-and-mineral-pink flowering crabapple branch speckled as if kissed by spring rain"}],"relatedScenes":["S05","S03","S01"],"carriedBy":["温如风","江晚棠","林慕白"],"image":{"prompt":"A Northern Song dynasty Chinese Jiangnan forty-eight-rib purple-bamboo oiled-paper umbrella at handheld scale, tightly furled pale celadon-green tung-oiled mulberry paper canopy bound with a dark silk cord, mottled dark purple bamboo shaft with a smooth pale celadon jade pommel finial and dark silk tassel, isolated on a pure white background, no people, no hands","negativePrompt":"people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature","sheet":"Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the forty-eight-rib purple-bamboo oiled-paper umbrella tightly furled in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the mottled purple bamboo handle with its pale celadon jade finial and dark silk tassel, and a macro view of the tightly laced forty-eight slender bamboo ribs inside the umbrella crown. BOTTOM ROW beneath the main zone: the umbrella opened wide showing the translucent celadon-green oiled paper painted with a delicate ink-and-pink rain-kissed crabapple blossom branch, a straight-on side profile of the furled umbrella, and a macro detail of the painted crabapple blossom brush strokes on oiled mulberry paper. Every panel shows the SAME umbrella — same bamboo mottling, same forty-eight ribs, same proportions. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows","tags":["prop sheet","Northern Song umbrella","purple bamboo","white background"]},"usage":{"episodes":[7,8,9,12],"beats":["宿命借伞","卖院诀别","救赎收束"]},"sheetImage":"images/四十八骨海棠紫竹伞-sheet.webp"},{"id":"P03","name":"百年紫雪参药丸","scale":"手持级","summary":"江晚棠接单卖命的生存软肋：每月上百两续命费逼出她甘愿冒死接三百两低价单，也照见她作为母亲的孤勇与悲情","anchors":[{"name":"扁圆黑漆旧木药盒","desc":"掌心大小的扁圆形旧木药盒，盒沿漆面微有磨白掉漆，侧面嵌一只小巧铜扣与浅淡暗红药铺印痕"},{"name":"褶皱泛黄棉纸衬垫","desc":"盒底铺一张折痕深重的泛黄毛边棉纸药笺，纸边略显陈旧起毛"},{"name":"暗黄蜂蜡密封丸壳","desc":"三枚桂圆大小的暗黄棕色蜂蜡护壳，其中一枚已被掐开半裂露出厚实蜡壁"},{"name":"紫褐泛暗金药丸","desc":"剥出蜡壳的药丸呈深紫褐色，表面细密沾着一层暗金色药粉光泽与干燥参丝纹理"}],"states":[{"state":"蜡封药盒开启","prompt":"the palm-sized weathered dark lacquer wood medicine box resting open with its lid beside it, creased yellowed mulberry paper liner inside holding three round amber-brown beeswax-sealed pill shells, one beeswax shell split open half-revealing the dark purplish-brown pill within"},{"state":"单颗暗金药丸","prompt":"a single dense deep purplish-brown Northern Song herbal ginseng restorative pill extracted from its cracked beeswax shell onto the unfolded yellowed paper sheet, finely dusted with muted dark-gold mineral sheen and visible dried root flecks"}],"relatedScenes":["S02","S03"],"carriedBy":["江晚棠","温如风"],"image":{"prompt":"A small round Northern Song dynasty Chinese weathered dark-lacquered wooden medicine box at handheld scale, lid open beside the box revealing a creased yellowed mulberry paper liner and three round amber-brown beeswax pill shells with one shell cracked open to show a dense dark purplish-brown herbal ginseng pill dusted with faint muted gold sheen, isolated on a pure white background, no people, no hands","negativePrompt":"people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature","sheet":"Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the weathered round dark-lacquered wooden medicine box open with its beeswax-sealed ginseng pills inside in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the worn small brass clasp and chipped lacquer rim of the round wooden box, and the cracked amber-brown beeswax shell wall around the pill. BOTTOM ROW beneath the main zone: a single extracted dark purplish-brown pill dusted with muted gold sheen resting on creased yellowed paper, a straight-on side profile of the closed round box showing its shallow depth, and a macro close-up of the dense herbal pill surface with fine root fiber flecks. Every panel shows the SAME wooden medicine box and pills — same wear, same clasps, same proportions. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows","tags":["prop sheet","Northern Song medicine box","ginseng pill","white background"]},"usage":{"episodes":[2,3,4,9,12],"beats":["痛点拉扯","暗线反转","救赎收束"]},"sheetImage":"images/百年紫雪参药丸-sheet.webp"},{"id":"P04","name":"行踪时辰小册子","scale":"手持级","summary":"温如风暗中护卫却嘴硬伪装的物证：记录江晚棠与林慕白每次相见的时辰地点，面馆甩出戳破窗户纸，成为两人激烈撕裂的导火索","anchors":[{"name":"蓝布软封皮与空白纸签","desc":"巴掌大的宋式袖珍蓝粗布包背软封皮，四角微磨起毛，右上角贴一枚素白泛黄竖条纸签，纸边微微翘起"},{"name":"四眼白棉线装脊","desc":"左侧书脊采用典型北宋四眼线装，粗白棉线针脚扎实，线身微染长期摩挲的暗灰包浆"},{"name":"微黄竹纸折页","desc":"内里对折竹纸书页轻薄微黄，页角留有反复翻阅的折痕与轻微卷曲"},{"name":"密写蝇头小楷墨迹","desc":"内页竖栏写满工整细密的黑色毛笔蝇头小楷记录，墨色随不同日记录微见浓淡差异"}],"states":[{"state":"蓝布封皮合拢","prompt":"the pocket-sized Northern Song indigo cotton cloth notebook lying flat and closed, worn faded blue fabric edges slightly frayed, an aged blank cream paper strip pasted at the upper corner, white four-hole stitched spine darkened gently from handling"},{"state":"翻开密写蝇头小楷","prompt":"the pocket notebook lying flat open across two facing creased pale-yellow bamboo paper pages, neatly filled top to bottom with dense vertical columns of minuscule black-ink brush calligraphy entries, subtle variation in ink tone across dates and lightly curled page corners"}],"relatedScenes":["S01","S02"],"carriedBy":["温如风"],"image":{"prompt":"A pocket-sized Northern Song dynasty Chinese four-hole thread-bound ledger notebook at handheld scale, closed flat with a faded indigo coarse cotton cloth cover, frayed corners, a blank aged cream vertical paper strip pasted on the corner, and white cotton spine stitching darkened from handling, isolated on a pure white background, no people, no hands","negativePrompt":"people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature","sheet":"Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the pocket-sized indigo cotton thread-bound notebook closed flat in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the white four-hole cotton thread stitching along the faded indigo cloth spine, and the frayed cloth corner with its curled blank cream paper label slip. BOTTOM ROW beneath the main zone: the notebook lying open to show creased pale-yellow bamboo paper spreads filled with vertical columns of minuscule black-ink brush calligraphy, a straight-on side profile showing thin folded paper leaf edges, and a macro close-up of brush-ink strokes soaked into bamboo paper fibers. Every panel shows the SAME pocket notebook — same indigo weave, same stitching, same proportions. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Weathered, lived-in materials: chipped paint, water stains, patina on metal, worn wood grain, dust in corners and light shafts; fabric and paper props show creases and age; nothing looks factory-new. Atmospheric depth with haze or volumetric light where the space allows","tags":["prop sheet","Northern Song notebook","thread-bound ledger","white background"]},"usage":{"episodes":[4,5,6],"beats":["错位冲击","情绪撕裂"]},"sheetImage":"images/行踪时辰小册子-sheet.webp"},{"id":"P05","name":"寒鸦双匕","scale":"手持级","summary":"厉狂澜藏于袖中的致命底牌：表面跪地求饶实则偷袭得手，直接导致江晚棠香消玉殒并逼出温如风现身绝杀","anchors":[{"name":"鸦喙淬蓝窄刃","desc":"一对窄身直刃匕首，锋尖微弯似寒鸦利喙，经淬火泛幽冷青蓝寒光，刃侧开细窄血槽"},{"name":"黑绳鲨皮窄柄","desc":"匕柄以粗糙黑鲨鱼皮衬底外缠交叉细黑麻绳，无宽大护手，紧贴掌型极便暗藏衣袖"},{"name":"扁圆乌铁柄首","desc":"柄尾各嵌一枚扁圆乌铁小配重首，刻有简朴防滑斜纹，金属面沉冷泛暗光"},{"name":"双槽深褐皮套","desc":"一只扁平厚牛皮缝制的双槽并插护套，缝线工整紧密，背面配两道束臂窄皮带绊"}],"states":[{"state":"皮套并插","prompt":"the matched pair of slender Northern Song concealed steel daggers sheathed tightly side-by-side inside their flat dark-brown stitched cowhide dual-slot sleeve holster, only the identical black-cord-wrapped hilts and flat dark-iron pommels protruding evenly"},{"state":"双刃出鞘泛蓝光","prompt":"both slender crow-beak steel daggers drawn cleanly beside the empty flat leather dual-slot holster, dark quenched steel blades catching an ominous cold bluish metallic sheen along their subtly hooked tips and narrow blood grooves"}],"relatedScenes":["S06"],"carriedBy":["厉狂澜"],"image":{"prompt":"A matched pair of slender Northern Song dynasty Chinese concealed steel daggers at handheld scale, sheathed side-by-side in a flat dark-brown stitched cowhide dual-slot sleeve holster, identical slim black-cord-over-shagreen hilts and flat dark-iron pommels protruding cleanly, isolated on a pure white background, no people, no hands","negativePrompt":"people, human figures, characters, crowds, silhouettes of people, hands, fingers, wrists, holding, grasping, oversaturated colours, sterile showroom cleanliness, warped perspective, melted geometry, floating objects, modern objects, dark background, colored background, text, watermark, signature","sheet":"Prop reference sheet on ONE 16:9 landscape canvas on a pure white background, panels separated by thin hairline rules. MAIN ZONE, top-left, about 72% of the canvas width and 70% of its height: the matched pair of concealed steel daggers sheathed side-by-side in their flat stitched leather dual-slot sleeve holster in three-quarter hero view at handheld scale — the canonical look of this prop. RIGHT COLUMN, stacked small panels: close-up detail studies of the black-cord-over-shagreen hilt with its notched flat dark-iron pommel, and the heavy saddle stitching and twin arm-strap loops on the flat brown leather holster. BOTTOM ROW beneath the main zone: both crow-beak steel daggers unsheathed beside the empty holster showing the cold bluish quenched steel blade sheen, a straight-on side profile showing the slim concealable flat thickness of the sheathed pair, and a macro close-up of the curved crow-beak blade tip and narrow blood groove. Every panel shows the SAME pair of daggers and holster — same hilts, same stitching, same proportions. Absolutely no people and no hands anywhere. Pure white background in every panel for clean cut-out. Well-kept, actively maintained materials: sound lacquer with an even sheen, swept stone and timber, polished metal fittings, tight joinery, no peeling paint and no water staining; wear confined to the traffic a space like this really takes — thresholds, handrails, the stone directly inside a doorway. Atmospheric depth with haze or volumetric light where the space allows","tags":["prop sheet","Northern Song twin daggers","concealed weapons","white background"]},"usage":{"episodes":[9,10],"beats":["绝杀高潮"]},"sheetImage":"images/寒鸦双匕-sheet.webp"}]}</script>
+<script>
+const L = {"copied":"已复制","failed":"复制失败"};
+
+// 图片弹层：点图放大，点背景或 Esc 关闭
+const lb = document.querySelector('.lightbox');
+const lbImg = lb.querySelector('img');
+function closeLb() { lb.classList.remove('on'); lbImg.removeAttribute('src'); }
+document.addEventListener('click', (e) => {
+  const z = e.target.closest('.zoom');
+  if (z) { lbImg.src = z.dataset.src; lb.classList.add('on'); return; }
+  if (e.target.closest('.lightbox')) closeLb();
+});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+
+// 复制按钮
+document.addEventListener('click', async (e) => {
+  const btn = e.target.closest('.copy');
+  if (!btn) return;
+  e.preventDefault();
+  const label = btn.textContent;
+  try {
+    await navigator.clipboard.writeText(btn.dataset.copy);
+    btn.textContent = L.copied;
+    btn.dataset.done = '1';
+  } catch {
+    btn.textContent = L.failed;
+  }
+  setTimeout(() => { btn.textContent = label; delete btn.dataset.done; }, 1600);
+});
+
+// 导出：报告自己带着完整的 art.json，下载的是它原样
+document.querySelector('.expo').addEventListener('click', (e) => {
+  const btn = e.currentTarget;
+  const url = URL.createObjectURL(
+    new Blob([document.getElementById('art-data').textContent], { type: 'application/json' }),
+  );
+  const a = Object.assign(document.createElement('a'), { href: url, download: btn.dataset.name });
+  a.click();
+  // 别立刻回收——Safari 会抢在下载读完之前撤掉 blob
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+});
+</script>
+
+<style id="wtf-dock-css">#wtf-dock{position:fixed;right:16px;bottom:16px;z-index:40;display:flex;flex-wrap:wrap;align-items:center;gap:4px;max-width:calc(100vw - 32px);padding:6px 8px;background:rgba(25,29,33,.92);color:#f5f6f5;border:1px solid rgba(255,255,255,.14);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.22);font:500 12px/1.2 -apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",sans-serif;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}#wtf-dock .wtf-brand{padding:4px 8px;color:#e0a98c;font-weight:600;letter-spacing:.04em;border-right:1px solid rgba(255,255,255,.15);margin-right:2px}#wtf-dock a{color:#e4e6e3;text-decoration:none;padding:5px 9px;border-radius:6px;transition:background .15s,color .15s;white-space:nowrap}#wtf-dock a:hover{background:rgba(255,255,255,.12);color:#fff}#wtf-dock a.wtf-on{background:#8a3324;color:#fff;font-weight:600}@media(max-width:640px){#wtf-dock{left:12px;right:12px;bottom:12px;justify-content:center;font-size:11px}#wtf-dock .wtf-brand{display:none}}@media print{#wtf-dock{display:none!important}}</style><nav id="wtf-dock" aria-label="晚棠风报告导航"><span class="wtf-brand">晚棠风</span><a href="./index.html">总览</a><a href="./outline-report.html">改编大纲</a><a href="./script-report.html">分集剧本</a><a href="./cast-report.html">角色卡司</a><a href="./character-refs/character-refs.html">演员定妆照</a><a href="./art-report.html" class="wtf-on">美术设定</a><a href="./staging-report.html">开场站位</a><a href="./storyboard-report.html">分镜故事板</a></nav>
+</body></html>

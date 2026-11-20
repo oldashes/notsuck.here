@@ -1,0 +1,1712 @@
+<!doctype html>
+<html lang="zh"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>晚棠风 · 剧本（第 1–12 集）</title>
+<style>
+:root{
+  --paper:#eceded; --panel:#f5f6f5; --side:#e4e6e3; --ink:#191d21; --ink-2:#5b636a; --ink-3:#8c9298;
+  --rule:#d2d5d0; --rule-2:#c2c6bf; --seal:#8a3324; --seal-2:#c56a4e; --seal-soft:#8a332412; --ok:#3d6b4f;
+  --band:#3d6b4f22;
+  --serif:"Songti SC","STSong","Source Han Serif SC","Noto Serif CJK SC",Georgia,serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.7 var(--sans);-webkit-font-smoothing:antialiased}
+.page{max-width:1600px;margin:0 auto;padding:24px 32px 90px}
+h1,h2,h3{margin:0;font-weight:400}
+
+.hd{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:12px}
+.hd h1{font:400 28px/1.1 var(--serif);letter-spacing:.06em}
+.hd .sub{font-size:13px;color:var(--ink-2)}
+.hd .right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.gatepill{display:inline-flex;align-items:center;gap:6px;font:500 12px/1 var(--sans);border-radius:99px;padding:6px 12px}
+.gatepill.pass{color:var(--ok);border:1px solid var(--ok)}
+.gatepill.fail{color:var(--seal);border:1px solid var(--seal);background:var(--seal-soft)}
+.expo{font:500 11px/1 var(--sans);color:var(--ink-2);background:var(--panel);
+  border:1px solid var(--rule-2);border-radius:2px;padding:7px 11px;cursor:pointer;transition:.15s}
+.expo:hover{border-color:var(--seal);color:var(--seal)}
+.expo:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:18px 0 6px}
+@media(max-width:980px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:11px 14px 9px}
+.kpi .l{font:500 10px/1 var(--sans);letter-spacing:.18em;color:var(--ink-3)}
+.kpi .v{font:400 28px/1.15 var(--serif);margin-top:5px}
+.kpi .v small{font:400 14px var(--serif);color:var(--ink-2)}
+.kpi .d{font-size:11px;color:var(--ink-2);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kpi.accent{border-top:2px solid var(--seal)}
+.galert{margin:14px 0 0;border:1px solid var(--seal);background:var(--seal-soft);border-radius:2px;
+  padding:10px 14px;font-size:13px}
+.galert b{color:var(--seal)}
+.galert span{display:block;font-size:12px;color:var(--ink-2)}
+
+section.top-sec{margin-top:34px}
+.sec-h{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--rule-2);padding-bottom:8px;margin-bottom:16px}
+.sec-h .no{font:500 12px/1 var(--mono);color:var(--seal)}
+.sec-h h2{font:400 20px/1.2 var(--serif);letter-spacing:.05em}
+.sec-h .note{margin-left:auto;font-size:12px;color:var(--ink-3)}
+
+/* duration gauge */
+.timing{background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:16px 20px 10px}
+.trow{display:grid;grid-template-columns:44px minmax(0,1fr) 220px;gap:12px;align-items:center;padding:5px 0}
+.tep{font:500 12px/1 var(--mono);color:var(--ink-2)}
+.track{position:relative;height:18px;background:var(--paper);border:1px solid var(--rule);border-radius:2px;overflow:hidden}
+.band{position:absolute;top:0;bottom:0;background:var(--band)}
+.fill{position:absolute;top:2px;bottom:2px;border-radius:1px}
+.fill.dlg{left:0;background:var(--seal)}
+.fill.act{background:var(--seal-2)}
+.tval{font:500 12px/1.5 var(--sans);color:var(--ink-2)}
+.tval.okc{color:var(--ok)}
+.tval .over{color:var(--seal);font-weight:600}
+.legend{display:flex;gap:18px;font-size:12px;color:var(--ink-2);margin:8px 0 2px}
+.legend i{font-style:normal;display:inline-flex;align-items:center;gap:6px}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px}
+
+/* episode scripts: two per row; scene area clips at 300px with a fade, expandable */
+.eps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+.eps.solo{grid-template-columns:minmax(0,1fr)}
+@media(max-width:1100px){.eps{grid-template-columns:minmax(0,1fr)}}
+.ep{background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:18px 22px}
+.scenes{position:relative}
+.scenes.clip{max-height:300px;overflow:hidden}
+.scenes.clip::after{content:'';position:absolute;left:0;right:0;bottom:0;height:70px;
+  background:linear-gradient(180deg,transparent,var(--panel));pointer-events:none}
+.scmore{display:block;width:100%;margin-top:8px;font:500 11.5px/1 var(--sans);letter-spacing:.06em;
+  color:var(--ink-2);background:var(--paper);border:1px solid var(--rule-2);border-radius:2px;
+  padding:7px 0;cursor:pointer;transition:.15s}
+.scmore:hover{border-color:var(--seal);color:var(--seal)}
+.scmore:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+.ep-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--rule-2);padding-bottom:10px}
+.ep-n{font:400 22px/1 var(--serif);letter-spacing:.04em;color:var(--seal)}
+.ep-est{font-size:12.5px;color:var(--ink-2)}
+.bt{font-style:normal;font-size:11px;padding:2px 8px;border:1px solid var(--seal);border-radius:99px;color:var(--seal)}
+.hk{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:10px;font-size:13px;padding:10px 0;border-bottom:1px solid var(--rule)}
+.hk.cliff{border-bottom:0;border-top:1px solid var(--rule)}
+.hk b{font:500 11px/1.9 var(--sans);letter-spacing:.14em;color:var(--seal);white-space:nowrap}
+.scene-blk{margin-top:14px}
+.scene-h{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;margin-bottom:8px}
+.scene-h b{font:500 13px var(--serif);letter-spacing:.06em}
+.chip{font:400 10.5px/1.6 var(--mono);border:1px solid var(--rule-2);border-radius:2px;
+  padding:0 6px;background:var(--paper);color:var(--ink-2)}
+.chip.lite{border-color:var(--seal-2);color:var(--seal-2)}
+.chip.prop{border-color:var(--seal);color:var(--seal)}
+.act-line{margin:8px 0;font:400 13.5px/1.9 var(--sans);color:var(--ink-2)}
+.act-line.hooked,.dlg-line.hooked{border-left:2px solid var(--seal);padding-left:10px;background:var(--seal-soft)}
+.hookat{font-style:normal;font-size:11px;padding:1px 8px;border:1px solid var(--seal);border-radius:99px;color:var(--seal);margin-left:8px;white-space:nowrap}
+.dlg-line{display:grid;grid-template-columns:150px minmax(0,1fr) auto;gap:12px;align-items:baseline;
+  padding:5px 0 5px 10px;border-left:2px solid var(--rule-2)}
+.dlg-line:hover{border-left-color:var(--seal)}
+.who{font:500 13px/1.6 var(--serif)}
+.who i{display:block;font:400 11px var(--sans);color:var(--ink-3);font-style:normal}
+.said{font:400 14.5px/1.8 var(--serif)}
+.dlg-line .copy{opacity:0;transition:.15s}
+.dlg-line:hover .copy{opacity:1}
+
+/* tables */
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--rule);font-size:13px}
+th,td{padding:8px 12px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+th{font:500 11px/1 var(--sans);letter-spacing:.1em;color:var(--ink-3);background:var(--side)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-family:var(--mono);font-size:12px;color:var(--ink-2);white-space:nowrap}
+
+/* line book: two per row; lists capped at 6 rows, scroll vertically */
+.casts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+@media(max-width:1100px){.casts{grid-template-columns:minmax(0,1fr)}}
+.cast-blk{background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:14px 18px}
+.cast-h{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--rule-2);padding-bottom:8px}
+.cast-h b{font:400 17px/1.2 var(--serif);letter-spacing:.04em}
+.cast-meta{font-size:12px;color:var(--ink-2)}
+.cast-h .copy{margin-left:auto}
+.cast-lines{margin:8px 0 0;padding:0 6px 0 0;list-style:none;max-height:186px;overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:var(--rule-2) transparent}
+.cast-lines::-webkit-scrollbar{width:6px}
+.cast-lines::-webkit-scrollbar-thumb{background:var(--rule-2);border-radius:3px}
+.cast-lines li{display:grid;grid-template-columns:110px minmax(0,1fr) auto;gap:12px;align-items:baseline;
+  padding:4.5px 0;border-top:1px solid var(--rule);font-size:13px}
+.cast-lines li:first-child{border-top:0}
+.cast-lines i{font:400 11px/1.8 var(--mono);color:var(--ink-3);font-style:normal}
+.cast-lines span{font-family:var(--serif)}
+.cast-lines em{font-style:normal;font-size:11.5px;color:var(--ink-3)}
+
+.copy{flex:none;font:500 11px/1 var(--sans);color:var(--ink-2);background:var(--paper);
+  border:1px solid var(--rule-2);border-radius:2px;padding:4px 10px;cursor:pointer;transition:.15s}
+.copy:hover{border-color:var(--seal);color:var(--seal)}
+.copy:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+.copy[data-done]{border-color:var(--seal);color:var(--seal)}
+.copy.mini{padding:2px 7px;font-size:10.5px}
+
+.gate{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:2px 28px}
+@media(max-width:900px){.gate{grid-template-columns:1fr}}
+.gate li{display:flex;gap:8px;padding:5px 0;font-size:12.5px;line-height:1.55}
+.gate .m{flex:none;font-weight:700}
+.gate li.ok .m{color:var(--ok)}
+.gate li.bad .m{color:var(--seal)}
+.gate li.bad{background:var(--seal-soft);border-radius:2px;padding-left:6px}
+.gate small{display:block;color:var(--ink-3)}
+.gsum{margin:10px 0 0;font-size:12px;color:var(--ink-2)}
+.gsum b{color:var(--seal)}
+
+.foot{margin-top:40px;font-size:11px;color:var(--ink-3);border-top:1px solid var(--rule);padding-top:14px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{
+  .expo,.copy,.scmore{display:none!important}
+  .scenes.clip{max-height:none}
+  .scenes.clip::after{display:none}
+  .cast-lines{max-height:none;overflow:visible}
+  .eps,.casts{grid-template-columns:minmax(0,1fr)}
+  .page{max-width:none;padding:0}
+  section.top-sec,.ep,.cast-blk{page-break-inside:avoid}
+  body{background:#fff}
+}
+</style></head><body>
+<div class="page">
+
+<header class="hd">
+  <h1>晚棠风</h1>
+  <span class="sub">剧本 · 第 1–12 集</span>
+  <span class="right">
+    <span class="gatepill pass">✓ 质量门 10 / 10</span>
+    <button class="expo" data-name="晚棠风-script.json">导出 JSON</button>
+  </span>
+</header>
+
+<div class="kpis">
+  <div class="kpi accent"><div class="l">集数</div><div class="v">12</div><div class="d">27 场戏</div></div>
+  <div class="kpi"><div class="l">预估总时长</div><div class="v">23 分 43 秒</div><div class="d">目标 24 分 0 秒</div></div>
+  <div class="kpi"><div class="l">台词</div><div class="v">322 <small>句</small></div><div class="d">约 980.4 秒对白</div></div>
+  <div class="kpi"><div class="l">台词占比</div><div class="v">69<small>%</small></div><div class="d">其余是画面与动作</div></div>
+  <div class="kpi"><div class="l">平均每场</div><div class="v">52.7 <small>秒</small></div><div class="d">换景是统计不是门——AI 换景不要钱</div></div>
+</div>
+
+
+<section class="top-sec" id="sec-timing">
+  <div class="sec-h"><span class="no">01</span><h2>时长仪表</h2><span class="note">绿带 = 目标 ±15%；台词按语速折算，动作按节拍估时</span></div>
+  <div class="timing">
+    <div class="legend">
+      <i><span class="sw" style="background:var(--seal)"></span>台词</i>
+      <i><span class="sw" style="background:var(--seal-2)"></span>动作</i>
+      <i><span class="sw" style="background:var(--band)"></span>目标区间</i>
+    </div>
+<div class="trow">
+  <span class="tep">E01</span>
+  <div class="track">
+    <span class="band" style="left:68.4%;width:24.2%"></span>
+    <span class="fill dlg" style="width:57.1%"></span>
+    <span class="fill act" style="left:57.1%;width:23.5%"></span>
+  </div>
+  <span class="tval okc">120.1s / 120s</span>
+</div>
+<div class="trow">
+  <span class="tep">E02</span>
+  <div class="track">
+    <span class="band" style="left:68.4%;width:24.2%"></span>
+    <span class="fill dlg" style="width:50.3%"></span>
+    <span class="fill act" style="left:50.3%;width:21.8%"></span>
+  </div>
+  <span class="tval okc">107.4s / 120s</span>
+</div>
+<div class="trow">
+  <span class="tep">E03</span>
+  <div class="track">
+    <span class="band" style="left:68.4%;width:24.2%"></span>
+    <span class="fill dlg" style="width:63.3%"></span>
+    <span class="fill act" style="left:63.3%;width:16.8%"></span>
+  </div>
+  <span class="tval okc">119.4s / 120s</span>
+</div>
+<div class="trow">
+  <span class="tep">E04</span>
+  <div class="track">
+    <span class="band" style="left:68.4%;width:24.2%"></span>
+    <span class="fill dlg" style="width:53.3%"></span>
+    <span class="fill act" style="left:53.3%;width:28.5%"></span>
+  </div>
+  <span class="tval okc">122s / 120s</span>
+</div>
+<div class="trow">
+  <span class="tep">E05</span>
+  <div class="track">
+    <span class="band" style="left:68.4%;width:24.2%"></span>
+    <span class="fill dlg" style="width:57.5%"></span>
+    <span class="fill act" style="left:57.5%;width:21.8%"></span>
+  </div>
+  <span class="tval okc">118.2s / 120s</span>
+</div>
+<div class="trow">
+  <span class="tep">E06</span>
+  <div class="track">
+    <span class="band" style="left:68.4%;width:24.2%"></span>
+    <span class="fill dlg" style="width:53.4%"></span>
+    <span class="fill act" style="left:53.4%;width:26.8%"></span>
+  </div>
+  <span class="tval okc">119.6s / 120s</span>
+</div>
+<div class="trow">
+  <span class="tep">E07</span>
+  <div class="track">
+    <span class="band" style="left:68.4%;width:24.2%"></span>
+    <span class="fill dlg" style="width:53.9%"></span>
+    <span class="fill act" style="left:53.9%;width:26.8%"></span>
+  </div>
+  <span class="tval okc">120.4s / 120s</span>
+</div>
+<div class="trow">
+  <span class="tep">E08</span>
+  <div class="track">
+    <span class="band" style="left:68.4%;width:24.2%"></span>
+    <span class="fill dlg" style="width:54.1%"></span>
+    <span class="fill act" style="left:54.1%;width:26.8%"></span>
+  </div>
+  <span class="tval okc">120.6s / 120s</span>
+</div>
+<div class="trow">
+  <span class="tep">E09</span>
+  <div class="track">
+    <span class="band" style="left:68.4%;width:24.2%"></span>
+    <span class="fill dlg" style="width:57.7%"></span>
+    <span class="fill act" style="left:57.7%;width:23.5%"></span>
+  </div>
+  <span class="tval okc">121s / 120s</span>
+</div>
+<div class="trow">
+  <span class="tep">E10</span>
+  <div class="track">
+    <span class="band" style="left:68.4%;width:24.2%"></span>
+    <span class="fill dlg" style="width:47.4%"></span>
+    <span class="fill act" style="left:47.4%;width:30.2%"></span>
+  </div>
+  <span class="tval okc">115.7s / 120s</span>
+</div>
+<div class="trow">
+  <span class="tep">E11</span>
+  <div class="track">
+    <span class="band" style="left:68.4%;width:24.2%"></span>
+    <span class="fill dlg" style="width:54.1%"></span>
+    <span class="fill act" style="left:54.1%;width:25.2%"></span>
+  </div>
+  <span class="tval okc">118.2s / 120s</span>
+</div>
+<div class="trow">
+  <span class="tep">E12</span>
+  <div class="track">
+    <span class="band" style="left:68.4%;width:24.2%"></span>
+    <span class="fill dlg" style="width:55.6%"></span>
+    <span class="fill act" style="left:55.6%;width:25.2%"></span>
+  </div>
+  <span class="tval okc">120.3s / 120s</span>
+</div>
+  </div>
+</section>
+
+<section class="top-sec" id="sec-script">
+  <div class="sec-h"><span class="no">02</span><h2>分集剧本</h2><span class="note">一排两集 · 场次信息超高自动截断，点开看全部</span></div>
+  <div class="eps">
+<article class="ep" id="ep-1">
+  <header class="ep-h">
+    <span class="ep-n">E01</span>
+    <span class="ep-est">预估 120.1 秒 / 目标 120 秒</span>
+    <i class="bt">人设反差</i>
+  </header>
+  <div class="hk"><b>开场钩子</b><span>白衣书生扑通跪地以三百两买凶，雅阁里修指甲的青衣公子为何冷笑比出七根指头 <i class="hookat">第 1 场第 1 拍兑现</i></span></div>
+  <div class="scenes clip">
+  <section class="scene-blk">
+  <header class="scene-h">
+    <b>第 1 场</b>
+    <span class="chip">S01 听风楼雅阁与止戈轩</span>
+    <span class="chip lite">光照 · 午后斜阳</span>
+    <span class="chip">温如风</span><span class="chip">林慕白</span>
+    <span class="chip prop">修甲寸银小刀</span>
+  </header>
+  <p class="act-line hooked" title="开场钩子">冷开场：白衣书生双膝重重砸跪在听风楼木地板上，双手死死扣住桌沿；桌对面青衣男子垂眼捏着寸银小刀，慢条斯理修着指甲。</p>
+<div class="dlg-line"><span class="who">林慕白<i>满脸泪汗，带着哭腔苦苦哀求</i></span><span class="said">温大侠，您价钱公道。</span><button class="copy mini" data-copy="温大侠，您价钱公道。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>紧接前话，神色不松</i></span><span class="said">可小生实在只有三百两啊！</span><button class="copy mini" data-copy="可小生实在只有三百两啊！">复制</button></div>
+<p class="act-line">温如风慢条斯理吹去指尖碎屑，朝对面的林慕白竖起一根手指。</p>
+<div class="dlg-line"><span class="who">温如风<i>眼皮微抬，嘴角挂着淡笑</i></span><span class="said">第一，我不是什么大侠，别乱叫。</span><button class="copy mini" data-copy="第一，我不是什么大侠，别乱叫。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>又竖起第二根手指，语气不紧不慢</i></span><span class="said">第二，想手刃恶狗就自己练武，买凶不算本事。</span><button class="copy mini" data-copy="第二，想手刃恶狗就自己练武，买凶不算本事。">复制</button></div>
+<p class="act-line">温如风突然张开七根修长白净的手指，在林慕白面前轻轻晃了晃。</p>
+<div class="dlg-line"><span class="who">温如风<i>端起凉茶轻抿，长袖掩住微微皱起的眉头</i></span><span class="said">第三，七百两杀厉狂澜，嫌贵就请另找高明。</span><button class="copy mini" data-copy="第三，七百两杀厉狂澜，嫌贵就请另找高明。">复制</button></div>
+<p class="act-line">林慕白猛地往地板上磕头，额头砸得咚咚作响。</p>
+<div class="dlg-line"><span class="who">林慕白<i>声音嘶哑颤抖，泪流满面</i></span><span class="said">这三百两还是卖了亡母首饰凑的。</span><button class="copy mini" data-copy="这三百两还是卖了亡母首饰凑的。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>紧接前话，神色不松</i></span><span class="said">求您念在阿沅死得冤，开恩一次吧！</span><button class="copy mini" data-copy="求您念在阿沅死得冤，开恩一次吧！">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>放下茶盏，话里带着三分冷嘲</i></span><span class="said">变卖家当只为给没名分的女人报仇。</span><button class="copy mini" data-copy="变卖家当只为给没名分的女人报仇。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">林三公子倒真是个痴情人。</span><button class="copy mini" data-copy="林三公子倒真是个痴情人。">复制</button></div>
+<p class="act-line">温如风不耐烦地挥了挥手，长叹一声。</p>
+<div class="dlg-line"><span class="who">温如风<i>敷衍打发</i></span><span class="said">你先回去，我想想办法，但不一定成。</span><button class="copy mini" data-copy="你先回去，我想想办法，但不一定成。">复制</button></div>
+<p class="act-line">林慕白如蒙大赦，慌忙连磕三个响头，起身倒退出门外。</p>
+</section>
+<section class="scene-blk">
+  <header class="scene-h">
+    <b>第 2 场</b>
+    <span class="chip">S01 听风楼雅阁与止戈轩</span>
+    <span class="chip lite">光照 · 暮色夜灯</span>
+    <span class="chip">温如风</span><span class="chip">崔断水</span>
+    <span class="chip prop">修甲寸银小刀</span>
+  </header>
+  <p class="act-line">夜色爬上窗外垂柳，魁梧穿绿袍的崔断水大步掀帘闯进雅阁，一把抄起凉茶灌了一口。</p>
+<div class="dlg-line"><span class="who">崔断水<i>抱臂坐下，阴阳怪气地哼笑</i></span><span class="said">谁不知道扇底寸银算盘精？</span><button class="copy mini" data-copy="谁不知道扇底寸银算盘精？">复制</button></div>
+<div class="dlg-line"><span class="who">崔断水<i>紧接前话，神色不松</i></span><span class="said">动动嘴皮挣二三百两，我们得卖半年命。</span><button class="copy mini" data-copy="动动嘴皮挣二三百两，我们得卖半年命。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>把玩着寸银小刀，似笑非笑</i></span><span class="said">官府捉人，最先锁拿的也是我。</span><button class="copy mini" data-copy="官府捉人，最先锁拿的也是我。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">这儿有单买卖，三百两杀厉狂澜，接吗？</span><button class="copy mini" data-copy="这儿有单买卖，三百两杀厉狂澜，接吗？">复制</button></div>
+<p class="act-line">崔断水黑脸瞬间一僵，重重放下茶杯往地上啐了一口。</p>
+<div class="dlg-line"><span class="who">崔断水<i>脸色阴沉，满嘴嫌恶</i></span><span class="said">呸！三百两杀子母鸳鸯剑？</span><button class="copy mini" data-copy="呸！三百两杀子母鸳鸯剑？">复制</button></div>
+<div class="dlg-line"><span class="who">崔断水<i>紧接前话，神色不松</i></span><span class="said">我老崔这颗人头可没这么便宜！</span><button class="copy mini" data-copy="我老崔这颗人头可没这么便宜！">复制</button></div>
+<div class="dlg-line"><span class="who">崔断水<i>凑近拍着温如风肩膀压低声音，露出贪婪笑意</i></span><span class="said">今晚兄弟做东，五百两包了醉花阴十个头牌。</span><button class="copy mini" data-copy="今晚兄弟做东，五百两包了醉花阴十个头牌。">复制</button></div>
+<div class="dlg-line"><span class="who">崔断水<i>挤眉弄眼，伸手去拽温如风胳膊</i></span><span class="said">个个香甜，跟哥哥去撑场子！</span><button class="copy mini" data-copy="个个香甜，跟哥哥去撑场子！">复制</button></div>
+<p class="act-line">温如风笑着拨开他的胳膊，端起冷茶一饮而尽。</p>
+<div class="dlg-line"><span class="who">温如风<i>起身掸了掸青衫，笑容疏离</i></span><span class="said">可惜，今晚已约了人。</span><button class="copy mini" data-copy="可惜，今晚已约了人。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">醉花阴的无边风月只能心领了。</span><button class="copy mini" data-copy="醉花阴的无边风月只能心领了。">复制</button></div>
+<p class="act-line">崔断水怒极甩袖摔门而去。温如风抬头望一眼窗外清月，拿起折扇下楼。</p>
+</section>
+<section class="scene-blk">
+  <header class="scene-h">
+    <b>第 3 场</b>
+    <span class="chip">S02 三更面馆</span>
+    <span class="chip lite">光照 · 深夜孤灯</span>
+    <span class="chip">温如风</span><span class="chip">江晚棠</span><span class="chip">三更面馆掌柜</span>
+    <span class="chip prop">修甲寸银小刀</span>
+  </header>
+  <p class="act-line">深夜三更面馆冷清极了，掌柜守着沸腾汤锅打盹，将兑了水的白干粗暴敦在白衣女客桌前。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>伏在桌上含混低喊，胡乱推开凉透的面碗</i></span><span class="said">酒……掌柜，再来三两白干。</span><button class="copy mini" data-copy="酒……掌柜，再来三两白干。">复制</button></div>
+<p class="act-line">一只修长白净的手从后拍住掌柜肩头。青衣折扇的温如风在女客身旁坐下，捏出寸银小刀修指甲。</p>
+<div class="dlg-line"><span class="who">温如风<i>语气平稳却不容置疑</i></span><span class="said">我不喝搀水的劣酒。</span><button class="copy mini" data-copy="我不喝搀水的劣酒。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">把你藏着最好的琥珀春拿出来。</span><button class="copy mini" data-copy="把你藏着最好的琥珀春拿出来。">复制</button></div>
+<p class="act-line">掌柜吓得连连点头，一溜烟钻进后厨搬来好酒放下退走。温如风斟满一杯，伸手轻触女客空荡荡的耳垂。</p>
+<div class="dlg-line"><span class="who">温如风<i>眼神复杂，嘴上却偏要叹息调侃</i></span><span class="said">阿棠，耳环也当掉了？</span><button class="copy mini" data-copy="阿棠，耳环也当掉了？">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">看样子连最后一点银子也花光了。</span><button class="copy mini" data-copy="看样子连最后一点银子也花光了。">复制</button></div>
+<p class="act-line">江晚棠猛地抬起苍白瘦削的脸，抬手狠狠拍掉温如风的手。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>双唇沾酒艳如桃花，眼底却全是绝望与倔强</i></span><span class="said">不要碰我！少在这假惺惺。</span><button class="copy mini" data-copy="不要碰我！少在这假惺惺。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">说，今天有没有新买卖？</span><button class="copy mini" data-copy="说，今天有没有新买卖？">复制</button></div>
+</section>
+  </div>
+  <button class="scmore">▾ 展开全部场次</button>
+  <div class="hk cliff"><b>结尾悬念</b><span>推掉醉花阴十美夜宴的冷血掮客，深夜却坐进寒酸面馆替落魄女刀手换上好酒，她当尽耳环究竟藏着什么死穴</span></div>
+</article>
+<article class="ep" id="ep-2">
+  <header class="ep-h">
+    <span class="ep-n">E02</span>
+    <span class="ep-est">预估 107.4 秒 / 目标 120 秒</span>
+    <i class="bt">痛点拉扯</i>
+  </header>
+  <div class="hk"><b>开场钩子</b><span>当尽耳环的落魄女刀手为何猛地拍开温如风的手，醉酒呛咳苦求一桩足价杀人买卖 <i class="hookat">第 1 场第 1 拍兑现</i></span></div>
+  <div class="scenes clip">
+  <section class="scene-blk">
+  <header class="scene-h">
+    <b>第 1 场</b>
+    <span class="chip">S02 三更面馆</span>
+    <span class="chip lite">光照 · 深夜孤灯</span>
+    <span class="chip">温如风</span><span class="chip">江晚棠</span><span class="chip">三更面馆掌柜</span>
+    <span class="chip prop">修甲寸银小刀</span><span class="chip prop">百年紫雪参药丸</span>
+  </header>
+  <p class="act-line hooked" title="开场钩子">冷开场：江晚棠甩开温如风的手，仰脖将琥珀春一饮而尽，猛地捂胸剧烈咳嗽，从怀里掏出一只空药盒重重拍在桌上。</p>
+<p class="act-line">温如风慌忙凑近替她拍背顺气，掌柜缩在后灶阴影处暗暗偷瞄。</p>
+<div class="dlg-line"><span class="who">温如风<i>收回手轻轻抿酒，刻意用铜臭掩饰关切</i></span><span class="said">我只是不想熟识的刀手早死。</span><button class="copy mini" data-copy="我只是不想熟识的刀手早死。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">你活不长，我也少赚钱。</span><button class="copy mini" data-copy="你活不长，我也少赚钱。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>嗓音嘶哑发狠，攥紧桌上空药盒</i></span><span class="said">少啰嗦！钱花光了，到底还有没有新买卖？</span><button class="copy mini" data-copy="少啰嗦！钱花光了，到底还有没有新买卖？">复制</button></div>
+<p class="act-line">温如风摇开纸扇说起几单琐碎小活，唯独说到北上大案时停住扇面。</p>
+<div class="dlg-line"><span class="who">温如风<i>目光落在她空药盒上，把现实摊开</i></span><span class="said">北上刺杀铁面巡检值五百两黄金。</span><button class="copy mini" data-copy="北上刺杀铁面巡检值五百两黄金。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">可你抽得开身丢下小满吗？</span><button class="copy mini" data-copy="可你抽得开身丢下小满吗？">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>扶着桌沿站起，声音嘶哑濒临崩溃</i></span><span class="said">我不能离开永安！</span><button class="copy mini" data-copy="我不能离开永安！">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">没有银子买百年紫雪参，小满她会死的！</span><button class="copy mini" data-copy="没有银子买百年紫雪参，小满她会死的！">复制</button></div>
+<p class="act-line">江晚棠颓然跌回长凳，枕着胳膊无声落泪。温如风掏出手绢替她拭泪，嘴上却冷下脸。</p>
+<div class="dlg-line"><span class="who">温如风<i>端详酒杯，作出一副算计到底的模样</i></span><span class="said">我借你银子算三分利。</span><button class="copy mini" data-copy="我借你银子算三分利。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">从你以后每单工钱里扣，扣个五六年刚好。</span><button class="copy mini" data-copy="从你以后每单工钱里扣，扣个五六年刚好。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>红着眼抬头冷笑</i></span><span class="said">我不借！谁不知道你扇底寸银吃人不吐骨头。</span><button class="copy mini" data-copy="我不借！谁不知道你扇底寸银吃人不吐骨头。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">药钱全进你口袋了！</span><button class="copy mini" data-copy="药钱全进你口袋了！">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>话音刻意放淡</i></span><span class="said">要不第二个法子，干脆别管小满了。</span><button class="copy mini" data-copy="要不第二个法子，干脆别管小满了。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">靠人参吊命本就难养大。</span><button class="copy mini" data-copy="靠人参吊命本就难养大。">复制</button></div>
+<p class="act-line">啪的一声脆响，江晚棠扬手一记耳光狠狠扇在温如风白皙脸颊上。灶台边的掌柜吓得抱头蹲下。</p>
+<div class="dlg-line"><span class="who">温如风<i>急忙拿折扇遮脸苦笑</i></span><span class="said">素心阁侠女手真重，打死了我谁给你找活？</span><button class="copy mini" data-copy="素心阁侠女手真重，打死了我谁给你找活？">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">今天倒真有个疯子上门。</span><button class="copy mini" data-copy="今天倒真有个疯子上门。">复制</button></div>
+<p class="act-line">江晚棠喘息着盯住油灯，眼神黯淡下来。</p>
+<div class="dlg-line"><span class="who">温如风<i>手指转着酒杯，声音微沉</i></span><span class="said">林家不准娶。</span><button class="copy mini" data-copy="林家不准娶。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">阿沅爹娘把有孕的闺女卖给了厉狂澜。</span><button class="copy mini" data-copy="阿沅爹娘把有孕的闺女卖给了厉狂澜。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>冷眼看向油灯火苗</i></span><span class="said">一顿皮鞭下去阿沅咬舌自尽。</span><button class="copy mini" data-copy="一顿皮鞭下去阿沅咬舌自尽。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">林慕白只见着一座荒坟。</span><button class="copy mini" data-copy="林慕白只见着一座荒坟。">复制</button></div>
+<p class="act-line">江晚棠猛地伸手死死抓紧温如风手背，捏得他手背发青。温如风痛得皱眉抽回手。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>望着油灯出神，语气突然软了下来</i></span><span class="said">三百两……也许他当真只凑得起这些银子了。</span><button class="copy mini" data-copy="三百两……也许他当真只凑得起这些银子了。">复制</button></div>
+<p class="act-line">江晚棠终于醉倒在桌上。温如风叹气扔下一块碎银，把她一把搀起走出面馆，夜风里江晚棠挥臂胡乱挣扎。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>醉眼迷离，嘴里含糊骂着</i></span><span class="said">叫你不要碰我……松开，我没醉！</span><button class="copy mini" data-copy="叫你不要碰我……松开，我没醉！">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>咬牙架住她，没好气地回嘴</i></span><span class="said">我不扶你，今晚就睡大街上。</span><button class="copy mini" data-copy="我不扶你，今晚就睡大街上。">复制</button></div>
+<p class="act-line">夜风里两人脚步错杂远去，温如风顺势弯腰稳稳背起她穿过长街。</p>
+</section>
+<section class="scene-blk">
+  <header class="scene-h">
+    <b>第 2 场</b>
+    <span class="chip">S03 西城槐花巷小院</span>
+    <span class="chip lite">光照 · 冷月寒夜</span>
+    <span class="chip">温如风</span><span class="chip">江晚棠</span><span class="chip">小满</span>
+    <span class="chip prop">修甲寸银小刀</span>
+  </header>
+  <p class="act-line">槐花巷漆黑的三进小院屋里家徒四壁，温如风喘着粗气把江晚棠放倒在木榻上，摸黑从柜里抱出棉被将她严实包住。</p>
+<p class="act-line">里榻熟睡的小满翻了个身轻哼一声。江晚棠在被窝里蜷成一团，两滴清泪顺着苍白脸颊滑下。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>梦呓般低语，声线碎得让人心酸</i></span><span class="said">峥哥哥……小满不要怕，娘在这里……</span><button class="copy mini" data-copy="峥哥哥……小满不要怕，娘在这里……">复制</button></div>
+<p class="act-line">温如风站在榻前愣住，又替里榻的小满掩实被角，回头看一眼空荡屋子才轻声出门。</p>
+<div class="dlg-line"><span class="who">温如风<i>站在门廊暗影里自嘲般低笑一声</i></span><span class="said">峥哥哥……哼，倒是个死心眼。</span><button class="copy mini" data-copy="峥哥哥……哼，倒是个死心眼。">复制</button></div>
+<p class="act-line">院外月光如水银泼地，温如风靠着斑驳照壁吐出一口酒气，孤寂地仰望星空，寸银小刀在指缝间寒光旋绕。</p>
+</section>
+  </div>
+  <button class="scmore">▾ 展开全部场次</button>
+  <div class="hk cliff"><b>结尾悬念</b><span>听完阿沅惨死始末的江晚棠眼神陡变，深夜院外旋刀独坐的温如风还不知她已打定主意强接那桩死单</span></div>
+</article>
+<article class="ep" id="ep-3">
+  <header class="ep-h">
+    <span class="ep-n">E03</span>
+    <span class="ep-est">预估 119.4 秒 / 目标 120 秒</span>
+    <i class="bt">暗线反转</i>
+  </header>
+  <div class="hk"><b>开场钩子</b><span>头戴黑纱斗笠的女刀手竟在桌下扣死温如风手腕，当着买主的面强行接下三百两赔本死单 <i class="hookat">第 1 场第 1 拍兑现</i></span></div>
+  <div class="scenes clip">
+  <section class="scene-blk">
+  <header class="scene-h">
+    <b>第 1 场</b>
+    <span class="chip">S01 听风楼雅阁与止戈轩</span>
+    <span class="chip lite">光照 · 晨光暖软</span>
+    <span class="chip">温如风</span><span class="chip">江晚棠</span><span class="chip">林慕白</span>
+    <span class="chip prop">百年紫雪参药丸</span>
+  </header>
+  <p class="act-line hooked" title="开场钩子">冷开场：听风楼雅阁内，林慕白掀袍长跪磕头；并排而坐的黑纱斗笠女子在桌下猛然出手，五指运力死死扣住温如风手腕。</p>
+<div class="dlg-line"><span class="who">林慕白<i>仰脸泣诉，泪痕满面</i></span><span class="said">去年端午看龙舟相识。</span><button class="copy mini" data-copy="去年端午看龙舟相识。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>紧接前话，神色不松</i></span><span class="said">小生备好聘礼却被家里硬生生拆散！</span><button class="copy mini" data-copy="小生备好聘礼却被家里硬生生拆散！">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>斜瞥黑纱女子一眼，故意开口劝退</i></span><span class="said">有缘无份也是常事。</span><button class="copy mini" data-copy="有缘无份也是常事。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">林公子不如早觅良缘，过去的事别提了。</span><button class="copy mini" data-copy="林公子不如早觅良缘，过去的事别提了。">复制</button></div>
+<p class="act-line">桌下五指力道陡然一沉，剧痛顺着腕骨直窜上去，温如风顿时憋住话头。</p>
+<div class="dlg-line"><span class="who">林慕白<i>连连叩首，声音哽咽悲切</i></span><span class="said">温大侠，您若不答应替小生手刃恶贼。</span><button class="copy mini" data-copy="温大侠，您若不答应替小生手刃恶贼。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>紧接前话，神色不松</i></span><span class="said">小生今日便长跪不起！</span><button class="copy mini" data-copy="小生今日便长跪不起！">复制</button></div>
+<p class="act-line">温如风正要摇扇喝退，桌下腕骨猛遭一股内劲穿透劳宫穴，疼得他咬紧牙关咽回半句话。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>隔着黑纱运功压低嗓音，沉稳得像个男人</i></span><span class="said">林公子请起。这桩买卖我代我们公子接了。</span><button class="copy mini" data-copy="林公子请起。这桩买卖我代我们公子接了。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">一月内必有回复。</span><button class="copy mini" data-copy="一月内必有回复。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>大喜过望，擦泪放下银包连连作揖退去</i></span><span class="said">多谢大侠！小生先行留下半数定金。</span><button class="copy mini" data-copy="多谢大侠！小生先行留下半数定金。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>紧接前话，神色不松</i></span><span class="said">余款事成即刻奉上！</span><button class="copy mini" data-copy="余款事成即刻奉上！">复制</button></div>
+<p class="act-line">门帘刚落，黑纱斗笠猛地被江晚棠一把掀开，她双目逼人地瞪住温如风。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>怒气上涌，呼吸急促</i></span><span class="said">温如风，难道你心里就只认银子。</span><button class="copy mini" data-copy="温如风，难道你心里就只认银子。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">天下没钱的人就活该受屈吗？</span><button class="copy mini" data-copy="天下没钱的人就活该受屈吗？">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>揉着被捏红的手腕，神色倏然冷厉</i></span><span class="said">你我又不是朝廷捕快，你手上无辜人命少吗？</span><button class="copy mini" data-copy="你我又不是朝廷捕快，你手上无辜人命少吗？">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">我促成的黑心买卖又少吗？</span><button class="copy mini" data-copy="我促成的黑心买卖又少吗？">复制</button></div>
+<p class="act-line">江晚棠浑身一震，缓缓松开手垂下眼帘，声音低了下来。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>摸着袖中刚换回的紫雪参药盒，语气透出孤苦</i></span><span class="said">算我求你这一回。三成抽头少不了你的。</span><button class="copy mini" data-copy="算我求你这一回。三成抽头少不了你的。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">小满的药钱实在等不起了。</span><button class="copy mini" data-copy="小满的药钱实在等不起了。">复制</button></div>
+<p class="act-line">温如风凝视她良久终究没有答话，一言不发掀帘转身下楼去。</p>
+</section>
+<section class="scene-blk">
+  <header class="scene-h">
+    <b>第 2 场</b>
+    <span class="chip">S01 听风楼雅阁与止戈轩</span>
+    <span class="chip lite">光照 · 晨光暖软</span>
+    <span class="chip">温如风</span><span class="chip">秦不争</span>
+    
+  </header>
+  <p class="act-line">止戈轩内阳光暖软，两颗乌亮铁球叮当作响。秦不争笑眯眯把温如风迎到棋桌前落座。</p>
+<div class="dlg-line"><span class="who">秦不争<i>捋着花白胡须，笑眼微眯</i></span><span class="said">我洗手多年只是听听解馋。</span><button class="copy mini" data-copy="我洗手多年只是听听解馋。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>紧接前话，神色不松</i></span><span class="said">你居然让刀手直接见主顾，规矩不要了？</span><button class="copy mini" data-copy="你居然让刀手直接见主顾，规矩不要了？">复制</button></div>
+<p class="act-line">温如风苦笑着为秦不争斟上热茶，端起黑棋落下一子。</p>
+<div class="dlg-line"><span class="who">温如风<i>神色坦然，刻意把重话轻说</i></span><span class="said">区区三百两抽九十两，我不在乎。</span><button class="copy mini" data-copy="区区三百两抽九十两，我不在乎。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">实在是经不住那丫头拿命缠我。</span><button class="copy mini" data-copy="实在是经不住那丫头拿命缠我。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>捻着白棋压低声问，眼神带着探询</i></span><span class="said">两年前太华剑宗顾云峥欺骗素心阁高足。</span><button class="copy mini" data-copy="两年前太华剑宗顾云峥欺骗素心阁高足。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>压低声音追问，眼神带着探询</i></span><span class="said">又横死胭脂渡，莫非就是她动的手？</span><button class="copy mini" data-copy="又横死胭脂渡，莫非就是她动的手？">复制</button></div>
+<p class="act-line">温如风嗤笑一声，拈起棋子的手顿在半空。</p>
+<div class="dlg-line"><span class="who">温如风<i>冷笑摇头，眼里却掠过一丝深藏的酸涩</i></span><span class="said">她哪来那么狠的心？当年江南漕帮出三千两。</span><button class="copy mini" data-copy="她哪来那么狠的心？当年江南漕帮出三千两。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>语气平淡如谈寻常买卖</i></span><span class="said">找上我，是我请人杀的顾云峥。</span><button class="copy mini" data-copy="找上我，是我请人杀的顾云峥。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>自嘲般轻哂，垂眼落子</i></span><span class="said">那傻丫头至今还满世界找仇人。</span><button class="copy mini" data-copy="那傻丫头至今还满世界找仇人。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">想替那个负心汉报仇呢。</span><button class="copy mini" data-copy="想替那个负心汉报仇呢。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>大笑转着铁球，意味深长看温如风一眼</i></span><span class="said">那你帮漕帮除掉薄情郎。</span><button class="copy mini" data-copy="那你帮漕帮除掉薄情郎。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>紧接前话，神色不松</i></span><span class="said">在神明面前倒也算积了桩阴德。</span><button class="copy mini" data-copy="在神明面前倒也算积了桩阴德。">复制</button></div>
+<div class="dlg-line"><span class="who">画外音<i>江晚棠的心声，轻柔却透出危险的动摇</i></span><span class="said">龙舟一别，数月相思……</span><button class="copy mini" data-copy="龙舟一别，数月相思……">复制</button></div>
+<div class="dlg-line"><span class="who">画外音<i>紧接前话，神色不松</i></span><span class="said">世上竟真有如此痴情的读书人吗？</span><button class="copy mini" data-copy="世上竟真有如此痴情的读书人吗？">复制</button></div>
+<p class="act-line">棋盘黑白交错落定，温如风却不知雅阁窗外白衣人影匆匆离去，直往城南栖霞观方向去了。</p>
+</section>
+  </div>
+  <button class="scmore">▾ 展开全部场次</button>
+  <div class="hk cliff"><b>结尾悬念</b><span>手握三百两定金的江晚棠对林慕白痴情深信不疑，殊不知自己正一步步走入万劫不复的动情死局</span></div>
+</article>
+<article class="ep" id="ep-4">
+  <header class="ep-h">
+    <span class="ep-n">E04</span>
+    <span class="ep-est">预估 122 秒 / 目标 120 秒</span>
+    
+  </header>
+  <div class="hk"><b>开场钩子</b><span>拿了买命定金的女刀手为何频频换上白裙跟踪自己的雇主 <i class="hookat">第 1 场第 1 拍兑现</i></span></div>
+  <div class="scenes clip">
+  <section class="scene-blk">
+  <header class="scene-h">
+    <b>第 1 场</b>
+    <span class="chip">S04 栖霞观银杏树下</span>
+    <span class="chip lite">光照 · 午后香烟晴光</span>
+    <span class="chip">温如风</span><span class="chip">江晚棠</span><span class="chip">林慕白</span>
+    <span class="chip prop">行踪时辰小册子</span>
+  </header>
+  <p class="act-line hooked" title="开场钩子">冷开场：午后晴光透过栖霞观古银杏枝叶，换回素净白裙的江晚棠提着裙角快步跑上青石台阶，闪身躲到粗壮树干后。</p>
+<p class="act-line">前庭青石双耳大香炉青烟袅袅，白衣书生林慕白双手合十跪在香炉前青石板上，低头对着炉烟频频拭泪。</p>
+<div class="dlg-line"><span class="who">林慕白<i>跪在香炉前低声哭诉，肩头微耸</i></span><span class="said">阿沅，小生实在无能。</span><button class="copy mini" data-copy="阿沅，小生实在无能。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>紧接前话，神色不松</i></span><span class="said">连母亲遗物都卖了才凑出这三百两。</span><button class="copy mini" data-copy="连母亲遗物都卖了才凑出这三百两。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>仰脸闭眼哽咽发誓，泪痕挂在苍白脸颊</i></span><span class="said">你在天有灵再等等。</span><button class="copy mini" data-copy="你在天有灵再等等。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>紧接前话，神色不松</i></span><span class="said">一月之内必叫那恶贼血债血偿。</span><button class="copy mini" data-copy="一月之内必叫那恶贼血债血偿。">复制</button></div>
+<p class="act-line">古银杏树干后，江晚棠扶着粗糙树皮轻轻探出半个身子，低枝红绸随风拂过她出神的眉眼。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>躲在树影后轻声呢喃，眼神渐渐软了下来</i></span><span class="said">卖掉亡母遗物也要替旧人雪恨……</span><button class="copy mini" data-copy="卖掉亡母遗物也要替旧人雪恨……">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">世上真有这样痴情的男人。</span><button class="copy mini" data-copy="世上真有这样痴情的男人。">复制</button></div>
+<p class="act-line">林慕白起身整了整月白襕衫，袖口沾着香灰独自沿着石阶缓缓走下前庭。</p>
+<p class="act-line">远景廊下石栏阴影里，温如风负手冷眼看着树后那抹白影，随即从袖中摸出一本蓝布小册子翻开。</p>
+<p class="act-line">他从袖中摸出细笔在微黄竹纸折页上写下一行小楷，收好笔合上册子揣回袖中，又望向树后。</p>
+<div class="dlg-line"><span class="who">温如风<i>斜倚石栏轻嗤一声，眼神冷得没有半分笑意</i></span><span class="said">五月十三午时，栖霞观。蠢丫头。</span><button class="copy mini" data-copy="五月十三午时，栖霞观。蠢丫头。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">拿了银子不练剑，偏跑来偷看主顾。</span><button class="copy mini" data-copy="拿了银子不练剑，偏跑来偷看主顾。">复制</button></div>
+<p class="act-line">江晚棠靠回银杏树干，左手扶上腰侧素银软剑，却顺着石阶望向林慕白远去的背影久久未动。</p>
+</section>
+<section class="scene-blk">
+  <header class="scene-h">
+    <b>第 2 场</b>
+    <span class="chip">S03 西城槐花巷小院</span>
+    <span class="chip lite">光照 · 清昼天光</span>
+    <span class="chip">江晚棠</span><span class="chip">小满</span>
+    <span class="chip prop">百年紫雪参药丸</span>
+  </header>
+  <p class="act-line">西城槐花巷小院洒满清昼天光。江晚棠带着小满坐在廊下石阶上，打开黑漆旧木药盒，剥开一枚暗黄蜡丸。</p>
+<p class="act-line">她端过温水碗，把深紫褐色的百年紫雪参药丸小心喂进小满嘴里。</p>
+<div class="dlg-line"><span class="who">小满<i>皱着小眉头咽下药丸，软糯地蹭进母亲怀里</i></span><span class="said">娘亲……药好苦，小满想吃糖饼。</span><button class="copy mini" data-copy="娘亲……药好苦，小满想吃糖饼。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>轻拍女儿瘦弱的后背，声音温柔得像换了个人</i></span><span class="said">乖，吞了这颗参丸就不喘了。</span><button class="copy mini" data-copy="乖，吞了这颗参丸就不喘了。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">娘再去挣银子给你买糖。</span><button class="copy mini" data-copy="娘再去挣银子给你买糖。">复制</button></div>
+<p class="act-line">江晚棠合上药盒，牵着小满走到廊下蓄水的大木盆旁蹲下，俯身对着清亮水面解开素木簪。</p>
+<p class="act-line">一瀑黑发顺着肩头滑落，她取过木梳缓缓梳理青丝，水面倒映出她逐渐透出粉润的面颊。</p>
+<div class="dlg-line"><span class="who">小满<i>趴在木盆边睁大黑亮眼睛仰望，伸出小手轻扯娘亲衣袖</i></span><span class="said">娘亲头发黑黑的，像花一样好看。</span><button class="copy mini" data-copy="娘亲头发黑黑的，像花一样好看。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>望着水盆里的自己唇角微弯，眼里透出久违的少女期许</i></span><span class="said">等娘攒够了药钱。</span><button class="copy mini" data-copy="等娘攒够了药钱。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">咱们就带着银子离开永安，再也不碰刀剑了。</span><button class="copy mini" data-copy="咱们就带着银子离开永安，再也不碰刀剑了。">复制</button></div>
+<p class="act-line">小满咯咯笑着扑进母亲怀里，母女俩依偎在廊檐投下的槐树影中。</p>
+<div class="dlg-line"><span class="who">画外音<i>江晚棠的心声，轻柔里带着一丝连她自己都没察觉的憧憬</i></span><span class="said">若能换得安稳度日。</span><button class="copy mini" data-copy="若能换得安稳度日。">复制</button></div>
+<div class="dlg-line"><span class="who">画外音<i>紧接前话，神色不松</i></span><span class="said">这双沾血的手或许也能洗干净。</span><button class="copy mini" data-copy="这双沾血的手或许也能洗干净。">复制</button></div>
+</section>
+<section class="scene-blk">
+  <header class="scene-h">
+    <b>第 3 场</b>
+    <span class="chip">S01 听风楼雅阁与止戈轩</span>
+    <span class="chip lite">光照 · 午后斜阳</span>
+    <span class="chip">温如风</span><span class="chip">秦不争</span>
+    <span class="chip prop">行踪时辰小册子</span>
+  </header>
+  <p class="act-line">午后斜阳斜斜穿透止戈轩雕花支摘窗，温如风站在窗畔，一页页翻看手里写满蝇头小楷的蓝布小册子。</p>
+<p class="act-line">秦不争手里稳稳盘着两颗乌亮铁球走近，低头瞥见泛黄折页上的墨迹，微微眯起老眼。</p>
+<div class="dlg-line"><span class="who">秦不争<i>捻着花白胡须，笑意里藏着几分审视</i></span><span class="said">五月十三、十四、十六……</span><button class="copy mini" data-copy="五月十三、十四、十六……">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>紧接前话，神色不松</i></span><span class="said">你还真天天给她记行踪账？</span><button class="copy mini" data-copy="你还真天天给她记行踪账？">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>重重合上小册子走到方桌旁拍在桌上，语气硬邦邦地掩饰</i></span><span class="said">做中间人总要盯紧货物。</span><button class="copy mini" data-copy="做中间人总要盯紧货物。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">免得出了岔子找不着人顶罪。</span><button class="copy mini" data-copy="免得出了岔子找不着人顶罪。">复制</button></div>
+<p class="act-line">秦不争跟到桌对面鼓凳坐下，铁球在掌心磕出清脆一响，收起笑意抬头看他。</p>
+<div class="dlg-line"><span class="who">秦不争<i>声音沉稳下来，敲打得句句直指要害</i></span><span class="said">刀手最忌对主顾动情。</span><button class="copy mini" data-copy="刀手最忌对主顾动情。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>紧接前话，神色不松</i></span><span class="said">她若漏了风声，官府第一个锁拿你。</span><button class="copy mini" data-copy="她若漏了风声，官府第一个锁拿你。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>端起凉茶冷笑，指节却微微收紧</i></span><span class="said">借她十个胆也不敢！</span><button class="copy mini" data-copy="借她十个胆也不敢！">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">不过看人哭两嗓子便心软的傻丫头。</span><button class="copy mini" data-copy="不过看人哭两嗓子便心软的傻丫头。">复制</button></div>
+<p class="act-line">秦不争摇摇头落下一枚棋子。温如风将茶盏搁回桌面，抄起折扇与小册子揣进袖中大步往门外走。</p>
+<div class="dlg-line"><span class="who">秦不争<i>转着铁球在后头笑问，眼里透出几分了然</i></span><span class="said">日头偏西了。</span><button class="copy mini" data-copy="日头偏西了。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>紧接前话，神色不松</i></span><span class="said">你揣着小册子急匆匆又要往哪儿去？</span><button class="copy mini" data-copy="你揣着小册子急匆匆又要往哪儿去？">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>头也不回地掀起青灰纱帘，冷笑里压着一丝按捺不住的焦躁</i></span><span class="said">去栖霞观上香！</span><button class="copy mini" data-copy="去栖霞观上香！">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">顺道瞧瞧她是不是真敢走到主顾面前去。</span><button class="copy mini" data-copy="顺道瞧瞧她是不是真敢走到主顾面前去。">复制</button></div>
+<p class="act-line">青灰纱帘在斜阳余晖里剧烈晃荡，温如风青衫背影大步跨出门槛，直往城南栖霞观方向去。</p>
+</section>
+  </div>
+  <button class="scmore">▾ 展开全部场次</button>
+  <div class="hk cliff"><b>结尾悬念</b><span>温如风小册子上的记录越写越密，江晚棠终究按捺不住要走到林慕白面前</span></div>
+</article>
+<article class="ep" id="ep-5">
+  <header class="ep-h">
+    <span class="ep-n">E05</span>
+    <span class="ep-est">预估 118.2 秒 / 目标 120 秒</span>
+    <i class="bt">错位冲击</i>
+  </header>
+  <div class="hk"><b>开场钩子</b><span>温如风踏上栖霞观青石台阶上香求来前乱后吉姻缘签，刚谈成七千两血案，为何瞥见树下一幕便当场失神 <i class="hookat">第 1 场第 1 拍兑现</i></span></div>
+  <div class="scenes clip">
+  <section class="scene-blk">
+  <header class="scene-h">
+    <b>第 1 场</b>
+    <span class="chip">S04 栖霞观银杏树下</span>
+    <span class="chip lite">光照 · 午后香烟晴光</span>
+    <span class="chip">温如风</span><span class="chip">江晚棠</span><span class="chip">林慕白</span><span class="chip">崔断水</span><span class="chip">栖霞观老庙祝</span>
+    <span class="chip prop">行踪时辰小册子</span>
+  </header>
+  <p class="act-line hooked" title="开场钩子">冷开场：午后香烟缭绕，温如风快步踏上栖霞观青石台阶把香插进青石大香炉，瘦小的老庙祝捧着竹签筒小步凑上前来。</p>
+<div class="dlg-line"><span class="who">栖霞观老庙祝<i>搓着手躬身赔笑，三角眼精明地打量温如风</i></span><span class="said">公子面色含愁，可是要测一测流年？</span><button class="copy mini" data-copy="公子面色含愁，可是要测一测流年？">复制</button></div>
+<div class="dlg-line"><span class="who">栖霞观老庙祝<i>紧接前话，神色不松</i></span><span class="said">小观姻缘卦最准。</span><button class="copy mini" data-copy="小观姻缘卦最准。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>收拢折扇随手抛下一块碎银，神情散漫</i></span><span class="said">流年不必，就测一卦姻缘吧。</span><button class="copy mini" data-copy="流年不必，就测一卦姻缘吧。">复制</button></div>
+<p class="act-line">老庙祝眉开眼笑接住碎银，晃动竹签筒抖出一支签，低头看清签文后脸色却陡然有些尴尬。</p>
+<div class="dlg-line"><span class="who">栖霞观老庙祝<i>干瘪喉咙吞吐半晌，终究老实照签直念</i></span><span class="said">不是下下签……此签说的是。</span><button class="copy mini" data-copy="不是下下签……此签说的是。">复制</button></div>
+<div class="dlg-line"><span class="who">栖霞观老庙祝<i>紧接前话，神色不松</i></span><span class="said">最初居士有所乱，后面还是好的。</span><button class="copy mini" data-copy="最初居士有所乱，后面还是好的。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>朗声嗤笑一句，转着折扇打发老庙祝退下</i></span><span class="said">乱都乱了，还能怎么好？</span><button class="copy mini" data-copy="乱都乱了，还能怎么好？">复制</button></div>
+<p class="act-line">老庙祝尴尬退开。温如风摸出袖中蓝布小册子刚翻看一眼，身旁石阶上已悄无声息多出一个绿袍高大身影。</p>
+<p class="act-line">温如风收起小册子，与绿袍崔断水并排站在香炉前合十而立，嘴唇微微张合。</p>
+<div class="dlg-line"><span class="who">崔断水<i>假作闭眼祈愿，嗓音干冷如切铁</i></span><span class="said">铁面巡检这单五百两黄金。</span><button class="copy mini" data-copy="铁面巡检这单五百两黄金。">复制</button></div>
+<div class="dlg-line"><span class="who">崔断水<i>紧接前话，神色不松</i></span><span class="said">若交给我，公子抽四成。</span><button class="copy mini" data-copy="若交给我，公子抽四成。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>同样合十闭目，话里丝毫不肯让步</i></span><span class="said">七千两白银惊动朝廷。</span><button class="copy mini" data-copy="七千两白银惊动朝廷。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">六成。我还要打点各处捕快。</span><button class="copy mini" data-copy="六成。我还要打点各处捕快。">复制</button></div>
+<div class="dlg-line"><span class="who">崔断水<i>眉骨下压，喉底发出一声冷哼</i></span><span class="said">四成五，公子未免太贪心。</span><button class="copy mini" data-copy="四成五，公子未免太贪心。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>眼皮都没抬，直接伸出五根修长手指</i></span><span class="said">五成。否则在下另请高明。</span><button class="copy mini" data-copy="五成。否则在下另请高明。">复制</button></div>
+<p class="act-line">崔断水紧咬牙关，双手合十用力一按，终究点下了头。</p>
+<div class="dlg-line"><span class="who">崔断水<i>从牙缝里挤出话来，转头却见温如风突然僵住不动</i></span><span class="said">好！五成就五成！</span><button class="copy mini" data-copy="好！五成就五成！">复制</button></div>
+<p class="act-line">温如风停止合十，僵硬地瞪大眼睛直望向前庭远处的百年古银杏树下。</p>
+<p class="act-line">树下银杏落叶铺地，月白长衫的林慕白紧蹙眉头坐在树根旁抚着脚腕，白衣江晚棠急忙蹲身关切上前。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>蹲身轻声相问，眉眼温婉柔和，见对方盯看竟羞怯低头</i></span><span class="said">公子扭伤了脚，又不曾带仆从。</span><button class="copy mini" data-copy="公子扭伤了脚，又不曾带仆从。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">不如我找人送公子去看大夫。</span><button class="copy mini" data-copy="不如我找人送公子去看大夫。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>红着眼眶抬头呆看她，声音软糯文弱</i></span><span class="said">有劳姑娘厚意，小生来替亡友祈福。</span><button class="copy mini" data-copy="有劳姑娘厚意，小生来替亡友祈福。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>紧接前话，神色不松</i></span><span class="said">一时伤心才扭了脚腕。</span><button class="copy mini" data-copy="一时伤心才扭了脚腕。">复制</button></div>
+<p class="act-line">江晚棠转身唤来两个道观杂役，不久用竹竿绳索扎起一乘凉轿抬起林慕白，她羞怯陪在轿侧缓缓走向观门。</p>
+<p class="act-line">香炉前，崔断水伸手在僵住的温如风肩头一拍。温如风猛地回神，抬手直指远去的凉轿背影。</p>
+<div class="dlg-line"><span class="who">温如风<i>想笑却笑不出来，神色罕见地失态走神</i></span><span class="said">你说，一个刀手……焉能生出这副模样？</span><button class="copy mini" data-copy="你说，一个刀手……焉能生出这副模样？">复制</button></div>
+<div class="dlg-line"><span class="who">崔断水<i>收回手惊疑地上下打量他，眼里满是不可置信</i></span><span class="said">那不是林家三公子么？</span><button class="copy mini" data-copy="那不是林家三公子么？">复制</button></div>
+<div class="dlg-line"><span class="who">崔断水<i>紧接前话，神色不松</i></span><span class="said">温公子向来只认银子，今日怎么倒失了神？</span><button class="copy mini" data-copy="温公子向来只认银子，今日怎么倒失了神？">复制</button></div>
+</section>
+<section class="scene-blk">
+  <header class="scene-h">
+    <b>第 2 场</b>
+    <span class="chip">S01 听风楼雅阁与止戈轩</span>
+    <span class="chip lite">光照 · 午后斜阳</span>
+    <span class="chip">温如风</span><span class="chip">秦不争</span>
+    
+  </header>
+  <p class="act-line">午后斜阳映入止戈轩。温如风摇着折扇在紫檀方桌旁坐下，端起茶碗苦笑摇头，对面的秦不争慢条斯理转着铁球。</p>
+<div class="dlg-line"><span class="who">温如风<i>自嘲般干笑两声，手里折扇收得啪一声响</i></span><span class="said">一个刀手，一个主顾。</span><button class="copy mini" data-copy="一个刀手，一个主顾。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">天天往观里凑，真是滑天下之大稽！</span><button class="copy mini" data-copy="天天往观里凑，真是滑天下之大稽！">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>半眯老眼含笑打趣，手里铁球停住</i></span><span class="said">你素来对女子不上心。</span><button class="copy mini" data-copy="你素来对女子不上心。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>紧接前话，神色不松</i></span><span class="said">如今为她的事如此焦躁，莫非看上人家了？</span><button class="copy mini" data-copy="如今为她的事如此焦躁，莫非看上人家了？">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>脸色微微一僵，连忙端茶掩饰</i></span><span class="said">秦老说笑了！我是怕她漏了风声。</span><button class="copy mini" data-copy="秦老说笑了！我是怕她漏了风声。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">连累官府查到我头上。</span><button class="copy mini" data-copy="连累官府查到我头上。">复制</button></div>
+<p class="act-line">秦不争放下铁球，收起慈和笑意，盯着温如风的眼睛沉下嗓音。</p>
+<div class="dlg-line"><span class="who">秦不争<i>神色骤然冷峻，一字一句透出老江湖的狠绝</i></span><span class="said">做我们这行如砌墙。</span><button class="copy mini" data-copy="做我们这行如砌墙。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>紧接前话，神色不松</i></span><span class="said">若抹不匀不如趁早扔掉她，免招祸害。</span><button class="copy mini" data-copy="若抹不匀不如趁早扔掉她，免招祸害。">复制</button></div>
+<p class="act-line">温如风握扇的手猛地定住，沉默片刻后起身整衣，朝秦不争深深长揖到底。</p>
+<div class="dlg-line"><span class="who">温如风<i>直起身时神色凛然，眼神再无半点玩笑</i></span><span class="said">多谢秦老教诲。今晚三更面馆。</span><button class="copy mini" data-copy="多谢秦老教诲。今晚三更面馆。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">我亲自约她把账算个干净。</span><button class="copy mini" data-copy="我亲自约她把账算个干净。">复制</button></div>
+<p class="act-line">温如风转身掀帘大步走出止戈轩，秦不争独自留在棋桌旁缓缓转动手中铁球。</p>
+</section>
+  </div>
+  <button class="scmore">▾ 展开全部场次</button>
+  <div class="hk cliff"><b>结尾悬念</b><span>秦不争力劝弃子保命，温如风连夜约江晚棠到三更面馆摊牌</span></div>
+</article>
+<article class="ep" id="ep-6">
+  <header class="ep-h">
+    <span class="ep-n">E06</span>
+    <span class="ep-est">预估 119.6 秒 / 目标 120 秒</span>
+    <i class="bt">情绪撕裂</i>
+  </header>
+  <div class="hk"><b>开场钩子</b><span>微醺的温如风在三更面馆大口吞面，面颊粉润、青丝如瀑的江晚棠进门入座，向来从容的掮客为何竟失控到寸银小刀坠地 <i class="hookat">第 1 场第 1 拍兑现</i></span></div>
+  <div class="scenes clip">
+  <section class="scene-blk">
+  <header class="scene-h">
+    <b>第 1 场</b>
+    <span class="chip">S02 三更面馆</span>
+    <span class="chip lite">光照 · 深夜孤灯</span>
+    <span class="chip">温如风</span><span class="chip">江晚棠</span><span class="chip">三更面馆掌柜</span>
+    <span class="chip prop">修甲寸银小刀</span><span class="chip prop">行踪时辰小册子</span>
+  </header>
+  <p class="act-line hooked" title="开场钩子">冷开场：深夜孤灯下，刚从醉花阴散席的微醺温如风坐在榆木桌前大口吞着雪菜熏肉面，面颊粉润、青丝如瀑的江晚棠走进门坐到他身旁。</p>
+<p class="act-line">后灶浓雾后，面馆掌柜右手握着长柄竹笊篱凑近桌边招呼，瞧见江晚棠水嫩娇艳的模样不禁一愣。</p>
+<div class="dlg-line"><span class="who">三更面馆掌柜<i>拎着擦汗巾粗声招呼，眼珠子忍不住往她脸上偷瞄</i></span><span class="said">苦啊……客官，今晚还是照旧要一碗阳春面么？</span><button class="copy mini" data-copy="苦啊……客官，今晚还是照旧要一碗阳春面么？">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>摆手挥退掌柜，眼神虽冷，眉梢却带着几分柔意</i></span><span class="said">不用。温如风，约我出来什么事。</span><button class="copy mini" data-copy="不用。温如风，约我出来什么事。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">我还得回去陪小满。</span><button class="copy mini" data-copy="我还得回去陪小满。">复制</button></div>
+<p class="act-line">掌柜识趣缩回灶台阴影后。温如风放下筷子擦擦嘴，借着酒意斜眼看向她。</p>
+<div class="dlg-line"><span class="who">温如风<i>醉眼微眯带出几分轻佻，故意试探刺她</i></span><span class="said">醉花阴的姑娘软玉温香。</span><button class="copy mini" data-copy="醉花阴的姑娘软玉温香。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">比某人整日冷冰冰的可温柔多了。</span><button class="copy mini" data-copy="比某人整日冷冰冰的可温柔多了。">复制</button></div>
+<p class="act-line">江晚棠脸色陡变，抬掌猛地挥向桌心，整碗热腾腾的雪菜熏肉面哗啦砸碎在墙上。</p>
+<p class="act-line">热汤面条溅了一墙，灶台后的掌柜吓得猛地蹲低身子，缩在阴影里大气不敢出。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>猛地拍案站起，呼吸急促胸口起伏</i></span><span class="said">少拿我跟醉花阴的贱人比！你到底说不说正事？</span><button class="copy mini" data-copy="少拿我跟醉花阴的贱人比！你到底说不说正事？">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>仰脸摇晃着坐直身子，醉话脱口而出</i></span><span class="said">喝酒误事……我只是劝你。</span><button class="copy mini" data-copy="喝酒误事……我只是劝你。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">好歹检点些，别对主顾动情！</span><button class="copy mini" data-copy="好歹检点些，别对主顾动情！">复制</button></div>
+<p class="act-line">啪的一声脆响，江晚棠扬手一记耳光狠狠抽在温如风白皙的左颊上。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>眼里冒火，手掌悬在半空微微发抖</i></span><span class="said">你说什么！我江晚棠行得正。</span><button class="copy mini" data-copy="你说什么！我江晚棠行得正。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">轮不到你嘴里胡言乱语！</span><button class="copy mini" data-copy="轮不到你嘴里胡言乱语！">复制</button></div>
+<p class="act-line">温如风脸颊泛起红印，缓缓抹去嘴角笑意，冷着脸从怀里掏出蓝布小册子甩在桌上。</p>
+<div class="dlg-line"><span class="who">温如风<i>翻开册子逐条冷念，字字像冰碴砸在桌面上</i></span><span class="said">五月十三栖霞观，十四听风楼。</span><button class="copy mini" data-copy="五月十三栖霞观，十四听风楼。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">十六西城门！你还要瞒我？</span><button class="copy mini" data-copy="十六西城门！你还要瞒我？">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>盯着小册子上的墨迹瞬间气短，声音发颤</i></span><span class="said">你……你竟敢暗中盯梢监视我？</span><button class="copy mini" data-copy="你……你竟敢暗中盯梢监视我？">复制</button></div>
+<p class="act-line">江晚棠羞愤交加再次扬掌扇来，温如风暴起伸手，五指死死扣住她手腕。</p>
+<div class="dlg-line"><span class="who">温如风<i>俯身逼近压低嗓音厉声怒斥，眼底竟泛红</i></span><span class="said">做我们这一行最忌动情！</span><button class="copy mini" data-copy="做我们这一行最忌动情！">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">连累全行老少怎么办，我犯得上丢命吗？</span><button class="copy mini" data-copy="连累全行老少怎么办，我犯得上丢命吗？">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>被抓疼手腕拼命挣扎，嗓音带着委屈发颤</i></span><span class="said">我没有动心！我只是可怜他，你凭什么这么凶！</span><button class="copy mini" data-copy="我没有动心！我只是可怜他，你凭什么这么凶！">复制</button></div>
+<p class="act-line">江晚棠的眼泪猛地滚出眼眶。温如风慌忙松开她手腕，苦笑着抓起琥珀春酒坛满斟一杯推过去。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>攥紧桌上酒杯哽咽质问，眼泪顺着脸颊滑落</i></span><span class="said">你知不知道他有多可怜？</span><button class="copy mini" data-copy="你知不知道他有多可怜？">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">心上人死了是什么滋味，你懂吗？</span><button class="copy mini" data-copy="心上人死了是什么滋味，你懂吗？">复制</button></div>
+<p class="act-line">江晚棠含泪抓起酒杯一口灌干，温如风默默再斟满，她又接着仰脖痛饮。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>捧着酒杯又哭又喊，苍白脸颊泛起醉红</i></span><span class="said">你们眼里除了银子还有什么？</span><button class="copy mini" data-copy="你们眼里除了银子还有什么？">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">是不是多一分银子就真那么好？</span><button class="copy mini" data-copy="是不是多一分银子就真那么好？">复制</button></div>
+<p class="act-line">温如风也仰脖干了烈酒，重重墩下瓷杯，红着眼眶拍桌回吼。</p>
+<div class="dlg-line"><span class="who">温如风<i>赤红着眼眶撕开体面，声嘶力竭回吼</i></span><span class="said">是！多一分银子就是好！</span><button class="copy mini" data-copy="是！多一分银子就是好！">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">等你要拿一分银子买命时就知道残酷了！</span><button class="copy mini" data-copy="等你要拿一分银子买命时就知道残酷了！">复制</button></div>
+<p class="act-line">江晚棠彻底崩溃，伏在榆木桌面臂弯里失声痛哭。</p>
+<div class="dlg-line"><span class="who">温如风<i>嘴上偏要往最痛处戳，眼底却闪过一丝不忍</i></span><span class="said">怎么，又想起你那个死去的峥哥哥了？</span><button class="copy mini" data-copy="怎么，又想起你那个死去的峥哥哥了？">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">他早死了，别妄想了！</span><button class="copy mini" data-copy="他早死了，别妄想了！">复制</button></div>
+<p class="act-line">江晚棠埋头流泪不答。温如风叹了口气，从袖中摸出一条素白丝帕伸手去替她拭泪。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>一动不动伏在桌边，声音冷得像透骨寒冰</i></span><span class="said">不要碰我。</span><button class="copy mini" data-copy="不要碰我。">复制</button></div>
+<p class="act-line">温如风的手僵在半空，随即收回丝帕摇摇晃晃站起身，摸着袖中寸银小刀踉跄迈向木门。</p>
+<p class="act-line">跨出门坎的刹那，那柄从不离身的修甲寸银小刀竟从指缝滑落，叮当一声掉在门坎青石上。</p>
+<div class="dlg-line"><span class="who">温如风<i>背影停在门外暗影里苦笑摇头，声音轻得被夜风吹散</i></span><span class="said">唉……真是改不了的傻丫头。</span><button class="copy mini" data-copy="唉……真是改不了的傻丫头。">复制</button></div>
+<p class="act-line">夜风吹动门口半卷破旧蓝布招幌，门坎青石板上孤零零躺着那柄泛着冷光的寸银小刀，温如风盯着脚下银光久久未俯身。</p>
+</section>
+  </div>
+  <button class="scmore">▾ 展开全部场次</button>
+  <div class="hk cliff"><b>结尾悬念</b><span>一声不要碰我彻底划破体面，温如风失神走出面馆连寸银小刀都叮当坠地，决裂后的江晚棠仍将一步步踏进林慕白的温柔幻梦</span></div>
+</article>
+<article class="ep" id="ep-7">
+  <header class="ep-h">
+    <span class="ep-n">E07</span>
+    <span class="ep-est">预估 120.4 秒 / 目标 120 秒</span>
+    <i class="bt">宿命借伞</i>
+  </header>
+  <div class="hk"><b>开场钩子</b><span>怀拥全城最娇媚头牌过夜却衣衫未乱的温如风，清晨撞见自林家归来的江晚棠会如何反应 <i class="hookat">第 1 场第 1 拍兑现</i></span></div>
+  <div class="scenes clip">
+  <section class="scene-blk">
+  <header class="scene-h">
+    <b>第 1 场</b>
+    <span class="chip">S05 醉花阴戏馆与长乐街雨檐</span>
+    <span class="chip lite">光照 · 华灯夜宴</span>
+    <span class="chip">温如风</span><span class="chip">秦不争</span><span class="chip">崔断水</span><span class="chip">绾音</span>
+    
+  </header>
+  <p class="act-line hooked" title="开场钩子">冷开场：醉花阴二楼红烛摇曳，着粉纱的绾音端起温热竹叶青，俯身靠进温如风怀里将酒杯喂到他唇边。</p>
+<div class="dlg-line"><span class="who">绾音<i>贴近耳畔轻笑撒娇，吐气如兰</i></span><span class="said">温公子再不饮，奴家可要替您喝了。</span><button class="copy mini" data-copy="温公子再不饮，奴家可要替您喝了。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>接过酒盏饮尽，醉眼迷蒙地笑着调侃</i></span><span class="said">小令尊前见玉箫，银灯一曲太妖娆。</span><button class="copy mini" data-copy="小令尊前见玉箫，银灯一曲太妖娆。">复制</button></div>
+<p class="act-line">绾音掩唇羞红了脸。侧席崔断水大笑着举杯，秦不争捏着铁球冷眼旁观。</p>
+<div class="dlg-line"><span class="who">崔断水<i>神色阴沉得意，举杯朝温如风一饮而尽</i></span><span class="said">半月前铁面巡检毙命。</span><button class="copy mini" data-copy="半月前铁面巡检毙命。">复制</button></div>
+<div class="dlg-line"><span class="who">崔断水<i>紧接前话，神色不松</i></span><span class="said">五百两黄金入账，敬财神爷！</span><button class="copy mini" data-copy="五百两黄金入账，敬财神爷！">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>压低嗓音，半眯老眼提醒温如风</i></span><span class="said">醉酒误事可是行忌。那江姑娘，还是旧习难改？</span><button class="copy mini" data-copy="醉酒误事可是行忌。那江姑娘，还是旧习难改？">复制</button></div>
+<p class="act-line">楼下四角小戏台丝竹凄婉，水袖翻飞的女伶正唱着断桥借伞。</p>
+<div class="dlg-line"><span class="who">温如风<i>醉醺醺地挥手敷衍，目光飘向楼下戏台</i></span><span class="said">改不了，她还当林慕白是个宝呢。</span><button class="copy mini" data-copy="改不了，她还当林慕白是个宝呢。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>忽然冷笑一声，眼里掠过一丝寒意</i></span><span class="said">可笑！戏里柳生那种小白脸，本就该杀了才是！</span><button class="copy mini" data-copy="可笑！戏里柳生那种小白脸，本就该杀了才是！">复制</button></div>
+<p class="act-line">秦不争脸上的笑意骤停，手中转动的铁球猛地停住。</p>
+<div class="dlg-line"><span class="who">温如风<i>话锋圆滑一转，举杯掩饰般大笑</i></span><span class="said">可惜我们一介书生，也是没有办法的。</span><button class="copy mini" data-copy="可惜我们一介书生，也是没有办法的。">复制</button></div>
+<p class="act-line">秦不争松了口气捋须点头。温如风顺势搂紧怀里的绾音，目光却越过她肩头望出窗棂。</p>
+<div class="dlg-line"><span class="who">画外音<i>楼下戏台花旦凄婉的唱腔飘进窗棂</i></span><span class="said">猛回头，避雨处风景依然……</span><button class="copy mini" data-copy="猛回头，避雨处风景依然……">复制</button></div>
+<p class="act-line">窗下长乐街青石路面上，一对白衣男女相互搀扶走过；温如风用力揉眼再看，长街已空荡无人。</p>
+<div class="dlg-line"><span class="who">温如风<i>怔怔望向窗外街心，醉声喃喃</i></span><span class="said">见鬼……他俩像不像在演断桥借伞？</span><button class="copy mini" data-copy="见鬼……他俩像不像在演断桥借伞？">复制</button></div>
+<div class="dlg-line"><span class="who">崔断水<i>大笑着朝楼下喊一声，摆摆手拉着秦不争起身</i></span><span class="said">少管闲事！老鸨，今晚这位绾音姑娘。</span><button class="copy mini" data-copy="少管闲事！老鸨，今晚这位绾音姑娘。">复制</button></div>
+<div class="dlg-line"><span class="who">崔断水<i>紧接前话，神色不松</i></span><span class="said">兄弟替温公子包下了！</span><button class="copy mini" data-copy="兄弟替温公子包下了！">复制</button></div>
+<p class="act-line">绾音眼神一亮，娇笑着挽住温如风脖颈软进他怀里；温如风搂住她却闭上眼，一身天青长衫整夜工整未乱。</p>
+</section>
+<section class="scene-blk">
+  <header class="scene-h">
+    <b>第 2 场</b>
+    <span class="chip">S05 醉花阴戏馆与长乐街雨檐</span>
+    <span class="chip lite">光照 · 春雨晨雾</span>
+    <span class="chip">温如风</span><span class="chip">江晚棠</span>
+    <span class="chip prop">四十八骨海棠紫竹伞</span>
+  </header>
+  <p class="act-line">次日清晨春雨连绵，温如风衣冠整齐走出醉花阴门廊，手里提着戏台用过的四十八骨紫竹伞。</p>
+<p class="act-line">刚迈到屋檐下，他忽然收住脚步，看见檐角正站着白衣避雨的江晚棠。</p>
+<div class="dlg-line"><span class="who">温如风<i>打量她略显疲倦的眉眼，低声试探</i></span><span class="said">阿棠？你家在西城，大清早跑这儿来作甚？</span><button class="copy mini" data-copy="阿棠？你家在西城，大清早跑这儿来作甚？">复制</button></div>
+<p class="act-line">江晚棠吃了一惊抬头望来，苍白双颊迅速泛起一层羞涩的淡红。</p>
+<div class="dlg-line"><span class="who">温如风<i>脸色微沉，压低嗓音点破</i></span><span class="said">你昨夜，是在林家过的夜？</span><button class="copy mini" data-copy="你昨夜，是在林家过的夜？">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>脸颊红得发烫，昂头硬生生顶了回去</i></span><span class="said">在林家过夜又怎样？你不也在醉花阴过夜么！</span><button class="copy mini" data-copy="在林家过夜又怎样？你不也在醉花阴过夜么！">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>摇头甩开宿醉，嘴角牵起一抹苦笑</i></span><span class="said">我在醉花阴过夜。</span><button class="copy mini" data-copy="我在醉花阴过夜。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">你也要在林家过夜？咱俩算什么关系？</span><button class="copy mini" data-copy="你也要在林家过夜？咱俩算什么关系？">复制</button></div>
+<p class="act-line">江晚棠语塞垂下头。温如风上前一步，伸指在她泛红的脸颊上轻轻按了一下。</p>
+<div class="dlg-line"><span class="who">温如风<i>眼神微暖，口吻却装出散漫轻佻</i></span><span class="said">倒是胖了些，气色红润起来，漂亮多了。</span><button class="copy mini" data-copy="倒是胖了些，气色红润起来，漂亮多了。">复制</button></div>
+<p class="act-line">江晚棠怒瞪他一眼，随后又别开脸任他轻按一瞬，才退后半步抱紧胳膊。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>羞恼交加，指着紫竹伞支吾开口</i></span><span class="said">不必多事……</span><button class="copy mini" data-copy="不必多事……">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">把你手里那把伞借我用一下，行吗？</span><button class="copy mini" data-copy="把你手里那把伞借我用一下，行吗？">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>挑眉追问，指腹摩挲竹柄</i></span><span class="said">急着出门接谁？</span><button class="copy mini" data-copy="急着出门接谁？">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>涨红了脸，结结巴巴说完</i></span><span class="said">他……他在陈夫子书塾念书，这会儿怕没带伞。</span><button class="copy mini" data-copy="他……他在陈夫子书塾念书，这会儿怕没带伞。">复制</button></div>
+<p class="act-line">温如风愣了一瞬，随即苦笑着点头，亲手把四十八骨紫竹伞递进江晚棠手里。</p>
+<div class="dlg-line"><span class="who">温如风<i>松开伞柄，目光落在她微湿的肩头</i></span><span class="said">拿去吧。还真像呢。</span><button class="copy mini" data-copy="拿去吧。还真像呢。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>神色茫然，不等回答便攥紧伞柄</i></span><span class="said">像什么？</span><button class="copy mini" data-copy="像什么？">复制</button></div>
+<p class="act-line">江晚棠不等答话便撑开紫竹伞奔入雨丝，温如风望着她背影，嘴唇微动低喃出一句。</p>
+<div class="dlg-line"><span class="who">温如风<i>声音轻如叹息，只落在自己耳边</i></span><span class="said">像戏里的素娘。</span><button class="copy mini" data-copy="像戏里的素娘。">复制</button></div>
+<p class="act-line">他随即跨出檐下，冲渐行渐远的身影高声喊道。</p>
+<div class="dlg-line"><span class="who">温如风<i>拔高嗓音嘱咐，眼里满是压不住的隐忧</i></span><span class="said">切记！万不可露了消息出去！</span><button class="copy mini" data-copy="切记！万不可露了消息出去！">复制</button></div>
+<p class="act-line">白衣身影撑着紫竹伞融进绵密春雨中渐渐远去，温如风独自留在屋檐下慢慢收紧手中折扇。</p>
+</section>
+  </div>
+  <button class="scmore">▾ 展开全部场次</button>
+  <div class="hk cliff"><b>结尾悬念</b><span>那把借出去的四十八骨紫竹伞，究竟能不能替江晚棠遮住名分与出身的风雨</span></div>
+</article>
+<article class="ep" id="ep-8">
+  <header class="ep-h">
+    <span class="ep-n">E08</span>
+    <span class="ep-est">预估 120.6 秒 / 目标 120 秒</span>
+    
+  </header>
+  <div class="hk"><b>开场钩子</b><span>林慕白在紫竹伞面画下风雅海棠致谢，为何反而让满心欢喜的江晚棠彻底清醒死心 <i class="hookat">第 1 场第 1 拍兑现</i></span></div>
+  <div class="scenes clip">
+  <section class="scene-blk">
+  <header class="scene-h">
+    <b>第 1 场</b>
+    <span class="chip">S05 醉花阴戏馆与长乐街雨檐</span>
+    <span class="chip lite">光照 · 春雨晨雾</span>
+    <span class="chip">江晚棠</span><span class="chip">林慕白</span>
+    <span class="chip prop">四十八骨海棠紫竹伞</span>
+  </header>
+  <p class="act-line hooked" title="开场钩子">冷开场：细雨笼罩长乐街口，江晚棠举着四十八骨紫竹伞提裙快跑，迎面替屋檐下缩肩避雨的林慕白遮住风雨。</p>
+<div class="dlg-line"><span class="who">林慕白<i>受宠若惊，忙用袖口替她轻拭肩头雨珠</i></span><span class="said">江姑娘！春雨寒凉，怎敢劳烦您亲自送伞？</span><button class="copy mini" data-copy="江姑娘！春雨寒凉，怎敢劳烦您亲自送伞？">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>垂眸轻声回应，面颊微染桃花色</i></span><span class="said">顺路罢了，见雨势渐大，怕公子受凉。</span><button class="copy mini" data-copy="顺路罢了，见雨势渐大，怕公子受凉。">复制</button></div>
+<p class="act-line">林慕白接过收拢的紫竹伞，借来屋檐下书画铺摊现成的笔墨，在天青伞面上细细画起花枝。</p>
+<div class="dlg-line"><span class="who">林慕白<i>落笔收锋，抬头含情脉脉地看她</i></span><span class="said">一枝雨打海棠，才配得上姑娘清雅温柔。</span><button class="copy mini" data-copy="一枝雨打海棠，才配得上姑娘清雅温柔。">复制</button></div>
+<p class="act-line">林慕白吹干墨迹，双手捧起画好的紫竹伞递还给江晚棠，眼波灼灼。</p>
+<div class="dlg-line"><span class="who">林慕白<i>语气温柔缠绵，眼底流露几分痴恋</i></span><span class="said">墨迹未干恰似春雨海棠。</span><button class="copy mini" data-copy="墨迹未干恰似春雨海棠。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>紧接前话，神色不松</i></span><span class="said">若能日日为姑娘执笔，该有多好。</span><button class="copy mini" data-copy="若能日日为姑娘执笔，该有多好。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>爱不释手地抚过伞骨，眉眼藏不住欢喜</i></span><span class="said">雨打海棠……公子真是个雅致的人儿。</span><button class="copy mini" data-copy="雨打海棠……公子真是个雅致的人儿。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>指尖轻轻摩挲竹柄，低声试探</i></span><span class="said">只是林家高门大户，公子往后对亲事作何打算？</span><button class="copy mini" data-copy="只是林家高门大户，公子往后对亲事作何打算？">复制</button></div>
+<p class="act-line">林慕白脸色微微一滞，忙把双手缩进宽袖，眼尾垂落避开她的视线。</p>
+<div class="dlg-line"><span class="who">林慕白<i>低眉叹息，声线怯懦惶然</i></span><span class="said">家父最重门第清白。</span><button class="copy mini" data-copy="家父最重门第清白。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>紧接前话，神色不松</i></span><span class="said">小生实在无力违拗父命迎娶寒门……</span><button class="copy mini" data-copy="小生实在无力违拗父命迎娶寒门……">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>笑意瞬间敛去，盯着他的眼睛轻声追问</i></span><span class="said">所以公子方才说的相伴。</span><button class="copy mini" data-copy="所以公子方才说的相伴。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">是叫人无名无分跟着你？</span><button class="copy mini" data-copy="是叫人无名无分跟着你？">复制</button></div>
+<p class="act-line">林慕白慌忙避开她骤冷的目光，拢着宽袖不安地搓了搓手指。</p>
+<div class="dlg-line"><span class="who">林慕白<i>怯怯抬眼偷瞄她，语气软弱又自私</i></span><span class="said">若得姑娘这般红颜知己相伴。</span><button class="copy mini" data-copy="若得姑娘这般红颜知己相伴。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>紧接前话，神色不松</i></span><span class="said">即便无名无分，我也知足了。</span><button class="copy mini" data-copy="即便无名无分，我也知足了。">复制</button></div>
+<p class="act-line">江晚棠脸上的红晕瞬间褪净，接过紫竹伞撑开在雨里，头也不回转身离开。</p>
+</section>
+<section class="scene-blk">
+  <header class="scene-h">
+    <b>第 2 场</b>
+    <span class="chip">S03 西城槐花巷小院</span>
+    <span class="chip lite">光照 · 清昼天光</span>
+    <span class="chip">江晚棠</span><span class="chip">小满</span>
+    <span class="chip prop">四十八骨海棠紫竹伞</span>
+  </header>
+  <p class="act-line">回到槐花巷小院正房，江晚棠倚在桌边，指尖缓缓摩挲伞面上还未干透的海棠墨迹。</p>
+<p class="act-line">里榻传来一声轻咳，病弱的小满蜷在粗布棉被里不安翻身，江晚棠扭头望向榻边的女儿与案头素银长剑。</p>
+<div class="dlg-line"><span class="who">小满<i>在睡梦中发出一声微弱含糊的呓语</i></span><span class="said">娘……冷……</span><button class="copy mini" data-copy="娘……冷……">复制</button></div>
+<p class="act-line">江晚棠快步走回木榻旁，握紧女儿冰凉的小手，低头盯着自己腰间旧衣。</p>
+<div class="dlg-line"><span class="who">画外音<i>江晚棠的心声，冰冷清醒，彻底碎尽春梦</i></span><span class="said">素心阁弃徒、黑道女刀手……</span><button class="copy mini" data-copy="素心阁弃徒、黑道女刀手……">复制</button></div>
+<div class="dlg-line"><span class="who">画外音<i>紧接前话，神色不松</i></span><span class="said">残花败柳之身，还奢望什么富贵名分？</span><button class="copy mini" data-copy="残花败柳之身，还奢望什么富贵名分？">复制</button></div>
+<p class="act-line">她站起身拉开老旧木柜，翻出压在柜底的祖宅房契，动作利落地折叠塞入袖中。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>帮女儿掖严棉被，眉眼重回冷冽决绝</i></span><span class="said">小满别怕，娘卖了这屋子。</span><button class="copy mini" data-copy="小满别怕，娘卖了这屋子。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">干完这一单带你远走高飞。</span><button class="copy mini" data-copy="干完这一单带你远走高飞。">复制</button></div>
+<p class="act-line">江晚棠将素银长剑佩回腰侧，攥紧房契推门走出小院去寻牙行买主。</p>
+</section>
+<section class="scene-blk">
+  <header class="scene-h">
+    <b>第 3 场</b>
+    <span class="chip">S05 醉花阴戏馆与长乐街雨檐</span>
+    <span class="chip lite">光照 · 春雨晨雾</span>
+    <span class="chip">温如风</span><span class="chip">绾音</span>
+    
+  </header>
+  <p class="act-line">暗中护送江晚棠归城后，温如风独自走过醉花阴雨檐，伸手抖落肩头的雨星。</p>
+<p class="act-line">门口的绾音见状立刻拎裙迎上廊檐，伸出纤手扯住温如风的青衫袖口。</p>
+<div class="dlg-line"><span class="who">绾音<i>含情脉脉地娇笑挽留，身子微往他手边靠</i></span><span class="said">温公子既过门前。</span><button class="copy mini" data-copy="温公子既过门前。">复制</button></div>
+<div class="dlg-line"><span class="who">绾音<i>紧接前话，神色不松</i></span><span class="said">外头春雨寒凉，上去饮杯暖酒吧。</span><button class="copy mini" data-copy="外头春雨寒凉，上去饮杯暖酒吧。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>抬起折扇礼貌隔开，温和却坚决地抽回衣袖</i></span><span class="said">多谢绾音姑娘美意。</span><button class="copy mini" data-copy="多谢绾音姑娘美意。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">温某尚有要事，改日再来听曲。</span><button class="copy mini" data-copy="温某尚有要事，改日再来听曲。">复制</button></div>
+<div class="dlg-line"><span class="who">绾音<i>轻叹松手，站在廊灯下目送他远去</i></span><span class="said">公子总是这样走得急。</span><button class="copy mini" data-copy="公子总是这样走得急。">复制</button></div>
+<div class="dlg-line"><span class="who">绾音<i>紧接前话，神色不松</i></span><span class="said">奴家真要信了那句薄幸无情。</span><button class="copy mini" data-copy="奴家真要信了那句薄幸无情。">复制</button></div>
+<p class="act-line">温如风颔首行过廊角，一名戴斗笠的暗桩低头擦肩走过，飞快将一张折叠纸条塞进他掌心。</p>
+<p class="act-line">温如风停步展开纸条看了一眼，嘴角惯常挂着的浅笑骤然收敛，面色一沉。</p>
+<div class="dlg-line"><span class="who">温如风<i>盯着纸条压低嗓音，手指渐渐攥紧</i></span><span class="said">槐花巷祖宅作价七百两出手……</span><button class="copy mini" data-copy="槐花巷祖宅作价七百两出手……">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">她竟把退路全卖了？</span><button class="copy mini" data-copy="她竟把退路全卖了？">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>抬头望向西城阴沉天色，眼神透出少有的焦灼</i></span><span class="said">一月期限将近，明夜便是八月十五中秋之夜。</span><button class="copy mini" data-copy="一月期限将近，明夜便是八月十五中秋之夜。">复制</button></div>
+<p class="act-line">温如风一把合拢折扇揣进袖里，青衫一振急步扎进春雨中，背影越走越快。</p>
+</section>
+  </div>
+  <button class="scmore">▾ 展开全部场次</button>
+  <div class="hk cliff"><b>结尾悬念</b><span>江晚棠秘密将三进小院折价七百两卖掉，在中秋刺杀前夕做好了远走高飞的诀别准备</span></div>
+</article>
+<article class="ep" id="ep-9">
+  <header class="ep-h">
+    <span class="ep-n">E09</span>
+    <span class="ep-est">预估 121 秒 / 目标 120 秒</span>
+    <i class="bt">卖院诀别</i>
+  </header>
+  <div class="hk"><b>开场钩子</b><span>一向倔强带刺的江晚棠临行前突然温婉道谢还伞，这场看似十拿九稳的刺杀藏着什么凶兆 <i class="hookat">第 1 场第 1 拍兑现</i></span></div>
+  <div class="scenes clip">
+  <section class="scene-blk">
+  <header class="scene-h">
+    <b>第 1 场</b>
+    <span class="chip">S03 西城槐花巷小院</span>
+    <span class="chip lite">光照 · 中秋火烧云</span>
+    <span class="chip">温如风</span><span class="chip">江晚棠</span><span class="chip">小满</span>
+    <span class="chip prop">四十八骨海棠紫竹伞</span><span class="chip prop">百年紫雪参药丸</span>
+  </header>
+  <p class="act-line hooked" title="开场钩子">冷开场：八月十五火烧云映红槐花巷院墙，正房门内水声哗啦，已换好黑衣的江晚棠将洗净的小满抱上木榻，把百年紫雪参药盒摆在枕边。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>低头替女儿盖好棉被，嗓音温软平静</i></span><span class="said">小满乖，娘给你洗净身子备好药丸。</span><button class="copy mini" data-copy="小满乖，娘给你洗净身子备好药丸。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">吃过乖乖睡觉。</span><button class="copy mini" data-copy="吃过乖乖睡觉。">复制</button></div>
+<div class="dlg-line"><span class="who">小满<i>怀抱黑漆药盒轻轻拉住娘亲黑袖，奶声奶气</i></span><span class="said">娘亲早回。</span><button class="copy mini" data-copy="娘亲早回。">复制</button></div>
+<p class="act-line">江晚棠用黑绸束紧长发，拎起长剑与紫竹伞英武走出院门，迎面撞见靠墙等候的温如风。</p>
+<div class="dlg-line"><span class="who">温如风<i>收起打量眼神，语气难得沉稳叮嘱</i></span><span class="said">厉狂澜的子母鸳鸯剑快在右手。</span><button class="copy mini" data-copy="厉狂澜的子母鸳鸯剑快在右手。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">左右合璧那招，千万小心。</span><button class="copy mini" data-copy="左右合璧那招，千万小心。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>一反常态地微笑点头，语气柔和温顺</i></span><span class="said">知道了，我都记牢了。</span><button class="copy mini" data-copy="知道了，我都记牢了。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>略感意外，直起身子端详她的脸色</i></span><span class="said">今天倒难得这么听话？</span><button class="copy mini" data-copy="今天倒难得这么听话？">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>微微一笑，眉眼透出从未有过的释然</i></span><span class="said">你也是好心。剩下的六十两尾款免了。</span><button class="copy mini" data-copy="你也是好心。剩下的六十两尾款免了。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">算我谢你照拂。</span><button class="copy mini" data-copy="算我谢你照拂。">复制</button></div>
+<p class="act-line">温如风脸色微变，跨前一步拦在江晚棠身前。</p>
+<div class="dlg-line"><span class="who">温如风<i>眉头微皱，压低声音追问</i></span><span class="said">不要尾款，小满往后的药钱怎么办？</span><button class="copy mini" data-copy="不要尾款，小满往后的药钱怎么办？">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>语气轻快平和，仿佛早把一切安排妥当</i></span><span class="said">院子卖了七百两。</span><button class="copy mini" data-copy="院子卖了七百两。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">杀完厉狂澜，我带小满去北境。</span><button class="copy mini" data-copy="杀完厉狂澜，我带小满去北境。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>垂眸轻笑，眼神透着清冷的告别</i></span><span class="said">那儿人参便宜。</span><button class="copy mini" data-copy="那儿人参便宜。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">找个不讲究的采参人嫁了过日子。</span><button class="copy mini" data-copy="找个不讲究的采参人嫁了过日子。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>嘴角牵起一丝苦笑，紧紧盯着她的眼</i></span><span class="said">不讲究……那林公子呢？</span><button class="copy mini" data-copy="不讲究……那林公子呢？">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>摇头苦笑，语气淡漠得没有半分留恋</i></span><span class="said">残花败柳怎敢奢望贵公子珍惜？</span><button class="copy mini" data-copy="残花败柳怎敢奢望贵公子珍惜？">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">只当偶然相遇罢了。</span><button class="copy mini" data-copy="只当偶然相遇罢了。">复制</button></div>
+<p class="act-line">温如风靠回墙边低头长叹一声，默默站着再没出声。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>声音微软，眼底泛起一层水光</i></span><span class="said">这些年多谢你，我们娘儿俩才能活下来。</span><button class="copy mini" data-copy="这些年多谢你，我们娘儿俩才能活下来。">复制</button></div>
+<p class="act-line">江晚棠双手把绘着雨打海棠的紫竹伞递还到温如风怀里。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>柔婉笑了一笑，转身整理佩剑</i></span><span class="said">伞还给你。上面画了枝海棠。</span><button class="copy mini" data-copy="伞还给你。上面画了枝海棠。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">他是个雅致人，别介意。</span><button class="copy mini" data-copy="他是个雅致人，别介意。">复制</button></div>
+<p class="act-line">江晚棠决绝迈进暮色深处，黑衣身影很快消散在长街尽头；温如风抱紧紫竹伞猛地抬头，只望见空荡院门。</p>
+</section>
+<section class="scene-blk">
+  <header class="scene-h">
+    <b>第 2 场</b>
+    <span class="chip">S06 镇山武馆内院</span>
+    <span class="chip lite">光照 · 中秋寒夜暗影</span>
+    <span class="chip">厉狂澜</span>
+    <span class="chip prop">寒鸦双匕</span>
+  </header>
+  <p class="act-line">镇山武馆夜院阴风呼啸，红灯笼摇晃。厉狂澜坐在石阶上，用粗布缓缓擦拭腰侧的子母鸳鸯剑。</p>
+<p class="act-line">他忽然挽起左臂玄黑宽袖，将一对泛着寒光的寒鸦双匕稳稳绷入小臂内侧皮套，再放下袖口严实遮住。</p>
+<div class="dlg-line"><span class="who">厉狂澜<i>咧嘴露出阴毒狞笑，粗哑嗓音在空院回荡</i></span><span class="said">剑法快算什么本事？</span><button class="copy mini" data-copy="剑法快算什么本事？">复制</button></div>
+<div class="dlg-line"><span class="who">厉狂澜<i>紧接前话，神色不松</i></span><span class="said">真要命的，还得藏在袖子里。</span><button class="copy mini" data-copy="真要命的，还得藏在袖子里。">复制</button></div>
+<p class="act-line">厉狂澜起身提剑站到院中浅水洼旁，凶狠的目光扫向漆黑院墙。</p>
+</section>
+<section class="scene-blk">
+  <header class="scene-h">
+    <b>第 3 场</b>
+    <span class="chip">S01 听风楼雅阁与止戈轩</span>
+    <span class="chip lite">光照 · 暮色夜灯</span>
+    <span class="chip">温如风</span><span class="chip">秦不争</span>
+    
+  </header>
+  <p class="act-line">止戈轩棋桌前灯影微晃，温如风捏着一枚黑子悬在棋盘上方迟迟不落，眉头紧锁。</p>
+<div class="dlg-line"><span class="who">秦不争<i>掌心悠然转着铁球，笑眯眯宽慰他</i></span><span class="said">阿棠的流风折柳剑高出一筹。</span><button class="copy mini" data-copy="阿棠的流风折柳剑高出一筹。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>紧接前话，神色不松</i></span><span class="said">十成胜算，还忧心什么？</span><button class="copy mini" data-copy="十成胜算，还忧心什么？">复制</button></div>
+<p class="act-line">温如风落下黑子，却推开茶盏抬眼盯着秦不争。</p>
+<div class="dlg-line"><span class="who">温如风<i>声音压得极低，眼神罕见地透出迷惘</i></span><span class="said">秦老，您说人这一辈子……是不是无情才好？</span><button class="copy mini" data-copy="秦老，您说人这一辈子……是不是无情才好？">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>手停铁球，苍老眼里浮起几分感慨</i></span><span class="said">年轻时我也信无情好。</span><button class="copy mini" data-copy="年轻时我也信无情好。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>紧接前话，神色不松</i></span><span class="said">老了才知身边没个伴儿多寂寞。</span><button class="copy mini" data-copy="老了才知身边没个伴儿多寂寞。">复制</button></div>
+<p class="act-line">温如风猛地起身理平衣襟，收拢折扇急步往窗边走。</p>
+<div class="dlg-line"><span class="who">温如风<i>语气急促，竭力装作平日洒脱模样</i></span><span class="said">少欠奉陪，我得去抹抹泥灰，免得这堵墙塌了。</span><button class="copy mini" data-copy="少欠奉陪，我得去抹抹泥灰，免得这堵墙塌了。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>迟疑片刻，抬头试探着开口反问</i></span><span class="said">如风，老朽总觉得。</span><button class="copy mini" data-copy="如风，老朽总觉得。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>紧接前话，神色不松</i></span><span class="said">你对江姑娘是不是太牵挂了一点？</span><button class="copy mini" data-copy="你对江姑娘是不是太牵挂了一点？">复制</button></div>
+<p class="act-line">秦不争话还没说完，温如风已急声推搪，同时纵身朝支摘窗棂跃去。</p>
+<div class="dlg-line"><span class="who">温如风<i>语速飞快抢断话头，人已扑向窗口</i></span><span class="said">抹墙最怕塌，面面都得抹匀，不得已啊！</span><button class="copy mini" data-copy="抹墙最怕塌，面面都得抹匀，不得已啊！">复制</button></div>
+<p class="act-line">话音刚落，青衫身影如鬼魅般穿出支摘窗棂瞬间消失；秦不争手中铁球停住，怔怔望着棋盘。</p>
+</section>
+  </div>
+  <button class="scmore">▾ 展开全部场次</button>
+  <div class="hk cliff"><b>结尾悬念</b><span>素来不显山露水的温如风展现出连秦不争都看不清的鬼魅身法，全速赶往镇山武馆救人</span></div>
+</article>
+<article class="ep" id="ep-10">
+  <header class="ep-h">
+    <span class="ep-n">E10</span>
+    <span class="ep-est">预估 115.7 秒 / 目标 120 秒</span>
+    <i class="bt">绝杀高潮</i>
+  </header>
+  <div class="hk"><b>开场钩子</b><span>武功高出一筹的江晚棠剑已架在恶贼脖颈上，为何会在最后一瞬惨遭反杀 <i class="hookat">第 1 场第 1 拍兑现</i></span></div>
+  <div class="scenes clip">
+  <section class="scene-blk">
+  <header class="scene-h">
+    <b>第 1 场</b>
+    <span class="chip">S06 镇山武馆内院</span>
+    <span class="chip lite">光照 · 中秋寒夜暗影</span>
+    <span class="chip">温如风</span><span class="chip">江晚棠</span><span class="chip">厉狂澜</span>
+    <span class="chip prop">修甲寸银小刀</span><span class="chip prop">寒鸦双匕</span>
+  </header>
+  <p class="act-line hooked" title="开场钩子">冷开场：镇山武馆夜院红灯火光摇曳，黑衣江晚棠疾步前压，使出流风折柳剑挑落厉狂澜手中双剑，反手将剑锋稳稳架在他脖颈上。</p>
+<p class="act-line">子母鸳鸯剑摔进青砖水洼溅起水花，厉狂澜双腿发软，扑通跪倒在积水地面上。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>眼神冷冽如霜，剑刃紧紧贴住他咽喉</i></span><span class="said">镇山武馆厉教头。</span><button class="copy mini" data-copy="镇山武馆厉教头。">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>紧接前话，神色不松</i></span><span class="said">阿沅姑娘是不是你这个淫贼害死的？</span><button class="copy mini" data-copy="阿沅姑娘是不是你这个淫贼害死的？">复制</button></div>
+<div class="dlg-line"><span class="who">厉狂澜<i>满脸冷汗不住战栗，连连磕头求饶</i></span><span class="said">是小的猪狗不如，是小的该死！求侠女饶命啊！</span><button class="copy mini" data-copy="是小的猪狗不如，是小的该死！求侠女饶命啊！">复制</button></div>
+<div class="dlg-line"><span class="who">厉狂澜<i>偷偷斜眼瞥向她衣袖，压低嗓音讨好</i></span><span class="said">只要侠女放过小的，武馆里的银票全都孝敬您！</span><button class="copy mini" data-copy="只要侠女放过小的，武馆里的银票全都孝敬您！">复制</button></div>
+<p class="act-line">江晚棠听见银票二字神色更冷，双手握紧银剑微微下压。</p>
+<div class="dlg-line"><span class="who">江晚棠<i>声线凄厉怒叱，毫无半点留情之意</i></span><span class="said">我叫你知道作恶多端的下场，强逼岂容妄想！</span><button class="copy mini" data-copy="我叫你知道作恶多端的下场，强逼岂容妄想！">复制</button></div>
+<div class="dlg-line"><span class="who">江晚棠<i>咬紧下唇，眼里含泪却杀意凛然</i></span><span class="said">我叫你知道什么叫两情相悦，什么叫生死不渝！</span><button class="copy mini" data-copy="我叫你知道什么叫两情相悦，什么叫生死不渝！">复制</button></div>
+<p class="act-line">江晚棠悲愤喝声落下，高举银剑朝着厉狂澜颈项狠狠劈落。</p>
+<p class="act-line">就在剑锋落下的瞬间，厉狂澜猛地俯身侧闪，从宽袖里抖出一对寒鸦双匕。</p>
+<p class="act-line">厉狂澜贴身前扑，将双匕恶狠狠刺入江晚棠胸膛并拧转刀刃，鲜血瞬间溅满他得意狞笑的脸。</p>
+<div class="dlg-line"><span class="who">厉狂澜<i>盯着她苍白的脸，眼里闪过贪婪狠毒</i></span><span class="said">这么标致的身段，偏偏跑来做刺客……</span><button class="copy mini" data-copy="这么标致的身段，偏偏跑来做刺客……">复制</button></div>
+<p class="act-line">就在这一瞬，暗影深处一道银光破空飞来，温如风掷出的寸银小刀精准钻透厉狂澜太阳穴，恶贼瞪大双眼直挺挺倒地。</p>
+<p class="act-line">屋檐阴影里一道青衫冲上前，温如风跪在积水里一把抱住缓缓倒下的江晚棠。</p>
+<div class="dlg-line"><span class="who">温如风<i>声音剧烈发颤，手忙脚乱按住她心口</i></span><span class="said">阿棠！阿棠别睡，我这就带你去找大夫！</span><button class="copy mini" data-copy="阿棠！阿棠别睡，我这就带你去找大夫！">复制</button></div>
+<p class="act-line">江晚棠嘴角溢出一缕鲜血，靠在温如风怀里缓缓闭上眼，银剑脱手坠地，再无半点呼吸。</p>
+<div class="dlg-line"><span class="who">温如风<i>紧紧搂住她逐渐冰冷的身子，嗓音哑裂</i></span><span class="said">你不是说好卖了院子带小满去北境吗……</span><button class="copy mini" data-copy="你不是说好卖了院子带小满去北境吗……">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>颤抖着抚开她额前湿发，唤不回半点回应</i></span><span class="said">阿棠，你睁眼看看我，六十两我不要了……</span><button class="copy mini" data-copy="阿棠，你睁眼看看我，六十两我不要了……">复制</button></div>
+<p class="act-line">温如风声音颤抖，把脸紧紧贴在江晚棠渐渐冰冷的额角。</p>
+<p class="act-line">倾盆夜雨骤然砸落武馆庭院，温如风抱着怀中毫无声息的江晚棠跪在红灯冷雨里，久久一动不动。</p>
+</section>
+<section class="scene-blk">
+  <header class="scene-h">
+    <b>第 2 场</b>
+    <span class="chip">S01 听风楼雅阁与止戈轩</span>
+    <span class="chip lite">光照 · 雷雨晦暗</span>
+    <span class="chip">温如风</span><span class="chip">林慕白</span>
+    
+  </header>
+  <p class="act-line">狂风暴雨猛拍听风楼支摘窗，一道闪电劈亮空荡荡的雅阁，林慕白在窗边焦躁踱步。</p>
+<div class="dlg-line"><span class="who">画外音<i>林慕白的心声，紧抱胳膊慌张张望楼梯口</i></span><span class="said">这么久还没消息。</span><button class="copy mini" data-copy="这么久还没消息。">复制</button></div>
+<div class="dlg-line"><span class="who">画外音<i>紧接前话，神色不松</i></span><span class="said">厉狂澜那恶贼不会反杀过来吧……</span><button class="copy mini" data-copy="厉狂澜那恶贼不会反杀过来吧……">复制</button></div>
+<p class="act-line">林慕白抱着发抖的胳膊退回桌旁坐下，强自咽了口唾沫。</p>
+<div class="dlg-line"><span class="who">画外音<i>林慕白的心声，想起柔情怀抱顿时心头一热</i></span><span class="said">不如趁夜溜回家。</span><button class="copy mini" data-copy="不如趁夜溜回家。">复制</button></div>
+<div class="dlg-line"><span class="who">画外音<i>紧接前话，神色不松</i></span><span class="said">兴许那个温柔美人还在灯下等我呢。</span><button class="copy mini" data-copy="兴许那个温柔美人还在灯下等我呢。">复制</button></div>
+<p class="act-line">又一道银白闪电撕裂夜空，浑身湿透的温如风悄然立在桌前，长发湿漉漉贴在惨白面颊上。</p>
+<div class="dlg-line"><span class="who">林慕白<i>吓得往后一仰撞在椅背上，舌头打结发问</i></span><span class="said">温、温大侠！您这是怎么了，事成没有？</span><button class="copy mini" data-copy="温、温大侠！您这是怎么了，事成没有？">复制</button></div>
+<p class="act-line">温如风一言不发，伸手将一只沉甸甸滴水的白布包袱重重搁在紫檀方桌上。</p>
+<div class="dlg-line"><span class="who">温如风<i>声音冷得像冰水，雨水顺着下颌滴落桌面</i></span><span class="said">厉狂澜的人头。林公子，我们两清了。</span><button class="copy mini" data-copy="厉狂澜的人头。林公子，我们两清了。">复制</button></div>
+<p class="act-line">一抹暗红血水从白布渗出染红桌面，林慕白吓得捂嘴连退两步，险些绊倒在鼓凳旁。</p>
+<div class="dlg-line"><span class="who">林慕白<i>盯着包袱吞咽口水，手忙脚乱从袖里掏出银票</i></span><span class="said">真、真把那恶贼杀了？剩下的一百五十两……</span><button class="copy mini" data-copy="真、真把那恶贼杀了？剩下的一百五十两……">复制</button></div>
+<p class="act-line">温如风看也不看那叠银票一眼，冷冷转身拂袖，踩着积水大步走向楼梯口。</p>
+<div class="dlg-line"><span class="who">林慕白<i>慌忙举着银票追到门边，伸手急喊</i></span><span class="said">温大侠！剩下的一百五十两尾款您还没拿！</span><button class="copy mini" data-copy="温大侠！剩下的一百五十两尾款您还没拿！">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>扒着楼梯栏杆朝漆黑雨夜喊破嗓音</i></span><span class="said">温大侠！厉狂澜的同党会不会找上门啊！</span><button class="copy mini" data-copy="温大侠！厉狂澜的同党会不会找上门啊！">复制</button></div>
+<p class="act-line">狂风卷着暴雨灌进听风楼廊道，楼梯口早已空空荡荡，青衫身影已头也不回地消失在长夜风雨里。</p>
+</section>
+  </div>
+  <button class="scmore">▾ 展开全部场次</button>
+  <div class="hk cliff"><b>结尾悬念</b><span>江晚棠香消玉殒、温如风分文未取销声匿迹，独留槐花巷年幼的小满生死未卜</span></div>
+</article>
+<article class="ep" id="ep-11">
+  <header class="ep-h">
+    <span class="ep-n">E11</span>
+    <span class="ep-est">预估 118.2 秒 / 目标 120 秒</span>
+    <i class="bt">虐渣立债</i>
+  </header>
+  <div class="hk"><b>开场钩子</b><span>销声匿迹三年的温如风重返听风楼坐到林慕白面前，要如何替九泉之下的傻姑娘讨债 <i class="hookat">第 1 场第 1 拍兑现</i></span></div>
+  <div class="scenes clip">
+  <section class="scene-blk">
+  <header class="scene-h">
+    <b>第 1 场</b>
+    <span class="chip">S01 听风楼雅阁与止戈轩</span>
+    <span class="chip lite">光照 · 晨光暖软</span>
+    <span class="chip">温如风</span><span class="chip">林慕白</span><span class="chip">秦不争</span>
+    <span class="chip prop">修甲寸银小刀</span>
+  </header>
+  <p class="act-line hooked" title="开场钩子">冷开场：三年后春日听风楼临窗雅座，发福衣锦的白衣林慕白端起新龙井惬意品饮，略带风霜却眼神淡雅依旧的青衫温如风摇扇悄然立在他身后。</p>
+<div class="dlg-line"><span class="who">林慕白<i>闭眼满意抿茶，朝楼梯方向随口招呼</i></span><span class="said">新到的龙井真不错，小二，添水！</span><button class="copy mini" data-copy="新到的龙井真不错，小二，添水！">复制</button></div>
+<p class="act-line">迟迟不见小二回应，林慕白纳闷回头瞥见身后温如风，吓得浑身一颤险些打翻茶杯。</p>
+<div class="dlg-line"><span class="who">林慕白<i>脸色瞬间煞白，端着茶盏结巴叫喊</i></span><span class="said">温、温大侠！您怎么突然回来了……</span><button class="copy mini" data-copy="温、温大侠！您怎么突然回来了……">复制</button></div>
+<p class="act-line">温如风微扬嘴角收起折扇，慢条斯理掸了掸袍角在对面坐下，右手捻出寸银小刀轻轻修起指甲。</p>
+<div class="dlg-line"><span class="who">温如风<i>眼神淡雅从容，语气像老友闲聊</i></span><span class="said">林公子别来无恙？一晃竟已过了三年。</span><button class="copy mini" data-copy="林公子别来无恙？一晃竟已过了三年。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>慌忙放下茶杯擦汗，勉强挤出笑脸</i></span><span class="said">托大侠的福……大侠这三年一直在外游历？</span><button class="copy mini" data-copy="托大侠的福……大侠这三年一直在外游历？">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>低头吹去指尖碎屑，随口淡淡回应</i></span><span class="said">四处走走罢了。永安府那桩悬案可算了结了？</span><button class="copy mini" data-copy="四处走走罢了。永安府那桩悬案可算了结了？">复制</button></div>
+<p class="act-line">林慕白端杯的手猛地一抖，随即强装体面挺直腰板，炫耀般整了整锦缎袖口。</p>
+<div class="dlg-line"><span class="who">林慕白<i>刻意压着得意，装出一副富贵派头</i></span><span class="said">早搁下了。</span><button class="copy mini" data-copy="早搁下了。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>紧接前话，神色不松</i></span><span class="said">在下去年依父命娶了绸缎庄三小姐，喜得麟儿。</span><button class="copy mini" data-copy="在下去年依父命娶了绸缎庄三小姐，喜得麟儿。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>抬眼静静打量他发福的体态，似笑非笑</i></span><span class="said">哦？贵公子添丁了？恭喜林公子前程锦绣。</span><button class="copy mini" data-copy="哦？贵公子添丁了？恭喜林公子前程锦绣。">复制</button></div>
+<div class="dlg-line"><span class="who">画外音<i>林慕白的心声，暗自惋惜叹气</i></span><span class="said">可惜当年那个白衣美人没能留住。</span><button class="copy mini" data-copy="可惜当年那个白衣美人没能留住。">复制</button></div>
+<div class="dlg-line"><span class="who">画外音<i>紧接前话，神色不松</i></span><span class="said">不然齐人之福才真叫快活。</span><button class="copy mini" data-copy="不然齐人之福才真叫快活。">复制</button></div>
+<p class="act-line">温如风指缝间寸银小刀缓缓停住，抬眸注视着强作镇定的林慕白。</p>
+<div class="dlg-line"><span class="who">温如风<i>笑意敛去一半，语气温凉</i></span><span class="said">不知三年前那桩托我办的死事，公子可还记挂？</span><button class="copy mini" data-copy="不知三年前那桩托我办的死事，公子可还记挂？">复制</button></div>
+<p class="act-line">林慕白脸上浮起一阵尴尬嫌恶，端起龙井茶轻呷一口，轻佻挥手摆出一副派头。</p>
+<div class="dlg-line"><span class="who">林慕白<i>故作洒脱地轻笑，眼神飘忽敷衍</i></span><span class="said">年轻时为点女色不顾王法，实在滑稽荒唐。</span><button class="copy mini" data-copy="年轻时为点女色不顾王法，实在滑稽荒唐。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>摊手撇清往事，语气轻飘飘毫无愧色</i></span><span class="said">在下如今安分守法。</span><button class="copy mini" data-copy="在下如今安分守法。">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>紧接前话，神色不松</i></span><span class="said">从前那些蠢事早就忘得一干二净了。</span><button class="copy mini" data-copy="从前那些蠢事早就忘得一干二净了。">复制</button></div>
+<p class="act-line">温如风脸上温和笑意骤然褪尽，神情陡变暴戾，袖口一沉将寸银小刀收回。</p>
+<div class="dlg-line"><span class="who">温如风<i>声音冷得刺骨，嘴角扯出残忍笑意</i></span><span class="said">忘记了？原来林公子已经忘得一干二净。</span><button class="copy mini" data-copy="忘记了？原来林公子已经忘得一干二净。">复制</button></div>
+<p class="act-line">林慕白话音刚落，温如风猛扑上前一把死死掐住他咽喉，狠狠推抵在墙柱上。</p>
+<p class="act-line">茶盏砸碎满地，满堂茶客惊呼尖叫着四散逃下楼梯，楼内瞬间乱作一团。</p>
+<div class="dlg-line"><span class="who">温如风<i>眼神森寒，五指抵住林慕白喉结</i></span><span class="said">当年你跪地磕头求我时，可不是这副富贵嘴脸！</span><button class="copy mini" data-copy="当年你跪地磕头求我时，可不是这副富贵嘴脸！">复制</button></div>
+<div class="dlg-line"><span class="who">林慕白<i>双脚踮起脸色铁青，死命抓挠温如风手背</i></span><span class="said">呃……放手……喘、喘不过气……</span><button class="copy mini" data-copy="呃……放手……喘、喘不过气……">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>冷笑痛斥，五指力道重到几乎捏碎喉骨</i></span><span class="said">原来林公子享尽齐人之福。</span><button class="copy mini" data-copy="原来林公子享尽齐人之福。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">早就忘记了那个傻瓜！</span><button class="copy mini" data-copy="早就忘记了那个傻瓜！">复制</button></div>
+<p class="act-line">眼看林慕白翻白眼几近窒息，温如风忽地松手，林慕白顺墙瘫滑跪地大口喘咳。</p>
+<p class="act-line">温如风弯腰俯身贴近林慕白耳边，神色恢复冷峻。</p>
+<div class="dlg-line"><span class="who">温如风<i>贴耳低语，字字如同刀锋</i></span><span class="said">你还欠我一百五十两银子。</span><button class="copy mini" data-copy="你还欠我一百五十两银子。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">从今日起按十分利算！</span><button class="copy mini" data-copy="从今日起按十分利算！">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>轻拍林慕白惨白发抖的脸颊</i></span><span class="said">今后每年还我一百五十两。</span><button class="copy mini" data-copy="今后每年还我一百五十两。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">少一分我随时掐死你！</span><button class="copy mini" data-copy="少一分我随时掐死你！">复制</button></div>
+<p class="act-line">林慕白抱着脖子缩在墙角浑身战栗，残余茶客缩在角落大气不敢出。</p>
+<p class="act-line">温如风直起身理平青衫，神色复归淡雅，重新摇开折扇踩着碎瓷从容下楼。</p>
+<p class="act-line">刚走到楼下门口，一位须发雪白、拄着龙头拐杖的老者含笑伸杖拦住去路。</p>
+<div class="dlg-line"><span class="who">秦不争<i>老眼微眯，透着重逢的快意与欣慰</i></span><span class="said">如风，三年不见，总算肯回永安了？</span><button class="copy mini" data-copy="如风，三年不见，总算肯回永安了？">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>收起折扇诧异凝望，声音放轻</i></span><span class="said">秦老？</span><button class="copy mini" data-copy="秦老？">复制</button></div>
+<p class="act-line">温如风望着面前须发雪白、满脸沧桑的秦不争，在门槛光影里久久定住身形。</p>
+</section>
+  </div>
+  <button class="scmore">▾ 展开全部场次</button>
+  <div class="hk cliff"><b>结尾悬念</b><span>摇扇下楼的温如风在门口被须发皆白拄杖含笑的秦不争拦住，他这三年的真实去向即将揭晓</span></div>
+</article>
+<article class="ep" id="ep-12">
+  <header class="ep-h">
+    <span class="ep-n">E12</span>
+    <span class="ep-est">预估 120.3 秒 / 目标 120 秒</span>
+    <i class="bt">救赎收束</i>
+  </header>
+  <div class="hk"><b>开场钩子</b><span>洗手退隐去北境苍山贩药三年的温如风，重返永安城买回旧院究竟是为了守护谁 <i class="hookat">第 1 场第 1 拍兑现</i></span></div>
+  <div class="scenes clip">
+  <section class="scene-blk">
+  <header class="scene-h">
+    <b>第 1 场</b>
+    <span class="chip">S01 听风楼雅阁与止戈轩</span>
+    <span class="chip lite">光照 · 晨光暖软</span>
+    <span class="chip">温如风</span><span class="chip">秦不争</span><span class="chip">小满</span>
+    <span class="chip prop">百年紫雪参药丸</span>
+  </header>
+  <p class="act-line hooked" title="开场钩子">冷开场：晨光斜照听风楼门廊，青衫温如风收拢折扇，向须发雪白、拄着龙头拐杖的秦不争深深作揖叙旧。</p>
+<div class="dlg-line"><span class="who">秦不争<i>苍老的脸上满是欣慰笑意，轻咳两声</i></span><span class="said">难得你还记挂我这把老骨头，这些年去哪儿了？</span><button class="copy mini" data-copy="难得你还记挂我这把老骨头，这些年去哪儿了？">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>神色温润坦然，眼角多了几分烟火风霜</i></span><span class="said">早洗手不做黑道了。</span><button class="copy mini" data-copy="早洗手不做黑道了。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">去北境苍山贩了两年紫雪参赚钱。</span><button class="copy mini" data-copy="去北境苍山贩了两年紫雪参赚钱。">复制</button></div>
+<p class="act-line">温如风从怀里摸出一只黑漆旧木紫雪参药盒轻托掌心看了一眼，随即妥帖收进袖袋。</p>
+<div class="dlg-line"><span class="who">温如风<i>抬头环顾空荡大堂，颇为感慨</i></span><span class="said">倒是听风楼怎么冷清许多？</span><button class="copy mini" data-copy="倒是听风楼怎么冷清许多？">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">当年这儿可是一座难求。</span><button class="copy mini" data-copy="当年这儿可是一座难求。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>摇了摇头叹息，眼角笑纹又添几分沧桑</i></span><span class="said">唉，子孙不争气。早知如此。</span><button class="copy mini" data-copy="唉，子孙不争气。早知如此。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>紧接前话，神色不松</i></span><span class="said">当年真该招你做女婿。</span><button class="copy mini" data-copy="当年真该招你做女婿。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>微微笑着摇头自嘲，语气再无半分锋芒</i></span><span class="said">当年我还满口黑道无情规矩。</span><button class="copy mini" data-copy="当年我还满口黑道无情规矩。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">现在想来才是真愚昧。</span><button class="copy mini" data-copy="现在想来才是真愚昧。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>抬眼望向西城长街方向，眼里有了暖意</i></span><span class="said">西城槐花巷那座三进小院我买回来了。</span><button class="copy mini" data-copy="西城槐花巷那座三进小院我买回来了。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">以后常来讨茶喝。</span><button class="copy mini" data-copy="以后常来讨茶喝。">复制</button></div>
+<p class="act-line">秦不争大笑着刚要应声，门后伙计轻手轻脚走出来，把睡得粉雕玉琢、如小面人般的五岁小满抱进温如风怀中。</p>
+<p class="act-line">温如风伸出双臂稳稳接住孩子，动作轻柔极了，低头轻轻拍着小满后背。</p>
+<div class="dlg-line"><span class="who">秦不争<i>目光落在粉嫩幼女身上，眼角笑纹绽开</i></span><span class="said">你的？</span><button class="copy mini" data-copy="你的？">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>轻拍小满后背，嘴角扬起从未有过的柔和笑意</i></span><span class="said">我的。</span><button class="copy mini" data-copy="我的。">复制</button></div>
+</section>
+<section class="scene-blk">
+  <header class="scene-h">
+    <b>第 2 场</b>
+    <span class="chip">S01 听风楼雅阁与止戈轩</span>
+    <span class="chip lite">光照 · 雷雨晦暗</span>
+    <span class="chip">温如风</span><span class="chip">秦不争</span><span class="chip">小满</span>
+    <span class="chip prop">四十八骨海棠紫竹伞</span>
+  </header>
+  <p class="act-line">话音刚落，门外骤然炸响一声闷雷，天色瞬间晦暗，倾盆大雨哗啦啦泼洒洗刷着长乐古街。</p>
+<div class="dlg-line"><span class="who">温如风<i>抱紧怀里怕冷的小满，抬头望向门外雨幕</i></span><span class="said">怎么忽然下这么大，可惜今日没带伞。</span><button class="copy mini" data-copy="怎么忽然下这么大，可惜今日没带伞。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>拄杖笑了笑，朝门边伙计抬手示意</i></span><span class="said">我这儿留着一把老伞。</span><button class="copy mini" data-copy="我这儿留着一把老伞。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>紧接前话，神色不松</i></span><span class="said">虽说画了花有些女人气，倒还结实。</span><button class="copy mini" data-copy="虽说画了花有些女人气，倒还结实。">复制</button></div>
+<p class="act-line">伙计转身从廊柱后取来一把青纸紫竹伞递给秦不争，秦不争笑着亲手交到温如风手里。</p>
+<p class="act-line">温如风左手抱稳怀里的小满，右手接过老伞撑开，看清青油纸上那枝墨绘雨打海棠与四十八根细竹伞骨，整个人猛地一怔。</p>
+<div class="dlg-line"><span class="who">温如风<i>手指缓缓摩挲着紫竹伞柄，低声失神</i></span><span class="said">四十八骨海棠紫竹伞……怎会在您这儿？</span><button class="copy mini" data-copy="四十八骨海棠紫竹伞……怎会在您这儿？">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>笑眯眯捻须摆手，不以为意</i></span><span class="said">不知什么年月客人忘在这儿的。</span><button class="copy mini" data-copy="不知什么年月客人忘在这儿的。">复制</button></div>
+<div class="dlg-line"><span class="who">秦不争<i>紧接前话，神色不松</i></span><span class="said">遮雨正好。有空常来下棋。</span><button class="copy mini" data-copy="遮雨正好。有空常来下棋。">复制</button></div>
+<p class="act-line">温如风眼神骤然柔软下来，一手抱稳小满一手执伞朝秦不争深深颔首致谢，转身举伞步入雨幕。</p>
+<div class="dlg-line"><span class="who">秦不争<i>站在门廊里笑眯眯挥手嘱咐</i></span><span class="said">一百两银子一局我可赌不起了，慢走啊！</span><button class="copy mini" data-copy="一百两银子一局我可赌不起了，慢走啊！">复制</button></div>
+</section>
+<section class="scene-blk">
+  <header class="scene-h">
+    <b>第 3 场</b>
+    <span class="chip">S05 醉花阴戏馆与长乐街雨檐</span>
+    <span class="chip lite">光照 · 春雨晨雾</span>
+    <span class="chip">温如风</span><span class="chip">小满</span>
+    <span class="chip prop">四十八骨海棠紫竹伞</span>
+  </header>
+  <p class="act-line">雷雨渐歇化作蒙蒙春雨，长乐街青石板湿润反光，温如风青衫微卷举着海棠伞缓缓前行。</p>
+<p class="act-line">怀里的小满揉揉眼睛醒了过来，一看见温如风便顽皮地伸出两只小手扯他脸蛋。</p>
+<div class="dlg-line"><span class="who">温如风<i>任她小手揉捏脸颊，无奈又宠溺地低笑</i></span><span class="said">刚醒就淘气，当心外面雨风凉着脸。</span><button class="copy mini" data-copy="刚醒就淘气，当心外面雨风凉着脸。">复制</button></div>
+<p class="act-line">小满扯了一会儿又犯起困来，把两只小手环住温如风脖子，趴在肩头噘起小嘴。</p>
+<div class="dlg-line"><span class="who">小满<i>奶声奶气撒娇，小脑袋贴着他肩窝</i></span><span class="said">温叔叔，我们回家吃粽子吧。</span><button class="copy mini" data-copy="温叔叔，我们回家吃粽子吧。">复制</button></div>
+<p class="act-line">温如风脚步微微一顿，低头看着她桃瓣似的脸蛋，眼底泛起暖意，随即举稳紫竹伞遮在两人头顶。</p>
+<div class="dlg-line"><span class="who">温如风<i>语气轻柔得像春风，低头哄着怀里人</i></span><span class="said">好，回家吃粽子。小满想吃红枣馅的吗？</span><button class="copy mini" data-copy="好，回家吃粽子。小满想吃红枣馅的吗？">复制</button></div>
+<div class="dlg-line"><span class="who">小满<i>晃着小脑袋噘嘴拒绝，嗓音软糯</i></span><span class="said">不要红枣的，我要吃甜豆沙的！</span><button class="copy mini" data-copy="不要红枣的，我要吃甜豆沙的！">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>爽朗笑着点头，轻拍她单薄却温暖的后背</i></span><span class="said">好好好，都依你，回家就蒸热腾腾的豆沙粽。</span><button class="copy mini" data-copy="好好好，都依你，回家就蒸热腾腾的豆沙粽。">复制</button></div>
+<p class="act-line">两人路过醉花阴宽大屋檐，檐下挤满避雨的行人，二楼戏台隐约飘来当年那段低婉唱腔。</p>
+<div class="dlg-line"><span class="who">画外音<i>醉花阴楼上戏台隐约传来的女伶唱词</i></span><span class="said">猛回头，避雨处风景依然……</span><button class="copy mini" data-copy="猛回头，避雨处风景依然……">复制</button></div>
+<p class="act-line">温如风抬眸望向伞面被春雨晕开的墨色海棠花，眼底微潮却嘴角含笑，轻轻拍着小满的后背。</p>
+<div class="dlg-line"><span class="who">温如风<i>声音放得极轻极柔，仿佛怕惊扰一场美梦</i></span><span class="said">小满，温叔叔这个名字太拗口了。</span><button class="copy mini" data-copy="小满，温叔叔这个名字太拗口了。">复制</button></div>
+<div class="dlg-line"><span class="who">温如风<i>紧接前话，神色不松</i></span><span class="said">以后你叫我爹爹好不好？</span><button class="copy mini" data-copy="以后你叫我爹爹好不好？">复制</button></div>
+<div class="dlg-line"><span class="who">小满<i>困倦地把脸埋进他颈窝，小声软糯答应</i></span><span class="said">唔……</span><button class="copy mini" data-copy="唔……">复制</button></div>
+<p class="act-line">一片蒙蒙细雨温柔笼罩长乐古街，撑着海棠紫竹伞的一大一小身影，稳稳融进了西城巷陌的春雨烟火里。</p>
+</section>
+  </div>
+  <button class="scmore">▾ 展开全部场次</button>
+  <div class="hk cliff"><b>结尾悬念</b><span>细雨海棠伞下改口唤爹，两代孤苦人终于在烟火长街觅得归宿</span></div>
+</article>
+  </div>
+</section>
+
+<section class="top-sec" id="sec-scenes">
+  <div class="sec-h"><span class="no">03</span><h2>场次总表</h2><span class="note">自动汇总 · 模型不写</span></div>
+  <table><thead><tr><th>集</th><th>场</th><th>场景</th><th>光照</th><th>人物</th><th>台词句数</th><th>估秒</th></tr></thead>
+<tbody><tr><td>1</td><td>1</td><td>S01 听风楼雅阁与止戈轩</td><td>午后斜阳</td><td>温如风、林慕白</td><td>10</td><td>49.2</td></tr>
+<tr><td>1</td><td>2</td><td>S01 听风楼雅阁与止戈轩</td><td>暮色夜灯</td><td>温如风、崔断水</td><td>10</td><td>42.2</td></tr>
+<tr><td>1</td><td>3</td><td>S02 三更面馆</td><td>深夜孤灯</td><td>温如风、江晚棠、三更面馆掌柜</td><td>7</td><td>28.7</td></tr>
+<tr><td>2</td><td>1</td><td>S02 三更面馆</td><td>深夜孤灯</td><td>温如风、江晚棠、三更面馆掌柜</td><td>22</td><td>90.5</td></tr>
+<tr><td>2</td><td>2</td><td>S03 西城槐花巷小院</td><td>冷月寒夜</td><td>温如风、江晚棠、小满</td><td>2</td><td>16.9</td></tr>
+<tr><td>3</td><td>1</td><td>S01 听风楼雅阁与止戈轩</td><td>晨光暖软</td><td>温如风、江晚棠、林慕白</td><td>16</td><td>64.3</td></tr>
+<tr><td>3</td><td>2</td><td>S01 听风楼雅阁与止戈轩</td><td>晨光暖软</td><td>温如风、秦不争</td><td>14</td><td>55.1</td></tr>
+<tr><td>4</td><td>1</td><td>S04 栖霞观银杏树下</td><td>午后香烟晴光</td><td>温如风、江晚棠、林慕白</td><td>8</td><td>41.3</td></tr>
+<tr><td>4</td><td>2</td><td>S03 西城槐花巷小院</td><td>清昼天光</td><td>江晚棠、小满</td><td>8</td><td>35.8</td></tr>
+<tr><td>4</td><td>3</td><td>S01 听风楼雅阁与止戈轩</td><td>午后斜阳</td><td>温如风、秦不争</td><td>12</td><td>44.9</td></tr>
+<tr><td>5</td><td>1</td><td>S04 栖霞观银杏树下</td><td>午后香烟晴光</td><td>温如风、江晚棠、林慕白、崔断水、栖霞观老庙祝</td><td>20</td><td>78.9</td></tr>
+<tr><td>5</td><td>2</td><td>S01 听风楼雅阁与止戈轩</td><td>午后斜阳</td><td>温如风、秦不争</td><td>10</td><td>39.3</td></tr>
+<tr><td>6</td><td>1</td><td>S02 三更面馆</td><td>深夜孤灯</td><td>温如风、江晚棠、三更面馆掌柜</td><td>26</td><td>119.6</td></tr>
+<tr><td>7</td><td>1</td><td>S05 醉花阴戏馆与长乐街雨檐</td><td>华灯夜宴</td><td>温如风、秦不争、崔断水、绾音</td><td>12</td><td>58.6</td></tr>
+<tr><td>7</td><td>2</td><td>S05 醉花阴戏馆与长乐街雨檐</td><td>春雨晨雾</td><td>温如风、江晚棠</td><td>14</td><td>61.8</td></tr>
+<tr><td>8</td><td>1</td><td>S05 醉花阴戏馆与长乐街雨檐</td><td>春雨晨雾</td><td>江晚棠、林慕白</td><td>13</td><td>57.4</td></tr>
+<tr><td>8</td><td>2</td><td>S03 西城槐花巷小院</td><td>清昼天光</td><td>江晚棠、小满</td><td>5</td><td>25.8</td></tr>
+<tr><td>8</td><td>3</td><td>S05 醉花阴戏馆与长乐街雨檐</td><td>春雨晨雾</td><td>温如风、绾音</td><td>9</td><td>37.4</td></tr>
+<tr><td>9</td><td>1</td><td>S03 西城槐花巷小院</td><td>中秋火烧云</td><td>温如风、江晚棠、小满</td><td>20</td><td>67</td></tr>
+<tr><td>9</td><td>2</td><td>S06 镇山武馆内院</td><td>中秋寒夜暗影</td><td>厉狂澜</td><td>2</td><td>12.4</td></tr>
+<tr><td>9</td><td>3</td><td>S01 听风楼雅阁与止戈轩</td><td>暮色夜灯</td><td>温如风、秦不争</td><td>9</td><td>41.6</td></tr>
+<tr><td>10</td><td>1</td><td>S06 镇山武馆内院</td><td>中秋寒夜暗影</td><td>温如风、江晚棠、厉狂澜</td><td>10</td><td>67.3</td></tr>
+<tr><td>10</td><td>2</td><td>S01 听风楼雅阁与止戈轩</td><td>雷雨晦暗</td><td>温如风、林慕白</td><td>9</td><td>48.4</td></tr>
+<tr><td>11</td><td>1</td><td>S01 听风楼雅阁与止戈轩</td><td>晨光暖软</td><td>温如风、林慕白、秦不争</td><td>25</td><td>118.2</td></tr>
+<tr><td>12</td><td>1</td><td>S01 听风楼雅阁与止戈轩</td><td>晨光暖软</td><td>温如风、秦不争、小满</td><td>13</td><td>42.2</td></tr>
+<tr><td>12</td><td>2</td><td>S01 听风楼雅阁与止戈轩</td><td>雷雨晦暗</td><td>温如风、秦不争、小满</td><td>7</td><td>33.3</td></tr>
+<tr><td>12</td><td>3</td><td>S05 醉花阴戏馆与长乐街雨檐</td><td>春雨晨雾</td><td>温如风、小满</td><td>9</td><td>44.8</td></tr></tbody></table>
+</section>
+
+<section class="top-sec" id="sec-cast">
+  <div class="sec-h"><span class="no">04</span><h2>台词本</h2><span class="note">按角色聚合 · 列表最多显示 6 行可滚动 · 直接对接 TTS 批量生成</span></div>
+  <div class="casts">
+<section class="cast-blk">
+  <header class="cast-h">
+    <b>温如风</b>
+    <span class="cast-meta">133 句 · 1850 字 · 约 411.1 秒</span>
+    <button class="copy" data-copy="Late-20s male, smooth clear baritone with cool metallic edge, medium-low register, steady chest resonance, controlled narrow range. Moderate volume, unhurried measured cadence, level crisp endings. Standard Mandarin, clean diction. Calm, aloof, faintly mocking.">音色提示词</button>
+    <button class="copy" data-copy="第一，我不是什么大侠，别乱叫。
+第二，想手刃恶狗就自己练武，买凶不算本事。
+第三，七百两杀厉狂澜，嫌贵就请另找高明。
+变卖家当只为给没名分的女人报仇。
+林三公子倒真是个痴情人。
+你先回去，我想想办法，但不一定成。
+官府捉人，最先锁拿的也是我。
+这儿有单买卖，三百两杀厉狂澜，接吗？
+可惜，今晚已约了人。
+醉花阴的无边风月只能心领了。
+我不喝搀水的劣酒。
+把你藏着最好的琥珀春拿出来。
+阿棠，耳环也当掉了？
+看样子连最后一点银子也花光了。
+我只是不想熟识的刀手早死。
+你活不长，我也少赚钱。
+北上刺杀铁面巡检值五百两黄金。
+可你抽得开身丢下小满吗？
+我借你银子算三分利。
+从你以后每单工钱里扣，扣个五六年刚好。
+要不第二个法子，干脆别管小满了。
+靠人参吊命本就难养大。
+素心阁侠女手真重，打死了我谁给你找活？
+今天倒真有个疯子上门。
+林家不准娶。
+阿沅爹娘把有孕的闺女卖给了厉狂澜。
+一顿皮鞭下去阿沅咬舌自尽。
+林慕白只见着一座荒坟。
+我不扶你，今晚就睡大街上。
+峥哥哥……哼，倒是个死心眼。
+有缘无份也是常事。
+林公子不如早觅良缘，过去的事别提了。
+你我又不是朝廷捕快，你手上无辜人命少吗？
+我促成的黑心买卖又少吗？
+区区三百两抽九十两，我不在乎。
+实在是经不住那丫头拿命缠我。
+她哪来那么狠的心？当年江南漕帮出三千两。
+找上我，是我请人杀的顾云峥。
+那傻丫头至今还满世界找仇人。
+想替那个负心汉报仇呢。
+五月十三午时，栖霞观。蠢丫头。
+拿了银子不练剑，偏跑来偷看主顾。
+做中间人总要盯紧货物。
+免得出了岔子找不着人顶罪。
+借她十个胆也不敢！
+不过看人哭两嗓子便心软的傻丫头。
+去栖霞观上香！
+顺道瞧瞧她是不是真敢走到主顾面前去。
+流年不必，就测一卦姻缘吧。
+乱都乱了，还能怎么好？
+七千两白银惊动朝廷。
+六成。我还要打点各处捕快。
+五成。否则在下另请高明。
+你说，一个刀手……焉能生出这副模样？
+一个刀手，一个主顾。
+天天往观里凑，真是滑天下之大稽！
+秦老说笑了！我是怕她漏了风声。
+连累官府查到我头上。
+多谢秦老教诲。今晚三更面馆。
+我亲自约她把账算个干净。
+醉花阴的姑娘软玉温香。
+比某人整日冷冰冰的可温柔多了。
+喝酒误事……我只是劝你。
+好歹检点些，别对主顾动情！
+五月十三栖霞观，十四听风楼。
+十六西城门！你还要瞒我？
+做我们这一行最忌动情！
+连累全行老少怎么办，我犯得上丢命吗？
+是！多一分银子就是好！
+等你要拿一分银子买命时就知道残酷了！
+怎么，又想起你那个死去的峥哥哥了？
+他早死了，别妄想了！
+唉……真是改不了的傻丫头。
+小令尊前见玉箫，银灯一曲太妖娆。
+改不了，她还当林慕白是个宝呢。
+可笑！戏里柳生那种小白脸，本就该杀了才是！
+可惜我们一介书生，也是没有办法的。
+见鬼……他俩像不像在演断桥借伞？
+阿棠？你家在西城，大清早跑这儿来作甚？
+你昨夜，是在林家过的夜？
+我在醉花阴过夜。
+你也要在林家过夜？咱俩算什么关系？
+倒是胖了些，气色红润起来，漂亮多了。
+急着出门接谁？
+拿去吧。还真像呢。
+像戏里的素娘。
+切记！万不可露了消息出去！
+多谢绾音姑娘美意。
+温某尚有要事，改日再来听曲。
+槐花巷祖宅作价七百两出手……
+她竟把退路全卖了？
+一月期限将近，明夜便是八月十五中秋之夜。
+厉狂澜的子母鸳鸯剑快在右手。
+左右合璧那招，千万小心。
+今天倒难得这么听话？
+不要尾款，小满往后的药钱怎么办？
+不讲究……那林公子呢？
+秦老，您说人这一辈子……是不是无情才好？
+少欠奉陪，我得去抹抹泥灰，免得这堵墙塌了。
+抹墙最怕塌，面面都得抹匀，不得已啊！
+阿棠！阿棠别睡，我这就带你去找大夫！
+你不是说好卖了院子带小满去北境吗……
+阿棠，你睁眼看看我，六十两我不要了……
+厉狂澜的人头。林公子，我们两清了。
+林公子别来无恙？一晃竟已过了三年。
+四处走走罢了。永安府那桩悬案可算了结了？
+哦？贵公子添丁了？恭喜林公子前程锦绣。
+不知三年前那桩托我办的死事，公子可还记挂？
+忘记了？原来林公子已经忘得一干二净。
+当年你跪地磕头求我时，可不是这副富贵嘴脸！
+原来林公子享尽齐人之福。
+早就忘记了那个傻瓜！
+你还欠我一百五十两银子。
+从今日起按十分利算！
+今后每年还我一百五十两。
+少一分我随时掐死你！
+秦老？
+早洗手不做黑道了。
+去北境苍山贩了两年紫雪参赚钱。
+倒是听风楼怎么冷清许多？
+当年这儿可是一座难求。
+当年我还满口黑道无情规矩。
+现在想来才是真愚昧。
+西城槐花巷那座三进小院我买回来了。
+以后常来讨茶喝。
+我的。
+怎么忽然下这么大，可惜今日没带伞。
+四十八骨海棠紫竹伞……怎会在您这儿？
+刚醒就淘气，当心外面雨风凉着脸。
+好，回家吃粽子。小满想吃红枣馅的吗？
+好好好，都依你，回家就蒸热腾腾的豆沙粽。
+小满，温叔叔这个名字太拗口了。
+以后你叫我爹爹好不好？">复制全部台词</button>
+  </header>
+  <ol class="cast-lines"><li><i>E01 第 1 场</i><span>第一，我不是什么大侠，别乱叫。</span><em>眼皮微抬，嘴角挂着淡笑</em></li><li><i>E01 第 1 场</i><span>第二，想手刃恶狗就自己练武，买凶不算本事。</span><em>又竖起第二根手指，语气不紧不慢</em></li><li><i>E01 第 1 场</i><span>第三，七百两杀厉狂澜，嫌贵就请另找高明。</span><em>端起凉茶轻抿，长袖掩住微微皱起的眉头</em></li><li><i>E01 第 1 场</i><span>变卖家当只为给没名分的女人报仇。</span><em>放下茶盏，话里带着三分冷嘲</em></li><li><i>E01 第 1 场</i><span>林三公子倒真是个痴情人。</span><em>紧接前话，神色不松</em></li><li><i>E01 第 1 场</i><span>你先回去，我想想办法，但不一定成。</span><em>敷衍打发</em></li><li><i>E01 第 2 场</i><span>官府捉人，最先锁拿的也是我。</span><em>把玩着寸银小刀，似笑非笑</em></li><li><i>E01 第 2 场</i><span>这儿有单买卖，三百两杀厉狂澜，接吗？</span><em>紧接前话，神色不松</em></li><li><i>E01 第 2 场</i><span>可惜，今晚已约了人。</span><em>起身掸了掸青衫，笑容疏离</em></li><li><i>E01 第 2 场</i><span>醉花阴的无边风月只能心领了。</span><em>紧接前话，神色不松</em></li><li><i>E01 第 3 场</i><span>我不喝搀水的劣酒。</span><em>语气平稳却不容置疑</em></li><li><i>E01 第 3 场</i><span>把你藏着最好的琥珀春拿出来。</span><em>紧接前话，神色不松</em></li><li><i>E01 第 3 场</i><span>阿棠，耳环也当掉了？</span><em>眼神复杂，嘴上却偏要叹息调侃</em></li><li><i>E01 第 3 场</i><span>看样子连最后一点银子也花光了。</span><em>紧接前话，神色不松</em></li><li><i>E02 第 1 场</i><span>我只是不想熟识的刀手早死。</span><em>收回手轻轻抿酒，刻意用铜臭掩饰关切</em></li><li><i>E02 第 1 场</i><span>你活不长，我也少赚钱。</span><em>紧接前话，神色不松</em></li><li><i>E02 第 1 场</i><span>北上刺杀铁面巡检值五百两黄金。</span><em>目光落在她空药盒上，把现实摊开</em></li><li><i>E02 第 1 场</i><span>可你抽得开身丢下小满吗？</span><em>紧接前话，神色不松</em></li><li><i>E02 第 1 场</i><span>我借你银子算三分利。</span><em>端详酒杯，作出一副算计到底的模样</em></li><li><i>E02 第 1 场</i><span>从你以后每单工钱里扣，扣个五六年刚好。</span><em>紧接前话，神色不松</em></li><li><i>E02 第 1 场</i><span>要不第二个法子，干脆别管小满了。</span><em>话音刻意放淡</em></li><li><i>E02 第 1 场</i><span>靠人参吊命本就难养大。</span><em>紧接前话，神色不松</em></li><li><i>E02 第 1 场</i><span>素心阁侠女手真重，打死了我谁给你找活？</span><em>急忙拿折扇遮脸苦笑</em></li><li><i>E02 第 1 场</i><span>今天倒真有个疯子上门。</span><em>紧接前话，神色不松</em></li><li><i>E02 第 1 场</i><span>林家不准娶。</span><em>手指转着酒杯，声音微沉</em></li><li><i>E02 第 1 场</i><span>阿沅爹娘把有孕的闺女卖给了厉狂澜。</span><em>紧接前话，神色不松</em></li><li><i>E02 第 1 场</i><span>一顿皮鞭下去阿沅咬舌自尽。</span><em>冷眼看向油灯火苗</em></li><li><i>E02 第 1 场</i><span>林慕白只见着一座荒坟。</span><em>紧接前话，神色不松</em></li><li><i>E02 第 1 场</i><span>我不扶你，今晚就睡大街上。</span><em>咬牙架住她，没好气地回嘴</em></li><li><i>E02 第 2 场</i><span>峥哥哥……哼，倒是个死心眼。</span><em>站在门廊暗影里自嘲般低笑一声</em></li><li><i>E03 第 1 场</i><span>有缘无份也是常事。</span><em>斜瞥黑纱女子一眼，故意开口劝退</em></li><li><i>E03 第 1 场</i><span>林公子不如早觅良缘，过去的事别提了。</span><em>紧接前话，神色不松</em></li><li><i>E03 第 1 场</i><span>你我又不是朝廷捕快，你手上无辜人命少吗？</span><em>揉着被捏红的手腕，神色倏然冷厉</em></li><li><i>E03 第 1 场</i><span>我促成的黑心买卖又少吗？</span><em>紧接前话，神色不松</em></li><li><i>E03 第 2 场</i><span>区区三百两抽九十两，我不在乎。</span><em>神色坦然，刻意把重话轻说</em></li><li><i>E03 第 2 场</i><span>实在是经不住那丫头拿命缠我。</span><em>紧接前话，神色不松</em></li><li><i>E03 第 2 场</i><span>她哪来那么狠的心？当年江南漕帮出三千两。</span><em>冷笑摇头，眼里却掠过一丝深藏的酸涩</em></li><li><i>E03 第 2 场</i><span>找上我，是我请人杀的顾云峥。</span><em>语气平淡如谈寻常买卖</em></li><li><i>E03 第 2 场</i><span>那傻丫头至今还满世界找仇人。</span><em>自嘲般轻哂，垂眼落子</em></li><li><i>E03 第 2 场</i><span>想替那个负心汉报仇呢。</span><em>紧接前话，神色不松</em></li><li><i>E04 第 1 场</i><span>五月十三午时，栖霞观。蠢丫头。</span><em>斜倚石栏轻嗤一声，眼神冷得没有半分笑意</em></li><li><i>E04 第 1 场</i><span>拿了银子不练剑，偏跑来偷看主顾。</span><em>紧接前话，神色不松</em></li><li><i>E04 第 3 场</i><span>做中间人总要盯紧货物。</span><em>重重合上小册子走到方桌旁拍在桌上，语气硬邦邦地掩饰</em></li><li><i>E04 第 3 场</i><span>免得出了岔子找不着人顶罪。</span><em>紧接前话，神色不松</em></li><li><i>E04 第 3 场</i><span>借她十个胆也不敢！</span><em>端起凉茶冷笑，指节却微微收紧</em></li><li><i>E04 第 3 场</i><span>不过看人哭两嗓子便心软的傻丫头。</span><em>紧接前话，神色不松</em></li><li><i>E04 第 3 场</i><span>去栖霞观上香！</span><em>头也不回地掀起青灰纱帘，冷笑里压着一丝按捺不住的焦躁</em></li><li><i>E04 第 3 场</i><span>顺道瞧瞧她是不是真敢走到主顾面前去。</span><em>紧接前话，神色不松</em></li><li><i>E05 第 1 场</i><span>流年不必，就测一卦姻缘吧。</span><em>收拢折扇随手抛下一块碎银，神情散漫</em></li><li><i>E05 第 1 场</i><span>乱都乱了，还能怎么好？</span><em>朗声嗤笑一句，转着折扇打发老庙祝退下</em></li><li><i>E05 第 1 场</i><span>七千两白银惊动朝廷。</span><em>同样合十闭目，话里丝毫不肯让步</em></li><li><i>E05 第 1 场</i><span>六成。我还要打点各处捕快。</span><em>紧接前话，神色不松</em></li><li><i>E05 第 1 场</i><span>五成。否则在下另请高明。</span><em>眼皮都没抬，直接伸出五根修长手指</em></li><li><i>E05 第 1 场</i><span>你说，一个刀手……焉能生出这副模样？</span><em>想笑却笑不出来，神色罕见地失态走神</em></li><li><i>E05 第 2 场</i><span>一个刀手，一个主顾。</span><em>自嘲般干笑两声，手里折扇收得啪一声响</em></li><li><i>E05 第 2 场</i><span>天天往观里凑，真是滑天下之大稽！</span><em>紧接前话，神色不松</em></li><li><i>E05 第 2 场</i><span>秦老说笑了！我是怕她漏了风声。</span><em>脸色微微一僵，连忙端茶掩饰</em></li><li><i>E05 第 2 场</i><span>连累官府查到我头上。</span><em>紧接前话，神色不松</em></li><li><i>E05 第 2 场</i><span>多谢秦老教诲。今晚三更面馆。</span><em>直起身时神色凛然，眼神再无半点玩笑</em></li><li><i>E05 第 2 场</i><span>我亲自约她把账算个干净。</span><em>紧接前话，神色不松</em></li><li><i>E06 第 1 场</i><span>醉花阴的姑娘软玉温香。</span><em>醉眼微眯带出几分轻佻，故意试探刺她</em></li><li><i>E06 第 1 场</i><span>比某人整日冷冰冰的可温柔多了。</span><em>紧接前话，神色不松</em></li><li><i>E06 第 1 场</i><span>喝酒误事……我只是劝你。</span><em>仰脸摇晃着坐直身子，醉话脱口而出</em></li><li><i>E06 第 1 场</i><span>好歹检点些，别对主顾动情！</span><em>紧接前话，神色不松</em></li><li><i>E06 第 1 场</i><span>五月十三栖霞观，十四听风楼。</span><em>翻开册子逐条冷念，字字像冰碴砸在桌面上</em></li><li><i>E06 第 1 场</i><span>十六西城门！你还要瞒我？</span><em>紧接前话，神色不松</em></li><li><i>E06 第 1 场</i><span>做我们这一行最忌动情！</span><em>俯身逼近压低嗓音厉声怒斥，眼底竟泛红</em></li><li><i>E06 第 1 场</i><span>连累全行老少怎么办，我犯得上丢命吗？</span><em>紧接前话，神色不松</em></li><li><i>E06 第 1 场</i><span>是！多一分银子就是好！</span><em>赤红着眼眶撕开体面，声嘶力竭回吼</em></li><li><i>E06 第 1 场</i><span>等你要拿一分银子买命时就知道残酷了！</span><em>紧接前话，神色不松</em></li><li><i>E06 第 1 场</i><span>怎么，又想起你那个死去的峥哥哥了？</span><em>嘴上偏要往最痛处戳，眼底却闪过一丝不忍</em></li><li><i>E06 第 1 场</i><span>他早死了，别妄想了！</span><em>紧接前话，神色不松</em></li><li><i>E06 第 1 场</i><span>唉……真是改不了的傻丫头。</span><em>背影停在门外暗影里苦笑摇头，声音轻得被夜风吹散</em></li><li><i>E07 第 1 场</i><span>小令尊前见玉箫，银灯一曲太妖娆。</span><em>接过酒盏饮尽，醉眼迷蒙地笑着调侃</em></li><li><i>E07 第 1 场</i><span>改不了，她还当林慕白是个宝呢。</span><em>醉醺醺地挥手敷衍，目光飘向楼下戏台</em></li><li><i>E07 第 1 场</i><span>可笑！戏里柳生那种小白脸，本就该杀了才是！</span><em>忽然冷笑一声，眼里掠过一丝寒意</em></li><li><i>E07 第 1 场</i><span>可惜我们一介书生，也是没有办法的。</span><em>话锋圆滑一转，举杯掩饰般大笑</em></li><li><i>E07 第 1 场</i><span>见鬼……他俩像不像在演断桥借伞？</span><em>怔怔望向窗外街心，醉声喃喃</em></li><li><i>E07 第 2 场</i><span>阿棠？你家在西城，大清早跑这儿来作甚？</span><em>打量她略显疲倦的眉眼，低声试探</em></li><li><i>E07 第 2 场</i><span>你昨夜，是在林家过的夜？</span><em>脸色微沉，压低嗓音点破</em></li><li><i>E07 第 2 场</i><span>我在醉花阴过夜。</span><em>摇头甩开宿醉，嘴角牵起一抹苦笑</em></li><li><i>E07 第 2 场</i><span>你也要在林家过夜？咱俩算什么关系？</span><em>紧接前话，神色不松</em></li><li><i>E07 第 2 场</i><span>倒是胖了些，气色红润起来，漂亮多了。</span><em>眼神微暖，口吻却装出散漫轻佻</em></li><li><i>E07 第 2 场</i><span>急着出门接谁？</span><em>挑眉追问，指腹摩挲竹柄</em></li><li><i>E07 第 2 场</i><span>拿去吧。还真像呢。</span><em>松开伞柄，目光落在她微湿的肩头</em></li><li><i>E07 第 2 场</i><span>像戏里的素娘。</span><em>声音轻如叹息，只落在自己耳边</em></li><li><i>E07 第 2 场</i><span>切记！万不可露了消息出去！</span><em>拔高嗓音嘱咐，眼里满是压不住的隐忧</em></li><li><i>E08 第 3 场</i><span>多谢绾音姑娘美意。</span><em>抬起折扇礼貌隔开，温和却坚决地抽回衣袖</em></li><li><i>E08 第 3 场</i><span>温某尚有要事，改日再来听曲。</span><em>紧接前话，神色不松</em></li><li><i>E08 第 3 场</i><span>槐花巷祖宅作价七百两出手……</span><em>盯着纸条压低嗓音，手指渐渐攥紧</em></li><li><i>E08 第 3 场</i><span>她竟把退路全卖了？</span><em>紧接前话，神色不松</em></li><li><i>E08 第 3 场</i><span>一月期限将近，明夜便是八月十五中秋之夜。</span><em>抬头望向西城阴沉天色，眼神透出少有的焦灼</em></li><li><i>E09 第 1 场</i><span>厉狂澜的子母鸳鸯剑快在右手。</span><em>收起打量眼神，语气难得沉稳叮嘱</em></li><li><i>E09 第 1 场</i><span>左右合璧那招，千万小心。</span><em>紧接前话，神色不松</em></li><li><i>E09 第 1 场</i><span>今天倒难得这么听话？</span><em>略感意外，直起身子端详她的脸色</em></li><li><i>E09 第 1 场</i><span>不要尾款，小满往后的药钱怎么办？</span><em>眉头微皱，压低声音追问</em></li><li><i>E09 第 1 场</i><span>不讲究……那林公子呢？</span><em>嘴角牵起一丝苦笑，紧紧盯着她的眼</em></li><li><i>E09 第 3 场</i><span>秦老，您说人这一辈子……是不是无情才好？</span><em>声音压得极低，眼神罕见地透出迷惘</em></li><li><i>E09 第 3 场</i><span>少欠奉陪，我得去抹抹泥灰，免得这堵墙塌了。</span><em>语气急促，竭力装作平日洒脱模样</em></li><li><i>E09 第 3 场</i><span>抹墙最怕塌，面面都得抹匀，不得已啊！</span><em>语速飞快抢断话头，人已扑向窗口</em></li><li><i>E10 第 1 场</i><span>阿棠！阿棠别睡，我这就带你去找大夫！</span><em>声音剧烈发颤，手忙脚乱按住她心口</em></li><li><i>E10 第 1 场</i><span>你不是说好卖了院子带小满去北境吗……</span><em>紧紧搂住她逐渐冰冷的身子，嗓音哑裂</em></li><li><i>E10 第 1 场</i><span>阿棠，你睁眼看看我，六十两我不要了……</span><em>颤抖着抚开她额前湿发，唤不回半点回应</em></li><li><i>E10 第 2 场</i><span>厉狂澜的人头。林公子，我们两清了。</span><em>声音冷得像冰水，雨水顺着下颌滴落桌面</em></li><li><i>E11 第 1 场</i><span>林公子别来无恙？一晃竟已过了三年。</span><em>眼神淡雅从容，语气像老友闲聊</em></li><li><i>E11 第 1 场</i><span>四处走走罢了。永安府那桩悬案可算了结了？</span><em>低头吹去指尖碎屑，随口淡淡回应</em></li><li><i>E11 第 1 场</i><span>哦？贵公子添丁了？恭喜林公子前程锦绣。</span><em>抬眼静静打量他发福的体态，似笑非笑</em></li><li><i>E11 第 1 场</i><span>不知三年前那桩托我办的死事，公子可还记挂？</span><em>笑意敛去一半，语气温凉</em></li><li><i>E11 第 1 场</i><span>忘记了？原来林公子已经忘得一干二净。</span><em>声音冷得刺骨，嘴角扯出残忍笑意</em></li><li><i>E11 第 1 场</i><span>当年你跪地磕头求我时，可不是这副富贵嘴脸！</span><em>眼神森寒，五指抵住林慕白喉结</em></li><li><i>E11 第 1 场</i><span>原来林公子享尽齐人之福。</span><em>冷笑痛斥，五指力道重到几乎捏碎喉骨</em></li><li><i>E11 第 1 场</i><span>早就忘记了那个傻瓜！</span><em>紧接前话，神色不松</em></li><li><i>E11 第 1 场</i><span>你还欠我一百五十两银子。</span><em>贴耳低语，字字如同刀锋</em></li><li><i>E11 第 1 场</i><span>从今日起按十分利算！</span><em>紧接前话，神色不松</em></li><li><i>E11 第 1 场</i><span>今后每年还我一百五十两。</span><em>轻拍林慕白惨白发抖的脸颊</em></li><li><i>E11 第 1 场</i><span>少一分我随时掐死你！</span><em>紧接前话，神色不松</em></li><li><i>E11 第 1 场</i><span>秦老？</span><em>收起折扇诧异凝望，声音放轻</em></li><li><i>E12 第 1 场</i><span>早洗手不做黑道了。</span><em>神色温润坦然，眼角多了几分烟火风霜</em></li><li><i>E12 第 1 场</i><span>去北境苍山贩了两年紫雪参赚钱。</span><em>紧接前话，神色不松</em></li><li><i>E12 第 1 场</i><span>倒是听风楼怎么冷清许多？</span><em>抬头环顾空荡大堂，颇为感慨</em></li><li><i>E12 第 1 场</i><span>当年这儿可是一座难求。</span><em>紧接前话，神色不松</em></li><li><i>E12 第 1 场</i><span>当年我还满口黑道无情规矩。</span><em>微微笑着摇头自嘲，语气再无半分锋芒</em></li><li><i>E12 第 1 场</i><span>现在想来才是真愚昧。</span><em>紧接前话，神色不松</em></li><li><i>E12 第 1 场</i><span>西城槐花巷那座三进小院我买回来了。</span><em>抬眼望向西城长街方向，眼里有了暖意</em></li><li><i>E12 第 1 场</i><span>以后常来讨茶喝。</span><em>紧接前话，神色不松</em></li><li><i>E12 第 1 场</i><span>我的。</span><em>轻拍小满后背，嘴角扬起从未有过的柔和笑意</em></li><li><i>E12 第 2 场</i><span>怎么忽然下这么大，可惜今日没带伞。</span><em>抱紧怀里怕冷的小满，抬头望向门外雨幕</em></li><li><i>E12 第 2 场</i><span>四十八骨海棠紫竹伞……怎会在您这儿？</span><em>手指缓缓摩挲着紫竹伞柄，低声失神</em></li><li><i>E12 第 3 场</i><span>刚醒就淘气，当心外面雨风凉着脸。</span><em>任她小手揉捏脸颊，无奈又宠溺地低笑</em></li><li><i>E12 第 3 场</i><span>好，回家吃粽子。小满想吃红枣馅的吗？</span><em>语气轻柔得像春风，低头哄着怀里人</em></li><li><i>E12 第 3 场</i><span>好好好，都依你，回家就蒸热腾腾的豆沙粽。</span><em>爽朗笑着点头，轻拍她单薄却温暖的后背</em></li><li><i>E12 第 3 场</i><span>小满，温叔叔这个名字太拗口了。</span><em>声音放得极轻极柔，仿佛怕惊扰一场美梦</em></li><li><i>E12 第 3 场</i><span>以后你叫我爹爹好不好？</span><em>紧接前话，神色不松</em></li></ol>
+</section>
+<section class="cast-blk">
+  <header class="cast-h">
+    <b>江晚棠</b>
+    <span class="cast-meta">67 句 · 914 字 · 约 203.1 秒</span>
+    <button class="copy" data-copy="20-year-old female, husky cool contralto-mezzo, low-to-mid pitch, shallow breathy support, restrained dynamic arc. Soft quiet projection, uneven paused rhythm, firm downward cadences. Neutral Mandarin, brittle consonants. Guarded, weary, stubbornly proud.">音色提示词</button>
+    <button class="copy" data-copy="酒……掌柜，再来三两白干。
+不要碰我！少在这假惺惺。
+说，今天有没有新买卖？
+少啰嗦！钱花光了，到底还有没有新买卖？
+我不能离开永安！
+没有银子买百年紫雪参，小满她会死的！
+我不借！谁不知道你扇底寸银吃人不吐骨头。
+药钱全进你口袋了！
+三百两……也许他当真只凑得起这些银子了。
+叫你不要碰我……松开，我没醉！
+峥哥哥……小满不要怕，娘在这里……
+林公子请起。这桩买卖我代我们公子接了。
+一月内必有回复。
+温如风，难道你心里就只认银子。
+天下没钱的人就活该受屈吗？
+算我求你这一回。三成抽头少不了你的。
+小满的药钱实在等不起了。
+卖掉亡母遗物也要替旧人雪恨……
+世上真有这样痴情的男人。
+乖，吞了这颗参丸就不喘了。
+娘再去挣银子给你买糖。
+等娘攒够了药钱。
+咱们就带着银子离开永安，再也不碰刀剑了。
+公子扭伤了脚，又不曾带仆从。
+不如我找人送公子去看大夫。
+不用。温如风，约我出来什么事。
+我还得回去陪小满。
+少拿我跟醉花阴的贱人比！你到底说不说正事？
+你说什么！我江晚棠行得正。
+轮不到你嘴里胡言乱语！
+你……你竟敢暗中盯梢监视我？
+我没有动心！我只是可怜他，你凭什么这么凶！
+你知不知道他有多可怜？
+心上人死了是什么滋味，你懂吗？
+你们眼里除了银子还有什么？
+是不是多一分银子就真那么好？
+不要碰我。
+在林家过夜又怎样？你不也在醉花阴过夜么！
+不必多事……
+把你手里那把伞借我用一下，行吗？
+他……他在陈夫子书塾念书，这会儿怕没带伞。
+像什么？
+顺路罢了，见雨势渐大，怕公子受凉。
+雨打海棠……公子真是个雅致的人儿。
+只是林家高门大户，公子往后对亲事作何打算？
+所以公子方才说的相伴。
+是叫人无名无分跟着你？
+小满别怕，娘卖了这屋子。
+干完这一单带你远走高飞。
+小满乖，娘给你洗净身子备好药丸。
+吃过乖乖睡觉。
+知道了，我都记牢了。
+你也是好心。剩下的六十两尾款免了。
+算我谢你照拂。
+院子卖了七百两。
+杀完厉狂澜，我带小满去北境。
+那儿人参便宜。
+找个不讲究的采参人嫁了过日子。
+残花败柳怎敢奢望贵公子珍惜？
+只当偶然相遇罢了。
+这些年多谢你，我们娘儿俩才能活下来。
+伞还给你。上面画了枝海棠。
+他是个雅致人，别介意。
+镇山武馆厉教头。
+阿沅姑娘是不是你这个淫贼害死的？
+我叫你知道作恶多端的下场，强逼岂容妄想！
+我叫你知道什么叫两情相悦，什么叫生死不渝！">复制全部台词</button>
+  </header>
+  <ol class="cast-lines"><li><i>E01 第 3 场</i><span>酒……掌柜，再来三两白干。</span><em>伏在桌上含混低喊，胡乱推开凉透的面碗</em></li><li><i>E01 第 3 场</i><span>不要碰我！少在这假惺惺。</span><em>双唇沾酒艳如桃花，眼底却全是绝望与倔强</em></li><li><i>E01 第 3 场</i><span>说，今天有没有新买卖？</span><em>紧接前话，神色不松</em></li><li><i>E02 第 1 场</i><span>少啰嗦！钱花光了，到底还有没有新买卖？</span><em>嗓音嘶哑发狠，攥紧桌上空药盒</em></li><li><i>E02 第 1 场</i><span>我不能离开永安！</span><em>扶着桌沿站起，声音嘶哑濒临崩溃</em></li><li><i>E02 第 1 场</i><span>没有银子买百年紫雪参，小满她会死的！</span><em>紧接前话，神色不松</em></li><li><i>E02 第 1 场</i><span>我不借！谁不知道你扇底寸银吃人不吐骨头。</span><em>红着眼抬头冷笑</em></li><li><i>E02 第 1 场</i><span>药钱全进你口袋了！</span><em>紧接前话，神色不松</em></li><li><i>E02 第 1 场</i><span>三百两……也许他当真只凑得起这些银子了。</span><em>望着油灯出神，语气突然软了下来</em></li><li><i>E02 第 1 场</i><span>叫你不要碰我……松开，我没醉！</span><em>醉眼迷离，嘴里含糊骂着</em></li><li><i>E02 第 2 场</i><span>峥哥哥……小满不要怕，娘在这里……</span><em>梦呓般低语，声线碎得让人心酸</em></li><li><i>E03 第 1 场</i><span>林公子请起。这桩买卖我代我们公子接了。</span><em>隔着黑纱运功压低嗓音，沉稳得像个男人</em></li><li><i>E03 第 1 场</i><span>一月内必有回复。</span><em>紧接前话，神色不松</em></li><li><i>E03 第 1 场</i><span>温如风，难道你心里就只认银子。</span><em>怒气上涌，呼吸急促</em></li><li><i>E03 第 1 场</i><span>天下没钱的人就活该受屈吗？</span><em>紧接前话，神色不松</em></li><li><i>E03 第 1 场</i><span>算我求你这一回。三成抽头少不了你的。</span><em>摸着袖中刚换回的紫雪参药盒，语气透出孤苦</em></li><li><i>E03 第 1 场</i><span>小满的药钱实在等不起了。</span><em>紧接前话，神色不松</em></li><li><i>E04 第 1 场</i><span>卖掉亡母遗物也要替旧人雪恨……</span><em>躲在树影后轻声呢喃，眼神渐渐软了下来</em></li><li><i>E04 第 1 场</i><span>世上真有这样痴情的男人。</span><em>紧接前话，神色不松</em></li><li><i>E04 第 2 场</i><span>乖，吞了这颗参丸就不喘了。</span><em>轻拍女儿瘦弱的后背，声音温柔得像换了个人</em></li><li><i>E04 第 2 场</i><span>娘再去挣银子给你买糖。</span><em>紧接前话，神色不松</em></li><li><i>E04 第 2 场</i><span>等娘攒够了药钱。</span><em>望着水盆里的自己唇角微弯，眼里透出久违的少女期许</em></li><li><i>E04 第 2 场</i><span>咱们就带着银子离开永安，再也不碰刀剑了。</span><em>紧接前话，神色不松</em></li><li><i>E05 第 1 场</i><span>公子扭伤了脚，又不曾带仆从。</span><em>蹲身轻声相问，眉眼温婉柔和，见对方盯看竟羞怯低头</em></li><li><i>E05 第 1 场</i><span>不如我找人送公子去看大夫。</span><em>紧接前话，神色不松</em></li><li><i>E06 第 1 场</i><span>不用。温如风，约我出来什么事。</span><em>摆手挥退掌柜，眼神虽冷，眉梢却带着几分柔意</em></li><li><i>E06 第 1 场</i><span>我还得回去陪小满。</span><em>紧接前话，神色不松</em></li><li><i>E06 第 1 场</i><span>少拿我跟醉花阴的贱人比！你到底说不说正事？</span><em>猛地拍案站起，呼吸急促胸口起伏</em></li><li><i>E06 第 1 场</i><span>你说什么！我江晚棠行得正。</span><em>眼里冒火，手掌悬在半空微微发抖</em></li><li><i>E06 第 1 场</i><span>轮不到你嘴里胡言乱语！</span><em>紧接前话，神色不松</em></li><li><i>E06 第 1 场</i><span>你……你竟敢暗中盯梢监视我？</span><em>盯着小册子上的墨迹瞬间气短，声音发颤</em></li><li><i>E06 第 1 场</i><span>我没有动心！我只是可怜他，你凭什么这么凶！</span><em>被抓疼手腕拼命挣扎，嗓音带着委屈发颤</em></li><li><i>E06 第 1 场</i><span>你知不知道他有多可怜？</span><em>攥紧桌上酒杯哽咽质问，眼泪顺着脸颊滑落</em></li><li><i>E06 第 1 场</i><span>心上人死了是什么滋味，你懂吗？</span><em>紧接前话，神色不松</em></li><li><i>E06 第 1 场</i><span>你们眼里除了银子还有什么？</span><em>捧着酒杯又哭又喊，苍白脸颊泛起醉红</em></li><li><i>E06 第 1 场</i><span>是不是多一分银子就真那么好？</span><em>紧接前话，神色不松</em></li><li><i>E06 第 1 场</i><span>不要碰我。</span><em>一动不动伏在桌边，声音冷得像透骨寒冰</em></li><li><i>E07 第 2 场</i><span>在林家过夜又怎样？你不也在醉花阴过夜么！</span><em>脸颊红得发烫，昂头硬生生顶了回去</em></li><li><i>E07 第 2 场</i><span>不必多事……</span><em>羞恼交加，指着紫竹伞支吾开口</em></li><li><i>E07 第 2 场</i><span>把你手里那把伞借我用一下，行吗？</span><em>紧接前话，神色不松</em></li><li><i>E07 第 2 场</i><span>他……他在陈夫子书塾念书，这会儿怕没带伞。</span><em>涨红了脸，结结巴巴说完</em></li><li><i>E07 第 2 场</i><span>像什么？</span><em>神色茫然，不等回答便攥紧伞柄</em></li><li><i>E08 第 1 场</i><span>顺路罢了，见雨势渐大，怕公子受凉。</span><em>垂眸轻声回应，面颊微染桃花色</em></li><li><i>E08 第 1 场</i><span>雨打海棠……公子真是个雅致的人儿。</span><em>爱不释手地抚过伞骨，眉眼藏不住欢喜</em></li><li><i>E08 第 1 场</i><span>只是林家高门大户，公子往后对亲事作何打算？</span><em>指尖轻轻摩挲竹柄，低声试探</em></li><li><i>E08 第 1 场</i><span>所以公子方才说的相伴。</span><em>笑意瞬间敛去，盯着他的眼睛轻声追问</em></li><li><i>E08 第 1 场</i><span>是叫人无名无分跟着你？</span><em>紧接前话，神色不松</em></li><li><i>E08 第 2 场</i><span>小满别怕，娘卖了这屋子。</span><em>帮女儿掖严棉被，眉眼重回冷冽决绝</em></li><li><i>E08 第 2 场</i><span>干完这一单带你远走高飞。</span><em>紧接前话，神色不松</em></li><li><i>E09 第 1 场</i><span>小满乖，娘给你洗净身子备好药丸。</span><em>低头替女儿盖好棉被，嗓音温软平静</em></li><li><i>E09 第 1 场</i><span>吃过乖乖睡觉。</span><em>紧接前话，神色不松</em></li><li><i>E09 第 1 场</i><span>知道了，我都记牢了。</span><em>一反常态地微笑点头，语气柔和温顺</em></li><li><i>E09 第 1 场</i><span>你也是好心。剩下的六十两尾款免了。</span><em>微微一笑，眉眼透出从未有过的释然</em></li><li><i>E09 第 1 场</i><span>算我谢你照拂。</span><em>紧接前话，神色不松</em></li><li><i>E09 第 1 场</i><span>院子卖了七百两。</span><em>语气轻快平和，仿佛早把一切安排妥当</em></li><li><i>E09 第 1 场</i><span>杀完厉狂澜，我带小满去北境。</span><em>紧接前话，神色不松</em></li><li><i>E09 第 1 场</i><span>那儿人参便宜。</span><em>垂眸轻笑，眼神透着清冷的告别</em></li><li><i>E09 第 1 场</i><span>找个不讲究的采参人嫁了过日子。</span><em>紧接前话，神色不松</em></li><li><i>E09 第 1 场</i><span>残花败柳怎敢奢望贵公子珍惜？</span><em>摇头苦笑，语气淡漠得没有半分留恋</em></li><li><i>E09 第 1 场</i><span>只当偶然相遇罢了。</span><em>紧接前话，神色不松</em></li><li><i>E09 第 1 场</i><span>这些年多谢你，我们娘儿俩才能活下来。</span><em>声音微软，眼底泛起一层水光</em></li><li><i>E09 第 1 场</i><span>伞还给你。上面画了枝海棠。</span><em>柔婉笑了一笑，转身整理佩剑</em></li><li><i>E09 第 1 场</i><span>他是个雅致人，别介意。</span><em>紧接前话，神色不松</em></li><li><i>E10 第 1 场</i><span>镇山武馆厉教头。</span><em>眼神冷冽如霜，剑刃紧紧贴住他咽喉</em></li><li><i>E10 第 1 场</i><span>阿沅姑娘是不是你这个淫贼害死的？</span><em>紧接前话，神色不松</em></li><li><i>E10 第 1 场</i><span>我叫你知道作恶多端的下场，强逼岂容妄想！</span><em>声线凄厉怒叱，毫无半点留情之意</em></li><li><i>E10 第 1 场</i><span>我叫你知道什么叫两情相悦，什么叫生死不渝！</span><em>咬紧下唇，眼里含泪却杀意凛然</em></li></ol>
+</section>
+<section class="cast-blk">
+  <header class="cast-h">
+    <b>林慕白</b>
+    <span class="cast-meta">37 句 · 530 字 · 约 117.8 秒</span>
+    <button class="copy" data-copy="Early-20s male, light supple tenor-baritone, mid-high pitch, slender nasal-head blend, fragile breathy vibrato. Gentle timid loudness, hesitant hurried bursts, trembling rising tails. Scholarly Mandarin, soft vowels. Anxious, pleading, polite.">音色提示词</button>
+    <button class="copy" data-copy="温大侠，您价钱公道。
+可小生实在只有三百两啊！
+这三百两还是卖了亡母首饰凑的。
+求您念在阿沅死得冤，开恩一次吧！
+去年端午看龙舟相识。
+小生备好聘礼却被家里硬生生拆散！
+温大侠，您若不答应替小生手刃恶贼。
+小生今日便长跪不起！
+多谢大侠！小生先行留下半数定金。
+余款事成即刻奉上！
+阿沅，小生实在无能。
+连母亲遗物都卖了才凑出这三百两。
+你在天有灵再等等。
+一月之内必叫那恶贼血债血偿。
+有劳姑娘厚意，小生来替亡友祈福。
+一时伤心才扭了脚腕。
+江姑娘！春雨寒凉，怎敢劳烦您亲自送伞？
+一枝雨打海棠，才配得上姑娘清雅温柔。
+墨迹未干恰似春雨海棠。
+若能日日为姑娘执笔，该有多好。
+家父最重门第清白。
+小生实在无力违拗父命迎娶寒门……
+若得姑娘这般红颜知己相伴。
+即便无名无分，我也知足了。
+温、温大侠！您这是怎么了，事成没有？
+真、真把那恶贼杀了？剩下的一百五十两……
+温大侠！剩下的一百五十两尾款您还没拿！
+温大侠！厉狂澜的同党会不会找上门啊！
+新到的龙井真不错，小二，添水！
+温、温大侠！您怎么突然回来了……
+托大侠的福……大侠这三年一直在外游历？
+早搁下了。
+在下去年依父命娶了绸缎庄三小姐，喜得麟儿。
+年轻时为点女色不顾王法，实在滑稽荒唐。
+在下如今安分守法。
+从前那些蠢事早就忘得一干二净了。
+呃……放手……喘、喘不过气……">复制全部台词</button>
+  </header>
+  <ol class="cast-lines"><li><i>E01 第 1 场</i><span>温大侠，您价钱公道。</span><em>满脸泪汗，带着哭腔苦苦哀求</em></li><li><i>E01 第 1 场</i><span>可小生实在只有三百两啊！</span><em>紧接前话，神色不松</em></li><li><i>E01 第 1 场</i><span>这三百两还是卖了亡母首饰凑的。</span><em>声音嘶哑颤抖，泪流满面</em></li><li><i>E01 第 1 场</i><span>求您念在阿沅死得冤，开恩一次吧！</span><em>紧接前话，神色不松</em></li><li><i>E03 第 1 场</i><span>去年端午看龙舟相识。</span><em>仰脸泣诉，泪痕满面</em></li><li><i>E03 第 1 场</i><span>小生备好聘礼却被家里硬生生拆散！</span><em>紧接前话，神色不松</em></li><li><i>E03 第 1 场</i><span>温大侠，您若不答应替小生手刃恶贼。</span><em>连连叩首，声音哽咽悲切</em></li><li><i>E03 第 1 场</i><span>小生今日便长跪不起！</span><em>紧接前话，神色不松</em></li><li><i>E03 第 1 场</i><span>多谢大侠！小生先行留下半数定金。</span><em>大喜过望，擦泪放下银包连连作揖退去</em></li><li><i>E03 第 1 场</i><span>余款事成即刻奉上！</span><em>紧接前话，神色不松</em></li><li><i>E04 第 1 场</i><span>阿沅，小生实在无能。</span><em>跪在香炉前低声哭诉，肩头微耸</em></li><li><i>E04 第 1 场</i><span>连母亲遗物都卖了才凑出这三百两。</span><em>紧接前话，神色不松</em></li><li><i>E04 第 1 场</i><span>你在天有灵再等等。</span><em>仰脸闭眼哽咽发誓，泪痕挂在苍白脸颊</em></li><li><i>E04 第 1 场</i><span>一月之内必叫那恶贼血债血偿。</span><em>紧接前话，神色不松</em></li><li><i>E05 第 1 场</i><span>有劳姑娘厚意，小生来替亡友祈福。</span><em>红着眼眶抬头呆看她，声音软糯文弱</em></li><li><i>E05 第 1 场</i><span>一时伤心才扭了脚腕。</span><em>紧接前话，神色不松</em></li><li><i>E08 第 1 场</i><span>江姑娘！春雨寒凉，怎敢劳烦您亲自送伞？</span><em>受宠若惊，忙用袖口替她轻拭肩头雨珠</em></li><li><i>E08 第 1 场</i><span>一枝雨打海棠，才配得上姑娘清雅温柔。</span><em>落笔收锋，抬头含情脉脉地看她</em></li><li><i>E08 第 1 场</i><span>墨迹未干恰似春雨海棠。</span><em>语气温柔缠绵，眼底流露几分痴恋</em></li><li><i>E08 第 1 场</i><span>若能日日为姑娘执笔，该有多好。</span><em>紧接前话，神色不松</em></li><li><i>E08 第 1 场</i><span>家父最重门第清白。</span><em>低眉叹息，声线怯懦惶然</em></li><li><i>E08 第 1 场</i><span>小生实在无力违拗父命迎娶寒门……</span><em>紧接前话，神色不松</em></li><li><i>E08 第 1 场</i><span>若得姑娘这般红颜知己相伴。</span><em>怯怯抬眼偷瞄她，语气软弱又自私</em></li><li><i>E08 第 1 场</i><span>即便无名无分，我也知足了。</span><em>紧接前话，神色不松</em></li><li><i>E10 第 2 场</i><span>温、温大侠！您这是怎么了，事成没有？</span><em>吓得往后一仰撞在椅背上，舌头打结发问</em></li><li><i>E10 第 2 场</i><span>真、真把那恶贼杀了？剩下的一百五十两……</span><em>盯着包袱吞咽口水，手忙脚乱从袖里掏出银票</em></li><li><i>E10 第 2 场</i><span>温大侠！剩下的一百五十两尾款您还没拿！</span><em>慌忙举着银票追到门边，伸手急喊</em></li><li><i>E10 第 2 场</i><span>温大侠！厉狂澜的同党会不会找上门啊！</span><em>扒着楼梯栏杆朝漆黑雨夜喊破嗓音</em></li><li><i>E11 第 1 场</i><span>新到的龙井真不错，小二，添水！</span><em>闭眼满意抿茶，朝楼梯方向随口招呼</em></li><li><i>E11 第 1 场</i><span>温、温大侠！您怎么突然回来了……</span><em>脸色瞬间煞白，端着茶盏结巴叫喊</em></li><li><i>E11 第 1 场</i><span>托大侠的福……大侠这三年一直在外游历？</span><em>慌忙放下茶杯擦汗，勉强挤出笑脸</em></li><li><i>E11 第 1 场</i><span>早搁下了。</span><em>刻意压着得意，装出一副富贵派头</em></li><li><i>E11 第 1 场</i><span>在下去年依父命娶了绸缎庄三小姐，喜得麟儿。</span><em>紧接前话，神色不松</em></li><li><i>E11 第 1 场</i><span>年轻时为点女色不顾王法，实在滑稽荒唐。</span><em>故作洒脱地轻笑，眼神飘忽敷衍</em></li><li><i>E11 第 1 场</i><span>在下如今安分守法。</span><em>摊手撇清往事，语气轻飘飘毫无愧色</em></li><li><i>E11 第 1 场</i><span>从前那些蠢事早就忘得一干二净了。</span><em>紧接前话，神色不松</em></li><li><i>E11 第 1 场</i><span>呃……放手……喘、喘不过气……</span><em>双脚踮起脸色铁青，死命抓挠温如风手背</em></li></ol>
+</section>
+<section class="cast-blk">
+  <header class="cast-h">
+    <b>秦不争</b>
+    <span class="cast-meta">33 句 · 442 字 · 约 98.2 秒</span>
+    <button class="copy" data-copy="Mid-60s male, mellow seasoned bass-baritone, deep aged pitch, broad chest warmth, gentle airy rasp. Conversational volume, unhurried leisurely pace, smiling lilt at phrase tops. Rounded Mandarin, unforced smooth stops. Wry, observant, benign.">音色提示词</button>
+    <button class="copy" data-copy="我洗手多年只是听听解馋。
+你居然让刀手直接见主顾，规矩不要了？
+两年前太华剑宗顾云峥欺骗素心阁高足。
+又横死胭脂渡，莫非就是她动的手？
+那你帮漕帮除掉薄情郎。
+在神明面前倒也算积了桩阴德。
+五月十三、十四、十六……
+你还真天天给她记行踪账？
+刀手最忌对主顾动情。
+她若漏了风声，官府第一个锁拿你。
+日头偏西了。
+你揣着小册子急匆匆又要往哪儿去？
+你素来对女子不上心。
+如今为她的事如此焦躁，莫非看上人家了？
+做我们这行如砌墙。
+若抹不匀不如趁早扔掉她，免招祸害。
+醉酒误事可是行忌。那江姑娘，还是旧习难改？
+阿棠的流风折柳剑高出一筹。
+十成胜算，还忧心什么？
+年轻时我也信无情好。
+老了才知身边没个伴儿多寂寞。
+如风，老朽总觉得。
+你对江姑娘是不是太牵挂了一点？
+如风，三年不见，总算肯回永安了？
+难得你还记挂我这把老骨头，这些年去哪儿了？
+唉，子孙不争气。早知如此。
+当年真该招你做女婿。
+你的？
+我这儿留着一把老伞。
+虽说画了花有些女人气，倒还结实。
+不知什么年月客人忘在这儿的。
+遮雨正好。有空常来下棋。
+一百两银子一局我可赌不起了，慢走啊！">复制全部台词</button>
+  </header>
+  <ol class="cast-lines"><li><i>E03 第 2 场</i><span>我洗手多年只是听听解馋。</span><em>捋着花白胡须，笑眼微眯</em></li><li><i>E03 第 2 场</i><span>你居然让刀手直接见主顾，规矩不要了？</span><em>紧接前话，神色不松</em></li><li><i>E03 第 2 场</i><span>两年前太华剑宗顾云峥欺骗素心阁高足。</span><em>捻着白棋压低声问，眼神带着探询</em></li><li><i>E03 第 2 场</i><span>又横死胭脂渡，莫非就是她动的手？</span><em>压低声音追问，眼神带着探询</em></li><li><i>E03 第 2 场</i><span>那你帮漕帮除掉薄情郎。</span><em>大笑转着铁球，意味深长看温如风一眼</em></li><li><i>E03 第 2 场</i><span>在神明面前倒也算积了桩阴德。</span><em>紧接前话，神色不松</em></li><li><i>E04 第 3 场</i><span>五月十三、十四、十六……</span><em>捻着花白胡须，笑意里藏着几分审视</em></li><li><i>E04 第 3 场</i><span>你还真天天给她记行踪账？</span><em>紧接前话，神色不松</em></li><li><i>E04 第 3 场</i><span>刀手最忌对主顾动情。</span><em>声音沉稳下来，敲打得句句直指要害</em></li><li><i>E04 第 3 场</i><span>她若漏了风声，官府第一个锁拿你。</span><em>紧接前话，神色不松</em></li><li><i>E04 第 3 场</i><span>日头偏西了。</span><em>转着铁球在后头笑问，眼里透出几分了然</em></li><li><i>E04 第 3 场</i><span>你揣着小册子急匆匆又要往哪儿去？</span><em>紧接前话，神色不松</em></li><li><i>E05 第 2 场</i><span>你素来对女子不上心。</span><em>半眯老眼含笑打趣，手里铁球停住</em></li><li><i>E05 第 2 场</i><span>如今为她的事如此焦躁，莫非看上人家了？</span><em>紧接前话，神色不松</em></li><li><i>E05 第 2 场</i><span>做我们这行如砌墙。</span><em>神色骤然冷峻，一字一句透出老江湖的狠绝</em></li><li><i>E05 第 2 场</i><span>若抹不匀不如趁早扔掉她，免招祸害。</span><em>紧接前话，神色不松</em></li><li><i>E07 第 1 场</i><span>醉酒误事可是行忌。那江姑娘，还是旧习难改？</span><em>压低嗓音，半眯老眼提醒温如风</em></li><li><i>E09 第 3 场</i><span>阿棠的流风折柳剑高出一筹。</span><em>掌心悠然转着铁球，笑眯眯宽慰他</em></li><li><i>E09 第 3 场</i><span>十成胜算，还忧心什么？</span><em>紧接前话，神色不松</em></li><li><i>E09 第 3 场</i><span>年轻时我也信无情好。</span><em>手停铁球，苍老眼里浮起几分感慨</em></li><li><i>E09 第 3 场</i><span>老了才知身边没个伴儿多寂寞。</span><em>紧接前话，神色不松</em></li><li><i>E09 第 3 场</i><span>如风，老朽总觉得。</span><em>迟疑片刻，抬头试探着开口反问</em></li><li><i>E09 第 3 场</i><span>你对江姑娘是不是太牵挂了一点？</span><em>紧接前话，神色不松</em></li><li><i>E11 第 1 场</i><span>如风，三年不见，总算肯回永安了？</span><em>老眼微眯，透着重逢的快意与欣慰</em></li><li><i>E12 第 1 场</i><span>难得你还记挂我这把老骨头，这些年去哪儿了？</span><em>苍老的脸上满是欣慰笑意，轻咳两声</em></li><li><i>E12 第 1 场</i><span>唉，子孙不争气。早知如此。</span><em>摇了摇头叹息，眼角笑纹又添几分沧桑</em></li><li><i>E12 第 1 场</i><span>当年真该招你做女婿。</span><em>紧接前话，神色不松</em></li><li><i>E12 第 1 场</i><span>你的？</span><em>目光落在粉嫩幼女身上，眼角笑纹绽开</em></li><li><i>E12 第 2 场</i><span>我这儿留着一把老伞。</span><em>拄杖笑了笑，朝门边伙计抬手示意</em></li><li><i>E12 第 2 场</i><span>虽说画了花有些女人气，倒还结实。</span><em>紧接前话，神色不松</em></li><li><i>E12 第 2 场</i><span>不知什么年月客人忘在这儿的。</span><em>笑眯眯捻须摆手，不以为意</em></li><li><i>E12 第 2 场</i><span>遮雨正好。有空常来下棋。</span><em>紧接前话，神色不松</em></li><li><i>E12 第 2 场</i><span>一百两银子一局我可赌不起了，慢走啊！</span><em>站在门廊里笑眯眯挥手嘱咐</em></li></ol>
+</section>
+<section class="cast-blk">
+  <header class="cast-h">
+    <b>崔断水</b>
+    <span class="cast-meta">16 句 · 211 字 · 约 46.9 秒</span>
+    <button class="copy" data-copy="35-year-old male, harsh dry bass-baritone, low gravelly register, tight throat constriction, rigid clipped articulation. Restrained steady loudness, deliberate blunt tempo, flat downward cadences without warmth. Coarse northern dialect edge, clipped plosives. Coldly calculating and grim.">音色提示词</button>
+    <button class="copy" data-copy="谁不知道扇底寸银算盘精？
+动动嘴皮挣二三百两，我们得卖半年命。
+呸！三百两杀子母鸳鸯剑？
+我老崔这颗人头可没这么便宜！
+今晚兄弟做东，五百两包了醉花阴十个头牌。
+个个香甜，跟哥哥去撑场子！
+铁面巡检这单五百两黄金。
+若交给我，公子抽四成。
+四成五，公子未免太贪心。
+好！五成就五成！
+那不是林家三公子么？
+温公子向来只认银子，今日怎么倒失了神？
+半月前铁面巡检毙命。
+五百两黄金入账，敬财神爷！
+少管闲事！老鸨，今晚这位绾音姑娘。
+兄弟替温公子包下了！">复制全部台词</button>
+  </header>
+  <ol class="cast-lines"><li><i>E01 第 2 场</i><span>谁不知道扇底寸银算盘精？</span><em>抱臂坐下，阴阳怪气地哼笑</em></li><li><i>E01 第 2 场</i><span>动动嘴皮挣二三百两，我们得卖半年命。</span><em>紧接前话，神色不松</em></li><li><i>E01 第 2 场</i><span>呸！三百两杀子母鸳鸯剑？</span><em>脸色阴沉，满嘴嫌恶</em></li><li><i>E01 第 2 场</i><span>我老崔这颗人头可没这么便宜！</span><em>紧接前话，神色不松</em></li><li><i>E01 第 2 场</i><span>今晚兄弟做东，五百两包了醉花阴十个头牌。</span><em>凑近拍着温如风肩膀压低声音，露出贪婪笑意</em></li><li><i>E01 第 2 场</i><span>个个香甜，跟哥哥去撑场子！</span><em>挤眉弄眼，伸手去拽温如风胳膊</em></li><li><i>E05 第 1 场</i><span>铁面巡检这单五百两黄金。</span><em>假作闭眼祈愿，嗓音干冷如切铁</em></li><li><i>E05 第 1 场</i><span>若交给我，公子抽四成。</span><em>紧接前话，神色不松</em></li><li><i>E05 第 1 场</i><span>四成五，公子未免太贪心。</span><em>眉骨下压，喉底发出一声冷哼</em></li><li><i>E05 第 1 场</i><span>好！五成就五成！</span><em>从牙缝里挤出话来，转头却见温如风突然僵住不动</em></li><li><i>E05 第 1 场</i><span>那不是林家三公子么？</span><em>收回手惊疑地上下打量他，眼里满是不可置信</em></li><li><i>E05 第 1 场</i><span>温公子向来只认银子，今日怎么倒失了神？</span><em>紧接前话，神色不松</em></li><li><i>E07 第 1 场</i><span>半月前铁面巡检毙命。</span><em>神色阴沉得意，举杯朝温如风一饮而尽</em></li><li><i>E07 第 1 场</i><span>五百两黄金入账，敬财神爷！</span><em>紧接前话，神色不松</em></li><li><i>E07 第 1 场</i><span>少管闲事！老鸨，今晚这位绾音姑娘。</span><em>大笑着朝楼下喊一声，摆摆手拉着秦不争起身</em></li><li><i>E07 第 1 场</i><span>兄弟替温公子包下了！</span><em>紧接前话，神色不松</em></li></ol>
+</section>
+<section class="cast-blk">
+  <header class="cast-h">
+    <b>画外音</b>
+    <span class="cast-meta">14 句 · 179 字 · 约 39.8 秒</span>
+    
+    <button class="copy" data-copy="龙舟一别，数月相思……
+世上竟真有如此痴情的读书人吗？
+若能换得安稳度日。
+这双沾血的手或许也能洗干净。
+猛回头，避雨处风景依然……
+素心阁弃徒、黑道女刀手……
+残花败柳之身，还奢望什么富贵名分？
+这么久还没消息。
+厉狂澜那恶贼不会反杀过来吧……
+不如趁夜溜回家。
+兴许那个温柔美人还在灯下等我呢。
+可惜当年那个白衣美人没能留住。
+不然齐人之福才真叫快活。
+猛回头，避雨处风景依然……">复制全部台词</button>
+  </header>
+  <ol class="cast-lines"><li><i>E03 第 2 场</i><span>龙舟一别，数月相思……</span><em>江晚棠的心声，轻柔却透出危险的动摇</em></li><li><i>E03 第 2 场</i><span>世上竟真有如此痴情的读书人吗？</span><em>紧接前话，神色不松</em></li><li><i>E04 第 2 场</i><span>若能换得安稳度日。</span><em>江晚棠的心声，轻柔里带着一丝连她自己都没察觉的憧憬</em></li><li><i>E04 第 2 场</i><span>这双沾血的手或许也能洗干净。</span><em>紧接前话，神色不松</em></li><li><i>E07 第 1 场</i><span>猛回头，避雨处风景依然……</span><em>楼下戏台花旦凄婉的唱腔飘进窗棂</em></li><li><i>E08 第 2 场</i><span>素心阁弃徒、黑道女刀手……</span><em>江晚棠的心声，冰冷清醒，彻底碎尽春梦</em></li><li><i>E08 第 2 场</i><span>残花败柳之身，还奢望什么富贵名分？</span><em>紧接前话，神色不松</em></li><li><i>E10 第 2 场</i><span>这么久还没消息。</span><em>林慕白的心声，紧抱胳膊慌张张望楼梯口</em></li><li><i>E10 第 2 场</i><span>厉狂澜那恶贼不会反杀过来吧……</span><em>紧接前话，神色不松</em></li><li><i>E10 第 2 场</i><span>不如趁夜溜回家。</span><em>林慕白的心声，想起柔情怀抱顿时心头一热</em></li><li><i>E10 第 2 场</i><span>兴许那个温柔美人还在灯下等我呢。</span><em>紧接前话，神色不松</em></li><li><i>E11 第 1 场</i><span>可惜当年那个白衣美人没能留住。</span><em>林慕白的心声，暗自惋惜叹气</em></li><li><i>E11 第 1 场</i><span>不然齐人之福才真叫快活。</span><em>紧接前话，神色不松</em></li><li><i>E12 第 3 场</i><span>猛回头，避雨处风景依然……</span><em>醉花阴楼上戏台隐约传来的女伶唱词</em></li></ol>
+</section>
+<section class="cast-blk">
+  <header class="cast-h">
+    <b>小满</b>
+    <span class="cast-meta">7 句 · 71 字 · 约 15.8 秒</span>
+    <button class="copy" data-copy="3-year-old female child, soft velvety treble, high light timbre, airy head resonance, bright unformed consonants. Gentle quiet voice, bouncy unhurried cadence, curious upward lilt on endings. Pure childlike Mandarin, lisping soft vowels. Sweetly trusting and sleepy.">音色提示词</button>
+    <button class="copy" data-copy="娘亲……药好苦，小满想吃糖饼。
+娘亲头发黑黑的，像花一样好看。
+娘……冷……
+娘亲早回。
+温叔叔，我们回家吃粽子吧。
+不要红枣的，我要吃甜豆沙的！
+唔……">复制全部台词</button>
+  </header>
+  <ol class="cast-lines"><li><i>E04 第 2 场</i><span>娘亲……药好苦，小满想吃糖饼。</span><em>皱着小眉头咽下药丸，软糯地蹭进母亲怀里</em></li><li><i>E04 第 2 场</i><span>娘亲头发黑黑的，像花一样好看。</span><em>趴在木盆边睁大黑亮眼睛仰望，伸出小手轻扯娘亲衣袖</em></li><li><i>E08 第 2 场</i><span>娘……冷……</span><em>在睡梦中发出一声微弱含糊的呓语</em></li><li><i>E09 第 1 场</i><span>娘亲早回。</span><em>怀抱黑漆药盒轻轻拉住娘亲黑袖，奶声奶气</em></li><li><i>E12 第 3 场</i><span>温叔叔，我们回家吃粽子吧。</span><em>奶声奶气撒娇，小脑袋贴着他肩窝</em></li><li><i>E12 第 3 场</i><span>不要红枣的，我要吃甜豆沙的！</span><em>晃着小脑袋噘嘴拒绝，嗓音软糯</em></li><li><i>E12 第 3 场</i><span>唔……</span><em>困倦地把脸埋进他颈窝，小声软糯答应</em></li></ol>
+</section>
+<section class="cast-blk">
+  <header class="cast-h">
+    <b>绾音</b>
+    <span class="cast-meta">5 句 · 62 字 · 约 13.8 秒</span>
+    <button class="copy" data-copy="19-year-old female, honeyed breathy soprano, supple upper-mid tone, plush chest-head blend, smooth lingering vibrato. Intimate low-to-medium projection, unhurried languid rhythm, silky swooping inflections. Refined southern court diction, rounded syllables. Coyly alluring and poised.">音色提示词</button>
+    <button class="copy" data-copy="温公子再不饮，奴家可要替您喝了。
+温公子既过门前。
+外头春雨寒凉，上去饮杯暖酒吧。
+公子总是这样走得急。
+奴家真要信了那句薄幸无情。">复制全部台词</button>
+  </header>
+  <ol class="cast-lines"><li><i>E07 第 1 场</i><span>温公子再不饮，奴家可要替您喝了。</span><em>贴近耳畔轻笑撒娇，吐气如兰</em></li><li><i>E08 第 3 场</i><span>温公子既过门前。</span><em>含情脉脉地娇笑挽留，身子微往他手边靠</em></li><li><i>E08 第 3 场</i><span>外头春雨寒凉，上去饮杯暖酒吧。</span><em>紧接前话，神色不松</em></li><li><i>E08 第 3 场</i><span>公子总是这样走得急。</span><em>轻叹松手，站在廊灯下目送他远去</em></li><li><i>E08 第 3 场</i><span>奴家真要信了那句薄幸无情。</span><em>紧接前话，神色不松</em></li></ol>
+</section>
+<section class="cast-blk">
+  <header class="cast-h">
+    <b>厉狂澜</b>
+    <span class="cast-meta">5 句 · 81 字 · 约 18 秒</span>
+    <button class="copy" data-copy="40-year-old male, harsh gravelly bass, deep low pitch, heavy nasal-chest boom, forceful abrupt surges. Loud commanding projection, clipped heavy tempo, blunt plunging stops. Rough northern accent, thick consonants. Aggressive, menacing, arrogant.">音色提示词</button>
+    <button class="copy" data-copy="剑法快算什么本事？
+真要命的，还得藏在袖子里。
+是小的猪狗不如，是小的该死！求侠女饶命啊！
+只要侠女放过小的，武馆里的银票全都孝敬您！
+这么标致的身段，偏偏跑来做刺客……">复制全部台词</button>
+  </header>
+  <ol class="cast-lines"><li><i>E09 第 2 场</i><span>剑法快算什么本事？</span><em>咧嘴露出阴毒狞笑，粗哑嗓音在空院回荡</em></li><li><i>E09 第 2 场</i><span>真要命的，还得藏在袖子里。</span><em>紧接前话，神色不松</em></li><li><i>E10 第 1 场</i><span>是小的猪狗不如，是小的该死！求侠女饶命啊！</span><em>满脸冷汗不住战栗，连连磕头求饶</em></li><li><i>E10 第 1 场</i><span>只要侠女放过小的，武馆里的银票全都孝敬您！</span><em>偷偷斜眼瞥向她衣袖，压低嗓音讨好</em></li><li><i>E10 第 1 场</i><span>这么标致的身段，偏偏跑来做刺客……</span><em>盯着她苍白的脸，眼里闪过贪婪狠毒</em></li></ol>
+</section>
+<section class="cast-blk">
+  <header class="cast-h">
+    <b>栖霞观老庙祝</b>
+    <span class="cast-meta">4 句 · 52 字 · 约 11.6 秒</span>
+    <button class="copy" data-copy="60-year-old male, reedy pinched tenor, shrill thin upper register, brittle nasal twang, narrow dynamic span. Eager medium-brisk output, rapid chattering flow, fawning singsong rises. Rustic market patois, sharp dental clicks. Shrewd, ingratiating, and restless.">音色提示词</button>
+    <button class="copy" data-copy="公子面色含愁，可是要测一测流年？
+小观姻缘卦最准。
+不是下下签……此签说的是。
+最初居士有所乱，后面还是好的。">复制全部台词</button>
+  </header>
+  <ol class="cast-lines"><li><i>E05 第 1 场</i><span>公子面色含愁，可是要测一测流年？</span><em>搓着手躬身赔笑，三角眼精明地打量温如风</em></li><li><i>E05 第 1 场</i><span>小观姻缘卦最准。</span><em>紧接前话，神色不松</em></li><li><i>E05 第 1 场</i><span>不是下下签……此签说的是。</span><em>干瘪喉咙吞吐半晌，终究老实照签直念</em></li><li><i>E05 第 1 场</i><span>最初居士有所乱，后面还是好的。</span><em>紧接前话，神色不松</em></li></ol>
+</section>
+<section class="cast-blk">
+  <header class="cast-h">
+    <b>三更面馆掌柜</b>
+    <span class="cast-meta">1 句 · 21 字 · 约 4.7 秒</span>
+    <button class="copy" data-copy="Mid-40s male, hoarse raspy baritone, thick chesty mid-low range, phlegmy nasal grit, slack jaw enunciation. Grumbling conversational projection, dragging uneven speed, muttering trailing drop-offs. Working-class street vernacular, slurred endings. Drowsy, weary, and blunt.">音色提示词</button>
+    <button class="copy" data-copy="苦啊……客官，今晚还是照旧要一碗阳春面么？">复制全部台词</button>
+  </header>
+  <ol class="cast-lines"><li><i>E06 第 1 场</i><span>苦啊……客官，今晚还是照旧要一碗阳春面么？</span><em>拎着擦汗巾粗声招呼，眼珠子忍不住往她脸上偷瞄</em></li></ol>
+</section>
+  </div>
+</section>
+
+<section class="top-sec" id="sec-gates">
+  <div class="sec-h"><span class="no">05</span><h2>质量门</h2></div>
+  <ul class="gate">
+  <li class="ok"><span class="m">✓</span><span>每集时长在目标 ±15% 内</span></li>
+  <li class="ok"><span class="m">✓</span><span>单句台词 ≤ 35 字</span></li>
+  <li class="ok"><span class="m">✓</span><span>说话人在本场人物里，或明确标画外音 VO</span></li>
+  <li class="ok"><span class="m">✓</span><span>每集开场钩子与结尾悬念都落在纸面</span></li>
+  <li class="ok"><span class="m">✓</span><span>钩子的具象在全集前 3 拍内兑现（hookBeat 认领）</span></li>
+  <li class="ok"><span class="m">✓</span><span>每场至少一个动作节拍——纯对白的场是广播剧</span></li>
+  <li class="ok"><span class="m">✓</span><span>动作描述叙述体，台词只进 dialogue 字段</span></li>
+  <li class="ok"><span class="m">✓</span><span>大纲爽点逐集认领</span></li>
+  <li class="ok"><span class="m">✓</span><span>角色引用对账大纲</span></li>
+  <li class="ok"><span class="m">✓</span><span>场景／光照／道具对账美术设定</span></li>
+</ul>
+  <p class="gsum">全部通过</p>
+</section>
+
+<p class="foot">剧本由模型依据大纲与美术设定生成，时长与引用由脚本确定性检查。分镜与首帧提示词是下一层的事，不在本报告里。</p>
+</div>
+
+<script type="application/json" id="script-data">{"source":"晚棠风","episodes":[{"ep":1,"targetSeconds":120,"hook":"白衣书生扑通跪地以三百两买凶，雅阁里修指甲的青衣公子为何冷笑比出七根指头","cliff":"推掉醉花阴十美夜宴的冷血掮客，深夜却坐进寒酸面馆替落魄女刀手换上好酒，她当尽耳环究竟藏着什么死穴","beatsClaimed":["人设反差"],"hookBeat":[1,1],"scenes":[{"sceneId":"S01","lighting":"午后斜阳","characters":["C01","C03"],"props":["P01"],"flow":[{"action":"冷开场：白衣书生双膝重重砸跪在听风楼木地板上，双手死死扣住桌沿；桌对面青衣男子垂眼捏着寸银小刀，慢条斯理修着指甲。"},{"speaker":"C03","line":"温大侠，您价钱公道。","delivery":"满脸泪汗，带着哭腔苦苦哀求"},{"speaker":"C03","line":"可小生实在只有三百两啊！","delivery":"紧接前话，神色不松"},{"action":"温如风慢条斯理吹去指尖碎屑，朝对面的林慕白竖起一根手指。"},{"speaker":"C01","line":"第一，我不是什么大侠，别乱叫。","delivery":"眼皮微抬，嘴角挂着淡笑"},{"speaker":"C01","line":"第二，想手刃恶狗就自己练武，买凶不算本事。","delivery":"又竖起第二根手指，语气不紧不慢"},{"action":"温如风突然张开七根修长白净的手指，在林慕白面前轻轻晃了晃。"},{"speaker":"C01","line":"第三，七百两杀厉狂澜，嫌贵就请另找高明。","delivery":"端起凉茶轻抿，长袖掩住微微皱起的眉头"},{"action":"林慕白猛地往地板上磕头，额头砸得咚咚作响。"},{"speaker":"C03","line":"这三百两还是卖了亡母首饰凑的。","delivery":"声音嘶哑颤抖，泪流满面"},{"speaker":"C03","line":"求您念在阿沅死得冤，开恩一次吧！","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"变卖家当只为给没名分的女人报仇。","delivery":"放下茶盏，话里带着三分冷嘲"},{"speaker":"C01","line":"林三公子倒真是个痴情人。","delivery":"紧接前话，神色不松"},{"action":"温如风不耐烦地挥了挥手，长叹一声。"},{"speaker":"C01","line":"你先回去，我想想办法，但不一定成。","delivery":"敷衍打发"},{"action":"林慕白如蒙大赦，慌忙连磕三个响头，起身倒退出门外。"}]},{"sceneId":"S01","lighting":"暮色夜灯","characters":["C01","C07"],"props":["P01"],"flow":[{"action":"夜色爬上窗外垂柳，魁梧穿绿袍的崔断水大步掀帘闯进雅阁，一把抄起凉茶灌了一口。"},{"speaker":"C07","line":"谁不知道扇底寸银算盘精？","delivery":"抱臂坐下，阴阳怪气地哼笑"},{"speaker":"C07","line":"动动嘴皮挣二三百两，我们得卖半年命。","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"官府捉人，最先锁拿的也是我。","delivery":"把玩着寸银小刀，似笑非笑"},{"speaker":"C01","line":"这儿有单买卖，三百两杀厉狂澜，接吗？","delivery":"紧接前话，神色不松"},{"action":"崔断水黑脸瞬间一僵，重重放下茶杯往地上啐了一口。"},{"speaker":"C07","line":"呸！三百两杀子母鸳鸯剑？","delivery":"脸色阴沉，满嘴嫌恶"},{"speaker":"C07","line":"我老崔这颗人头可没这么便宜！","delivery":"紧接前话，神色不松"},{"speaker":"C07","line":"今晚兄弟做东，五百两包了醉花阴十个头牌。","delivery":"凑近拍着温如风肩膀压低声音，露出贪婪笑意"},{"speaker":"C07","line":"个个香甜，跟哥哥去撑场子！","delivery":"挤眉弄眼，伸手去拽温如风胳膊"},{"action":"温如风笑着拨开他的胳膊，端起冷茶一饮而尽。"},{"speaker":"C01","line":"可惜，今晚已约了人。","delivery":"起身掸了掸青衫，笑容疏离"},{"speaker":"C01","line":"醉花阴的无边风月只能心领了。","delivery":"紧接前话，神色不松"},{"action":"崔断水怒极甩袖摔门而去。温如风抬头望一眼窗外清月，拿起折扇下楼。"}]},{"sceneId":"S02","lighting":"深夜孤灯","characters":["C01","C02","C09"],"props":["P01"],"flow":[{"action":"深夜三更面馆冷清极了，掌柜守着沸腾汤锅打盹，将兑了水的白干粗暴敦在白衣女客桌前。"},{"speaker":"C02","line":"酒……掌柜，再来三两白干。","delivery":"伏在桌上含混低喊，胡乱推开凉透的面碗"},{"action":"一只修长白净的手从后拍住掌柜肩头。青衣折扇的温如风在女客身旁坐下，捏出寸银小刀修指甲。"},{"speaker":"C01","line":"我不喝搀水的劣酒。","delivery":"语气平稳却不容置疑"},{"speaker":"C01","line":"把你藏着最好的琥珀春拿出来。","delivery":"紧接前话，神色不松"},{"action":"掌柜吓得连连点头，一溜烟钻进后厨搬来好酒放下退走。温如风斟满一杯，伸手轻触女客空荡荡的耳垂。"},{"speaker":"C01","line":"阿棠，耳环也当掉了？","delivery":"眼神复杂，嘴上却偏要叹息调侃"},{"speaker":"C01","line":"看样子连最后一点银子也花光了。","delivery":"紧接前话，神色不松"},{"action":"江晚棠猛地抬起苍白瘦削的脸，抬手狠狠拍掉温如风的手。"},{"speaker":"C02","line":"不要碰我！少在这假惺惺。","delivery":"双唇沾酒艳如桃花，眼底却全是绝望与倔强"},{"speaker":"C02","line":"说，今天有没有新买卖？","delivery":"紧接前话，神色不松"}]}]},{"ep":2,"targetSeconds":120,"hook":"当尽耳环的落魄女刀手为何猛地拍开温如风的手，醉酒呛咳苦求一桩足价杀人买卖","cliff":"听完阿沅惨死始末的江晚棠眼神陡变，深夜院外旋刀独坐的温如风还不知她已打定主意强接那桩死单","beatsClaimed":["痛点拉扯"],"hookBeat":[1,1],"scenes":[{"sceneId":"S02","lighting":"深夜孤灯","characters":["C01","C02","C09"],"props":["P01","P03"],"flow":[{"action":"冷开场：江晚棠甩开温如风的手，仰脖将琥珀春一饮而尽，猛地捂胸剧烈咳嗽，从怀里掏出一只空药盒重重拍在桌上。"},{"action":"温如风慌忙凑近替她拍背顺气，掌柜缩在后灶阴影处暗暗偷瞄。"},{"speaker":"C01","line":"我只是不想熟识的刀手早死。","delivery":"收回手轻轻抿酒，刻意用铜臭掩饰关切"},{"speaker":"C01","line":"你活不长，我也少赚钱。","delivery":"紧接前话，神色不松"},{"speaker":"C02","line":"少啰嗦！钱花光了，到底还有没有新买卖？","delivery":"嗓音嘶哑发狠，攥紧桌上空药盒"},{"action":"温如风摇开纸扇说起几单琐碎小活，唯独说到北上大案时停住扇面。"},{"speaker":"C01","line":"北上刺杀铁面巡检值五百两黄金。","delivery":"目光落在她空药盒上，把现实摊开"},{"speaker":"C01","line":"可你抽得开身丢下小满吗？","delivery":"紧接前话，神色不松"},{"speaker":"C02","line":"我不能离开永安！","delivery":"扶着桌沿站起，声音嘶哑濒临崩溃"},{"speaker":"C02","line":"没有银子买百年紫雪参，小满她会死的！","delivery":"紧接前话，神色不松"},{"action":"江晚棠颓然跌回长凳，枕着胳膊无声落泪。温如风掏出手绢替她拭泪，嘴上却冷下脸。"},{"speaker":"C01","line":"我借你银子算三分利。","delivery":"端详酒杯，作出一副算计到底的模样"},{"speaker":"C01","line":"从你以后每单工钱里扣，扣个五六年刚好。","delivery":"紧接前话，神色不松"},{"speaker":"C02","line":"我不借！谁不知道你扇底寸银吃人不吐骨头。","delivery":"红着眼抬头冷笑"},{"speaker":"C02","line":"药钱全进你口袋了！","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"要不第二个法子，干脆别管小满了。","delivery":"话音刻意放淡"},{"speaker":"C01","line":"靠人参吊命本就难养大。","delivery":"紧接前话，神色不松"},{"action":"啪的一声脆响，江晚棠扬手一记耳光狠狠扇在温如风白皙脸颊上。灶台边的掌柜吓得抱头蹲下。"},{"speaker":"C01","line":"素心阁侠女手真重，打死了我谁给你找活？","delivery":"急忙拿折扇遮脸苦笑"},{"speaker":"C01","line":"今天倒真有个疯子上门。","delivery":"紧接前话，神色不松"},{"action":"江晚棠喘息着盯住油灯，眼神黯淡下来。"},{"speaker":"C01","line":"林家不准娶。","delivery":"手指转着酒杯，声音微沉"},{"speaker":"C01","line":"阿沅爹娘把有孕的闺女卖给了厉狂澜。","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"一顿皮鞭下去阿沅咬舌自尽。","delivery":"冷眼看向油灯火苗"},{"speaker":"C01","line":"林慕白只见着一座荒坟。","delivery":"紧接前话，神色不松"},{"action":"江晚棠猛地伸手死死抓紧温如风手背，捏得他手背发青。温如风痛得皱眉抽回手。"},{"speaker":"C02","line":"三百两……也许他当真只凑得起这些银子了。","delivery":"望着油灯出神，语气突然软了下来"},{"action":"江晚棠终于醉倒在桌上。温如风叹气扔下一块碎银，把她一把搀起走出面馆，夜风里江晚棠挥臂胡乱挣扎。"},{"speaker":"C02","line":"叫你不要碰我……松开，我没醉！","delivery":"醉眼迷离，嘴里含糊骂着"},{"speaker":"C01","line":"我不扶你，今晚就睡大街上。","delivery":"咬牙架住她，没好气地回嘴"},{"action":"夜风里两人脚步错杂远去，温如风顺势弯腰稳稳背起她穿过长街。"}]},{"sceneId":"S03","lighting":"冷月寒夜","characters":["C01","C02","C06"],"props":["P01"],"flow":[{"action":"槐花巷漆黑的三进小院屋里家徒四壁，温如风喘着粗气把江晚棠放倒在木榻上，摸黑从柜里抱出棉被将她严实包住。"},{"action":"里榻熟睡的小满翻了个身轻哼一声。江晚棠在被窝里蜷成一团，两滴清泪顺着苍白脸颊滑下。"},{"speaker":"C02","line":"峥哥哥……小满不要怕，娘在这里……","delivery":"梦呓般低语，声线碎得让人心酸"},{"action":"温如风站在榻前愣住，又替里榻的小满掩实被角，回头看一眼空荡屋子才轻声出门。"},{"speaker":"C01","line":"峥哥哥……哼，倒是个死心眼。","delivery":"站在门廊暗影里自嘲般低笑一声"},{"action":"院外月光如水银泼地，温如风靠着斑驳照壁吐出一口酒气，孤寂地仰望星空，寸银小刀在指缝间寒光旋绕。"}]}]},{"ep":3,"targetSeconds":120,"hook":"头戴黑纱斗笠的女刀手竟在桌下扣死温如风手腕，当着买主的面强行接下三百两赔本死单","cliff":"手握三百两定金的江晚棠对林慕白痴情深信不疑，殊不知自己正一步步走入万劫不复的动情死局","beatsClaimed":["暗线反转"],"hookBeat":[1,1],"scenes":[{"sceneId":"S01","lighting":"晨光暖软","characters":["C01","C02","C03"],"props":["P03"],"flow":[{"action":"冷开场：听风楼雅阁内，林慕白掀袍长跪磕头；并排而坐的黑纱斗笠女子在桌下猛然出手，五指运力死死扣住温如风手腕。"},{"speaker":"C03","line":"去年端午看龙舟相识。","delivery":"仰脸泣诉，泪痕满面"},{"speaker":"C03","line":"小生备好聘礼却被家里硬生生拆散！","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"有缘无份也是常事。","delivery":"斜瞥黑纱女子一眼，故意开口劝退"},{"speaker":"C01","line":"林公子不如早觅良缘，过去的事别提了。","delivery":"紧接前话，神色不松"},{"action":"桌下五指力道陡然一沉，剧痛顺着腕骨直窜上去，温如风顿时憋住话头。"},{"speaker":"C03","line":"温大侠，您若不答应替小生手刃恶贼。","delivery":"连连叩首，声音哽咽悲切"},{"speaker":"C03","line":"小生今日便长跪不起！","delivery":"紧接前话，神色不松"},{"action":"温如风正要摇扇喝退，桌下腕骨猛遭一股内劲穿透劳宫穴，疼得他咬紧牙关咽回半句话。"},{"speaker":"C02","line":"林公子请起。这桩买卖我代我们公子接了。","delivery":"隔着黑纱运功压低嗓音，沉稳得像个男人"},{"speaker":"C02","line":"一月内必有回复。","delivery":"紧接前话，神色不松"},{"speaker":"C03","line":"多谢大侠！小生先行留下半数定金。","delivery":"大喜过望，擦泪放下银包连连作揖退去"},{"speaker":"C03","line":"余款事成即刻奉上！","delivery":"紧接前话，神色不松"},{"action":"门帘刚落，黑纱斗笠猛地被江晚棠一把掀开，她双目逼人地瞪住温如风。"},{"speaker":"C02","line":"温如风，难道你心里就只认银子。","delivery":"怒气上涌，呼吸急促"},{"speaker":"C02","line":"天下没钱的人就活该受屈吗？","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"你我又不是朝廷捕快，你手上无辜人命少吗？","delivery":"揉着被捏红的手腕，神色倏然冷厉"},{"speaker":"C01","line":"我促成的黑心买卖又少吗？","delivery":"紧接前话，神色不松"},{"action":"江晚棠浑身一震，缓缓松开手垂下眼帘，声音低了下来。"},{"speaker":"C02","line":"算我求你这一回。三成抽头少不了你的。","delivery":"摸着袖中刚换回的紫雪参药盒，语气透出孤苦"},{"speaker":"C02","line":"小满的药钱实在等不起了。","delivery":"紧接前话，神色不松"},{"action":"温如风凝视她良久终究没有答话，一言不发掀帘转身下楼去。"}]},{"sceneId":"S01","lighting":"晨光暖软","characters":["C01","C05"],"props":[],"flow":[{"action":"止戈轩内阳光暖软，两颗乌亮铁球叮当作响。秦不争笑眯眯把温如风迎到棋桌前落座。"},{"speaker":"C05","line":"我洗手多年只是听听解馋。","delivery":"捋着花白胡须，笑眼微眯"},{"speaker":"C05","line":"你居然让刀手直接见主顾，规矩不要了？","delivery":"紧接前话，神色不松"},{"action":"温如风苦笑着为秦不争斟上热茶，端起黑棋落下一子。"},{"speaker":"C01","line":"区区三百两抽九十两，我不在乎。","delivery":"神色坦然，刻意把重话轻说"},{"speaker":"C01","line":"实在是经不住那丫头拿命缠我。","delivery":"紧接前话，神色不松"},{"speaker":"C05","line":"两年前太华剑宗顾云峥欺骗素心阁高足。","delivery":"捻着白棋压低声问，眼神带着探询"},{"speaker":"C05","line":"又横死胭脂渡，莫非就是她动的手？","delivery":"压低声音追问，眼神带着探询"},{"action":"温如风嗤笑一声，拈起棋子的手顿在半空。"},{"speaker":"C01","line":"她哪来那么狠的心？当年江南漕帮出三千两。","delivery":"冷笑摇头，眼里却掠过一丝深藏的酸涩"},{"speaker":"C01","line":"找上我，是我请人杀的顾云峥。","delivery":"语气平淡如谈寻常买卖"},{"speaker":"C01","line":"那傻丫头至今还满世界找仇人。","delivery":"自嘲般轻哂，垂眼落子"},{"speaker":"C01","line":"想替那个负心汉报仇呢。","delivery":"紧接前话，神色不松"},{"speaker":"C05","line":"那你帮漕帮除掉薄情郎。","delivery":"大笑转着铁球，意味深长看温如风一眼"},{"speaker":"C05","line":"在神明面前倒也算积了桩阴德。","delivery":"紧接前话，神色不松"},{"speaker":"VO","line":"龙舟一别，数月相思……","delivery":"江晚棠的心声，轻柔却透出危险的动摇"},{"speaker":"VO","line":"世上竟真有如此痴情的读书人吗？","delivery":"紧接前话，神色不松"},{"action":"棋盘黑白交错落定，温如风却不知雅阁窗外白衣人影匆匆离去，直往城南栖霞观方向去了。"}]}]},{"ep":4,"targetSeconds":120,"hook":"拿了买命定金的女刀手为何频频换上白裙跟踪自己的雇主","cliff":"温如风小册子上的记录越写越密，江晚棠终究按捺不住要走到林慕白面前","beatsClaimed":[],"hookBeat":[1,1],"scenes":[{"sceneId":"S04","lighting":"午后香烟晴光","characters":["C01","C02","C03"],"props":["P04"],"flow":[{"action":"冷开场：午后晴光透过栖霞观古银杏枝叶，换回素净白裙的江晚棠提着裙角快步跑上青石台阶，闪身躲到粗壮树干后。"},{"action":"前庭青石双耳大香炉青烟袅袅，白衣书生林慕白双手合十跪在香炉前青石板上，低头对着炉烟频频拭泪。"},{"speaker":"C03","line":"阿沅，小生实在无能。","delivery":"跪在香炉前低声哭诉，肩头微耸"},{"speaker":"C03","line":"连母亲遗物都卖了才凑出这三百两。","delivery":"紧接前话，神色不松"},{"speaker":"C03","line":"你在天有灵再等等。","delivery":"仰脸闭眼哽咽发誓，泪痕挂在苍白脸颊"},{"speaker":"C03","line":"一月之内必叫那恶贼血债血偿。","delivery":"紧接前话，神色不松"},{"action":"古银杏树干后，江晚棠扶着粗糙树皮轻轻探出半个身子，低枝红绸随风拂过她出神的眉眼。"},{"speaker":"C02","line":"卖掉亡母遗物也要替旧人雪恨……","delivery":"躲在树影后轻声呢喃，眼神渐渐软了下来"},{"speaker":"C02","line":"世上真有这样痴情的男人。","delivery":"紧接前话，神色不松"},{"action":"林慕白起身整了整月白襕衫，袖口沾着香灰独自沿着石阶缓缓走下前庭。"},{"action":"远景廊下石栏阴影里，温如风负手冷眼看着树后那抹白影，随即从袖中摸出一本蓝布小册子翻开。"},{"action":"他从袖中摸出细笔在微黄竹纸折页上写下一行小楷，收好笔合上册子揣回袖中，又望向树后。"},{"speaker":"C01","line":"五月十三午时，栖霞观。蠢丫头。","delivery":"斜倚石栏轻嗤一声，眼神冷得没有半分笑意"},{"speaker":"C01","line":"拿了银子不练剑，偏跑来偷看主顾。","delivery":"紧接前话，神色不松"},{"action":"江晚棠靠回银杏树干，左手扶上腰侧素银软剑，却顺着石阶望向林慕白远去的背影久久未动。"}]},{"sceneId":"S03","lighting":"清昼天光","characters":["C02","C06"],"props":["P03"],"flow":[{"action":"西城槐花巷小院洒满清昼天光。江晚棠带着小满坐在廊下石阶上，打开黑漆旧木药盒，剥开一枚暗黄蜡丸。"},{"action":"她端过温水碗，把深紫褐色的百年紫雪参药丸小心喂进小满嘴里。"},{"speaker":"C06","line":"娘亲……药好苦，小满想吃糖饼。","delivery":"皱着小眉头咽下药丸，软糯地蹭进母亲怀里"},{"speaker":"C02","line":"乖，吞了这颗参丸就不喘了。","delivery":"轻拍女儿瘦弱的后背，声音温柔得像换了个人"},{"speaker":"C02","line":"娘再去挣银子给你买糖。","delivery":"紧接前话，神色不松"},{"action":"江晚棠合上药盒，牵着小满走到廊下蓄水的大木盆旁蹲下，俯身对着清亮水面解开素木簪。"},{"action":"一瀑黑发顺着肩头滑落，她取过木梳缓缓梳理青丝，水面倒映出她逐渐透出粉润的面颊。"},{"speaker":"C06","line":"娘亲头发黑黑的，像花一样好看。","delivery":"趴在木盆边睁大黑亮眼睛仰望，伸出小手轻扯娘亲衣袖"},{"speaker":"C02","line":"等娘攒够了药钱。","delivery":"望着水盆里的自己唇角微弯，眼里透出久违的少女期许"},{"speaker":"C02","line":"咱们就带着银子离开永安，再也不碰刀剑了。","delivery":"紧接前话，神色不松"},{"action":"小满咯咯笑着扑进母亲怀里，母女俩依偎在廊檐投下的槐树影中。"},{"speaker":"VO","line":"若能换得安稳度日。","delivery":"江晚棠的心声，轻柔里带着一丝连她自己都没察觉的憧憬"},{"speaker":"VO","line":"这双沾血的手或许也能洗干净。","delivery":"紧接前话，神色不松"}]},{"sceneId":"S01","lighting":"午后斜阳","characters":["C01","C05"],"props":["P04"],"flow":[{"action":"午后斜阳斜斜穿透止戈轩雕花支摘窗，温如风站在窗畔，一页页翻看手里写满蝇头小楷的蓝布小册子。"},{"action":"秦不争手里稳稳盘着两颗乌亮铁球走近，低头瞥见泛黄折页上的墨迹，微微眯起老眼。"},{"speaker":"C05","line":"五月十三、十四、十六……","delivery":"捻着花白胡须，笑意里藏着几分审视"},{"speaker":"C05","line":"你还真天天给她记行踪账？","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"做中间人总要盯紧货物。","delivery":"重重合上小册子走到方桌旁拍在桌上，语气硬邦邦地掩饰"},{"speaker":"C01","line":"免得出了岔子找不着人顶罪。","delivery":"紧接前话，神色不松"},{"action":"秦不争跟到桌对面鼓凳坐下，铁球在掌心磕出清脆一响，收起笑意抬头看他。"},{"speaker":"C05","line":"刀手最忌对主顾动情。","delivery":"声音沉稳下来，敲打得句句直指要害"},{"speaker":"C05","line":"她若漏了风声，官府第一个锁拿你。","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"借她十个胆也不敢！","delivery":"端起凉茶冷笑，指节却微微收紧"},{"speaker":"C01","line":"不过看人哭两嗓子便心软的傻丫头。","delivery":"紧接前话，神色不松"},{"action":"秦不争摇摇头落下一枚棋子。温如风将茶盏搁回桌面，抄起折扇与小册子揣进袖中大步往门外走。"},{"speaker":"C05","line":"日头偏西了。","delivery":"转着铁球在后头笑问，眼里透出几分了然"},{"speaker":"C05","line":"你揣着小册子急匆匆又要往哪儿去？","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"去栖霞观上香！","delivery":"头也不回地掀起青灰纱帘，冷笑里压着一丝按捺不住的焦躁"},{"speaker":"C01","line":"顺道瞧瞧她是不是真敢走到主顾面前去。","delivery":"紧接前话，神色不松"},{"action":"青灰纱帘在斜阳余晖里剧烈晃荡，温如风青衫背影大步跨出门槛，直往城南栖霞观方向去。"}]}]},{"ep":5,"targetSeconds":120,"hook":"温如风踏上栖霞观青石台阶上香求来前乱后吉姻缘签，刚谈成七千两血案，为何瞥见树下一幕便当场失神","cliff":"秦不争力劝弃子保命，温如风连夜约江晚棠到三更面馆摊牌","beatsClaimed":["错位冲击"],"hookBeat":[1,1],"scenes":[{"sceneId":"S04","lighting":"午后香烟晴光","characters":["C01","C02","C03","C07","C10"],"props":["P04"],"flow":[{"action":"冷开场：午后香烟缭绕，温如风快步踏上栖霞观青石台阶把香插进青石大香炉，瘦小的老庙祝捧着竹签筒小步凑上前来。"},{"speaker":"C10","line":"公子面色含愁，可是要测一测流年？","delivery":"搓着手躬身赔笑，三角眼精明地打量温如风"},{"speaker":"C10","line":"小观姻缘卦最准。","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"流年不必，就测一卦姻缘吧。","delivery":"收拢折扇随手抛下一块碎银，神情散漫"},{"action":"老庙祝眉开眼笑接住碎银，晃动竹签筒抖出一支签，低头看清签文后脸色却陡然有些尴尬。"},{"speaker":"C10","line":"不是下下签……此签说的是。","delivery":"干瘪喉咙吞吐半晌，终究老实照签直念"},{"speaker":"C10","line":"最初居士有所乱，后面还是好的。","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"乱都乱了，还能怎么好？","delivery":"朗声嗤笑一句，转着折扇打发老庙祝退下"},{"action":"老庙祝尴尬退开。温如风摸出袖中蓝布小册子刚翻看一眼，身旁石阶上已悄无声息多出一个绿袍高大身影。"},{"action":"温如风收起小册子，与绿袍崔断水并排站在香炉前合十而立，嘴唇微微张合。"},{"speaker":"C07","line":"铁面巡检这单五百两黄金。","delivery":"假作闭眼祈愿，嗓音干冷如切铁"},{"speaker":"C07","line":"若交给我，公子抽四成。","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"七千两白银惊动朝廷。","delivery":"同样合十闭目，话里丝毫不肯让步"},{"speaker":"C01","line":"六成。我还要打点各处捕快。","delivery":"紧接前话，神色不松"},{"speaker":"C07","line":"四成五，公子未免太贪心。","delivery":"眉骨下压，喉底发出一声冷哼"},{"speaker":"C01","line":"五成。否则在下另请高明。","delivery":"眼皮都没抬，直接伸出五根修长手指"},{"action":"崔断水紧咬牙关，双手合十用力一按，终究点下了头。"},{"speaker":"C07","line":"好！五成就五成！","delivery":"从牙缝里挤出话来，转头却见温如风突然僵住不动"},{"action":"温如风停止合十，僵硬地瞪大眼睛直望向前庭远处的百年古银杏树下。"},{"action":"树下银杏落叶铺地，月白长衫的林慕白紧蹙眉头坐在树根旁抚着脚腕，白衣江晚棠急忙蹲身关切上前。"},{"speaker":"C02","line":"公子扭伤了脚，又不曾带仆从。","delivery":"蹲身轻声相问，眉眼温婉柔和，见对方盯看竟羞怯低头"},{"speaker":"C02","line":"不如我找人送公子去看大夫。","delivery":"紧接前话，神色不松"},{"speaker":"C03","line":"有劳姑娘厚意，小生来替亡友祈福。","delivery":"红着眼眶抬头呆看她，声音软糯文弱"},{"speaker":"C03","line":"一时伤心才扭了脚腕。","delivery":"紧接前话，神色不松"},{"action":"江晚棠转身唤来两个道观杂役，不久用竹竿绳索扎起一乘凉轿抬起林慕白，她羞怯陪在轿侧缓缓走向观门。"},{"action":"香炉前，崔断水伸手在僵住的温如风肩头一拍。温如风猛地回神，抬手直指远去的凉轿背影。"},{"speaker":"C01","line":"你说，一个刀手……焉能生出这副模样？","delivery":"想笑却笑不出来，神色罕见地失态走神"},{"speaker":"C07","line":"那不是林家三公子么？","delivery":"收回手惊疑地上下打量他，眼里满是不可置信"},{"speaker":"C07","line":"温公子向来只认银子，今日怎么倒失了神？","delivery":"紧接前话，神色不松"}]},{"sceneId":"S01","lighting":"午后斜阳","characters":["C01","C05"],"props":[],"flow":[{"action":"午后斜阳映入止戈轩。温如风摇着折扇在紫檀方桌旁坐下，端起茶碗苦笑摇头，对面的秦不争慢条斯理转着铁球。"},{"speaker":"C01","line":"一个刀手，一个主顾。","delivery":"自嘲般干笑两声，手里折扇收得啪一声响"},{"speaker":"C01","line":"天天往观里凑，真是滑天下之大稽！","delivery":"紧接前话，神色不松"},{"speaker":"C05","line":"你素来对女子不上心。","delivery":"半眯老眼含笑打趣，手里铁球停住"},{"speaker":"C05","line":"如今为她的事如此焦躁，莫非看上人家了？","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"秦老说笑了！我是怕她漏了风声。","delivery":"脸色微微一僵，连忙端茶掩饰"},{"speaker":"C01","line":"连累官府查到我头上。","delivery":"紧接前话，神色不松"},{"action":"秦不争放下铁球，收起慈和笑意，盯着温如风的眼睛沉下嗓音。"},{"speaker":"C05","line":"做我们这行如砌墙。","delivery":"神色骤然冷峻，一字一句透出老江湖的狠绝"},{"speaker":"C05","line":"若抹不匀不如趁早扔掉她，免招祸害。","delivery":"紧接前话，神色不松"},{"action":"温如风握扇的手猛地定住，沉默片刻后起身整衣，朝秦不争深深长揖到底。"},{"speaker":"C01","line":"多谢秦老教诲。今晚三更面馆。","delivery":"直起身时神色凛然，眼神再无半点玩笑"},{"speaker":"C01","line":"我亲自约她把账算个干净。","delivery":"紧接前话，神色不松"},{"action":"温如风转身掀帘大步走出止戈轩，秦不争独自留在棋桌旁缓缓转动手中铁球。"}]}]},{"ep":6,"targetSeconds":120,"hook":"微醺的温如风在三更面馆大口吞面，面颊粉润、青丝如瀑的江晚棠进门入座，向来从容的掮客为何竟失控到寸银小刀坠地","cliff":"一声不要碰我彻底划破体面，温如风失神走出面馆连寸银小刀都叮当坠地，决裂后的江晚棠仍将一步步踏进林慕白的温柔幻梦","beatsClaimed":["情绪撕裂"],"hookBeat":[1,1],"scenes":[{"sceneId":"S02","lighting":"深夜孤灯","characters":["C01","C02","C09"],"props":["P01","P04"],"flow":[{"action":"冷开场：深夜孤灯下，刚从醉花阴散席的微醺温如风坐在榆木桌前大口吞着雪菜熏肉面，面颊粉润、青丝如瀑的江晚棠走进门坐到他身旁。"},{"action":"后灶浓雾后，面馆掌柜右手握着长柄竹笊篱凑近桌边招呼，瞧见江晚棠水嫩娇艳的模样不禁一愣。"},{"speaker":"C09","line":"苦啊……客官，今晚还是照旧要一碗阳春面么？","delivery":"拎着擦汗巾粗声招呼，眼珠子忍不住往她脸上偷瞄"},{"speaker":"C02","line":"不用。温如风，约我出来什么事。","delivery":"摆手挥退掌柜，眼神虽冷，眉梢却带着几分柔意"},{"speaker":"C02","line":"我还得回去陪小满。","delivery":"紧接前话，神色不松"},{"action":"掌柜识趣缩回灶台阴影后。温如风放下筷子擦擦嘴，借着酒意斜眼看向她。"},{"speaker":"C01","line":"醉花阴的姑娘软玉温香。","delivery":"醉眼微眯带出几分轻佻，故意试探刺她"},{"speaker":"C01","line":"比某人整日冷冰冰的可温柔多了。","delivery":"紧接前话，神色不松"},{"action":"江晚棠脸色陡变，抬掌猛地挥向桌心，整碗热腾腾的雪菜熏肉面哗啦砸碎在墙上。"},{"action":"热汤面条溅了一墙，灶台后的掌柜吓得猛地蹲低身子，缩在阴影里大气不敢出。"},{"speaker":"C02","line":"少拿我跟醉花阴的贱人比！你到底说不说正事？","delivery":"猛地拍案站起，呼吸急促胸口起伏"},{"speaker":"C01","line":"喝酒误事……我只是劝你。","delivery":"仰脸摇晃着坐直身子，醉话脱口而出"},{"speaker":"C01","line":"好歹检点些，别对主顾动情！","delivery":"紧接前话，神色不松"},{"action":"啪的一声脆响，江晚棠扬手一记耳光狠狠抽在温如风白皙的左颊上。"},{"speaker":"C02","line":"你说什么！我江晚棠行得正。","delivery":"眼里冒火，手掌悬在半空微微发抖"},{"speaker":"C02","line":"轮不到你嘴里胡言乱语！","delivery":"紧接前话，神色不松"},{"action":"温如风脸颊泛起红印，缓缓抹去嘴角笑意，冷着脸从怀里掏出蓝布小册子甩在桌上。"},{"speaker":"C01","line":"五月十三栖霞观，十四听风楼。","delivery":"翻开册子逐条冷念，字字像冰碴砸在桌面上"},{"speaker":"C01","line":"十六西城门！你还要瞒我？","delivery":"紧接前话，神色不松"},{"speaker":"C02","line":"你……你竟敢暗中盯梢监视我？","delivery":"盯着小册子上的墨迹瞬间气短，声音发颤"},{"action":"江晚棠羞愤交加再次扬掌扇来，温如风暴起伸手，五指死死扣住她手腕。"},{"speaker":"C01","line":"做我们这一行最忌动情！","delivery":"俯身逼近压低嗓音厉声怒斥，眼底竟泛红"},{"speaker":"C01","line":"连累全行老少怎么办，我犯得上丢命吗？","delivery":"紧接前话，神色不松"},{"speaker":"C02","line":"我没有动心！我只是可怜他，你凭什么这么凶！","delivery":"被抓疼手腕拼命挣扎，嗓音带着委屈发颤"},{"action":"江晚棠的眼泪猛地滚出眼眶。温如风慌忙松开她手腕，苦笑着抓起琥珀春酒坛满斟一杯推过去。"},{"speaker":"C02","line":"你知不知道他有多可怜？","delivery":"攥紧桌上酒杯哽咽质问，眼泪顺着脸颊滑落"},{"speaker":"C02","line":"心上人死了是什么滋味，你懂吗？","delivery":"紧接前话，神色不松"},{"action":"江晚棠含泪抓起酒杯一口灌干，温如风默默再斟满，她又接着仰脖痛饮。"},{"speaker":"C02","line":"你们眼里除了银子还有什么？","delivery":"捧着酒杯又哭又喊，苍白脸颊泛起醉红"},{"speaker":"C02","line":"是不是多一分银子就真那么好？","delivery":"紧接前话，神色不松"},{"action":"温如风也仰脖干了烈酒，重重墩下瓷杯，红着眼眶拍桌回吼。"},{"speaker":"C01","line":"是！多一分银子就是好！","delivery":"赤红着眼眶撕开体面，声嘶力竭回吼"},{"speaker":"C01","line":"等你要拿一分银子买命时就知道残酷了！","delivery":"紧接前话，神色不松"},{"action":"江晚棠彻底崩溃，伏在榆木桌面臂弯里失声痛哭。"},{"speaker":"C01","line":"怎么，又想起你那个死去的峥哥哥了？","delivery":"嘴上偏要往最痛处戳，眼底却闪过一丝不忍"},{"speaker":"C01","line":"他早死了，别妄想了！","delivery":"紧接前话，神色不松"},{"action":"江晚棠埋头流泪不答。温如风叹了口气，从袖中摸出一条素白丝帕伸手去替她拭泪。"},{"speaker":"C02","line":"不要碰我。","delivery":"一动不动伏在桌边，声音冷得像透骨寒冰"},{"action":"温如风的手僵在半空，随即收回丝帕摇摇晃晃站起身，摸着袖中寸银小刀踉跄迈向木门。"},{"action":"跨出门坎的刹那，那柄从不离身的修甲寸银小刀竟从指缝滑落，叮当一声掉在门坎青石上。"},{"speaker":"C01","line":"唉……真是改不了的傻丫头。","delivery":"背影停在门外暗影里苦笑摇头，声音轻得被夜风吹散"},{"action":"夜风吹动门口半卷破旧蓝布招幌，门坎青石板上孤零零躺着那柄泛着冷光的寸银小刀，温如风盯着脚下银光久久未俯身。"}]}]},{"ep":7,"targetSeconds":120,"hook":"怀拥全城最娇媚头牌过夜却衣衫未乱的温如风，清晨撞见自林家归来的江晚棠会如何反应","cliff":"那把借出去的四十八骨紫竹伞，究竟能不能替江晚棠遮住名分与出身的风雨","beatsClaimed":["宿命借伞"],"hookBeat":[1,1],"scenes":[{"sceneId":"S05","lighting":"华灯夜宴","characters":["C01","C05","C07","C08"],"props":[],"flow":[{"action":"冷开场：醉花阴二楼红烛摇曳，着粉纱的绾音端起温热竹叶青，俯身靠进温如风怀里将酒杯喂到他唇边。"},{"speaker":"C08","line":"温公子再不饮，奴家可要替您喝了。","delivery":"贴近耳畔轻笑撒娇，吐气如兰"},{"speaker":"C01","line":"小令尊前见玉箫，银灯一曲太妖娆。","delivery":"接过酒盏饮尽，醉眼迷蒙地笑着调侃"},{"action":"绾音掩唇羞红了脸。侧席崔断水大笑着举杯，秦不争捏着铁球冷眼旁观。"},{"speaker":"C07","line":"半月前铁面巡检毙命。","delivery":"神色阴沉得意，举杯朝温如风一饮而尽"},{"speaker":"C07","line":"五百两黄金入账，敬财神爷！","delivery":"紧接前话，神色不松"},{"speaker":"C05","line":"醉酒误事可是行忌。那江姑娘，还是旧习难改？","delivery":"压低嗓音，半眯老眼提醒温如风"},{"action":"楼下四角小戏台丝竹凄婉，水袖翻飞的女伶正唱着断桥借伞。"},{"speaker":"C01","line":"改不了，她还当林慕白是个宝呢。","delivery":"醉醺醺地挥手敷衍，目光飘向楼下戏台"},{"speaker":"C01","line":"可笑！戏里柳生那种小白脸，本就该杀了才是！","delivery":"忽然冷笑一声，眼里掠过一丝寒意"},{"action":"秦不争脸上的笑意骤停，手中转动的铁球猛地停住。"},{"speaker":"C01","line":"可惜我们一介书生，也是没有办法的。","delivery":"话锋圆滑一转，举杯掩饰般大笑"},{"action":"秦不争松了口气捋须点头。温如风顺势搂紧怀里的绾音，目光却越过她肩头望出窗棂。"},{"speaker":"VO","line":"猛回头，避雨处风景依然……","delivery":"楼下戏台花旦凄婉的唱腔飘进窗棂"},{"action":"窗下长乐街青石路面上，一对白衣男女相互搀扶走过；温如风用力揉眼再看，长街已空荡无人。"},{"speaker":"C01","line":"见鬼……他俩像不像在演断桥借伞？","delivery":"怔怔望向窗外街心，醉声喃喃"},{"speaker":"C07","line":"少管闲事！老鸨，今晚这位绾音姑娘。","delivery":"大笑着朝楼下喊一声，摆摆手拉着秦不争起身"},{"speaker":"C07","line":"兄弟替温公子包下了！","delivery":"紧接前话，神色不松"},{"action":"绾音眼神一亮，娇笑着挽住温如风脖颈软进他怀里；温如风搂住她却闭上眼，一身天青长衫整夜工整未乱。"}]},{"sceneId":"S05","lighting":"春雨晨雾","characters":["C01","C02"],"props":["P02"],"flow":[{"action":"次日清晨春雨连绵，温如风衣冠整齐走出醉花阴门廊，手里提着戏台用过的四十八骨紫竹伞。"},{"action":"刚迈到屋檐下，他忽然收住脚步，看见檐角正站着白衣避雨的江晚棠。"},{"speaker":"C01","line":"阿棠？你家在西城，大清早跑这儿来作甚？","delivery":"打量她略显疲倦的眉眼，低声试探"},{"action":"江晚棠吃了一惊抬头望来，苍白双颊迅速泛起一层羞涩的淡红。"},{"speaker":"C01","line":"你昨夜，是在林家过的夜？","delivery":"脸色微沉，压低嗓音点破"},{"speaker":"C02","line":"在林家过夜又怎样？你不也在醉花阴过夜么！","delivery":"脸颊红得发烫，昂头硬生生顶了回去"},{"speaker":"C01","line":"我在醉花阴过夜。","delivery":"摇头甩开宿醉，嘴角牵起一抹苦笑"},{"speaker":"C01","line":"你也要在林家过夜？咱俩算什么关系？","delivery":"紧接前话，神色不松"},{"action":"江晚棠语塞垂下头。温如风上前一步，伸指在她泛红的脸颊上轻轻按了一下。"},{"speaker":"C01","line":"倒是胖了些，气色红润起来，漂亮多了。","delivery":"眼神微暖，口吻却装出散漫轻佻"},{"action":"江晚棠怒瞪他一眼，随后又别开脸任他轻按一瞬，才退后半步抱紧胳膊。"},{"speaker":"C02","line":"不必多事……","delivery":"羞恼交加，指着紫竹伞支吾开口"},{"speaker":"C02","line":"把你手里那把伞借我用一下，行吗？","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"急着出门接谁？","delivery":"挑眉追问，指腹摩挲竹柄"},{"speaker":"C02","line":"他……他在陈夫子书塾念书，这会儿怕没带伞。","delivery":"涨红了脸，结结巴巴说完"},{"action":"温如风愣了一瞬，随即苦笑着点头，亲手把四十八骨紫竹伞递进江晚棠手里。"},{"speaker":"C01","line":"拿去吧。还真像呢。","delivery":"松开伞柄，目光落在她微湿的肩头"},{"speaker":"C02","line":"像什么？","delivery":"神色茫然，不等回答便攥紧伞柄"},{"action":"江晚棠不等答话便撑开紫竹伞奔入雨丝，温如风望着她背影，嘴唇微动低喃出一句。"},{"speaker":"C01","line":"像戏里的素娘。","delivery":"声音轻如叹息，只落在自己耳边"},{"action":"他随即跨出檐下，冲渐行渐远的身影高声喊道。"},{"speaker":"C01","line":"切记！万不可露了消息出去！","delivery":"拔高嗓音嘱咐，眼里满是压不住的隐忧"},{"action":"白衣身影撑着紫竹伞融进绵密春雨中渐渐远去，温如风独自留在屋檐下慢慢收紧手中折扇。"}]}]},{"ep":8,"targetSeconds":120,"hook":"林慕白在紫竹伞面画下风雅海棠致谢，为何反而让满心欢喜的江晚棠彻底清醒死心","cliff":"江晚棠秘密将三进小院折价七百两卖掉，在中秋刺杀前夕做好了远走高飞的诀别准备","beatsClaimed":[],"hookBeat":[1,1],"scenes":[{"sceneId":"S05","lighting":"春雨晨雾","characters":["C02","C03"],"props":["P02"],"flow":[{"action":"冷开场：细雨笼罩长乐街口，江晚棠举着四十八骨紫竹伞提裙快跑，迎面替屋檐下缩肩避雨的林慕白遮住风雨。"},{"speaker":"C03","line":"江姑娘！春雨寒凉，怎敢劳烦您亲自送伞？","delivery":"受宠若惊，忙用袖口替她轻拭肩头雨珠"},{"speaker":"C02","line":"顺路罢了，见雨势渐大，怕公子受凉。","delivery":"垂眸轻声回应，面颊微染桃花色"},{"action":"林慕白接过收拢的紫竹伞，借来屋檐下书画铺摊现成的笔墨，在天青伞面上细细画起花枝。"},{"speaker":"C03","line":"一枝雨打海棠，才配得上姑娘清雅温柔。","delivery":"落笔收锋，抬头含情脉脉地看她"},{"action":"林慕白吹干墨迹，双手捧起画好的紫竹伞递还给江晚棠，眼波灼灼。"},{"speaker":"C03","line":"墨迹未干恰似春雨海棠。","delivery":"语气温柔缠绵，眼底流露几分痴恋"},{"speaker":"C03","line":"若能日日为姑娘执笔，该有多好。","delivery":"紧接前话，神色不松"},{"speaker":"C02","line":"雨打海棠……公子真是个雅致的人儿。","delivery":"爱不释手地抚过伞骨，眉眼藏不住欢喜"},{"speaker":"C02","line":"只是林家高门大户，公子往后对亲事作何打算？","delivery":"指尖轻轻摩挲竹柄，低声试探"},{"action":"林慕白脸色微微一滞，忙把双手缩进宽袖，眼尾垂落避开她的视线。"},{"speaker":"C03","line":"家父最重门第清白。","delivery":"低眉叹息，声线怯懦惶然"},{"speaker":"C03","line":"小生实在无力违拗父命迎娶寒门……","delivery":"紧接前话，神色不松"},{"speaker":"C02","line":"所以公子方才说的相伴。","delivery":"笑意瞬间敛去，盯着他的眼睛轻声追问"},{"speaker":"C02","line":"是叫人无名无分跟着你？","delivery":"紧接前话，神色不松"},{"action":"林慕白慌忙避开她骤冷的目光，拢着宽袖不安地搓了搓手指。"},{"speaker":"C03","line":"若得姑娘这般红颜知己相伴。","delivery":"怯怯抬眼偷瞄她，语气软弱又自私"},{"speaker":"C03","line":"即便无名无分，我也知足了。","delivery":"紧接前话，神色不松"},{"action":"江晚棠脸上的红晕瞬间褪净，接过紫竹伞撑开在雨里，头也不回转身离开。"}]},{"sceneId":"S03","lighting":"清昼天光","characters":["C02","C06"],"props":["P02"],"flow":[{"action":"回到槐花巷小院正房，江晚棠倚在桌边，指尖缓缓摩挲伞面上还未干透的海棠墨迹。"},{"action":"里榻传来一声轻咳，病弱的小满蜷在粗布棉被里不安翻身，江晚棠扭头望向榻边的女儿与案头素银长剑。"},{"speaker":"C06","line":"娘……冷……","delivery":"在睡梦中发出一声微弱含糊的呓语"},{"action":"江晚棠快步走回木榻旁，握紧女儿冰凉的小手，低头盯着自己腰间旧衣。"},{"speaker":"VO","line":"素心阁弃徒、黑道女刀手……","delivery":"江晚棠的心声，冰冷清醒，彻底碎尽春梦"},{"speaker":"VO","line":"残花败柳之身，还奢望什么富贵名分？","delivery":"紧接前话，神色不松"},{"action":"她站起身拉开老旧木柜，翻出压在柜底的祖宅房契，动作利落地折叠塞入袖中。"},{"speaker":"C02","line":"小满别怕，娘卖了这屋子。","delivery":"帮女儿掖严棉被，眉眼重回冷冽决绝"},{"speaker":"C02","line":"干完这一单带你远走高飞。","delivery":"紧接前话，神色不松"},{"action":"江晚棠将素银长剑佩回腰侧，攥紧房契推门走出小院去寻牙行买主。"}]},{"sceneId":"S05","lighting":"春雨晨雾","characters":["C01","C08"],"props":[],"flow":[{"action":"暗中护送江晚棠归城后，温如风独自走过醉花阴雨檐，伸手抖落肩头的雨星。"},{"action":"门口的绾音见状立刻拎裙迎上廊檐，伸出纤手扯住温如风的青衫袖口。"},{"speaker":"C08","line":"温公子既过门前。","delivery":"含情脉脉地娇笑挽留，身子微往他手边靠"},{"speaker":"C08","line":"外头春雨寒凉，上去饮杯暖酒吧。","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"多谢绾音姑娘美意。","delivery":"抬起折扇礼貌隔开，温和却坚决地抽回衣袖"},{"speaker":"C01","line":"温某尚有要事，改日再来听曲。","delivery":"紧接前话，神色不松"},{"speaker":"C08","line":"公子总是这样走得急。","delivery":"轻叹松手，站在廊灯下目送他远去"},{"speaker":"C08","line":"奴家真要信了那句薄幸无情。","delivery":"紧接前话，神色不松"},{"action":"温如风颔首行过廊角，一名戴斗笠的暗桩低头擦肩走过，飞快将一张折叠纸条塞进他掌心。"},{"action":"温如风停步展开纸条看了一眼，嘴角惯常挂着的浅笑骤然收敛，面色一沉。"},{"speaker":"C01","line":"槐花巷祖宅作价七百两出手……","delivery":"盯着纸条压低嗓音，手指渐渐攥紧"},{"speaker":"C01","line":"她竟把退路全卖了？","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"一月期限将近，明夜便是八月十五中秋之夜。","delivery":"抬头望向西城阴沉天色，眼神透出少有的焦灼"},{"action":"温如风一把合拢折扇揣进袖里，青衫一振急步扎进春雨中，背影越走越快。"}]}]},{"ep":9,"targetSeconds":120,"hook":"一向倔强带刺的江晚棠临行前突然温婉道谢还伞，这场看似十拿九稳的刺杀藏着什么凶兆","cliff":"素来不显山露水的温如风展现出连秦不争都看不清的鬼魅身法，全速赶往镇山武馆救人","beatsClaimed":["卖院诀别"],"hookBeat":[1,1],"scenes":[{"sceneId":"S03","lighting":"中秋火烧云","characters":["C01","C02","C06"],"props":["P02","P03"],"flow":[{"action":"冷开场：八月十五火烧云映红槐花巷院墙，正房门内水声哗啦，已换好黑衣的江晚棠将洗净的小满抱上木榻，把百年紫雪参药盒摆在枕边。"},{"speaker":"C02","line":"小满乖，娘给你洗净身子备好药丸。","delivery":"低头替女儿盖好棉被，嗓音温软平静"},{"speaker":"C02","line":"吃过乖乖睡觉。","delivery":"紧接前话，神色不松"},{"speaker":"C06","line":"娘亲早回。","delivery":"怀抱黑漆药盒轻轻拉住娘亲黑袖，奶声奶气"},{"action":"江晚棠用黑绸束紧长发，拎起长剑与紫竹伞英武走出院门，迎面撞见靠墙等候的温如风。"},{"speaker":"C01","line":"厉狂澜的子母鸳鸯剑快在右手。","delivery":"收起打量眼神，语气难得沉稳叮嘱"},{"speaker":"C01","line":"左右合璧那招，千万小心。","delivery":"紧接前话，神色不松"},{"speaker":"C02","line":"知道了，我都记牢了。","delivery":"一反常态地微笑点头，语气柔和温顺"},{"speaker":"C01","line":"今天倒难得这么听话？","delivery":"略感意外，直起身子端详她的脸色"},{"speaker":"C02","line":"你也是好心。剩下的六十两尾款免了。","delivery":"微微一笑，眉眼透出从未有过的释然"},{"speaker":"C02","line":"算我谢你照拂。","delivery":"紧接前话，神色不松"},{"action":"温如风脸色微变，跨前一步拦在江晚棠身前。"},{"speaker":"C01","line":"不要尾款，小满往后的药钱怎么办？","delivery":"眉头微皱，压低声音追问"},{"speaker":"C02","line":"院子卖了七百两。","delivery":"语气轻快平和，仿佛早把一切安排妥当"},{"speaker":"C02","line":"杀完厉狂澜，我带小满去北境。","delivery":"紧接前话，神色不松"},{"speaker":"C02","line":"那儿人参便宜。","delivery":"垂眸轻笑，眼神透着清冷的告别"},{"speaker":"C02","line":"找个不讲究的采参人嫁了过日子。","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"不讲究……那林公子呢？","delivery":"嘴角牵起一丝苦笑，紧紧盯着她的眼"},{"speaker":"C02","line":"残花败柳怎敢奢望贵公子珍惜？","delivery":"摇头苦笑，语气淡漠得没有半分留恋"},{"speaker":"C02","line":"只当偶然相遇罢了。","delivery":"紧接前话，神色不松"},{"action":"温如风靠回墙边低头长叹一声，默默站着再没出声。"},{"speaker":"C02","line":"这些年多谢你，我们娘儿俩才能活下来。","delivery":"声音微软，眼底泛起一层水光"},{"action":"江晚棠双手把绘着雨打海棠的紫竹伞递还到温如风怀里。"},{"speaker":"C02","line":"伞还给你。上面画了枝海棠。","delivery":"柔婉笑了一笑，转身整理佩剑"},{"speaker":"C02","line":"他是个雅致人，别介意。","delivery":"紧接前话，神色不松"},{"action":"江晚棠决绝迈进暮色深处，黑衣身影很快消散在长街尽头；温如风抱紧紫竹伞猛地抬头，只望见空荡院门。"}]},{"sceneId":"S06","lighting":"中秋寒夜暗影","characters":["C04"],"props":["P05"],"flow":[{"action":"镇山武馆夜院阴风呼啸，红灯笼摇晃。厉狂澜坐在石阶上，用粗布缓缓擦拭腰侧的子母鸳鸯剑。"},{"action":"他忽然挽起左臂玄黑宽袖，将一对泛着寒光的寒鸦双匕稳稳绷入小臂内侧皮套，再放下袖口严实遮住。"},{"speaker":"C04","line":"剑法快算什么本事？","delivery":"咧嘴露出阴毒狞笑，粗哑嗓音在空院回荡"},{"speaker":"C04","line":"真要命的，还得藏在袖子里。","delivery":"紧接前话，神色不松"},{"action":"厉狂澜起身提剑站到院中浅水洼旁，凶狠的目光扫向漆黑院墙。"}]},{"sceneId":"S01","lighting":"暮色夜灯","characters":["C01","C05"],"props":[],"flow":[{"action":"止戈轩棋桌前灯影微晃，温如风捏着一枚黑子悬在棋盘上方迟迟不落，眉头紧锁。"},{"speaker":"C05","line":"阿棠的流风折柳剑高出一筹。","delivery":"掌心悠然转着铁球，笑眯眯宽慰他"},{"speaker":"C05","line":"十成胜算，还忧心什么？","delivery":"紧接前话，神色不松"},{"action":"温如风落下黑子，却推开茶盏抬眼盯着秦不争。"},{"speaker":"C01","line":"秦老，您说人这一辈子……是不是无情才好？","delivery":"声音压得极低，眼神罕见地透出迷惘"},{"speaker":"C05","line":"年轻时我也信无情好。","delivery":"手停铁球，苍老眼里浮起几分感慨"},{"speaker":"C05","line":"老了才知身边没个伴儿多寂寞。","delivery":"紧接前话，神色不松"},{"action":"温如风猛地起身理平衣襟，收拢折扇急步往窗边走。"},{"speaker":"C01","line":"少欠奉陪，我得去抹抹泥灰，免得这堵墙塌了。","delivery":"语气急促，竭力装作平日洒脱模样"},{"speaker":"C05","line":"如风，老朽总觉得。","delivery":"迟疑片刻，抬头试探着开口反问"},{"speaker":"C05","line":"你对江姑娘是不是太牵挂了一点？","delivery":"紧接前话，神色不松"},{"action":"秦不争话还没说完，温如风已急声推搪，同时纵身朝支摘窗棂跃去。"},{"speaker":"C01","line":"抹墙最怕塌，面面都得抹匀，不得已啊！","delivery":"语速飞快抢断话头，人已扑向窗口"},{"action":"话音刚落，青衫身影如鬼魅般穿出支摘窗棂瞬间消失；秦不争手中铁球停住，怔怔望着棋盘。"}]}]},{"ep":10,"targetSeconds":120,"hook":"武功高出一筹的江晚棠剑已架在恶贼脖颈上，为何会在最后一瞬惨遭反杀","cliff":"江晚棠香消玉殒、温如风分文未取销声匿迹，独留槐花巷年幼的小满生死未卜","beatsClaimed":["绝杀高潮"],"hookBeat":[1,1],"scenes":[{"sceneId":"S06","lighting":"中秋寒夜暗影","characters":["C01","C02","C04"],"props":["P01","P05"],"flow":[{"action":"冷开场：镇山武馆夜院红灯火光摇曳，黑衣江晚棠疾步前压，使出流风折柳剑挑落厉狂澜手中双剑，反手将剑锋稳稳架在他脖颈上。"},{"action":"子母鸳鸯剑摔进青砖水洼溅起水花，厉狂澜双腿发软，扑通跪倒在积水地面上。"},{"speaker":"C02","line":"镇山武馆厉教头。","delivery":"眼神冷冽如霜，剑刃紧紧贴住他咽喉"},{"speaker":"C02","line":"阿沅姑娘是不是你这个淫贼害死的？","delivery":"紧接前话，神色不松"},{"speaker":"C04","line":"是小的猪狗不如，是小的该死！求侠女饶命啊！","delivery":"满脸冷汗不住战栗，连连磕头求饶"},{"speaker":"C04","line":"只要侠女放过小的，武馆里的银票全都孝敬您！","delivery":"偷偷斜眼瞥向她衣袖，压低嗓音讨好"},{"action":"江晚棠听见银票二字神色更冷，双手握紧银剑微微下压。"},{"speaker":"C02","line":"我叫你知道作恶多端的下场，强逼岂容妄想！","delivery":"声线凄厉怒叱，毫无半点留情之意"},{"speaker":"C02","line":"我叫你知道什么叫两情相悦，什么叫生死不渝！","delivery":"咬紧下唇，眼里含泪却杀意凛然"},{"action":"江晚棠悲愤喝声落下，高举银剑朝着厉狂澜颈项狠狠劈落。"},{"action":"就在剑锋落下的瞬间，厉狂澜猛地俯身侧闪，从宽袖里抖出一对寒鸦双匕。"},{"action":"厉狂澜贴身前扑，将双匕恶狠狠刺入江晚棠胸膛并拧转刀刃，鲜血瞬间溅满他得意狞笑的脸。"},{"speaker":"C04","line":"这么标致的身段，偏偏跑来做刺客……","delivery":"盯着她苍白的脸，眼里闪过贪婪狠毒"},{"action":"就在这一瞬，暗影深处一道银光破空飞来，温如风掷出的寸银小刀精准钻透厉狂澜太阳穴，恶贼瞪大双眼直挺挺倒地。"},{"action":"屋檐阴影里一道青衫冲上前，温如风跪在积水里一把抱住缓缓倒下的江晚棠。"},{"speaker":"C01","line":"阿棠！阿棠别睡，我这就带你去找大夫！","delivery":"声音剧烈发颤，手忙脚乱按住她心口"},{"action":"江晚棠嘴角溢出一缕鲜血，靠在温如风怀里缓缓闭上眼，银剑脱手坠地，再无半点呼吸。"},{"speaker":"C01","line":"你不是说好卖了院子带小满去北境吗……","delivery":"紧紧搂住她逐渐冰冷的身子，嗓音哑裂"},{"speaker":"C01","line":"阿棠，你睁眼看看我，六十两我不要了……","delivery":"颤抖着抚开她额前湿发，唤不回半点回应"},{"action":"温如风声音颤抖，把脸紧紧贴在江晚棠渐渐冰冷的额角。"},{"action":"倾盆夜雨骤然砸落武馆庭院，温如风抱着怀中毫无声息的江晚棠跪在红灯冷雨里，久久一动不动。"}]},{"sceneId":"S01","lighting":"雷雨晦暗","characters":["C01","C03"],"props":[],"flow":[{"action":"狂风暴雨猛拍听风楼支摘窗，一道闪电劈亮空荡荡的雅阁，林慕白在窗边焦躁踱步。"},{"speaker":"VO","line":"这么久还没消息。","delivery":"林慕白的心声，紧抱胳膊慌张张望楼梯口"},{"speaker":"VO","line":"厉狂澜那恶贼不会反杀过来吧……","delivery":"紧接前话，神色不松"},{"action":"林慕白抱着发抖的胳膊退回桌旁坐下，强自咽了口唾沫。"},{"speaker":"VO","line":"不如趁夜溜回家。","delivery":"林慕白的心声，想起柔情怀抱顿时心头一热"},{"speaker":"VO","line":"兴许那个温柔美人还在灯下等我呢。","delivery":"紧接前话，神色不松"},{"action":"又一道银白闪电撕裂夜空，浑身湿透的温如风悄然立在桌前，长发湿漉漉贴在惨白面颊上。"},{"speaker":"C03","line":"温、温大侠！您这是怎么了，事成没有？","delivery":"吓得往后一仰撞在椅背上，舌头打结发问"},{"action":"温如风一言不发，伸手将一只沉甸甸滴水的白布包袱重重搁在紫檀方桌上。"},{"speaker":"C01","line":"厉狂澜的人头。林公子，我们两清了。","delivery":"声音冷得像冰水，雨水顺着下颌滴落桌面"},{"action":"一抹暗红血水从白布渗出染红桌面，林慕白吓得捂嘴连退两步，险些绊倒在鼓凳旁。"},{"speaker":"C03","line":"真、真把那恶贼杀了？剩下的一百五十两……","delivery":"盯着包袱吞咽口水，手忙脚乱从袖里掏出银票"},{"action":"温如风看也不看那叠银票一眼，冷冷转身拂袖，踩着积水大步走向楼梯口。"},{"speaker":"C03","line":"温大侠！剩下的一百五十两尾款您还没拿！","delivery":"慌忙举着银票追到门边，伸手急喊"},{"speaker":"C03","line":"温大侠！厉狂澜的同党会不会找上门啊！","delivery":"扒着楼梯栏杆朝漆黑雨夜喊破嗓音"},{"action":"狂风卷着暴雨灌进听风楼廊道，楼梯口早已空空荡荡，青衫身影已头也不回地消失在长夜风雨里。"}]}]},{"ep":11,"targetSeconds":120,"hook":"销声匿迹三年的温如风重返听风楼坐到林慕白面前，要如何替九泉之下的傻姑娘讨债","cliff":"摇扇下楼的温如风在门口被须发皆白拄杖含笑的秦不争拦住，他这三年的真实去向即将揭晓","beatsClaimed":["虐渣立债"],"hookBeat":[1,1],"scenes":[{"sceneId":"S01","lighting":"晨光暖软","characters":["C01","C03","C05"],"props":["P01"],"flow":[{"action":"冷开场：三年后春日听风楼临窗雅座，发福衣锦的白衣林慕白端起新龙井惬意品饮，略带风霜却眼神淡雅依旧的青衫温如风摇扇悄然立在他身后。"},{"speaker":"C03","line":"新到的龙井真不错，小二，添水！","delivery":"闭眼满意抿茶，朝楼梯方向随口招呼"},{"action":"迟迟不见小二回应，林慕白纳闷回头瞥见身后温如风，吓得浑身一颤险些打翻茶杯。"},{"speaker":"C03","line":"温、温大侠！您怎么突然回来了……","delivery":"脸色瞬间煞白，端着茶盏结巴叫喊"},{"action":"温如风微扬嘴角收起折扇，慢条斯理掸了掸袍角在对面坐下，右手捻出寸银小刀轻轻修起指甲。"},{"speaker":"C01","line":"林公子别来无恙？一晃竟已过了三年。","delivery":"眼神淡雅从容，语气像老友闲聊"},{"speaker":"C03","line":"托大侠的福……大侠这三年一直在外游历？","delivery":"慌忙放下茶杯擦汗，勉强挤出笑脸"},{"speaker":"C01","line":"四处走走罢了。永安府那桩悬案可算了结了？","delivery":"低头吹去指尖碎屑，随口淡淡回应"},{"action":"林慕白端杯的手猛地一抖，随即强装体面挺直腰板，炫耀般整了整锦缎袖口。"},{"speaker":"C03","line":"早搁下了。","delivery":"刻意压着得意，装出一副富贵派头"},{"speaker":"C03","line":"在下去年依父命娶了绸缎庄三小姐，喜得麟儿。","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"哦？贵公子添丁了？恭喜林公子前程锦绣。","delivery":"抬眼静静打量他发福的体态，似笑非笑"},{"speaker":"VO","line":"可惜当年那个白衣美人没能留住。","delivery":"林慕白的心声，暗自惋惜叹气"},{"speaker":"VO","line":"不然齐人之福才真叫快活。","delivery":"紧接前话，神色不松"},{"action":"温如风指缝间寸银小刀缓缓停住，抬眸注视着强作镇定的林慕白。"},{"speaker":"C01","line":"不知三年前那桩托我办的死事，公子可还记挂？","delivery":"笑意敛去一半，语气温凉"},{"action":"林慕白脸上浮起一阵尴尬嫌恶，端起龙井茶轻呷一口，轻佻挥手摆出一副派头。"},{"speaker":"C03","line":"年轻时为点女色不顾王法，实在滑稽荒唐。","delivery":"故作洒脱地轻笑，眼神飘忽敷衍"},{"speaker":"C03","line":"在下如今安分守法。","delivery":"摊手撇清往事，语气轻飘飘毫无愧色"},{"speaker":"C03","line":"从前那些蠢事早就忘得一干二净了。","delivery":"紧接前话，神色不松"},{"action":"温如风脸上温和笑意骤然褪尽，神情陡变暴戾，袖口一沉将寸银小刀收回。"},{"speaker":"C01","line":"忘记了？原来林公子已经忘得一干二净。","delivery":"声音冷得刺骨，嘴角扯出残忍笑意"},{"action":"林慕白话音刚落，温如风猛扑上前一把死死掐住他咽喉，狠狠推抵在墙柱上。"},{"action":"茶盏砸碎满地，满堂茶客惊呼尖叫着四散逃下楼梯，楼内瞬间乱作一团。"},{"speaker":"C01","line":"当年你跪地磕头求我时，可不是这副富贵嘴脸！","delivery":"眼神森寒，五指抵住林慕白喉结"},{"speaker":"C03","line":"呃……放手……喘、喘不过气……","delivery":"双脚踮起脸色铁青，死命抓挠温如风手背"},{"speaker":"C01","line":"原来林公子享尽齐人之福。","delivery":"冷笑痛斥，五指力道重到几乎捏碎喉骨"},{"speaker":"C01","line":"早就忘记了那个傻瓜！","delivery":"紧接前话，神色不松"},{"action":"眼看林慕白翻白眼几近窒息，温如风忽地松手，林慕白顺墙瘫滑跪地大口喘咳。"},{"action":"温如风弯腰俯身贴近林慕白耳边，神色恢复冷峻。"},{"speaker":"C01","line":"你还欠我一百五十两银子。","delivery":"贴耳低语，字字如同刀锋"},{"speaker":"C01","line":"从今日起按十分利算！","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"今后每年还我一百五十两。","delivery":"轻拍林慕白惨白发抖的脸颊"},{"speaker":"C01","line":"少一分我随时掐死你！","delivery":"紧接前话，神色不松"},{"action":"林慕白抱着脖子缩在墙角浑身战栗，残余茶客缩在角落大气不敢出。"},{"action":"温如风直起身理平青衫，神色复归淡雅，重新摇开折扇踩着碎瓷从容下楼。"},{"action":"刚走到楼下门口，一位须发雪白、拄着龙头拐杖的老者含笑伸杖拦住去路。"},{"speaker":"C05","line":"如风，三年不见，总算肯回永安了？","delivery":"老眼微眯，透着重逢的快意与欣慰"},{"speaker":"C01","line":"秦老？","delivery":"收起折扇诧异凝望，声音放轻"},{"action":"温如风望着面前须发雪白、满脸沧桑的秦不争，在门槛光影里久久定住身形。"}]}]},{"ep":12,"targetSeconds":120,"hook":"洗手退隐去北境苍山贩药三年的温如风，重返永安城买回旧院究竟是为了守护谁","cliff":"细雨海棠伞下改口唤爹，两代孤苦人终于在烟火长街觅得归宿","beatsClaimed":["救赎收束"],"hookBeat":[1,1],"scenes":[{"sceneId":"S01","lighting":"晨光暖软","characters":["C01","C05","C06"],"props":["P03"],"flow":[{"action":"冷开场：晨光斜照听风楼门廊，青衫温如风收拢折扇，向须发雪白、拄着龙头拐杖的秦不争深深作揖叙旧。"},{"speaker":"C05","line":"难得你还记挂我这把老骨头，这些年去哪儿了？","delivery":"苍老的脸上满是欣慰笑意，轻咳两声"},{"speaker":"C01","line":"早洗手不做黑道了。","delivery":"神色温润坦然，眼角多了几分烟火风霜"},{"speaker":"C01","line":"去北境苍山贩了两年紫雪参赚钱。","delivery":"紧接前话，神色不松"},{"action":"温如风从怀里摸出一只黑漆旧木紫雪参药盒轻托掌心看了一眼，随即妥帖收进袖袋。"},{"speaker":"C01","line":"倒是听风楼怎么冷清许多？","delivery":"抬头环顾空荡大堂，颇为感慨"},{"speaker":"C01","line":"当年这儿可是一座难求。","delivery":"紧接前话，神色不松"},{"speaker":"C05","line":"唉，子孙不争气。早知如此。","delivery":"摇了摇头叹息，眼角笑纹又添几分沧桑"},{"speaker":"C05","line":"当年真该招你做女婿。","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"当年我还满口黑道无情规矩。","delivery":"微微笑着摇头自嘲，语气再无半分锋芒"},{"speaker":"C01","line":"现在想来才是真愚昧。","delivery":"紧接前话，神色不松"},{"speaker":"C01","line":"西城槐花巷那座三进小院我买回来了。","delivery":"抬眼望向西城长街方向，眼里有了暖意"},{"speaker":"C01","line":"以后常来讨茶喝。","delivery":"紧接前话，神色不松"},{"action":"秦不争大笑着刚要应声，门后伙计轻手轻脚走出来，把睡得粉雕玉琢、如小面人般的五岁小满抱进温如风怀中。"},{"action":"温如风伸出双臂稳稳接住孩子，动作轻柔极了，低头轻轻拍着小满后背。"},{"speaker":"C05","line":"你的？","delivery":"目光落在粉嫩幼女身上，眼角笑纹绽开"},{"speaker":"C01","line":"我的。","delivery":"轻拍小满后背，嘴角扬起从未有过的柔和笑意"}]},{"sceneId":"S01","lighting":"雷雨晦暗","characters":["C01","C05","C06"],"props":["P02"],"flow":[{"action":"话音刚落，门外骤然炸响一声闷雷，天色瞬间晦暗，倾盆大雨哗啦啦泼洒洗刷着长乐古街。"},{"speaker":"C01","line":"怎么忽然下这么大，可惜今日没带伞。","delivery":"抱紧怀里怕冷的小满，抬头望向门外雨幕"},{"speaker":"C05","line":"我这儿留着一把老伞。","delivery":"拄杖笑了笑，朝门边伙计抬手示意"},{"speaker":"C05","line":"虽说画了花有些女人气，倒还结实。","delivery":"紧接前话，神色不松"},{"action":"伙计转身从廊柱后取来一把青纸紫竹伞递给秦不争，秦不争笑着亲手交到温如风手里。"},{"action":"温如风左手抱稳怀里的小满，右手接过老伞撑开，看清青油纸上那枝墨绘雨打海棠与四十八根细竹伞骨，整个人猛地一怔。"},{"speaker":"C01","line":"四十八骨海棠紫竹伞……怎会在您这儿？","delivery":"手指缓缓摩挲着紫竹伞柄，低声失神"},{"speaker":"C05","line":"不知什么年月客人忘在这儿的。","delivery":"笑眯眯捻须摆手，不以为意"},{"speaker":"C05","line":"遮雨正好。有空常来下棋。","delivery":"紧接前话，神色不松"},{"action":"温如风眼神骤然柔软下来，一手抱稳小满一手执伞朝秦不争深深颔首致谢，转身举伞步入雨幕。"},{"speaker":"C05","line":"一百两银子一局我可赌不起了，慢走啊！","delivery":"站在门廊里笑眯眯挥手嘱咐"}]},{"sceneId":"S05","lighting":"春雨晨雾","characters":["C01","C06"],"props":["P02"],"flow":[{"action":"雷雨渐歇化作蒙蒙春雨，长乐街青石板湿润反光，温如风青衫微卷举着海棠伞缓缓前行。"},{"action":"怀里的小满揉揉眼睛醒了过来，一看见温如风便顽皮地伸出两只小手扯他脸蛋。"},{"speaker":"C01","line":"刚醒就淘气，当心外面雨风凉着脸。","delivery":"任她小手揉捏脸颊，无奈又宠溺地低笑"},{"action":"小满扯了一会儿又犯起困来，把两只小手环住温如风脖子，趴在肩头噘起小嘴。"},{"speaker":"C06","line":"温叔叔，我们回家吃粽子吧。","delivery":"奶声奶气撒娇，小脑袋贴着他肩窝"},{"action":"温如风脚步微微一顿，低头看着她桃瓣似的脸蛋，眼底泛起暖意，随即举稳紫竹伞遮在两人头顶。"},{"speaker":"C01","line":"好，回家吃粽子。小满想吃红枣馅的吗？","delivery":"语气轻柔得像春风，低头哄着怀里人"},{"speaker":"C06","line":"不要红枣的，我要吃甜豆沙的！","delivery":"晃着小脑袋噘嘴拒绝，嗓音软糯"},{"speaker":"C01","line":"好好好，都依你，回家就蒸热腾腾的豆沙粽。","delivery":"爽朗笑着点头，轻拍她单薄却温暖的后背"},{"action":"两人路过醉花阴宽大屋檐，檐下挤满避雨的行人，二楼戏台隐约飘来当年那段低婉唱腔。"},{"speaker":"VO","line":"猛回头，避雨处风景依然……","delivery":"醉花阴楼上戏台隐约传来的女伶唱词"},{"action":"温如风抬眸望向伞面被春雨晕开的墨色海棠花，眼底微潮却嘴角含笑，轻轻拍着小满的后背。"},{"speaker":"C01","line":"小满，温叔叔这个名字太拗口了。","delivery":"声音放得极轻极柔，仿佛怕惊扰一场美梦"},{"speaker":"C01","line":"以后你叫我爹爹好不好？","delivery":"紧接前话，神色不松"},{"speaker":"C06","line":"唔……","delivery":"困倦地把脸埋进他颈窝，小声软糯答应"},{"action":"一片蒙蒙细雨温柔笼罩长乐古街，撑着海棠紫竹伞的一大一小身影，稳稳融进了西城巷陌的春雨烟火里。"}]}]}]}</script>
+<script>
+const L = {"copied":"已复制","failed":"复制失败","show":"▾ 展开全部场次","hide":"▴ 收起场次"};
+
+// episode scripts: scene areas clip at 300px; short ones unclip, tall ones toggle
+document.querySelectorAll('.scmore').forEach((btn) => {
+  const zone = btn.previousElementSibling;
+  if (zone.scrollHeight <= 320) {
+    zone.classList.remove('clip');
+    btn.remove();
+    return;
+  }
+  btn.addEventListener('click', () => {
+    const clipped = zone.classList.toggle('clip');
+    btn.textContent = clipped ? L.show : L.hide;
+    if (clipped) zone.closest('.ep').scrollIntoView({ block: 'nearest' });
+  });
+});
+
+// copy buttons (a single line / a character's whole line book)
+document.addEventListener('click', async (e) => {
+  const btn = e.target.closest('.copy');
+  if (!btn) return;
+  e.preventDefault();
+  const label = btn.textContent;
+  try {
+    await navigator.clipboard.writeText(btn.dataset.copy);
+    btn.textContent = L.copied;
+    btn.dataset.done = '1';
+  } catch {
+    btn.textContent = L.failed;
+  }
+  setTimeout(() => { btn.textContent = label; delete btn.dataset.done; }, 1600);
+});
+
+// export: the report carries the full script.json; the download is it verbatim
+document.querySelector('.expo').addEventListener('click', (e) => {
+  const btn = e.currentTarget;
+  const url = URL.createObjectURL(
+    new Blob([document.getElementById('script-data').textContent], { type: 'application/json' }),
+  );
+  const a = Object.assign(document.createElement('a'), { href: url, download: btn.dataset.name });
+  a.click();
+  // don't revoke right away — Safari kills the blob before the download finishes reading it
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+});
+</script>
+
+<style id="wtf-dock-css">#wtf-dock{position:fixed;right:16px;bottom:16px;z-index:40;display:flex;flex-wrap:wrap;align-items:center;gap:4px;max-width:calc(100vw - 32px);padding:6px 8px;background:rgba(25,29,33,.92);color:#f5f6f5;border:1px solid rgba(255,255,255,.14);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.22);font:500 12px/1.2 -apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",sans-serif;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}#wtf-dock .wtf-brand{padding:4px 8px;color:#e0a98c;font-weight:600;letter-spacing:.04em;border-right:1px solid rgba(255,255,255,.15);margin-right:2px}#wtf-dock a{color:#e4e6e3;text-decoration:none;padding:5px 9px;border-radius:6px;transition:background .15s,color .15s;white-space:nowrap}#wtf-dock a:hover{background:rgba(255,255,255,.12);color:#fff}#wtf-dock a.wtf-on{background:#8a3324;color:#fff;font-weight:600}@media(max-width:640px){#wtf-dock{left:12px;right:12px;bottom:12px;justify-content:center;font-size:11px}#wtf-dock .wtf-brand{display:none}}@media print{#wtf-dock{display:none!important}}</style><nav id="wtf-dock" aria-label="晚棠风报告导航"><span class="wtf-brand">晚棠风</span><a href="./index.html">总览</a><a href="./outline-report.html">改编大纲</a><a href="./script-report.html" class="wtf-on">分集剧本</a><a href="./cast-report.html">角色卡司</a><a href="./character-refs/character-refs.html">演员定妆照</a><a href="./art-report.html">美术设定</a><a href="./staging-report.html">开场站位</a><a href="./storyboard-report.html">分镜故事板</a></nav>
+</body></html>
