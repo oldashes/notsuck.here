@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>晚棠风 v2 · 男女主定妆重构预览</title>
+<title>晚棠风 v2 · 男女主完整四视图定妆展示</title>
 <style>
 :root{
   --paper:#eceded; --panel:#f5f6f5; --side:#e4e6e3; --ink:#191d21; --ink-2:#5b636a; --ink-3:#8c9298;
-  --rule:#d2d5d0; --rule-2:#c2c6bf; --seal:#8a3324; --seal-2:#c56a4e; --seal-soft:#8a332412; --ok:#3d6b4f;
+  --rule:#d2d5d0; --rule-2:#c2c6bf; --seal:#8a3324; --seal-2:#c56a4e; --seal-soft:#8a332412; --ok:#3d6b4f; --ok-soft:#3d6b4f14;
   --serif:"Songti SC","STSong","Source Han Serif SC","Noto Serif CJK SC",Georgia,serif;
   --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
   --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
@@ -19,17 +19,19 @@ body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.7 var(--sans)
 .nav-links{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .nav-btn{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;font-size:13px;color:var(--ink-2);text-decoration:none;background:var(--panel);border:1px solid var(--rule-2);border-radius:6px;transition:border-color .15s,color .15s}
 .nav-btn:hover{border-color:var(--seal);color:var(--seal)}
-.v2-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--seal);background:var(--seal-soft);border:1px solid var(--seal);border-radius:999px;padding:3px 12px;letter-spacing:.04em}
+.v2-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--ok);background:var(--ok-soft);border:1px solid var(--ok);border-radius:999px;padding:3px 12px;letter-spacing:.04em}
 
 .hero{background:var(--panel);border:1px solid var(--rule-2);border-top:3px solid var(--ink);padding:26px 26px 22px}
 .hero-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:14px}
 .hero-head h1{margin:0;font:400 32px/1.15 var(--serif);letter-spacing:.06em}
 .hero-head .sub{color:var(--ink-2);font-size:14px}
-.hero-desc{margin:14px 0 18px;color:var(--ink-2);font-size:14px;line-height:1.85;max-width:960px}
+.hero-desc{margin:14px 0 18px;color:var(--ink-2);font-size:14px;line-height:1.85;max-width:980px}
 .roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .step{background:var(--paper);border:1px solid var(--rule);padding:11px 14px;border-radius:6px}
+.step.done{border-color:var(--ok);background:var(--ok-soft)}
 .step.now{border-color:var(--seal);background:var(--seal-soft)}
 .step .st{font-size:11px;font-weight:600;color:var(--ink-3);letter-spacing:.04em}
+.step.done .st{color:var(--ok)}
 .step.now .st{color:var(--seal)}
 .step .tt{margin-top:3px;font-size:13px;font-weight:600;color:var(--ink)}
 
@@ -44,22 +46,34 @@ body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.7 var(--sans)
 .seg button{border:0;background:transparent;color:var(--ink-2);font:500 13px/1 var(--sans);padding:8px 14px;cursor:pointer;transition:background .15s,color .15s}
 .seg button.on{background:var(--ink);color:#fff}
 
-.notes{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.notes{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:22px}
 .note-box{background:var(--paper);border:1px solid var(--rule);padding:10px 12px;border-radius:6px}
 .note-box .k{font-size:11px;color:var(--seal);font-weight:600;margin-bottom:4px}
 .note-box .old{font-size:12px;color:var(--ink-3);text-decoration:line-through;margin-bottom:3px}
 .note-box .new{font-size:12.5px;color:var(--ink);line-height:1.55}
 
+.sub-lbl{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:22px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--rule);font-size:14px;font-weight:600;color:var(--ink)}
+.sub-lbl span{font-size:12px;font-weight:400;color:var(--ink-2)}
+
+.sheet-box{background:#fff;border:1px solid var(--rule-2);border-radius:6px;overflow:hidden;cursor:zoom-in;margin-bottom:14px;position:relative;transition:border-color .15s}
+.sheet-box:hover{border-color:var(--seal)}
+.sheet-box img{display:block;width:100%;height:auto}
+.sheet-box .sheet-cap{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--paper);border-top:1px solid var(--rule);font-size:12px;color:var(--ink-2)}
+
 .side-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .img-card{background:#fff;border:1px solid var(--rule-2);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s,transform .15s}
 .img-card.is-new{border-color:var(--seal)}
+.img-card.is-ok{border-color:var(--ok)}
 .img-card:hover{transform:translateY(-2px);border-color:var(--ink)}
 .img-card.is-new:hover{border-color:var(--seal)}
+.img-card.is-ok:hover{border-color:var(--ok)}
 .img-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;background:var(--paper);border-bottom:1px solid var(--rule);font-size:12px}
 .img-card.is-new .img-head{background:var(--seal-soft)}
+.img-card.is-ok .img-head{background:var(--ok-soft)}
 .badge{font-size:11px;font-weight:600;padding:1px 7px;border-radius:4px}
 .badge.old{background:var(--side);color:var(--ink-2)}
 .badge.new{background:var(--seal);color:#fff}
+.badge.ok{background:var(--ok);color:#fff}
 .img-wrap{position:relative;aspect-ratio:3/4;background:#fff;cursor:zoom-in;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .img-wrap img{width:100%;height:100%;object-fit:contain;display:block}
 .img-wrap .hint{position:absolute;right:8px;bottom:8px;font-size:11px;padding:2px 7px;border-radius:4px;background:rgba(25,29,33,.72);color:#fff;opacity:0;transition:opacity .15s;pointer-events:none}
@@ -67,7 +81,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.7 var(--sans)
 .img-foot{padding:7px 10px;font-size:11.5px;color:var(--ink-2);border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-family:var(--mono)}
 
 .wipe-panel{display:none}
-.char-sec[data-mode="wipe"] .side-grid{display:none}
+.char-sec[data-mode="wipe"] .cmp-grid{display:none}
 .char-sec[data-mode="wipe"] .wipe-panel{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .wipe-card{background:#fff;border:1px solid var(--rule-2);border-radius:8px;overflow:hidden}
 .wipe-hd{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--paper);border-bottom:1px solid var(--rule);font-size:12.5px}
@@ -94,8 +108,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.7 var(--sans)
 table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border:1px solid var(--rule)}
 th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);white-space:nowrap}
 th{background:var(--paper);color:var(--ink-2);font-weight:600;font-size:12px}
-.ok{color:var(--ok);font-weight:600}
-.wait{color:var(--seal);font-weight:600}
+.ok-txt{color:var(--ok);font-weight:600}
 .mono{font-family:var(--mono);font-size:12px}
 
 footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule-2);color:var(--ink-3);font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
@@ -128,29 +141,29 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule-2);color
       <a class="nav-btn" href="../../">← not suck here</a>
       <a class="nav-btn" href="../">查看 v1 完整档案</a>
     </div>
-    <span class="v2-pill">v2 重构预览 · 男女主定妆审颜</span>
+    <span class="v2-pill">✓ 已定稿：男女主完整四视图定妆</span>
   </div>
 
   <section class="hero">
     <div class="hero-head">
       <h1>《晚棠风》v2 人物重构预览</h1>
-      <span class="sub">35mm 电影胶片古装定妆照 · 男女主新版锚点与大头照</span>
+      <span class="sub">35mm 电影胶片古装定妆照 · 男女主完整四视图（正脸 + 正面 / 90° 侧面 / 背面）</span>
     </div>
     <p class="hero-desc">
-      针对 v1 版人物质感偏素、缺乏现代爆款短剧精致度的问题，v2 改用「35mm 电影胶片古装定妆照」基准：保留真实皮肤微孔与胶片颗粒（拒绝塑料感 CGI），大幅拔高演员骨相颜值、精致古装淡妆、立体光影与真丝细麻/暗纹织锦剪裁。目前先完成<strong>江晚棠</strong>与<strong>温如风</strong>的正面全身锚点与正脸大头照供在线审颜拍板，v1 完整档案保持原样不动。
+      针对 v1 版人物质感偏素、缺乏现代爆款短剧精致度的问题，v2 改用「35mm 电影胶片古装定妆照」基准：保留真实皮肤微孔与胶片颗粒（拒绝塑料感 CGI），大幅拔高演员骨相颜值、微表情张力与真丝细麻/暗纹织锦剪裁。目前<strong>江晚棠</strong>与<strong>温如风</strong>的新版锚点已正式确认，并已基于各自新锚点派齐完整 90° 侧面与 180° 背面三视图及 1920×1080 设定板；v1 完整档案仍保持原样不动。
     </p>
     <div class="roadmap">
+      <div class="step done">
+        <div class="st">阶段 1 · ✓ 已完成</div>
+        <div class="tt">男女主锚点确认 + 完整四视图与设定板定稿</div>
+      </div>
       <div class="step now">
-        <div class="st">阶段 1 · 当前预览</div>
-        <div class="tt">男女主新版正面全身锚点 + 正脸大头照</div>
+        <div class="st">阶段 2 · 待选择下一步</div>
+        <div class="tt">核心配角（林慕白/绾音/厉狂澜）同规格升级 或 剧本重构</div>
       </div>
       <div class="step">
-        <div class="st">阶段 2 · 拍板后执行</div>
-        <div class="tt">确认锚点 → 派生 90° 侧面/背面 &amp; 配角颜值升级</div>
-      </div>
-      <div class="step">
-        <div class="st">阶段 3 · 后续规划</div>
-        <div class="tt">剧本节奏梳理与强爽点/钩子重构</div>
+        <div class="st">阶段 3 · 后续推进</div>
+        <div class="tt">全剧爆点梳理、分镜重出与片段重抽</div>
       </div>
     </div>
   </section>
@@ -192,7 +205,55 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule-2);color
       </div>
     </div>
 
-    <div class="side-grid">
+    <div class="sub-lbl">
+      完整四视图定妆板（正脸 + 正面 / 90° 侧面 / 背面）
+      <span>1920×1080 合成设定板 · 全部 4 个视图已通过检查门</span>
+    </div>
+    <div class="sheet-box" data-zoom="./assets/jiang-sheet.webp" data-cap="江晚棠 · v2 完整四视图定妆板 (1920×1080)">
+      <img src="./assets/jiang-sheet.webp" alt="江晚棠 完整四视图定妆板">
+      <div class="sheet-cap"><span>江晚棠-sheet.png（face.v3 + front.v4 + side.v2 + back.v2）</span><span>点击放大查看高清全图 ↗</span></div>
+    </div>
+
+    <div class="side-grid" style="margin-bottom:10px">
+      <article class="img-card is-ok">
+        <div class="img-head"><span>正脸大头照</span><span class="badge ok">v3 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/jiang-new-face.webp" data-cap="江晚棠 · 新版正脸大头照 (v3 · 896×1120)">
+          <img src="./assets/jiang-new-face.webp" alt="江晚棠 新版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v3</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>正面全身锚点</span><span class="badge ok">v4 已确认</span></div>
+        <div class="img-wrap" data-zoom="./assets/jiang-new-full.webp" data-cap="江晚棠 · 新版正面全身锚点 (v4 · 848×1264 · 已确认)">
+          <img src="./assets/jiang-new-full.webp" alt="江晚棠 新版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v4</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>侧面 90°（朝右）</span><span class="badge ok">v2 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/jiang-new-side.webp" data-cap="江晚棠 · 新版 90° 侧面 (v2 · 848×1264 · 派生自 v4 锚点)">
+          <img src="./assets/jiang-new-side.webp" alt="江晚棠 90度侧面">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>side-full.v2</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>背面 180°</span><span class="badge ok">v2 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/jiang-new-back.webp" data-cap="江晚棠 · 新版 180° 背面 (v2 · 848×1264 · 派生自 v4 锚点)">
+          <img src="./assets/jiang-new-back.webp" alt="江晚棠 背面">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>back-full.v2</span><span>848×1264</span></div>
+      </article>
+    </div>
+
+    <div class="sub-lbl">
+      新旧版本对比（v1 vs v2）
+      <span>上方按钮可切换「并排对比」或「滑动拉帘对比」</span>
+    </div>
+    <div class="side-grid cmp-grid">
       <article class="img-card">
         <div class="img-head"><span>正脸大头照 · 旧版</span><span class="badge old">v1</span></div>
         <div class="img-wrap" data-zoom="./assets/jiang-old-face.webp" data-cap="江晚棠 · 旧版正脸大头照 (v1 · 896×1120)">
@@ -218,8 +279,8 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule-2);color
         <div class="img-foot"><span>front-full.v2</span><span>848×1264</span></div>
       </article>
       <article class="img-card is-new">
-        <div class="img-head"><span>正面全身锚点 · 新版</span><span class="badge new">v4 锚点</span></div>
-        <div class="img-wrap" data-zoom="./assets/jiang-new-full.webp" data-cap="江晚棠 · 新版正面全身锚点 (v4 · 848×1264 · 待确认)">
+        <div class="img-head"><span>正面全身锚点 · 新版</span><span class="badge new">v4 已确认</span></div>
+        <div class="img-wrap" data-zoom="./assets/jiang-new-full.webp" data-cap="江晚棠 · 新版正面全身锚点 (v4 · 848×1264 · 已确认)">
           <img src="./assets/jiang-new-full.webp" alt="江晚棠 新版正面全身">
           <span class="hint">点击放大</span>
         </div>
@@ -305,7 +366,55 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule-2);color
       </div>
     </div>
 
-    <div class="side-grid">
+    <div class="sub-lbl">
+      完整四视图定妆板（正脸 + 正面 / 90° 侧面 / 背面）
+      <span>1920×1080 合成设定板 · 全部 4 个视图已通过检查门</span>
+    </div>
+    <div class="sheet-box" data-zoom="./assets/wen-sheet.webp" data-cap="温如风 · v2 完整四视图定妆板 (1920×1080)">
+      <img src="./assets/wen-sheet.webp" alt="温如风 完整四视图定妆板">
+      <div class="sheet-cap"><span>温如风-sheet.png（face.v4 + front.v4 + side.v2 + back.v3）</span><span>点击放大查看高清全图 ↗</span></div>
+    </div>
+
+    <div class="side-grid" style="margin-bottom:10px">
+      <article class="img-card is-ok">
+        <div class="img-head"><span>正脸大头照</span><span class="badge ok">v4 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/wen-new-face.webp" data-cap="温如风 · 新版正脸大头照 (v4 · 896×1120)">
+          <img src="./assets/wen-new-face.webp" alt="温如风 新版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v4</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>正面全身锚点</span><span class="badge ok">v4 已确认</span></div>
+        <div class="img-wrap" data-zoom="./assets/wen-new-full.webp" data-cap="温如风 · 新版正面全身锚点 (v4 · 848×1264 · 已确认)">
+          <img src="./assets/wen-new-full.webp" alt="温如风 新版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v4</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>侧面 90°（朝右）</span><span class="badge ok">v2 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/wen-new-side.webp" data-cap="温如风 · 新版 90° 侧面 (v2 · 848×1264 · 派生自 v4 锚点)">
+          <img src="./assets/wen-new-side.webp" alt="温如风 90度侧面">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>side-full.v2</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>背面 180°</span><span class="badge ok">v3 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/wen-new-back.webp" data-cap="温如风 · 新版 180° 背面 (v3 · 848×1264 · 派生自 v4 锚点)">
+          <img src="./assets/wen-new-back.webp" alt="温如风 背面">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>back-full.v3</span><span>848×1264</span></div>
+      </article>
+    </div>
+
+    <div class="sub-lbl">
+      新旧版本对比（v1 vs v2）
+      <span>上方按钮可切换「并排对比」或「滑动拉帘对比」</span>
+    </div>
+    <div class="side-grid cmp-grid">
       <article class="img-card">
         <div class="img-head"><span>正脸大头照 · 旧版</span><span class="badge old">v1</span></div>
         <div class="img-wrap" data-zoom="./assets/wen-old-face.webp" data-cap="温如风 · 旧版正脸大头照 (v1 · 896×1120)">
@@ -331,8 +440,8 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule-2);color
         <div class="img-foot"><span>front-full.v1</span><span>848×1264</span></div>
       </article>
       <article class="img-card is-new">
-        <div class="img-head"><span>正面全身锚点 · 新版</span><span class="badge new">v4 锚点</span></div>
-        <div class="img-wrap" data-zoom="./assets/wen-new-full.webp" data-cap="温如风 · 新版正面全身锚点 (v4 · 848×1264 · 待确认)">
+        <div class="img-head"><span>正面全身锚点 · 新版</span><span class="badge new">v4 已确认</span></div>
+        <div class="img-wrap" data-zoom="./assets/wen-new-full.webp" data-cap="温如风 · 新版正面全身锚点 (v4 · 848×1264 · 已确认)">
           <img src="./assets/wen-new-full.webp" alt="温如风 新版正面全身">
           <span class="hint">点击放大</span>
         </div>
@@ -383,7 +492,7 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule-2);color
 
   <!-- 检查门摘要 -->
   <section class="gate-sec">
-    <h3>资产校验与检查门摘要</h3>
+    <h3>资产校验与检查门摘要（共 8 个视图 · 0 过期 · 0 异常）</h3>
     <div class="tbl-wrap">
       <table>
         <thead>
@@ -402,32 +511,64 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule-2);color
             <td>正面全身（锚点）</td>
             <td class="mono">front-full.v4</td>
             <td class="mono">848×1264 (2:3)</td>
-            <td class="ok">✓ 全部通过（四边纯白 100%）</td>
-            <td class="wait">待确认（奶凶微表情 · confirm 后派生三视图）</td>
+            <td class="ok-txt">✓ 全部通过（四边纯白 100%）</td>
+            <td class="ok-txt">✓ 已确认（Anchor Confirmed）</td>
           </tr>
           <tr>
             <td>江晚棠</td>
             <td>正脸大头照</td>
             <td class="mono">face-front.v3</td>
             <td class="mono">896×1120 (4:5)</td>
-            <td class="ok">✓ 全部通过（参考 front-full/v4）</td>
-            <td class="ok">已注册有效</td>
+            <td class="ok-txt">✓ 全部通过（四边纯白 100%）</td>
+            <td class="ok-txt">✓ 有效（关联 front-full/v4）</td>
+          </tr>
+          <tr>
+            <td>江晚棠</td>
+            <td>侧面 90°（面朝右）</td>
+            <td class="mono">side-full.v2</td>
+            <td class="mono">848×1264 (2:3)</td>
+            <td class="ok-txt">✓ 全部通过（四边纯白 100%）</td>
+            <td class="ok-txt">✓ 有效（派生自 front-full/v4）</td>
+          </tr>
+          <tr>
+            <td>江晚棠</td>
+            <td>背面 180°</td>
+            <td class="mono">back-full.v2</td>
+            <td class="mono">848×1264 (2:3)</td>
+            <td class="ok-txt">✓ 全部通过（四边纯白 100%）</td>
+            <td class="ok-txt">✓ 有效（派生自 front-full/v4）</td>
           </tr>
           <tr>
             <td>温如风</td>
             <td>正面全身（锚点）</td>
             <td class="mono">front-full.v4</td>
             <td class="mono">848×1264 (2:3)</td>
-            <td class="ok">✓ 全部通过（四边纯白 100%）</td>
-            <td class="wait">待确认（笑面城府微表情 · confirm 后派生三视图）</td>
+            <td class="ok-txt">✓ 全部通过（四边纯白 100%）</td>
+            <td class="ok-txt">✓ 已确认（Anchor Confirmed）</td>
           </tr>
           <tr>
             <td>温如风</td>
             <td>正脸大头照</td>
             <td class="mono">face-front.v4</td>
             <td class="mono">896×1120 (4:5)</td>
-            <td class="ok">✓ 全部通过（参考 front-full/v4）</td>
-            <td class="ok">已注册有效</td>
+            <td class="ok-txt">✓ 全部通过（四边纯白 100%）</td>
+            <td class="ok-txt">✓ 有效（关联 front-full/v4）</td>
+          </tr>
+          <tr>
+            <td>温如风</td>
+            <td>侧面 90°（面朝右）</td>
+            <td class="mono">side-full.v2</td>
+            <td class="mono">848×1264 (2:3)</td>
+            <td class="ok-txt">✓ 全部通过（四边纯白 100%）</td>
+            <td class="ok-txt">✓ 有效（派生自 front-full/v4）</td>
+          </tr>
+          <tr>
+            <td>温如风</td>
+            <td>背面 180°</td>
+            <td class="mono">back-full.v3</td>
+            <td class="mono">848×1264 (2:3)</td>
+            <td class="ok-txt">✓ 全部通过（四边纯白 100%）</td>
+            <td class="ok-txt">✓ 有效（派生自 front-full/v4）</td>
           </tr>
         </tbody>
       </table>
