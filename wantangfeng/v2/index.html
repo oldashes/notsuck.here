@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>晚棠风 v2 · 6 位核心角色完整四视图定妆展示</title>
+<title>晚棠风 v2 · 角色定妆与剧本大纲重构总览</title>
 <style>
 :root{
   --paper:#eceded; --panel:#f5f6f5; --side:#e4e6e3; --ink:#191d21; --ink-2:#5b636a; --ink-3:#8c9298;
@@ -121,6 +121,14 @@ th{background:var(--paper);color:var(--ink-2);font-weight:600;font-size:12px}
 
 footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule-2);color:var(--ink-3);font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 
+.nav-btn.primary{background:var(--seal);border-color:var(--seal);color:#fff;font-weight:600}
+.nav-btn.primary:hover{background:#6f271b;border-color:#6f271b;color:#fff}
+.script-banner{margin-top:20px;background:var(--panel);border:1px solid var(--rule-2);border-left:4px solid var(--seal);padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.script-banner .sb-info{max-width:780px}
+.script-banner h3{margin:0 0 6px;font:400 20px/1.2 var(--serif);letter-spacing:.04em}
+.script-banner p{margin:0;color:var(--ink-2);font-size:13px;line-height:1.7}
+.script-banner .sb-actions{display:flex;gap:10px;flex-wrap:wrap}
+
 .lb{position:fixed;inset:0;z-index:100;background:rgba(16,18,21,.9);display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px}
 .lb.on{display:flex}
 .lb-box{position:relative;max-width:94vw;max-height:86vh;display:flex;flex-direction:column;align-items:center}
@@ -149,17 +157,19 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule-2);color
     <div class="nav-links">
       <a class="nav-btn" href="../../">← not suck here</a>
       <a class="nav-btn" href="../">查看 v1 完整档案</a>
+      <a class="nav-btn primary" href="./outline-v2-report.html">v2 改编大纲与爆点轴 (14/14)</a>
+      <a class="nav-btn primary" href="./script-v2-report.html">v2 全 12 集剧本与台词本 (10/10)</a>
     </div>
-    <span class="v2-pill">✓ 已定稿：6 位核心角色完整四视图定妆</span>
+    <span class="v2-pill">✓ 已定稿：6 位核心角色 + 12 集 v2 剧本与大纲</span>
   </div>
 
   <section class="hero">
     <div class="hero-head">
-      <h1>《晚棠风》v2 人物重构预览</h1>
-      <span class="sub">35mm 电影胶片古装定妆照 · 6 位核心角色完整四视图（正脸 + 正面 / 90° 侧面 / 背面）</span>
+      <h1>《晚棠风》v2 重构预览</h1>
+      <span class="sub">35mm 电影胶片定妆照（6 位核心角色） · 强钩子高爆点 12 集大纲与剧本（倾向 B 留白收尾）</span>
     </div>
     <p class="hero-desc">
-      针对 v1 版人物建模偏素、配角气场失衡的问题，v2 统一采用「35mm 电影胶片古装定妆照」基准：保留真实皮肤微孔与胶片颗粒（拒绝塑料感 CGI），全面提升演员骨相颜值、微表情张力与真丝细麻/暗纹织锦剪裁。目前<strong>江晚棠、温如风</strong>与四大核心配角<strong>林慕白、绾音、厉狂澜、崔断水</strong>的新版锚点已全部确认，均已派齐 90° 侧面、180° 背面四视图与 1920×1080 设定板（其余老戏骨与萌娃配角保留原有写实选角）；v1 完整档案保持原样不动。
+      针对 v1 版「剧情平淡难懂、爽点憋屈」与「人物偏素」两大痛点，v2 已完成双轨重构：其一，<strong>江晚棠、温如风、林慕白、绾音、厉狂澜、崔断水</strong>六位核心演员全面升级为「35mm 电影胶片古装定妆照」与 4 视图设定板；其二，重排全 12 集剧作结构——开篇 30 秒面馆亮刀立威、第 2 集反派厉狂澜与顾云峥旧案齐亮、第 3 集林慕白当场露出白切黑假面、第 11 集当众撕破伪善立终身血债、第 12 集海棠伞下小满唤爹且于槐花巷门光留出开放悬念（v1 完整档案保持原样不动）。
     </p>
     <div class="roadmap">
       <div class="step done">
@@ -170,10 +180,23 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule-2);color
         <div class="st">阶段 2 · ✓ 已完成</div>
         <div class="tt">四大核心配角（林慕白 / 绾音 / 厉狂澜 / 崔断水）35mm 升级 + 四视图定稿</div>
       </div>
-      <div class="step now">
-        <div class="st">阶段 3 · 当前下一步</div>
-        <div class="tt">全剧大纲与爆点重构（解决看不懂、没爆点）</div>
+      <div class="step done">
+        <div class="st">阶段 3 · ✓ 已完成</div>
+        <div class="tt">全剧 12 集强爆点大纲（14/14）与剧本（10/10）重构定稿</div>
       </div>
+    </div>
+  </section>
+
+  <section class="script-banner" aria-label="v2 剧本与大纲重构入口">
+    <div class="sb-info">
+      <h3>v2 剧本与大纲重构入口 · 更易懂 · 更勾人 · 爽点送到位</h3>
+      <p>
+        12 集 × 2 分钟（估总时长 1320.1 秒 / 31 场 / 197 句口语台词，已全部通过脚本校验）。支持在线直接查看爽点节奏时间轴、分集冷开场钩子/悬念、角色台词本及配音音色参数，并可在页面内一键导出 JSON。
+      </p>
+    </div>
+    <div class="sb-actions">
+      <a class="nav-btn primary" href="./outline-v2-report.html">打开 v2 改编大纲评审报告 ↗</a>
+      <a class="nav-btn primary" href="./script-v2-report.html">打开 v2 全 12 集剧本与台词本 ↗</a>
     </div>
   </section>
 
