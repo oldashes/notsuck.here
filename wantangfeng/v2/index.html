@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>晚棠风 v2 · 男女主定妆重构预览</title>
+<style>
+:root{
+  --paper:#eceded; --panel:#f5f6f5; --side:#e4e6e3; --ink:#191d21; --ink-2:#5b636a; --ink-3:#8c9298;
+  --rule:#d2d5d0; --rule-2:#c2c6bf; --seal:#8a3324; --seal-2:#c56a4e; --seal-soft:#8a332412; --ok:#3d6b4f;
+  --serif:"Songti SC","STSong","Source Han Serif SC","Noto Serif CJK SC",Georgia,serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.7 var(--sans);-webkit-font-smoothing:antialiased}
+.page{max-width:1320px;margin:0 auto;padding:22px 24px 80px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.nav-links{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.nav-btn{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;font-size:13px;color:var(--ink-2);text-decoration:none;background:var(--panel);border:1px solid var(--rule-2);border-radius:6px;transition:border-color .15s,color .15s}
+.nav-btn:hover{border-color:var(--seal);color:var(--seal)}
+.v2-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--seal);background:var(--seal-soft);border:1px solid var(--seal);border-radius:999px;padding:3px 12px;letter-spacing:.04em}
+
+.hero{background:var(--panel);border:1px solid var(--rule-2);border-top:3px solid var(--ink);padding:26px 26px 22px}
+.hero-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:14px}
+.hero-head h1{margin:0;font:400 32px/1.15 var(--serif);letter-spacing:.06em}
+.hero-head .sub{color:var(--ink-2);font-size:14px}
+.hero-desc{margin:14px 0 18px;color:var(--ink-2);font-size:14px;line-height:1.85;max-width:960px}
+.roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.step{background:var(--paper);border:1px solid var(--rule);padding:11px 14px;border-radius:6px}
+.step.now{border-color:var(--seal);background:var(--seal-soft)}
+.step .st{font-size:11px;font-weight:600;color:var(--ink-3);letter-spacing:.04em}
+.step.now .st{color:var(--seal)}
+.step .tt{margin-top:3px;font-size:13px;font-weight:600;color:var(--ink)}
+
+.char-sec{margin-top:32px;background:var(--panel);border:1px solid var(--rule-2);padding:22px 24px 24px}
+.char-hd{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:18px}
+.char-title{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.char-title h2{margin:0;font:400 26px/1.2 var(--serif);letter-spacing:.05em}
+.char-title .role-tag{font-size:12px;color:var(--seal);border:1px solid var(--seal);background:var(--seal-soft);padding:2px 9px;border-radius:999px}
+.char-title .sub{font-size:13px;color:var(--ink-2)}
+
+.seg{display:inline-flex;border:1px solid var(--rule-2);border-radius:6px;overflow:hidden;background:var(--paper)}
+.seg button{border:0;background:transparent;color:var(--ink-2);font:500 13px/1 var(--sans);padding:8px 14px;cursor:pointer;transition:background .15s,color .15s}
+.seg button.on{background:var(--ink);color:#fff}
+
+.notes{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.note-box{background:var(--paper);border:1px solid var(--rule);padding:10px 12px;border-radius:6px}
+.note-box .k{font-size:11px;color:var(--seal);font-weight:600;margin-bottom:4px}
+.note-box .old{font-size:12px;color:var(--ink-3);text-decoration:line-through;margin-bottom:3px}
+.note-box .new{font-size:12.5px;color:var(--ink);line-height:1.55}
+
+.side-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.img-card{background:#fff;border:1px solid var(--rule-2);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s,transform .15s}
+.img-card.is-new{border-color:var(--seal)}
+.img-card:hover{transform:translateY(-2px);border-color:var(--ink)}
+.img-card.is-new:hover{border-color:var(--seal)}
+.img-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;background:var(--paper);border-bottom:1px solid var(--rule);font-size:12px}
+.img-card.is-new .img-head{background:var(--seal-soft)}
+.badge{font-size:11px;font-weight:600;padding:1px 7px;border-radius:4px}
+.badge.old{background:var(--side);color:var(--ink-2)}
+.badge.new{background:var(--seal);color:#fff}
+.img-wrap{position:relative;aspect-ratio:3/4;background:#fff;cursor:zoom-in;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.img-wrap img{width:100%;height:100%;object-fit:contain;display:block}
+.img-wrap .hint{position:absolute;right:8px;bottom:8px;font-size:11px;padding:2px 7px;border-radius:4px;background:rgba(25,29,33,.72);color:#fff;opacity:0;transition:opacity .15s;pointer-events:none}
+.img-card:hover .hint{opacity:1}
+.img-foot{padding:7px 10px;font-size:11.5px;color:var(--ink-2);border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-family:var(--mono)}
+
+.wipe-panel{display:none}
+.char-sec[data-mode="wipe"] .side-grid{display:none}
+.char-sec[data-mode="wipe"] .wipe-panel{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.wipe-card{background:#fff;border:1px solid var(--rule-2);border-radius:8px;overflow:hidden}
+.wipe-hd{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--paper);border-bottom:1px solid var(--rule);font-size:12.5px}
+.wipe-hd strong{font-weight:600}
+.wipe-actions{display:flex;gap:6px}
+.mini-zoom{border:1px solid var(--rule-2);background:var(--panel);color:var(--ink-2);border-radius:4px;padding:2px 8px;font-size:11px;cursor:pointer}
+.mini-zoom:hover{border-color:var(--seal);color:var(--seal)}
+.wipe-stage{position:relative;width:100%;background:#fff;overflow:hidden;user-select:none;touch-action:pan-y;--pos:50%}
+.wipe-stage.r45{aspect-ratio:4/5}
+.wipe-stage.r23{aspect-ratio:848/1264}
+.wipe-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;pointer-events:none;display:block}
+.wipe-stage .wipe-over{clip-path:inset(0 calc(100% - var(--pos)) 0 0)}
+.wipe-line{position:absolute;top:0;bottom:0;left:var(--pos);width:2px;background:var(--seal);transform:translateX(-1px);pointer-events:none;box-shadow:0 0 0 1px rgba(255,255,255,.7)}
+.wipe-knob{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;background:var(--seal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;box-shadow:0 2px 10px rgba(0,0,0,.25);border:2px solid #fff}
+.wipe-tag{position:absolute;top:10px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;pointer-events:none}
+.wipe-tag.left{left:10px;background:rgba(25,29,33,.78);color:#fff}
+.wipe-tag.right{right:10px;background:var(--seal);color:#fff}
+.wipe-range{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;z-index:3}
+.wipe-tip{padding:7px 12px;font-size:11.5px;color:var(--ink-2);background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between}
+
+.gate-sec{margin-top:32px;background:var(--panel);border:1px solid var(--rule-2);padding:20px 24px}
+.gate-sec h3{margin:0 0 12px;font:400 20px/1.2 var(--serif);letter-spacing:.04em}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border:1px solid var(--rule)}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);white-space:nowrap}
+th{background:var(--paper);color:var(--ink-2);font-weight:600;font-size:12px}
+.ok{color:var(--ok);font-weight:600}
+.wait{color:var(--seal);font-weight:600}
+.mono{font-family:var(--mono);font-size:12px}
+
+footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule-2);color:var(--ink-3);font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+.lb{position:fixed;inset:0;z-index:100;background:rgba(16,18,21,.9);display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+.lb.on{display:flex}
+.lb-box{position:relative;max-width:94vw;max-height:86vh;display:flex;flex-direction:column;align-items:center}
+.lb img{max-width:94vw;max-height:82vh;background:#fff;border-radius:6px;box-shadow:0 16px 48px rgba(0,0,0,.45)}
+.lb-cap{margin-top:10px;color:#e6edf3;font-size:13px;text-align:center}
+.lb-close{position:fixed;top:16px;right:20px;background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:8px;width:36px;height:36px;font-size:20px;line-height:1;cursor:pointer}
+.lb-close:hover{background:var(--seal)}
+
+@media(max-width:980px){
+  .notes{grid-template-columns:repeat(2,1fr)}
+  .side-grid{grid-template-columns:repeat(2,1fr)}
+  .roadmap{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+  .page{padding:14px 12px 64px}
+  .char-sec{padding:16px 14px}
+  .notes{grid-template-columns:1fr}
+  .char-sec[data-mode="wipe"] .wipe-panel{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <div class="nav-links">
+      <a class="nav-btn" href="../../">← not suck here</a>
+      <a class="nav-btn" href="../">查看 v1 完整档案</a>
+    </div>
+    <span class="v2-pill">v2 重构预览 · 男女主定妆审颜</span>
+  </div>
+
+  <section class="hero">
+    <div class="hero-head">
+      <h1>《晚棠风》v2 人物重构预览</h1>
+      <span class="sub">35mm 电影胶片古装定妆照 · 男女主新版锚点与大头照</span>
+    </div>
+    <p class="hero-desc">
+      针对 v1 版人物质感偏素、缺乏现代爆款短剧精致度的问题，v2 改用「35mm 电影胶片古装定妆照」基准：保留真实皮肤微孔与胶片颗粒（拒绝塑料感 CGI），大幅拔高演员骨相颜值、精致古装淡妆、立体光影与真丝细麻/暗纹织锦剪裁。目前先完成<strong>江晚棠</strong>与<strong>温如风</strong>的正面全身锚点与正脸大头照供在线审颜拍板，v1 完整档案保持原样不动。
+    </p>
+    <div class="roadmap">
+      <div class="step now">
+        <div class="st">阶段 1 · 当前预览</div>
+        <div class="tt">男女主新版正面全身锚点 + 正脸大头照</div>
+      </div>
+      <div class="step">
+        <div class="st">阶段 2 · 拍板后执行</div>
+        <div class="tt">确认锚点 → 派生 90° 侧面/背面 &amp; 配角颜值升级</div>
+      </div>
+      <div class="step">
+        <div class="st">阶段 3 · 后续规划</div>
+        <div class="tt">剧本节奏梳理与强爽点/钩子重构</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 女主：江晚棠 -->
+  <section class="char-sec" data-mode="side">
+    <div class="char-hd">
+      <div class="char-title">
+        <h2>江晚棠</h2>
+        <span class="role-tag">女主 · 20 岁</span>
+        <span class="sub">清冷绝美 · 破碎感大女主</span>
+      </div>
+      <div class="seg" role="group" aria-label="江晚棠对比视图切换">
+        <button type="button" class="on" data-set-mode="side">并排对比视图</button>
+        <button type="button" data-set-mode="wipe">滑动拉帘对比</button>
+      </div>
+    </div>
+
+    <div class="notes">
+      <div class="note-box">
+        <div class="k">骨相与眼神</div>
+        <div class="old">旧版：素颜偏憔悴、面部留白偏散</div>
+        <div class="new">新版：高骨相鹅蛋脸、澄澈凤杏眼配清冷戒备感</div>
+      </div>
+      <div class="note-box">
+        <div class="k">妆造质感</div>
+        <div class="old">旧版：无妆证件照感、气色略暗淡</div>
+        <div class="new">新版：清透瓷肌 + 克制古装淡妆、纤长上睫与浅玫瑰花瓣唇</div>
+      </div>
+      <div class="note-box">
+        <div class="k">发型与发饰</div>
+        <div class="old">旧版：颈后杂乱碎发 + 粗素木簪</div>
+        <div class="new">新版：顺滑宋制编发低髻 + 镂雕白玉细簪 + 修颜两缕鬓发</div>
+      </div>
+      <div class="note-box">
+        <div class="k">服化剪裁</div>
+        <div class="old">旧版：宽松洗旧麻布褙子显单薄</div>
+        <div class="new">新版：月白丝麻长褙子配浅烟青滚边暗织海棠纹 + 双层百褶长裙</div>
+      </div>
+    </div>
+
+    <div class="side-grid">
+      <article class="img-card">
+        <div class="img-head"><span>正脸大头照 · 旧版</span><span class="badge old">v1</span></div>
+        <div class="img-wrap" data-zoom="./assets/jiang-old-face.webp" data-cap="江晚棠 · 旧版正脸大头照 (v1 · 896×1120)">
+          <img src="./assets/jiang-old-face.webp" alt="江晚棠 旧版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v1</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card is-new">
+        <div class="img-head"><span>正脸大头照 · 新版</span><span class="badge new">v2 重构</span></div>
+        <div class="img-wrap" data-zoom="./assets/jiang-new-face.webp" data-cap="江晚棠 · 新版正脸大头照 (v2 · 896×1120 · 派生自 v3 锚点)">
+          <img src="./assets/jiang-new-face.webp" alt="江晚棠 新版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v2</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card">
+        <div class="img-head"><span>正面全身锚点 · 旧版</span><span class="badge old">v2</span></div>
+        <div class="img-wrap" data-zoom="./assets/jiang-old-full.webp" data-cap="江晚棠 · 旧版正面全身锚点 (v2 · 848×1264)">
+          <img src="./assets/jiang-old-full.webp" alt="江晚棠 旧版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v2</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-new">
+        <div class="img-head"><span>正面全身锚点 · 新版</span><span class="badge new">v3 锚点</span></div>
+        <div class="img-wrap" data-zoom="./assets/jiang-new-full.webp" data-cap="江晚棠 · 新版正面全身锚点 (v3 · 848×1264 · 待确认)">
+          <img src="./assets/jiang-new-full.webp" alt="江晚棠 新版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v3</span><span>848×1264</span></div>
+      </article>
+    </div>
+
+    <div class="wipe-panel">
+      <div class="wipe-card">
+        <div class="wipe-hd">
+          <strong>正脸大头照对比（旧 v1 / 新 v2）</strong>
+          <div class="wipe-actions">
+            <button type="button" class="mini-zoom" data-zoom="./assets/jiang-old-face.webp" data-cap="江晚棠 · 旧版正脸大头照 (v1)">看旧图</button>
+            <button type="button" class="mini-zoom" data-zoom="./assets/jiang-new-face.webp" data-cap="江晚棠 · 新版正脸大头照 (v2)">放大新图</button>
+          </div>
+        </div>
+        <div class="wipe-stage r45">
+          <img src="./assets/jiang-new-face.webp" alt="江晚棠 新版大头照">
+          <img class="wipe-over" src="./assets/jiang-old-face.webp" alt="江晚棠 旧版大头照">
+          <span class="wipe-tag left">旧版 v1</span>
+          <span class="wipe-tag right">新版 v2</span>
+          <div class="wipe-line"><div class="wipe-knob">↔</div></div>
+          <input class="wipe-range" type="range" min="0" max="100" value="50" aria-label="江晚棠大头照对比滑块">
+        </div>
+        <div class="wipe-tip"><span>← 向左滑动展示新版</span><span>向右滑动展示旧版 →</span></div>
+      </div>
+
+      <div class="wipe-card">
+        <div class="wipe-hd">
+          <strong>正面全身锚点对比（旧 v2 / 新 v3）</strong>
+          <div class="wipe-actions">
+            <button type="button" class="mini-zoom" data-zoom="./assets/jiang-old-full.webp" data-cap="江晚棠 · 旧版正面全身 (v2)">看旧图</button>
+            <button type="button" class="mini-zoom" data-zoom="./assets/jiang-new-full.webp" data-cap="江晚棠 · 新版正面全身锚点 (v3)">放大新图</button>
+          </div>
+        </div>
+        <div class="wipe-stage r23">
+          <img src="./assets/jiang-new-full.webp" alt="江晚棠 新版正面全身">
+          <img class="wipe-over" src="./assets/jiang-old-full.webp" alt="江晚棠 旧版正面全身">
+          <span class="wipe-tag left">旧版 v2</span>
+          <span class="wipe-tag right">新版 v3</span>
+          <div class="wipe-line"><div class="wipe-knob">↔</div></div>
+          <input class="wipe-range" type="range" min="0" max="100" value="50" aria-label="江晚棠全身对比滑块">
+        </div>
+        <div class="wipe-tip"><span>← 向左滑动展示新版</span><span>向右滑动展示旧版 →</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 男主：温如风 -->
+  <section class="char-sec" data-mode="side">
+    <div class="char-hd">
+      <div class="char-title">
+        <h2>温如风</h2>
+        <span class="role-tag">男主 · 26 岁</span>
+        <span class="sub">清冷腹黑 · 贵公子中间人</span>
+      </div>
+      <div class="seg" role="group" aria-label="温如风对比视图切换">
+        <button type="button" class="on" data-set-mode="side">并排对比视图</button>
+        <button type="button" data-set-mode="wipe">滑动拉帘对比</button>
+      </div>
+    </div>
+
+    <div class="notes">
+      <div class="note-box">
+        <div class="k">骨相与气场</div>
+        <div class="old">旧版：五官偏温和路人感、轮廓不够锋利</div>
+        <div class="new">新版：雕塑感下颌线、剑眉深邃丹凤眼、冷白疏离算计感</div>
+      </div>
+      <div class="note-box">
+        <div class="k">去帽改冠</div>
+        <div class="old">旧版：高大黑纱折上巾压低头身比且显老</div>
+        <div class="new">新版：去掉乌纱帽，改挺拔高冠髻 + 镂空素银墨玉冠与银玉细簪</div>
+      </div>
+      <div class="note-box">
+        <div class="k">妆发与年代感</div>
+        <div class="old">旧版：28 岁温和儒生感，缺古偶男主辨识度</div>
+        <div class="new">新版：26 岁矜贵男主修容 + 两缕利落修颜鬓发，胶片颗粒肌理</div>
+      </div>
+      <div class="note-box">
+        <div class="k">服化剪裁</div>
+        <div class="old">旧版：亮蓝色圆领直裰略显平庸</div>
+        <div class="new">新版：宽肩收腰烟青暗云纹织锦交领长袍 + 墨玉银扣革带与白玉佩</div>
+      </div>
+    </div>
+
+    <div class="side-grid">
+      <article class="img-card">
+        <div class="img-head"><span>正脸大头照 · 旧版</span><span class="badge old">v1</span></div>
+        <div class="img-wrap" data-zoom="./assets/wen-old-face.webp" data-cap="温如风 · 旧版正脸大头照 (v1 · 896×1120)">
+          <img src="./assets/wen-old-face.webp" alt="温如风 旧版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v1</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card is-new">
+        <div class="img-head"><span>正脸大头照 · 新版</span><span class="badge new">v2 重构</span></div>
+        <div class="img-wrap" data-zoom="./assets/wen-new-face.webp" data-cap="温如风 · 新版正脸大头照 (v2 · 896×1120 · 派生自 v2 锚点)">
+          <img src="./assets/wen-new-face.webp" alt="温如风 新版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v2</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card">
+        <div class="img-head"><span>正面全身锚点 · 旧版</span><span class="badge old">v1</span></div>
+        <div class="img-wrap" data-zoom="./assets/wen-old-full.webp" data-cap="温如风 · 旧版正面全身锚点 (v1 · 848×1264)">
+          <img src="./assets/wen-old-full.webp" alt="温如风 旧版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v1</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-new">
+        <div class="img-head"><span>正面全身锚点 · 新版</span><span class="badge new">v2 锚点</span></div>
+        <div class="img-wrap" data-zoom="./assets/wen-new-full.webp" data-cap="温如风 · 新版正面全身锚点 (v2 · 848×1264 · 待确认)">
+          <img src="./assets/wen-new-full.webp" alt="温如风 新版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v2</span><span>848×1264</span></div>
+      </article>
+    </div>
+
+    <div class="wipe-panel">
+      <div class="wipe-card">
+        <div class="wipe-hd">
+          <strong>正脸大头照对比（旧 v1 / 新 v2）</strong>
+          <div class="wipe-actions">
+            <button type="button" class="mini-zoom" data-zoom="./assets/wen-old-face.webp" data-cap="温如风 · 旧版正脸大头照 (v1)">看旧图</button>
+            <button type="button" class="mini-zoom" data-zoom="./assets/wen-new-face.webp" data-cap="温如风 · 新版正脸大头照 (v2)">放大新图</button>
+          </div>
+        </div>
+        <div class="wipe-stage r45">
+          <img src="./assets/wen-new-face.webp" alt="温如风 新版大头照">
+          <img class="wipe-over" src="./assets/wen-old-face.webp" alt="温如风 旧版大头照">
+          <span class="wipe-tag left">旧版 v1</span>
+          <span class="wipe-tag right">新版 v2</span>
+          <div class="wipe-line"><div class="wipe-knob">↔</div></div>
+          <input class="wipe-range" type="range" min="0" max="100" value="50" aria-label="温如风大头照对比滑块">
+        </div>
+        <div class="wipe-tip"><span>← 向左滑动展示新版</span><span>向右滑动展示旧版 →</span></div>
+      </div>
+
+      <div class="wipe-card">
+        <div class="wipe-hd">
+          <strong>正面全身锚点对比（旧 v1 / 新 v2）</strong>
+          <div class="wipe-actions">
+            <button type="button" class="mini-zoom" data-zoom="./assets/wen-old-full.webp" data-cap="温如风 · 旧版正面全身 (v1)">看旧图</button>
+            <button type="button" class="mini-zoom" data-zoom="./assets/wen-new-full.webp" data-cap="温如风 · 新版正面全身锚点 (v2)">放大新图</button>
+          </div>
+        </div>
+        <div class="wipe-stage r23">
+          <img src="./assets/wen-new-full.webp" alt="温如风 新版正面全身">
+          <img class="wipe-over" src="./assets/wen-old-full.webp" alt="温如风 旧版正面全身">
+          <span class="wipe-tag left">旧版 v1</span>
+          <span class="wipe-tag right">新版 v2</span>
+          <div class="wipe-line"><div class="wipe-knob">↔</div></div>
+          <input class="wipe-range" type="range" min="0" max="100" value="50" aria-label="温如风全身对比滑块">
+        </div>
+        <div class="wipe-tip"><span>← 向左滑动展示新版</span><span>向右滑动展示旧版 →</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 检查门摘要 -->
+  <section class="gate-sec">
+    <h3>资产校验与检查门摘要</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>角色</th>
+            <th>视图</th>
+            <th>版本</th>
+            <th>原图尺寸 / 比例</th>
+            <th>5 项代码检查门</th>
+            <th>当前状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>江晚棠</td>
+            <td>正面全身（锚点）</td>
+            <td class="mono">front-full.v3</td>
+            <td class="mono">848×1264 (2:3)</td>
+            <td class="ok">✓ 全部通过（四边纯白 100%）</td>
+            <td class="wait">待确认（confirm 后派生三视图）</td>
+          </tr>
+          <tr>
+            <td>江晚棠</td>
+            <td>正脸大头照</td>
+            <td class="mono">face-front.v2</td>
+            <td class="mono">896×1120 (4:5)</td>
+            <td class="ok">✓ 全部通过（参考 front-full/v3）</td>
+            <td class="ok">已注册有效</td>
+          </tr>
+          <tr>
+            <td>温如风</td>
+            <td>正面全身（锚点）</td>
+            <td class="mono">front-full.v2</td>
+            <td class="mono">848×1264 (2:3)</td>
+            <td class="ok">✓ 全部通过（四边纯白 100%）</td>
+            <td class="wait">待确认（confirm 后派生三视图）</td>
+          </tr>
+          <tr>
+            <td>温如风</td>
+            <td>正脸大头照</td>
+            <td class="mono">face-front.v2</td>
+            <td class="mono">896×1120 (4:5)</td>
+            <td class="ok">✓ 全部通过（参考 front-full/v2）</td>
+            <td class="ok">已注册有效</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <span>《晚棠风》v2 重构预览 · 路由 /wantangfeng/v2/ · 点击任意图片可全屏放大检查皮肤与服化细节</span>
+    <span><a href="../" style="color:var(--seal);text-decoration:none">返回 v1 完整档案</a> · <a href="../../" style="color:var(--ink-2);text-decoration:none">not suck here 首页</a></span>
+  </footer>
+</div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="大图预览">
+  <button type="button" class="lb-close" id="lbClose" aria-label="关闭大图">×</button>
+  <div class="lb-box">
+    <img id="lbImg" alt="">
+    <div class="lb-cap" id="lbCap"></div>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.char-sec').forEach((sec) => {
+  sec.querySelectorAll('[data-set-mode]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.setMode;
+      sec.dataset.mode = mode;
+      sec.querySelectorAll('[data-set-mode]').forEach((b) => b.classList.toggle('on', b === btn));
+    });
+  });
+});
+
+document.querySelectorAll('.wipe-stage').forEach((stage) => {
+  const range = stage.querySelector('.wipe-range');
+  const update = () => stage.style.setProperty('--pos', range.value + '%');
+  range.addEventListener('input', update);
+  range.addEventListener('change', update);
+  update();
+});
+
+const lb = document.getElementById('lb');
+const lbImg = document.getElementById('lbImg');
+const lbCap = document.getElementById('lbCap');
+const closeLb = () => { lb.classList.remove('on'); lbImg.removeAttribute('src'); };
+
+document.addEventListener('click', (e) => {
+  const el = e.target.closest('[data-zoom]');
+  if (el) {
+    lbImg.src = el.dataset.zoom;
+    lbImg.alt = el.dataset.cap || '';
+    lbCap.textContent = el.dataset.cap || '';
+    lb.classList.add('on');
+    return;
+  }
+  if (e.target === lb || e.target.id === 'lbClose') closeLb();
+});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+</script>
+</body>
+</html>
