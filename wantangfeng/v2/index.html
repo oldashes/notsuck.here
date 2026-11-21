@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>晚棠风 v2 · 男女主完整四视图定妆展示</title>
+<title>晚棠风 v2 · 6 位核心角色完整四视图定妆展示</title>
 <style>
 :root{
   --paper:#eceded; --panel:#f5f6f5; --side:#e4e6e3; --ink:#191d21; --ink-2:#5b636a; --ink-3:#8c9298;
@@ -13,6 +13,7 @@
   --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.7 var(--sans);-webkit-font-smoothing:antialiased}
 .page{max-width:1320px;margin:0 auto;padding:22px 24px 80px}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
@@ -25,7 +26,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.7 var(--sans)
 .hero-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:14px}
 .hero-head h1{margin:0;font:400 32px/1.15 var(--serif);letter-spacing:.06em}
 .hero-head .sub{color:var(--ink-2);font-size:14px}
-.hero-desc{margin:14px 0 18px;color:var(--ink-2);font-size:14px;line-height:1.85;max-width:980px}
+.hero-desc{margin:14px 0 18px;color:var(--ink-2);font-size:14px;line-height:1.85;max-width:1040px}
 .roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .step{background:var(--paper);border:1px solid var(--rule);padding:11px 14px;border-radius:6px}
 .step.done{border-color:var(--ok);background:var(--ok-soft)}
@@ -35,7 +36,14 @@ body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.7 var(--sans)
 .step.now .st{color:var(--seal)}
 .step .tt{margin-top:3px;font-size:13px;font-weight:600;color:var(--ink)}
 
-.char-sec{margin-top:32px;background:var(--panel);border:1px solid var(--rule-2);padding:22px 24px 24px}
+.quick-nav{position:sticky;top:10px;z-index:20;margin-top:16px;padding:10px 14px;background:rgba(245,246,245,.94);backdrop-filter:blur(8px);border:1px solid var(--rule-2);border-radius:8px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;box-shadow:0 4px 14px rgba(0,0,0,.04)}
+.quick-nav .qn-label{font-size:12px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.quick-nav .qn-pills{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.qn-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;font-size:12.5px;font-weight:500;color:var(--ink);text-decoration:none;background:#fff;border:1px solid var(--rule-2);border-radius:999px;transition:border-color .15s,color .15s,background .15s}
+.qn-pill:hover{border-color:var(--seal);color:var(--seal);background:var(--seal-soft)}
+.qn-pill small{color:var(--ink-3);font-size:11px}
+
+.char-sec{margin-top:28px;background:var(--panel);border:1px solid var(--rule-2);padding:22px 24px 24px;scroll-margin-top:68px}
 .char-hd{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:18px}
 .char-title{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .char-title h2{margin:0;font:400 26px/1.2 var(--serif);letter-spacing:.05em}
@@ -102,7 +110,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.7 var(--sans)
 .wipe-range{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;z-index:3}
 .wipe-tip{padding:7px 12px;font-size:11.5px;color:var(--ink-2);background:var(--paper);border-top:1px solid var(--rule);display:flex;justify-content:space-between}
 
-.gate-sec{margin-top:32px;background:var(--panel);border:1px solid var(--rule-2);padding:20px 24px}
+.gate-sec{margin-top:32px;background:var(--panel);border:1px solid var(--rule-2);padding:20px 24px;scroll-margin-top:68px}
 .gate-sec h3{margin:0 0 12px;font:400 20px/1.2 var(--serif);letter-spacing:.04em}
 .tbl-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border:1px solid var(--rule)}
@@ -125,6 +133,7 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule-2);color
   .notes{grid-template-columns:repeat(2,1fr)}
   .side-grid{grid-template-columns:repeat(2,1fr)}
   .roadmap{grid-template-columns:1fr}
+  .quick-nav{position:static}
 }
 @media(max-width:680px){
   .page{padding:14px 12px 64px}
@@ -141,35 +150,48 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule-2);color
       <a class="nav-btn" href="../../">← not suck here</a>
       <a class="nav-btn" href="../">查看 v1 完整档案</a>
     </div>
-    <span class="v2-pill">✓ 已定稿：男女主完整四视图定妆</span>
+    <span class="v2-pill">✓ 已定稿：6 位核心角色完整四视图定妆</span>
   </div>
 
   <section class="hero">
     <div class="hero-head">
       <h1>《晚棠风》v2 人物重构预览</h1>
-      <span class="sub">35mm 电影胶片古装定妆照 · 男女主完整四视图（正脸 + 正面 / 90° 侧面 / 背面）</span>
+      <span class="sub">35mm 电影胶片古装定妆照 · 6 位核心角色完整四视图（正脸 + 正面 / 90° 侧面 / 背面）</span>
     </div>
     <p class="hero-desc">
-      针对 v1 版人物质感偏素、缺乏现代爆款短剧精致度的问题，v2 改用「35mm 电影胶片古装定妆照」基准：保留真实皮肤微孔与胶片颗粒（拒绝塑料感 CGI），大幅拔高演员骨相颜值、微表情张力与真丝细麻/暗纹织锦剪裁。目前<strong>江晚棠</strong>与<strong>温如风</strong>的新版锚点已正式确认，并已基于各自新锚点派齐完整 90° 侧面与 180° 背面三视图及 1920×1080 设定板；v1 完整档案仍保持原样不动。
+      针对 v1 版人物建模偏素、配角气场失衡的问题，v2 统一采用「35mm 电影胶片古装定妆照」基准：保留真实皮肤微孔与胶片颗粒（拒绝塑料感 CGI），全面提升演员骨相颜值、微表情张力与真丝细麻/暗纹织锦剪裁。目前<strong>江晚棠、温如风</strong>与四大核心配角<strong>林慕白、绾音、厉狂澜、崔断水</strong>的新版锚点已全部确认，均已派齐 90° 侧面、180° 背面四视图与 1920×1080 设定板（其余老戏骨与萌娃配角保留原有写实选角）；v1 完整档案保持原样不动。
     </p>
     <div class="roadmap">
       <div class="step done">
         <div class="st">阶段 1 · ✓ 已完成</div>
-        <div class="tt">男女主锚点确认 + 完整四视图与设定板定稿</div>
+        <div class="tt">男女主（江晚棠 / 温如风）定妆锚点确认 + 四视图定稿</div>
+      </div>
+      <div class="step done">
+        <div class="st">阶段 2 · ✓ 已完成</div>
+        <div class="tt">四大核心配角（林慕白 / 绾音 / 厉狂澜 / 崔断水）35mm 升级 + 四视图定稿</div>
       </div>
       <div class="step now">
-        <div class="st">阶段 2 · 待选择下一步</div>
-        <div class="tt">核心配角（林慕白/绾音/厉狂澜）同规格升级 或 剧本重构</div>
-      </div>
-      <div class="step">
-        <div class="st">阶段 3 · 后续推进</div>
-        <div class="tt">全剧爆点梳理、分镜重出与片段重抽</div>
+        <div class="st">阶段 3 · 当前下一步</div>
+        <div class="tt">全剧大纲与爆点重构（解决看不懂、没爆点）</div>
       </div>
     </div>
   </section>
 
+  <nav class="quick-nav" aria-label="角色快速跳转">
+    <span class="qn-label">快速跳转</span>
+    <div class="qn-pills">
+      <a class="qn-pill" href="#jiang">江晚棠 <small>女主</small></a>
+      <a class="qn-pill" href="#wen">温如风 <small>男主</small></a>
+      <a class="qn-pill" href="#lin">林慕白 <small>男二</small></a>
+      <a class="qn-pill" href="#wan">绾音 <small>花魁</small></a>
+      <a class="qn-pill" href="#li">厉狂澜 <small>反派</small></a>
+      <a class="qn-pill" href="#cui">崔断水 <small>刀手</small></a>
+      <a class="qn-pill" href="#gates">检查门摘要 <small>24 视图</small></a>
+    </div>
+  </nav>
+
   <!-- 女主：江晚棠 -->
-  <section class="char-sec" data-mode="side">
+  <section class="char-sec" id="jiang" data-mode="side">
     <div class="char-hd">
       <div class="char-title">
         <h2>江晚棠</h2>
@@ -330,7 +352,7 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule-2);color
   </section>
 
   <!-- 男主：温如风 -->
-  <section class="char-sec" data-mode="side">
+  <section class="char-sec" id="wen" data-mode="side">
     <div class="char-hd">
       <div class="char-title">
         <h2>温如风</h2>
@@ -490,9 +512,653 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule-2);color
     </div>
   </section>
 
+  <!-- 男二：林慕白 -->
+  <section class="char-sec" id="lin" data-mode="side">
+    <div class="char-hd">
+      <div class="char-title">
+        <h2>林慕白</h2>
+        <span class="role-tag">核心男二 · 23 岁</span>
+        <span class="sub">表面温润玉面公子 · 实则白切黑、眼底藏冷</span>
+      </div>
+      <div class="seg" role="group" aria-label="林慕白对比视图切换">
+        <button type="button" class="on" data-set-mode="side">并排对比视图</button>
+        <button type="button" data-set-mode="wipe">滑动拉帘对比</button>
+      </div>
+    </div>
+
+    <div class="notes">
+      <div class="note-box">
+        <div class="k">骨相与白切黑</div>
+        <div class="old">旧版：眼皮微耷、削瘦寒酸怯懦，难以说服女主倾心</div>
+        <div class="new">新版：清俊玉面鹅蛋骨相 + 狭长含情桃花眼，微笑温雅却眼底深藏薄凉算计</div>
+      </div>
+      <div class="note-box">
+        <div class="k">彻底去帽改冠</div>
+        <div class="old">旧版：大号软脚黑绸裹巾压低头脸与精气神</div>
+        <div class="new">新版：去掉黑帽，乌发全收露净鬓角，配镂雕羊脂白玉小冠与白玉细簪</div>
+      </div>
+      <div class="note-box">
+        <div class="k">仪态反差</div>
+        <div class="old">旧版：略微弓背拘谨、气场明显弱于女主</div>
+        <div class="new">新版：修长世家公子挺拔肩背，与温如风冷厉感形成“玉面温柔伪装”对照</div>
+      </div>
+      <div class="note-box">
+        <div class="k">衣料升级</div>
+        <div class="old">旧版：素细棉襕衫、右袖口墨点显寒碜邋遢</div>
+        <div class="new">新版：月白暗银竹纹提花真丝交领长衫 + 浅银灰丝绦配青白玉扣与玉佩</div>
+      </div>
+    </div>
+
+    <div class="sub-lbl">
+      完整四视图定妆板（正脸 + 正面 / 90° 侧面 / 背面）
+      <span>1920×1080 合成设定板 · 全部 4 个视图已通过检查门</span>
+    </div>
+    <div class="sheet-box" data-zoom="./assets/lin-sheet.webp" data-cap="林慕白 · v2 完整四视图定妆板 (1920×1080)">
+      <img src="./assets/lin-sheet.webp" alt="林慕白 完整四视图定妆板">
+      <div class="sheet-cap"><span>林慕白-sheet.png（face.v2 + front.v2 + side.v2 + back.v2）</span><span>点击放大查看高清全图 ↗</span></div>
+    </div>
+
+    <div class="side-grid" style="margin-bottom:10px">
+      <article class="img-card is-ok">
+        <div class="img-head"><span>正脸大头照</span><span class="badge ok">v2 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/lin-new-face.webp" data-cap="林慕白 · 新版正脸大头照 (v2 · 896×1120)">
+          <img src="./assets/lin-new-face.webp" alt="林慕白 新版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v2</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>正面全身锚点</span><span class="badge ok">v2 已确认</span></div>
+        <div class="img-wrap" data-zoom="./assets/lin-new-full.webp" data-cap="林慕白 · 新版正面全身锚点 (v2 · 848×1264 · 已确认)">
+          <img src="./assets/lin-new-full.webp" alt="林慕白 新版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v2</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>侧面 90°（朝右）</span><span class="badge ok">v2 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/lin-new-side.webp" data-cap="林慕白 · 新版 90° 侧面 (v2 · 848×1264 · 派生自 v2 锚点)">
+          <img src="./assets/lin-new-side.webp" alt="林慕白 90度侧面">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>side-full.v2</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>背面 180°</span><span class="badge ok">v2 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/lin-new-back.webp" data-cap="林慕白 · 新版 180° 背面 (v2 · 848×1264 · 派生自 v2 锚点)">
+          <img src="./assets/lin-new-back.webp" alt="林慕白 背面">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>back-full.v2</span><span>848×1264</span></div>
+      </article>
+    </div>
+
+    <div class="sub-lbl">
+      新旧版本对比（v1 vs v2）
+      <span>上方按钮可切换「并排对比」或「滑动拉帘对比」</span>
+    </div>
+    <div class="side-grid cmp-grid">
+      <article class="img-card">
+        <div class="img-head"><span>正脸大头照 · 旧版</span><span class="badge old">v1</span></div>
+        <div class="img-wrap" data-zoom="./assets/lin-old-face.webp" data-cap="林慕白 · 旧版正脸大头照 (v1 · 896×1120)">
+          <img src="./assets/lin-old-face.webp" alt="林慕白 旧版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v1</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card is-new">
+        <div class="img-head"><span>正脸大头照 · 新版</span><span class="badge new">v2 玉面含冷</span></div>
+        <div class="img-wrap" data-zoom="./assets/lin-new-face.webp" data-cap="林慕白 · 新版正脸大头照 (v2 · 896×1120)">
+          <img src="./assets/lin-new-face.webp" alt="林慕白 新版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v2</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card">
+        <div class="img-head"><span>正面全身锚点 · 旧版</span><span class="badge old">v1</span></div>
+        <div class="img-wrap" data-zoom="./assets/lin-old-full.webp" data-cap="林慕白 · 旧版正面全身锚点 (v1 · 848×1264)">
+          <img src="./assets/lin-old-full.webp" alt="林慕白 旧版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v1</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-new">
+        <div class="img-head"><span>正面全身锚点 · 新版</span><span class="badge new">v2 已确认</span></div>
+        <div class="img-wrap" data-zoom="./assets/lin-new-full.webp" data-cap="林慕白 · 新版正面全身锚点 (v2 · 848×1264 · 已确认)">
+          <img src="./assets/lin-new-full.webp" alt="林慕白 新版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v2</span><span>848×1264</span></div>
+      </article>
+    </div>
+
+    <div class="wipe-panel">
+      <div class="wipe-card">
+        <div class="wipe-hd">
+          <strong>正脸大头照对比（旧 v1 / 新 v2）</strong>
+          <div class="wipe-actions">
+            <button type="button" class="mini-zoom" data-zoom="./assets/lin-old-face.webp" data-cap="林慕白 · 旧版正脸大头照 (v1)">看旧图</button>
+            <button type="button" class="mini-zoom" data-zoom="./assets/lin-new-face.webp" data-cap="林慕白 · 新版正脸大头照 (v2)">放大新图</button>
+          </div>
+        </div>
+        <div class="wipe-stage r45">
+          <img src="./assets/lin-new-face.webp" alt="林慕白 新版大头照">
+          <img class="wipe-over" src="./assets/lin-old-face.webp" alt="林慕白 旧版大头照">
+          <span class="wipe-tag left">旧版 v1</span>
+          <span class="wipe-tag right">新版 v2</span>
+          <div class="wipe-line"><div class="wipe-knob">↔</div></div>
+          <input class="wipe-range" type="range" min="0" max="100" value="50" aria-label="林慕白大头照对比滑块">
+        </div>
+        <div class="wipe-tip"><span>← 向左滑动展示新版</span><span>向右滑动展示旧版 →</span></div>
+      </div>
+
+      <div class="wipe-card">
+        <div class="wipe-hd">
+          <strong>正面全身锚点对比（旧 v1 / 新 v2）</strong>
+          <div class="wipe-actions">
+            <button type="button" class="mini-zoom" data-zoom="./assets/lin-old-full.webp" data-cap="林慕白 · 旧版正面全身 (v1)">看旧图</button>
+            <button type="button" class="mini-zoom" data-zoom="./assets/lin-new-full.webp" data-cap="林慕白 · 新版正面全身锚点 (v2)">放大新图</button>
+          </div>
+        </div>
+        <div class="wipe-stage r23">
+          <img src="./assets/lin-new-full.webp" alt="林慕白 新版正面全身">
+          <img class="wipe-over" src="./assets/lin-old-full.webp" alt="林慕白 旧版正面全身">
+          <span class="wipe-tag left">旧版 v1</span>
+          <span class="wipe-tag right">新版 v2</span>
+          <div class="wipe-line"><div class="wipe-knob">↔</div></div>
+          <input class="wipe-range" type="range" min="0" max="100" value="50" aria-label="林慕白全身对比滑块">
+        </div>
+        <div class="wipe-tip"><span>← 向左滑动展示新版</span><span>向右滑动展示旧版 →</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 花魁：绾音 -->
+  <section class="char-sec" id="wan" data-mode="side">
+    <div class="char-hd">
+      <div class="char-title">
+        <h2>绾音</h2>
+        <span class="role-tag">头牌花魁 · 21 岁</span>
+        <span class="sub">醉花阴明艳绝色红姑娘 · 狐系丹凤眼通透风情</span>
+      </div>
+      <div class="seg" role="group" aria-label="绾音对比视图切换">
+        <button type="button" class="on" data-set-mode="side">并排对比视图</button>
+        <button type="button" data-set-mode="wipe">滑动拉帘对比</button>
+      </div>
+    </div>
+
+    <div class="notes">
+      <div class="note-box">
+        <div class="k">眉眼风情升级</div>
+        <div class="old">旧版：气质偏邻家甜妹、笑意青涩乏魅力压</div>
+        <div class="new">新版：精致高骨相配合上挑狐系丹凤眼、眼尾绯红晕染，带看透世故的明艳浅笑</div>
+      </div>
+      <div class="note-box">
+        <div class="k">华贵宋制高髻</div>
+        <div class="old">旧版：云鬓偏素，仅斜插单支小金钗</div>
+        <div class="new">新版：饱满蓬松宋制双云髻配金丝累丝牡丹钗、攒珠花饰与短流苏珍珠步摇</div>
+      </div>
+      <div class="note-box">
+        <div class="k">色彩冲击力</div>
+        <div class="old">旧版：浅白水粉薄衣显得过素，同框不抢眼</div>
+        <div class="new">新版：浓淡相宜的胭脂绯红金线暗花大衫配象牙香槟金织锦抹胸，明艳立现</div>
+      </div>
+      <div class="note-box">
+        <div class="k">与女主视觉区隔</div>
+        <div class="old">旧版：气场低于新版江晚棠，失去双强对照感</div>
+        <div class="new">新版：与江晚棠清冷月白形成“一冷一艳”视觉双峰，红金刺绣缎履收尾精致</div>
+      </div>
+    </div>
+
+    <div class="sub-lbl">
+      完整四视图定妆板（正脸 + 正面 / 90° 侧面 / 背面）
+      <span>1920×1080 合成设定板 · 全部 4 个视图已通过检查门</span>
+    </div>
+    <div class="sheet-box" data-zoom="./assets/wan-sheet.webp" data-cap="绾音 · v2 完整四视图定妆板 (1920×1080)">
+      <img src="./assets/wan-sheet.webp" alt="绾音 完整四视图定妆板">
+      <div class="sheet-cap"><span>绾音-sheet.png（face.v2 + front.v3 + side.v3 + back.v2）</span><span>点击放大查看高清全图 ↗</span></div>
+    </div>
+
+    <div class="side-grid" style="margin-bottom:10px">
+      <article class="img-card is-ok">
+        <div class="img-head"><span>正脸大头照</span><span class="badge ok">v2 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/wan-new-face.webp" data-cap="绾音 · 新版正脸大头照 (v2 · 896×1120)">
+          <img src="./assets/wan-new-face.webp" alt="绾音 新版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v2</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>正面全身锚点</span><span class="badge ok">v3 已确认</span></div>
+        <div class="img-wrap" data-zoom="./assets/wan-new-full.webp" data-cap="绾音 · 新版正面全身锚点 (v3 · 848×1264 · 已确认)">
+          <img src="./assets/wan-new-full.webp" alt="绾音 新版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v3</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>侧面 90°（朝右）</span><span class="badge ok">v3 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/wan-new-side.webp" data-cap="绾音 · 新版 90° 侧面 (v3 · 848×1264 · 派生自 v3 锚点)">
+          <img src="./assets/wan-new-side.webp" alt="绾音 90度侧面">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>side-full.v3</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>背面 180°</span><span class="badge ok">v2 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/wan-new-back.webp" data-cap="绾音 · 新版 180° 背面 (v2 · 848×1264 · 派生自 v3 锚点)">
+          <img src="./assets/wan-new-back.webp" alt="绾音 背面">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>back-full.v2</span><span>848×1264</span></div>
+      </article>
+    </div>
+
+    <div class="sub-lbl">
+      新旧版本对比（v1 vs v2）
+      <span>上方按钮可切换「并排对比」或「滑动拉帘对比」</span>
+    </div>
+    <div class="side-grid cmp-grid">
+      <article class="img-card">
+        <div class="img-head"><span>正脸大头照 · 旧版</span><span class="badge old">v1</span></div>
+        <div class="img-wrap" data-zoom="./assets/wan-old-face.webp" data-cap="绾音 · 旧版正脸大头照 (v1 · 896×1120)">
+          <img src="./assets/wan-old-face.webp" alt="绾音 旧版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v1</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card is-new">
+        <div class="img-head"><span>正脸大头照 · 新版</span><span class="badge new">v2 明艳花魁</span></div>
+        <div class="img-wrap" data-zoom="./assets/wan-new-face.webp" data-cap="绾音 · 新版正脸大头照 (v2 · 896×1120)">
+          <img src="./assets/wan-new-face.webp" alt="绾音 新版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v2</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card">
+        <div class="img-head"><span>正面全身锚点 · 旧版</span><span class="badge old">v2</span></div>
+        <div class="img-wrap" data-zoom="./assets/wan-old-full.webp" data-cap="绾音 · 旧版正面全身锚点 (v2 · 848×1264)">
+          <img src="./assets/wan-old-full.webp" alt="绾音 旧版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v2</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-new">
+        <div class="img-head"><span>正面全身锚点 · 新版</span><span class="badge new">v3 已确认</span></div>
+        <div class="img-wrap" data-zoom="./assets/wan-new-full.webp" data-cap="绾音 · 新版正面全身锚点 (v3 · 848×1264 · 已确认)">
+          <img src="./assets/wan-new-full.webp" alt="绾音 新版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v3</span><span>848×1264</span></div>
+      </article>
+    </div>
+
+    <div class="wipe-panel">
+      <div class="wipe-card">
+        <div class="wipe-hd">
+          <strong>正脸大头照对比（旧 v1 / 新 v2）</strong>
+          <div class="wipe-actions">
+            <button type="button" class="mini-zoom" data-zoom="./assets/wan-old-face.webp" data-cap="绾音 · 旧版正脸大头照 (v1)">看旧图</button>
+            <button type="button" class="mini-zoom" data-zoom="./assets/wan-new-face.webp" data-cap="绾音 · 新版正脸大头照 (v2)">放大新图</button>
+          </div>
+        </div>
+        <div class="wipe-stage r45">
+          <img src="./assets/wan-new-face.webp" alt="绾音 新版大头照">
+          <img class="wipe-over" src="./assets/wan-old-face.webp" alt="绾音 旧版大头照">
+          <span class="wipe-tag left">旧版 v1</span>
+          <span class="wipe-tag right">新版 v2</span>
+          <div class="wipe-line"><div class="wipe-knob">↔</div></div>
+          <input class="wipe-range" type="range" min="0" max="100" value="50" aria-label="绾音大头照对比滑块">
+        </div>
+        <div class="wipe-tip"><span>← 向左滑动展示新版</span><span>向右滑动展示旧版 →</span></div>
+      </div>
+
+      <div class="wipe-card">
+        <div class="wipe-hd">
+          <strong>正面全身锚点对比（旧 v2 / 新 v3）</strong>
+          <div class="wipe-actions">
+            <button type="button" class="mini-zoom" data-zoom="./assets/wan-old-full.webp" data-cap="绾音 · 旧版正面全身 (v2)">看旧图</button>
+            <button type="button" class="mini-zoom" data-zoom="./assets/wan-new-full.webp" data-cap="绾音 · 新版正面全身锚点 (v3)">放大新图</button>
+          </div>
+        </div>
+        <div class="wipe-stage r23">
+          <img src="./assets/wan-new-full.webp" alt="绾音 新版正面全身">
+          <img class="wipe-over" src="./assets/wan-old-full.webp" alt="绾音 旧版正面全身">
+          <span class="wipe-tag left">旧版 v2</span>
+          <span class="wipe-tag right">新版 v3</span>
+          <div class="wipe-line"><div class="wipe-knob">↔</div></div>
+          <input class="wipe-range" type="range" min="0" max="100" value="50" aria-label="绾音全身对比滑块">
+        </div>
+        <div class="wipe-tip"><span>← 向左滑动展示新版</span><span>向右滑动展示旧版 →</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 核心反派：厉狂澜 -->
+  <section class="char-sec" id="li" data-mode="side">
+    <div class="char-hd">
+      <div class="char-title">
+        <h2>厉狂澜</h2>
+        <span class="role-tag">核心反派 · 38 岁</span>
+        <span class="sub">镇山武馆黑道枭雄教头 · 阴鸷威压、左颈留三道旧抓痕</span>
+      </div>
+      <div class="seg" role="group" aria-label="厉狂澜对比视图切换">
+        <button type="button" class="on" data-set-mode="side">并排对比视图</button>
+        <button type="button" data-set-mode="wipe">滑动拉帘对比</button>
+      </div>
+    </div>
+
+    <div class="notes">
+      <div class="note-box">
+        <div class="k">枭雄面相升级</div>
+        <div class="old">旧版：扁宽脸与糙布抹额显市井粗夫、压迫力略散</div>
+        <div class="new">新版：38 岁雕塑感棱角硬汉骨相，修剪短须配薄唇倨傲冷笑，鹰隼眼神锋利迫人</div>
+      </div>
+      <div class="note-box">
+        <div class="k">去抹额改玄铁冠</div>
+        <div class="old">旧版：额束深色铁环布抹额遮额显臃肿</div>
+        <div class="new">新版：去掉布抹额露干净鬓角，高耸武夫发髻扣乌铁古铜雕纹武冠，头身更凌厉</div>
+      </div>
+      <div class="note-box">
+        <div class="k">关键伤疤锚点</div>
+        <div class="old">旧版：左颈三条陈年旧抓痕偏淡</div>
+        <div class="new">新版：左颈侧三条陈年淡白平行抓痕在交领上方清晰可见，正面与正脸图严格对齐</div>
+      </div>
+      <div class="note-box">
+        <div class="k">玄黑武袍重工剪裁</div>
+        <div class="old">旧版：单层菱格武袍肩型偏塌</div>
+        <div class="new">新版：立挺叠肩玄黑暗鳞纹织锦武袍、露一线暗赤内领，配兽首重黑皮腰带与高筒武靴</div>
+      </div>
+    </div>
+
+    <div class="sub-lbl">
+      完整四视图定妆板（正脸 + 正面 / 90° 侧面 / 背面）
+      <span>1920×1080 合成设定板 · 全部 4 个视图已通过检查门</span>
+    </div>
+    <div class="sheet-box" data-zoom="./assets/li-sheet.webp" data-cap="厉狂澜 · v2 完整四视图定妆板 (1920×1080)">
+      <img src="./assets/li-sheet.webp" alt="厉狂澜 完整四视图定妆板">
+      <div class="sheet-cap"><span>厉狂澜-sheet.png（face.v2 + front.v2 + side.v2 + back.v2）</span><span>点击放大查看高清全图 ↗</span></div>
+    </div>
+
+    <div class="side-grid" style="margin-bottom:10px">
+      <article class="img-card is-ok">
+        <div class="img-head"><span>正脸大头照</span><span class="badge ok">v2 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/li-new-face.webp" data-cap="厉狂澜 · 新版正脸大头照 (v2 · 896×1120 · 左颈三道抓痕清晰)">
+          <img src="./assets/li-new-face.webp" alt="厉狂澜 新版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v2</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>正面全身锚点</span><span class="badge ok">v2 已确认</span></div>
+        <div class="img-wrap" data-zoom="./assets/li-new-full.webp" data-cap="厉狂澜 · 新版正面全身锚点 (v2 · 848×1264 · 已确认)">
+          <img src="./assets/li-new-full.webp" alt="厉狂澜 新版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v2</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>侧面 90°（朝右）</span><span class="badge ok">v2 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/li-new-side.webp" data-cap="厉狂澜 · 新版 90° 侧面 (v2 · 848×1264 · 派生自 v2 锚点)">
+          <img src="./assets/li-new-side.webp" alt="厉狂澜 90度侧面">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>side-full.v2</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>背面 180°</span><span class="badge ok">v2 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/li-new-back.webp" data-cap="厉狂澜 · 新版 180° 背面 (v2 · 848×1264 · 派生自 v2 锚点)">
+          <img src="./assets/li-new-back.webp" alt="厉狂澜 背面">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>back-full.v2</span><span>848×1264</span></div>
+      </article>
+    </div>
+
+    <div class="sub-lbl">
+      新旧版本对比（v1 vs v2）
+      <span>上方按钮可切换「并排对比」或「滑动拉帘对比」</span>
+    </div>
+    <div class="side-grid cmp-grid">
+      <article class="img-card">
+        <div class="img-head"><span>正脸大头照 · 旧版</span><span class="badge old">v1</span></div>
+        <div class="img-wrap" data-zoom="./assets/li-old-face.webp" data-cap="厉狂澜 · 旧版正脸大头照 (v1 · 896×1120)">
+          <img src="./assets/li-old-face.webp" alt="厉狂澜 旧版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v1</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card is-new">
+        <div class="img-head"><span>正脸大头照 · 新版</span><span class="badge new">v2 枭雄霸气</span></div>
+        <div class="img-wrap" data-zoom="./assets/li-new-face.webp" data-cap="厉狂澜 · 新版正脸大头照 (v2 · 896×1120)">
+          <img src="./assets/li-new-face.webp" alt="厉狂澜 新版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v2</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card">
+        <div class="img-head"><span>正面全身锚点 · 旧版</span><span class="badge old">v1</span></div>
+        <div class="img-wrap" data-zoom="./assets/li-old-full.webp" data-cap="厉狂澜 · 旧版正面全身锚点 (v1 · 848×1264)">
+          <img src="./assets/li-old-full.webp" alt="厉狂澜 旧版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v1</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-new">
+        <div class="img-head"><span>正面全身锚点 · 新版</span><span class="badge new">v2 已确认</span></div>
+        <div class="img-wrap" data-zoom="./assets/li-new-full.webp" data-cap="厉狂澜 · 新版正面全身锚点 (v2 · 848×1264 · 已确认)">
+          <img src="./assets/li-new-full.webp" alt="厉狂澜 新版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v2</span><span>848×1264</span></div>
+      </article>
+    </div>
+
+    <div class="wipe-panel">
+      <div class="wipe-card">
+        <div class="wipe-hd">
+          <strong>正脸大头照对比（旧 v1 / 新 v2）</strong>
+          <div class="wipe-actions">
+            <button type="button" class="mini-zoom" data-zoom="./assets/li-old-face.webp" data-cap="厉狂澜 · 旧版正脸大头照 (v1)">看旧图</button>
+            <button type="button" class="mini-zoom" data-zoom="./assets/li-new-face.webp" data-cap="厉狂澜 · 新版正脸大头照 (v2)">放大新图</button>
+          </div>
+        </div>
+        <div class="wipe-stage r45">
+          <img src="./assets/li-new-face.webp" alt="厉狂澜 新版大头照">
+          <img class="wipe-over" src="./assets/li-old-face.webp" alt="厉狂澜 旧版大头照">
+          <span class="wipe-tag left">旧版 v1</span>
+          <span class="wipe-tag right">新版 v2</span>
+          <div class="wipe-line"><div class="wipe-knob">↔</div></div>
+          <input class="wipe-range" type="range" min="0" max="100" value="50" aria-label="厉狂澜大头照对比滑块">
+        </div>
+        <div class="wipe-tip"><span>← 向左滑动展示新版</span><span>向右滑动展示旧版 →</span></div>
+      </div>
+
+      <div class="wipe-card">
+        <div class="wipe-hd">
+          <strong>正面全身锚点对比（旧 v1 / 新 v2）</strong>
+          <div class="wipe-actions">
+            <button type="button" class="mini-zoom" data-zoom="./assets/li-old-full.webp" data-cap="厉狂澜 · 旧版正面全身 (v1)">看旧图</button>
+            <button type="button" class="mini-zoom" data-zoom="./assets/li-new-full.webp" data-cap="厉狂澜 · 新版正面全身锚点 (v2)">放大新图</button>
+          </div>
+        </div>
+        <div class="wipe-stage r23">
+          <img src="./assets/li-new-full.webp" alt="厉狂澜 新版正面全身">
+          <img class="wipe-over" src="./assets/li-old-full.webp" alt="厉狂澜 旧版正面全身">
+          <span class="wipe-tag left">旧版 v1</span>
+          <span class="wipe-tag right">新版 v2</span>
+          <div class="wipe-line"><div class="wipe-knob">↔</div></div>
+          <input class="wipe-range" type="range" min="0" max="100" value="50" aria-label="厉狂澜全身对比滑块">
+        </div>
+        <div class="wipe-tip"><span>← 向左滑动展示新版</span><span>向右滑动展示旧版 →</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 刀手：崔断水 -->
+  <section class="char-sec" id="cui" data-mode="side">
+    <div class="char-hd">
+      <div class="char-title">
+        <h2>崔断水</h2>
+        <span class="role-tag">黑道名刀手 · 34 岁</span>
+        <span class="sub">冷峻孤狼杀手 · 去头巾束黑发高髻、墨松深绿劲装</span>
+      </div>
+      <div class="seg" role="group" aria-label="崔断水对比视图切换">
+        <button type="button" class="on" data-set-mode="side">并排对比视图</button>
+        <button type="button" data-set-mode="wipe">滑动拉帘对比</button>
+      </div>
+    </div>
+
+    <div class="notes">
+      <div class="note-box">
+        <div class="k">彻底去头巾露发髻</div>
+        <div class="old">旧版：深青折叠布逍遥巾稍显杂乱，遮挡凌厉头型</div>
+        <div class="new">新版：完全去掉头巾露干净发际线，哑黑丝绳缠高武髻配乌铁环柄素簪，极度干练</div>
+      </div>
+      <div class="note-box">
+        <div class="k">孤狼骨相与川字纹</div>
+        <div class="old">旧版：侧重憨粗糙感、杀气偏钝</div>
+        <div class="new">新版：瘦削凹颧刀削脸、眉心一道竖川纹，眼神冷如猎鹰，35mm 胶片实感拉满</div>
+      </div>
+      <div class="note-box">
+        <div class="k">配色沉稳高级</div>
+        <div class="old">旧版：偏亮森林绿粗绸搭配灰麻腰带</div>
+        <div class="new">新版：沉稳墨松深绿重磅哑光斜纹直裰，内衬炭黑叠领，色调稳重不抢戏</div>
+      </div>
+      <div class="note-box">
+        <div class="k">劲装武装到脚踝</div>
+        <div class="old">旧版：常规粗麻缚带与硬布靴</div>
+        <div class="new">新版：哑黑皮布护腕 + 多层玄黑编织腰带配乌铁扣，过膝袍摆完整露出黑绑腿与黑皮快靴</div>
+      </div>
+    </div>
+
+    <div class="sub-lbl">
+      完整四视图定妆板（正脸 + 正面 / 90° 侧面 / 背面）
+      <span>1920×1080 合成设定板 · 全部 4 个视图已通过检查门</span>
+    </div>
+    <div class="sheet-box" data-zoom="./assets/cui-sheet.webp" data-cap="崔断水 · v2 完整四视图定妆板 (1920×1080)">
+      <img src="./assets/cui-sheet.webp" alt="崔断水 完整四视图定妆板">
+      <div class="sheet-cap"><span>崔断水-sheet.png（face.v2 + front.v3 + side.v2 + back.v2）</span><span>点击放大查看高清全图 ↗</span></div>
+    </div>
+
+    <div class="side-grid" style="margin-bottom:10px">
+      <article class="img-card is-ok">
+        <div class="img-head"><span>正脸大头照</span><span class="badge ok">v2 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/cui-new-face.webp" data-cap="崔断水 · 新版正脸大头照 (v2 · 896×1120)">
+          <img src="./assets/cui-new-face.webp" alt="崔断水 新版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v2</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>正面全身锚点</span><span class="badge ok">v3 已确认</span></div>
+        <div class="img-wrap" data-zoom="./assets/cui-new-full.webp" data-cap="崔断水 · 新版正面全身锚点 (v3 · 848×1264 · 已确认)">
+          <img src="./assets/cui-new-full.webp" alt="崔断水 新版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v3</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>侧面 90°（朝右）</span><span class="badge ok">v2 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/cui-new-side.webp" data-cap="崔断水 · 新版 90° 侧面 (v2 · 848×1264 · 派生自 v3 锚点)">
+          <img src="./assets/cui-new-side.webp" alt="崔断水 90度侧面">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>side-full.v2</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-ok">
+        <div class="img-head"><span>背面 180°</span><span class="badge ok">v2 有效</span></div>
+        <div class="img-wrap" data-zoom="./assets/cui-new-back.webp" data-cap="崔断水 · 新版 180° 背面 (v2 · 848×1264 · 派生自 v3 锚点)">
+          <img src="./assets/cui-new-back.webp" alt="崔断水 背面">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>back-full.v2</span><span>848×1264</span></div>
+      </article>
+    </div>
+
+    <div class="sub-lbl">
+      新旧版本对比（v1 vs v2）
+      <span>上方按钮可切换「并排对比」或「滑动拉帘对比」</span>
+    </div>
+    <div class="side-grid cmp-grid">
+      <article class="img-card">
+        <div class="img-head"><span>正脸大头照 · 旧版</span><span class="badge old">v1</span></div>
+        <div class="img-wrap" data-zoom="./assets/cui-old-face.webp" data-cap="崔断水 · 旧版正脸大头照 (v1 · 896×1120)">
+          <img src="./assets/cui-old-face.webp" alt="崔断水 旧版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v1</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card is-new">
+        <div class="img-head"><span>正脸大头照 · 新版</span><span class="badge new">v2 孤狼无巾</span></div>
+        <div class="img-wrap" data-zoom="./assets/cui-new-face.webp" data-cap="崔断水 · 新版正脸大头照 (v2 · 896×1120)">
+          <img src="./assets/cui-new-face.webp" alt="崔断水 新版大头照">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>face-front.v2</span><span>896×1120</span></div>
+      </article>
+      <article class="img-card">
+        <div class="img-head"><span>正面全身锚点 · 旧版</span><span class="badge old">v2</span></div>
+        <div class="img-wrap" data-zoom="./assets/cui-old-full.webp" data-cap="崔断水 · 旧版正面全身锚点 (v2 · 848×1264)">
+          <img src="./assets/cui-old-full.webp" alt="崔断水 旧版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v2</span><span>848×1264</span></div>
+      </article>
+      <article class="img-card is-new">
+        <div class="img-head"><span>正面全身锚点 · 新版</span><span class="badge new">v3 已确认</span></div>
+        <div class="img-wrap" data-zoom="./assets/cui-new-full.webp" data-cap="崔断水 · 新版正面全身锚点 (v3 · 848×1264 · 已确认)">
+          <img src="./assets/cui-new-full.webp" alt="崔断水 新版正面全身">
+          <span class="hint">点击放大</span>
+        </div>
+        <div class="img-foot"><span>front-full.v3</span><span>848×1264</span></div>
+      </article>
+    </div>
+
+    <div class="wipe-panel">
+      <div class="wipe-card">
+        <div class="wipe-hd">
+          <strong>正脸大头照对比（旧 v1 / 新 v2）</strong>
+          <div class="wipe-actions">
+            <button type="button" class="mini-zoom" data-zoom="./assets/cui-old-face.webp" data-cap="崔断水 · 旧版正脸大头照 (v1)">看旧图</button>
+            <button type="button" class="mini-zoom" data-zoom="./assets/cui-new-face.webp" data-cap="崔断水 · 新版正脸大头照 (v2)">放大新图</button>
+          </div>
+        </div>
+        <div class="wipe-stage r45">
+          <img src="./assets/cui-new-face.webp" alt="崔断水 新版大头照">
+          <img class="wipe-over" src="./assets/cui-old-face.webp" alt="崔断水 旧版大头照">
+          <span class="wipe-tag left">旧版 v1</span>
+          <span class="wipe-tag right">新版 v2</span>
+          <div class="wipe-line"><div class="wipe-knob">↔</div></div>
+          <input class="wipe-range" type="range" min="0" max="100" value="50" aria-label="崔断水大头照对比滑块">
+        </div>
+        <div class="wipe-tip"><span>← 向左滑动展示新版</span><span>向右滑动展示旧版 →</span></div>
+      </div>
+
+      <div class="wipe-card">
+        <div class="wipe-hd">
+          <strong>正面全身锚点对比（旧 v2 / 新 v3）</strong>
+          <div class="wipe-actions">
+            <button type="button" class="mini-zoom" data-zoom="./assets/cui-old-full.webp" data-cap="崔断水 · 旧版正面全身 (v2)">看旧图</button>
+            <button type="button" class="mini-zoom" data-zoom="./assets/cui-new-full.webp" data-cap="崔断水 · 新版正面全身锚点 (v3)">放大新图</button>
+          </div>
+        </div>
+        <div class="wipe-stage r23">
+          <img src="./assets/cui-new-full.webp" alt="崔断水 新版正面全身">
+          <img class="wipe-over" src="./assets/cui-old-full.webp" alt="崔断水 旧版正面全身">
+          <span class="wipe-tag left">旧版 v2</span>
+          <span class="wipe-tag right">新版 v3</span>
+          <div class="wipe-line"><div class="wipe-knob">↔</div></div>
+          <input class="wipe-range" type="range" min="0" max="100" value="50" aria-label="崔断水全身对比滑块">
+        </div>
+        <div class="wipe-tip"><span>← 向左滑动展示新版</span><span>向右滑动展示旧版 →</span></div>
+      </div>
+    </div>
+  </section>
+
   <!-- 检查门摘要 -->
-  <section class="gate-sec">
-    <h3>资产校验与检查门摘要（共 8 个视图 · 0 过期 · 0 异常）</h3>
+  <section class="gate-sec" id="gates">
+    <h3>资产校验与检查门摘要（共 24 个视图 · 0 过期 · 0 异常）</h3>
     <div class="tbl-wrap">
       <table>
         <thead>
@@ -506,70 +1172,35 @@ footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--rule-2);color
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>江晚棠</td>
-            <td>正面全身（锚点）</td>
-            <td class="mono">front-full.v4</td>
-            <td class="mono">848×1264 (2:3)</td>
-            <td class="ok-txt">✓ 全部通过（四边纯白 100%）</td>
-            <td class="ok-txt">✓ 已确认（Anchor Confirmed）</td>
-          </tr>
-          <tr>
-            <td>江晚棠</td>
-            <td>正脸大头照</td>
-            <td class="mono">face-front.v3</td>
-            <td class="mono">896×1120 (4:5)</td>
-            <td class="ok-txt">✓ 全部通过（四边纯白 100%）</td>
-            <td class="ok-txt">✓ 有效（关联 front-full/v4）</td>
-          </tr>
-          <tr>
-            <td>江晚棠</td>
-            <td>侧面 90°（面朝右）</td>
-            <td class="mono">side-full.v2</td>
-            <td class="mono">848×1264 (2:3)</td>
-            <td class="ok-txt">✓ 全部通过（四边纯白 100%）</td>
-            <td class="ok-txt">✓ 有效（派生自 front-full/v4）</td>
-          </tr>
-          <tr>
-            <td>江晚棠</td>
-            <td>背面 180°</td>
-            <td class="mono">back-full.v2</td>
-            <td class="mono">848×1264 (2:3)</td>
-            <td class="ok-txt">✓ 全部通过（四边纯白 100%）</td>
-            <td class="ok-txt">✓ 有效（派生自 front-full/v4）</td>
-          </tr>
-          <tr>
-            <td>温如风</td>
-            <td>正面全身（锚点）</td>
-            <td class="mono">front-full.v4</td>
-            <td class="mono">848×1264 (2:3)</td>
-            <td class="ok-txt">✓ 全部通过（四边纯白 100%）</td>
-            <td class="ok-txt">✓ 已确认（Anchor Confirmed）</td>
-          </tr>
-          <tr>
-            <td>温如风</td>
-            <td>正脸大头照</td>
-            <td class="mono">face-front.v4</td>
-            <td class="mono">896×1120 (4:5)</td>
-            <td class="ok-txt">✓ 全部通过（四边纯白 100%）</td>
-            <td class="ok-txt">✓ 有效（关联 front-full/v4）</td>
-          </tr>
-          <tr>
-            <td>温如风</td>
-            <td>侧面 90°（面朝右）</td>
-            <td class="mono">side-full.v2</td>
-            <td class="mono">848×1264 (2:3)</td>
-            <td class="ok-txt">✓ 全部通过（四边纯白 100%）</td>
-            <td class="ok-txt">✓ 有效（派生自 front-full/v4）</td>
-          </tr>
-          <tr>
-            <td>温如风</td>
-            <td>背面 180°</td>
-            <td class="mono">back-full.v3</td>
-            <td class="mono">848×1264 (2:3)</td>
-            <td class="ok-txt">✓ 全部通过（四边纯白 100%）</td>
-            <td class="ok-txt">✓ 有效（派生自 front-full/v4）</td>
-          </tr>
+          <tr><td>江晚棠</td><td>正面全身（锚点）</td><td class="mono">front-full.v4</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 已确认（Anchor Confirmed）</td></tr>
+          <tr><td>江晚棠</td><td>正脸大头照</td><td class="mono">face-front.v3</td><td class="mono">896×1120 (4:5)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（关联 front-full/v4）</td></tr>
+          <tr><td>江晚棠</td><td>侧面 90°（面朝右）</td><td class="mono">side-full.v2</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（派生自 front-full/v4）</td></tr>
+          <tr><td>江晚棠</td><td>背面 180°</td><td class="mono">back-full.v2</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（派生自 front-full/v4）</td></tr>
+
+          <tr><td>温如风</td><td>正面全身（锚点）</td><td class="mono">front-full.v4</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 已确认（Anchor Confirmed）</td></tr>
+          <tr><td>温如风</td><td>正脸大头照</td><td class="mono">face-front.v4</td><td class="mono">896×1120 (4:5)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（关联 front-full/v4）</td></tr>
+          <tr><td>温如风</td><td>侧面 90°（面朝右）</td><td class="mono">side-full.v2</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（派生自 front-full/v4）</td></tr>
+          <tr><td>温如风</td><td>背面 180°</td><td class="mono">back-full.v3</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（派生自 front-full/v4）</td></tr>
+
+          <tr><td>林慕白</td><td>正面全身（锚点）</td><td class="mono">front-full.v2</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 已确认（Anchor Confirmed）</td></tr>
+          <tr><td>林慕白</td><td>正脸大头照</td><td class="mono">face-front.v2</td><td class="mono">896×1120 (4:5)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（关联 front-full/v2）</td></tr>
+          <tr><td>林慕白</td><td>侧面 90°（面朝右）</td><td class="mono">side-full.v2</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（派生自 front-full/v2）</td></tr>
+          <tr><td>林慕白</td><td>背面 180°</td><td class="mono">back-full.v2</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（派生自 front-full/v2）</td></tr>
+
+          <tr><td>绾音</td><td>正面全身（锚点）</td><td class="mono">front-full.v3</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 已确认（Anchor Confirmed）</td></tr>
+          <tr><td>绾音</td><td>正脸大头照</td><td class="mono">face-front.v2</td><td class="mono">896×1120 (4:5)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（关联 front-full/v3）</td></tr>
+          <tr><td>绾音</td><td>侧面 90°（面朝右）</td><td class="mono">side-full.v3</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（派生自 front-full/v3）</td></tr>
+          <tr><td>绾音</td><td>背面 180°</td><td class="mono">back-full.v2</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（派生自 front-full/v3）</td></tr>
+
+          <tr><td>厉狂澜</td><td>正面全身（锚点）</td><td class="mono">front-full.v2</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 已确认（Anchor Confirmed）</td></tr>
+          <tr><td>厉狂澜</td><td>正脸大头照</td><td class="mono">face-front.v2</td><td class="mono">896×1120 (4:5)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（关联 front-full/v2）</td></tr>
+          <tr><td>厉狂澜</td><td>侧面 90°（面朝右）</td><td class="mono">side-full.v2</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（派生自 front-full/v2）</td></tr>
+          <tr><td>厉狂澜</td><td>背面 180°</td><td class="mono">back-full.v2</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（派生自 front-full/v2）</td></tr>
+
+          <tr><td>崔断水</td><td>正面全身（锚点）</td><td class="mono">front-full.v3</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 已确认（Anchor Confirmed）</td></tr>
+          <tr><td>崔断水</td><td>正脸大头照</td><td class="mono">face-front.v2</td><td class="mono">896×1120 (4:5)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（关联 front-full/v3）</td></tr>
+          <tr><td>崔断水</td><td>侧面 90°（面朝右）</td><td class="mono">side-full.v2</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（派生自 front-full/v3）</td></tr>
+          <tr><td>崔断水</td><td>背面 180°</td><td class="mono">back-full.v2</td><td class="mono">848×1264 (2:3)</td><td class="ok-txt">✓ 全部通过（四边纯白 100%）</td><td class="ok-txt">✓ 有效（派生自 front-full/v3）</td></tr>
         </tbody>
       </table>
     </div>
