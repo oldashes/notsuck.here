@@ -11,5 +11,5 @@ Vibe-coded toys that actually work — small WebGL games and demos, live at http
 ## Add a toy
 
 1. Drop the game files in a new folder, e.g. `my-game/`.
-2. Add a card for it on `index.html`.
+2. Add an entry to the `PROJECTS` array at the top of the `<script>` in `index.html` (status: `ok` / `wfm` / `pray` / `idea`).
 3. Push — the site rebuilds automatically.

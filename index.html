@@ -1,114 +1,443 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>not suck here — vibe-coded toys that actually work</title>
-<meta name="description" content="A showcase of small WebGL games and toys, vibe-coded and shipped." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>notsuck.here — 这里的东西不烂（大概）</title>
+<meta name="description" content="一个 vibe coding 作品收容所。代码大部分是 AI 写的，bug 全是我自己的。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23c6f432'/><text x='50' y='68' font-size='54' text-anchor='middle' font-family='monospace' font-weight='700' fill='%23111'>n.</text></svg>">
 <style>
-  :root { --bg:#0d1117; --card:#161b22; --line:#30363d; --text:#e6edf3; --muted:#8b949e; --accent:#7ee787; --accent2:#79c0ff; }
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; line-height:1.6; }
-  .wrap { max-width:880px; margin:0 auto; padding:48px 20px 64px; }
-  header h1 { font-size:52px; line-height:1.1; letter-spacing:-1.5px; }
-  header h1 span { color:var(--accent); }
-  header p { color:var(--muted); font-size:18px; margin-top:12px; max-width:560px; }
-  .demo { margin-top:32px; border:1px solid var(--line); border-radius:16px; overflow:hidden; background:#000; }
-  .demo canvas { display:block; width:100%; height:320px; }
-  .demo figcaption { padding:10px 16px; color:var(--muted); font-size:13px; border-top:1px solid var(--line); background:var(--card); }
-  h2 { font-size:22px; margin:48px 0 16px; letter-spacing:-.5px; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
-  .card { border:1px solid var(--line); border-radius:14px; padding:20px; background:var(--card); }
-  a.card { display:block; text-decoration:none; color:inherit; transition:border-color .15s, transform .15s; }
-  a.card:hover { border-color:var(--accent); transform:translateY(-2px); }
-  .card h3 { font-size:17px; margin-bottom:6px; }
-  .card p { color:var(--muted); font-size:14px; }
-  .tag { display:inline-block; font-size:12px; color:var(--accent2); border:1px solid var(--line); border-radius:999px; padding:2px 10px; margin-bottom:10px; }
-  .card.soon { opacity:.65; border-style:dashed; }
-  footer { margin-top:56px; padding-top:20px; border-top:1px solid var(--line); color:var(--muted); font-size:14px; }
-  footer a { color:var(--accent2); text-decoration:none; }
-  footer a:hover { text-decoration:underline; }
+  :root {
+    --bg: #fafaf7;
+    --fg: #121212;
+    --muted: #6e6e68;
+    --line: #e4e4dd;
+    --card: #ffffff;
+    --accent: #c6f432;
+    --accent-ink: #121212;
+    --red: #ff5a4e;
+    --sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Segoe UI", sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f0f0e;
+      --fg: #f0f0ea;
+      --muted: #96968e;
+      --line: #262624;
+      --card: #161615;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+  .mono { font-family: var(--mono); }
+
+  /* ---------- 顶栏 ---------- */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo { font-family: var(--mono); font-weight: 700; font-size: 17px; text-decoration: none; letter-spacing: -0.02em; }
+  .logo .dot { color: var(--muted); }
+  .cursor { display: inline-block; width: 9px; height: 18px; background: var(--accent); vertical-align: -3px; margin-left: 2px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  nav { display: flex; gap: 22px; font-size: 14px; }
+  nav a { text-decoration: none; color: var(--muted); transition: color .15s; }
+  nav a:hover { color: var(--fg); }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 96px 0 72px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 12.5px; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; margin-bottom: 28px;
+  }
+  .eyebrow .pulse { width: 7px; height: 7px; border-radius: 50%; background: #3ccf4e; box-shadow: 0 0 0 0 #3ccf4e88; animation: pulse 2s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 7px #3ccf4e00; } 100% { box-shadow: 0 0 0 0 #3ccf4e00; } }
+  h1 {
+    font-size: clamp(40px, 8vw, 76px);
+    line-height: 1.12; letter-spacing: -0.035em; font-weight: 800;
+  }
+  .strike { position: relative; color: var(--muted); font-weight: 700; white-space: nowrap; }
+  .strike::after {
+    content: ""; position: absolute; left: -4%; top: 54%; height: 0.09em; width: 0;
+    background: var(--red); border-radius: 2px; transform: rotate(-3deg);
+    animation: strike .5s .7s cubic-bezier(.6,0,.2,1) forwards;
+  }
+  @keyframes strike { to { width: 108%; } }
+  .mark {
+    background: linear-gradient(transparent 58%, var(--accent) 58%, var(--accent) 92%, transparent 92%);
+    background-size: 0% 100%; background-repeat: no-repeat;
+    animation: mark .5s 1.25s ease-out forwards;
+    padding: 0 .06em;
+  }
+  @keyframes mark { to { background-size: 100% 100%; } }
+  .lede { margin-top: 28px; max-width: 560px; font-size: 18px; color: var(--muted); }
+  .lede b { color: var(--fg); font-weight: 600; }
+  .cta { margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font: 600 15px var(--sans); text-decoration: none; cursor: pointer;
+    padding: 12px 20px; border-radius: 10px; border: 1px solid var(--line);
+    background: var(--card); color: var(--fg); transition: transform .12s, border-color .15s;
+  }
+  .btn:hover { transform: translateY(-1px); border-color: var(--muted); }
+  .btn.primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
+  /* ---------- 数据条 ---------- */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .stat { padding: 22px 20px; border-right: 1px solid var(--line); }
+  .stat:last-child { border-right: 0; }
+  .stat .num { font: 700 28px var(--mono); letter-spacing: -0.03em; }
+  .stat .label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .stat .note { font: 11px var(--mono); color: var(--muted); opacity: .7; margin-top: 4px; }
+
+  /* ---------- 区块标题 ---------- */
+  section { padding: 80px 0 0; }
+  .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+  h2 { font-size: 28px; letter-spacing: -0.02em; font-weight: 750; }
+  h2 .idx { font: 500 14px var(--mono); color: var(--muted); margin-right: 10px; vertical-align: 4px; }
+  .sub { font-size: 14px; color: var(--muted); }
+
+  /* ---------- 筛选 ---------- */
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .chip {
+    font: 13px var(--sans); padding: 6px 13px; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--line); background: transparent; color: var(--muted); transition: all .15s;
+  }
+  .chip:hover { color: var(--fg); border-color: var(--muted); }
+  .chip.on { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
+  /* ---------- 作品卡片 ---------- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .card {
+    position: relative; display: flex; flex-direction: column;
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 20px; text-decoration: none; transition: transform .15s, border-color .15s, box-shadow .15s;
+    min-height: 196px;
+  }
+  .card:hover { transform: translateY(-3px); border-color: var(--fg); box-shadow: 4px 4px 0 var(--fg); }
+  .card .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .badge { font: 11.5px var(--mono); padding: 3px 9px; border-radius: 6px; border: 1px solid var(--line); white-space: nowrap; }
+  .badge.ok   { background: #e9fbd0; border-color: #c9ec93; color: #2f5a00; }
+  .badge.wfm  { background: #fff4cc; border-color: #f2dc85; color: #6b5200; }
+  .badge.pray { background: #ffe3e0; border-color: #ffbdb6; color: #8a1d14; }
+  .badge.idea { background: transparent; border-style: dashed; color: var(--muted); }
+  @media (prefers-color-scheme: dark) {
+    .badge.ok   { background: #1d2a0c; border-color: #3a5414; color: #b8ef6a; }
+    .badge.wfm  { background: #2a230a; border-color: #54460f; color: #f3d460; }
+    .badge.pray { background: #2e1210; border-color: #5c2420; color: #ff9a90; }
+  }
+  .vibe { font: 12px var(--mono); color: var(--muted); letter-spacing: 1px; }
+  .card h3 { font-size: 18px; letter-spacing: -0.01em; margin-bottom: 6px; }
+  .card p { font-size: 14px; color: var(--muted); flex: 1; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; }
+  .tag { font: 11.5px var(--mono); color: var(--muted); }
+  .tag::before { content: "#"; opacity: .5; }
+  .arrow { position: absolute; right: 18px; bottom: 16px; font-family: var(--mono); color: var(--muted); transition: transform .15s; }
+  .card:hover .arrow { transform: translate(3px, -3px); color: var(--fg); }
+  .empty { padding: 40px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: 14px; font-size: 14px; }
+
+  /* ---------- 民意调查 ---------- */
+  .poll {
+    border: 1px solid var(--line); border-radius: 16px; background: var(--card);
+    padding: 36px 28px; text-align: center;
+  }
+  .poll .q { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+  .poll .hint { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .arena { position: relative; height: 150px; margin-top: 20px; }
+  .arena .btn { position: absolute; top: 50%; transform: translate(-50%, -50%); min-width: 110px; justify-content: center; }
+  #yes { left: 38%; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  #no  { left: 62%; transition: left .25s cubic-bezier(.3,1.6,.5,1), top .25s cubic-bezier(.3,1.6,.5,1); }
+  #yes:hover, #no:hover { transform: translate(-50%, -52%); }
+  .verdict { min-height: 24px; font-size: 15px; font-family: var(--mono); }
+
+  /* ---------- FAQ ---------- */
+  .faq { border-top: 1px solid var(--line); }
+  details { border-bottom: 1px solid var(--line); }
+  summary {
+    list-style: none; cursor: pointer; padding: 20px 4px; font-weight: 600; font-size: 16px;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font: 400 22px var(--mono); color: var(--muted); transition: transform .2s; }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { padding: 0 4px 22px; color: var(--muted); font-size: 15px; max-width: 640px; }
+
+  /* ---------- 页脚 ---------- */
+  footer { margin-top: 96px; border-top: 1px solid var(--line); padding: 32px 0 48px; font-size: 13px; color: var(--muted); }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  footer .mono { font-size: 12px; }
+
+  /* ---------- Toast ---------- */
+  .toast {
+    position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 20px); opacity: 0;
+    background: var(--fg); color: var(--bg); font: 13.5px var(--mono);
+    padding: 11px 18px; border-radius: 10px; pointer-events: none; transition: all .25s; z-index: 50;
+    max-width: calc(100vw - 32px); text-align: center;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  @media (max-width: 640px) {
+    nav { gap: 16px; }
+    .hero { padding: 64px 0 52px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: 0; }
+    .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+    #yes { left: 30%; } #no { left: 70%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; }
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1>not suck <span>here</span>.</h1>
-    <p>Small WebGL games and toys, vibe-coded and shipped. No sign-up, no install — just open and play.</p>
-  </header>
 
-  <figure class="demo">
-    <canvas id="scene"></canvas>
-    <figcaption>Live demo — a WebGL torus knot. Move your mouse over it, click to change its color. Built with Three.js.</figcaption>
-  </figure>
+<header>
+  <div class="wrap">
+    <a class="logo" href="#">notsuck<span class="dot">.</span>here<span class="cursor"></span></a>
+    <nav>
+      <a href="#work">作品</a>
+      <a href="#faq">问答</a>
+      <a id="gh" href="https://github.com/" target="_blank" rel="noopener">GitHub ↗</a>
+    </nav>
+  </div>
+</header>
 
-  <h2>The toys</h2>
-  <div class="grid">
-    <a class="card" href="./darrowby-diorama/">
-      <span class="tag">WebGL · 3D Sandbox</span>
-      <h3>Darrowby Diorama · 库珀空间站箱庭</h3>
-      <p>奥尼尔圆筒 360° 共转平地、玻璃天窗栈桥、北端盖渐进失重到 0G、科里奥利抛球与全球 OSM 街区 3D 沙盘建造。</p>
-    </a>
-    <div class="card">
-      <span class="tag">WebGL · live</span>
-      <h3>Torus Knot</h3>
-      <p>The little demo above. Spin it, poke it, watch it not suck.</p>
+<main class="wrap">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="eyebrow"><span class="pulse"></span>状态：今天也没 suck</div>
+    <h1>这里的东西<br>都 <span class="strike">很烂</span> <span class="mark">还行</span>。</h1>
+    <p class="lede">一个 vibe coding 作品收容所。<b>代码大部分是 AI 写的，bug 全是我自己的。</b>点进去之前请降低预期，然后你会发现——诶，not suck。</p>
+    <div class="cta">
+      <a class="btn primary" href="#work">看看作品 ↓</a>
+      <a class="btn" href="#poll">我要打差评</a>
     </div>
-    <a class="card" href="./wantangfeng/">
-      <span class="tag">AI Drama · v1</span>
-      <h3>晚棠风 · Wantangfeng</h3>
-      <p>12 集古装武侠短剧制作档案：改编大纲、分集剧本、角色卡司、演员定妆照、美术设定、开场站位与 468 帧分镜。</p>
-    </a>
-    <a class="card" href="./wantangfeng/v2/">
-      <span class="tag">AI Drama · v2 preview</span>
-      <h3>晚棠风 v2 · 人物与剧本重构</h3>
-      <p>6 位核心角色 35mm 电影定妆升级 + 全 8 集高密精华版强钩子 v2 改编大纲与分集剧本在线预览。</p>
-    </a>
   </div>
 
-  <footer>
-    Made with vibes. Source on <a href="https://github.com/oldashes/notsuck.here">GitHub</a> · <a href="https://github.com/oldashes/notsuck.here">oldashes/notsuck.here</a>
-  </footer>
-</div>
+  <!-- 数据条 -->
+  <div class="stats">
+    <div class="stat"><div class="num" id="s-total">0</div><div class="label">作品总数</div><div class="note">含画的饼</div></div>
+    <div class="stat"><div class="num" id="s-rate">0%</div><div class="label">能跑率</div><div class="note">在你电脑上不保证</div></div>
+    <div class="stat"><div class="num">≈95%</div><div class="label">AI 代写率</div><div class="note">剩下 5% 是改 bug</div></div>
+    <div class="stat"><div class="num">0</div><div class="label">需求文档页数</div><div class="note">vibe 就是需求</div></div>
+  </div>
 
-<script type="importmap">
-{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
-</script>
-<script type="module">
-import * as THREE from "three";
-const canvas = document.getElementById("scene");
-const renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x0d1117);
-const camera = new THREE.PerspectiveCamera(45, 2, 0.1, 100);
-camera.position.z = 6;
-const geo = new THREE.TorusKnotGeometry(1.1, 0.32, 220, 36);
-const mat = new THREE.MeshStandardMaterial({ color:0x7ee787, roughness:0.25, metalness:0.6 });
-const knot = new THREE.Mesh(geo, mat);
-scene.add(knot);
-scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-const light = new THREE.DirectionalLight(0xffffff, 2);
-light.position.set(4, 6, 6);
-scene.add(light);
-let mx = 0, my = 0;
-addEventListener("pointermove", e => { mx = (e.clientX / innerWidth - 0.5) * 2; my = (e.clientY / innerHeight - 0.5) * 2; });
-const palette = [0x7ee787, 0x79c0ff, 0xffa657, 0xff7b72, 0xd2a8ff];
-let ci = 0;
-canvas.addEventListener("click", () => { ci = (ci + 1) % palette.length; mat.color.setHex(palette[ci]); });
-function resize() {
-  const w = canvas.clientWidth, h = canvas.clientHeight;
-  renderer.setSize(w, h, false);
-  camera.aspect = w / h;
-  camera.updateProjectionMatrix();
+  <!-- 作品 -->
+  <section id="work">
+    <div class="sec-head">
+      <h2><span class="idx">01</span>作品</h2>
+      <span class="sub">按「能不能跑」排序，这是唯一的 KPI</span>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <!-- 民意调查 -->
+  <section id="poll">
+    <div class="sec-head">
+      <h2><span class="idx">02</span>民意调查</h2>
+      <span class="sub">本调查结果 100% 真实有效</span>
+    </div>
+    <div class="poll">
+      <div class="q">这个网站 suck 吗？</div>
+      <div class="hint">请如实作答，我们尊重每一位用户的选择*</div>
+      <div class="arena" id="arena">
+        <button class="btn" id="yes">不烂 👍</button>
+        <button class="btn" id="no">烂 👎</button>
+      </div>
+      <div class="verdict" id="verdict">&nbsp;</div>
+      <div class="hint" style="margin-top:10px;font-size:11.5px;opacity:.7">* 部分选择除外</div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sec-head">
+      <h2><span class="idx">03</span>常见问题</h2>
+      <span class="sub">其实没人问过</span>
+    </div>
+    <div class="faq">
+      <details><summary>为什么叫 notsuck.here？</summary><p>把标准定低一点，就不会失望。目标从来不是「很好」，而是「不烂」——这个目标我有信心达成大约 70% 的时间。</p></details>
+      <details><summary>代码是你写的吗？</summary><p>我负责 vibe，AI 负责 code，bug 我们五五分账。准确地说，我是这些项目的「产品经理兼唯一测试兼背锅侠」。</p></details>
+      <details><summary>能用在生产环境吗？</summary><p>能。出事别找我。</p></details>
+      <details><summary>为什么有的项目点不开？</summary><p>看一眼标签。🟢 是能跑，🟡 是在我电脑上能跑，🔴 是玄学，⚪ 是还在画饼。点不开基本属于后三种，属于正常现象。</p></details>
+      <details><summary>怎么联系你？</summary><p>去 GitHub 提 Issue。我会在 vibe 来了的时候回复，通常是凌晨两点。</p></details>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> notsuck.here · 托管于 GitHub Pages，免费的，所以别挑</span>
+    <span class="mono">无 Cookie · 无追踪 · 也没什么值得追踪的</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   ✏️ 改这里就行
+   status 可选：ok（能跑）/ wfm（本机能跑）/ pray（玄学）/ idea（画饼）
+   vibe：1–5，纯主观
+   ========================================================= */
+const CONFIG = {
+  github: "https://github.com/oldashes/notsuck.here",
+};
+
+const PROJECTS = [
+  { name: "Darrowby Diorama · 库珀空间站箱庭", desc: "在奥尼尔圆筒里种街区：360° 共转平地、北端盖渐进失重到 0G、科里奥利抛球，还能拉全球 OSM 街区搭 3D 沙盘。", status: "ok", vibe: 5, tags: ["WebGL", "3D 沙盘", "物理正确(大概)"], url: "./darrowby-diorama/" },
+  { name: "晚棠风 · Wantangfeng", desc: "12 集古装武侠短剧的完整制作档案：大纲、分集剧本、卡司、定妆照、美术设定，外加 468 帧分镜。一个人就是一个剧组。", status: "ok", vibe: 4, tags: ["AI 短剧", "武侠"], url: "./wantangfeng/" },
+  { name: "晚棠风 v2 · 人物与剧本重构", desc: "6 位核心角色升级 35mm 电影定妆，全 8 集重写成高密强钩子版。v1 的演员表示有被冒犯到。", status: "ok", vibe: 4, tags: ["AI 短剧", "v2 预览"], url: "./wantangfeng/v2/" },
+  { name: "本网站", desc: "你正在看的这个。点进去还是这里，递归了。", status: "ok", vibe: 3, tags: ["HTML", "自我指涉"], url: "./" },
+];
+/* ========================================================= */
+
+const STATUS = {
+  ok:   { label: "🟢 能跑" },
+  wfm:  { label: "🟡 本机能跑" },
+  pray: { label: "🔴 玄学" },
+  idea: { label: "⚪ 画饼中" },
+};
+const ORDER = ["ok", "wfm", "pray", "idea"];
+
+document.getElementById("gh").href = CONFIG.github;
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* ---------- 作品列表 ---------- */
+const grid = document.getElementById("grid");
+const filters = document.getElementById("filters");
+let current = "all";
+
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+
+function render() {
+  const list = PROJECTS
+    .filter(p => current === "all" || p.status === current)
+    .sort((a, b) => ORDER.indexOf(a.status) - ORDER.indexOf(b.status));
+  if (!list.length) {
+    grid.innerHTML = `<div class="empty">这个分类下暂时没有作品。<br>好消息是：零作品 = 零 bug。</div>`;
+    return;
+  }
+  grid.innerHTML = list.map(p => `
+    <a class="card" href="${esc(p.url || "#")}" ${/^https?:/.test(p.url || "") ? 'target="_blank" rel="noopener"' : ""}>
+      <div class="top">
+        <span class="badge ${p.status}">${STATUS[p.status].label}</span>
+        <span class="vibe" title="vibe 指数">${"●".repeat(p.vibe)}${"○".repeat(5 - p.vibe)}</span>
+      </div>
+      <h3>${esc(p.name)}</h3>
+      <p>${esc(p.desc)}</p>
+      <div class="tags">${(p.tags || []).map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>
+      <span class="arrow">↗</span>
+    </a>`).join("");
 }
-addEventListener("resize", resize);
-resize();
-(function tick(t) {
-  knot.rotation.x = t * 0.0004 + my * 0.4;
-  knot.rotation.y = t * 0.0006 + mx * 0.6;
-  renderer.render(scene, camera);
-  requestAnimationFrame(tick);
-})(0);
+
+const counts = PROJECTS.reduce((m, p) => (m[p.status] = (m[p.status] || 0) + 1, m), {});
+const chips = [["all", `全部 ${PROJECTS.length}`], ...ORDER.filter(k => counts[k]).map(k => [k, `${STATUS[k].label} ${counts[k]}`])];
+filters.innerHTML = chips.map(([k, l]) => `<button class="chip${k === "all" ? " on" : ""}" data-k="${k}">${l}</button>`).join("");
+filters.addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  current = b.dataset.k;
+  filters.querySelectorAll(".chip").forEach(c => c.classList.toggle("on", c === b));
+  render();
+});
+render();
+
+/* ---------- 数字滚动 ---------- */
+function countUp(el, to, suffix = "") {
+  const t0 = performance.now(), dur = 900;
+  (function tick(t) {
+    const k = Math.min(1, (t - t0) / dur), v = Math.round(to * (1 - Math.pow(1 - k, 3)));
+    el.textContent = v + suffix;
+    if (k < 1) requestAnimationFrame(tick);
+  })(t0);
+}
+countUp(document.getElementById("s-total"), PROJECTS.length);
+countUp(document.getElementById("s-rate"), PROJECTS.length ? Math.round((counts.ok || 0) / PROJECTS.length * 100) : 0, "%");
+
+/* ---------- Toast ---------- */
+const toastEl = document.getElementById("toast");
+let toastTimer;
+function toast(msg) {
+  toastEl.textContent = msg; toastEl.classList.add("show");
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2600);
+}
+
+/* ---------- 民意调查：「烂」按钮会跑 ---------- */
+const arena = document.getElementById("arena");
+const no = document.getElementById("no");
+const yes = document.getElementById("yes");
+const verdict = document.getElementById("verdict");
+let dodges = 0;
+const taunts = ["？", "手滑了吧", "再想想", "你确定？", "抓不到的", "放弃吧", "它比你快", "要不点左边那个", "……", "你是真的执着"];
+
+function dodge(e) {
+  if (e) e.preventDefault();
+  const pad = 14, w = arena.clientWidth, h = arena.clientHeight, bw = no.offsetWidth, bh = no.offsetHeight;
+  let x, y, tries = 0;
+  const cur = { x: no.offsetLeft, y: no.offsetTop };
+  do {
+    x = pad + bw / 2 + Math.random() * (w - bw - pad * 2);
+    y = pad + bh / 2 + Math.random() * (h - bh - pad * 2);
+    tries++;
+  } while (Math.hypot(x - cur.x, y - cur.y) < Math.min(w, 220) * 0.45 && tries < 30);
+  no.style.left = x + "px"; no.style.top = y + "px";
+  dodges++;
+  verdict.textContent = taunts[Math.min(dodges - 1, taunts.length - 1)];
+}
+no.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") dodge(); });
+no.addEventListener("pointerdown", dodge);
+no.addEventListener("click", e => {
+  e.preventDefault();
+  // 键盘党也能按到，但……
+  verdict.textContent = "检测到恶意差评，已自动转为好评 ✅";
+  toast("感谢您的好评！");
+});
+yes.addEventListener("click", () => {
+  verdict.textContent = dodges > 2
+    ? `在挣扎了 ${dodges} 次之后，你终于做出了正确的选择。`
+    : "感谢认可。你的品味 also not suck。";
+  toast("好评 +1，当前好评率：100%");
+});
+
+/* ---------- 彩蛋们 ---------- */
+// 1. 切走标签页时挽留
+const realTitle = document.title;
+document.addEventListener("visibilitychange", () => {
+  document.title = document.hidden ? "别走，这里真的不烂 🥺" : realTitle;
+});
+
+// 2. 在页面上键入 suck
+let buf = "";
+document.addEventListener("keydown", e => {
+  if (e.key.length !== 1) return;
+  buf = (buf + e.key.toLowerCase()).slice(-6);
+  if (buf.endsWith("suck")) toast("检测到敏感词「suck」，已自动替换为「not suck」");
+});
+
+// 3. 给看源码的朋友
+console.log("%cnotsuck.here", "font:700 22px monospace;background:#c6f432;color:#111;padding:4px 10px;border-radius:4px");
+console.log("嘿，看源码的朋友 👋 这些代码也是 vibe 出来的，别细看，细看就 suck 了。");
 </script>
 </body>
 </html>
