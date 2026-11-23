@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Pastoral · 牧歌计划 | 120m 高精度垂直切片</title>
+    <script type="module" crossorigin src="./assets/index-L7QqjSUZ.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/three-BKf1d36S.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-mM4fIvoG.css">
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div id="hud">
+      <header class="hud-top">
+        <div class="brand-card">
+          <div class="brand-badge">PASTORAL SLICE · 120×120M</div>
+          <h1>牧歌计划 · 金丝雀样板庭院</h1>
+          <p id="zone-subtitle">O'Neill B 号圆柱 · R=1000m · 北 42° 苍穹巨窗下</p>
+        </div>
+
+        <div class="style-pill" role="group" aria-label="Render style">
+          <button id="btn-style-painterly" class="pill-btn active" data-style="painterly">
+            🎨 吉卜力原画风
+          </button>
+          <button id="btn-style-cinematic" class="pill-btn" data-style="cinematic">
+            📷 电影写实风
+          </button>
+        </div>
+      </header>
+
+      <aside class="hud-right">
+        <div class="panel-group">
+          <span class="panel-label">时刻光线</span>
+          <div class="btn-row" id="time-controls">
+            <button class="chip-btn" data-time="dawn">晨曦</button>
+            <button class="chip-btn active" data-time="noon">晴午</button>
+            <button class="chip-btn" data-time="golden">暮金</button>
+          </div>
+        </div>
+        <div class="panel-group">
+          <span class="panel-label">摄影机位</span>
+          <div class="btn-col" id="preset-controls">
+            <button class="chip-btn active" data-preset="courtyard">① 庭院全景</button>
+            <button class="chip-btn" data-preset="brook">② 溪桥草海</button>
+            <button class="chip-btn" data-preset="canopy">③ 树冠光影</button>
+            <button class="chip-btn" data-preset="window">④ 巨窗仰望</button>
+            <button class="chip-btn" data-preset="fpv">⑤ 第一人称漫游</button>
+          </div>
+        </div>
+      </aside>
+
+      <footer class="hud-bottom">
+        <div class="help-bar">
+          <span><kbd>WASD</kbd> 漫步</span>
+          <span><kbd>Shift</kbd> 慢跑</span>
+          <span><kbd>Space</kbd> 跳跃</span>
+          <span><kbd>拖拽</kbd> 环顾视角</span>
+          <span><kbd>滚轮</kbd> 推拉焦距</span>
+          <span><kbd>1-5</kbd> 切换机位</span>
+          <span><kbd>V</kbd> 切换画风</span>
+        </div>
+        <div id="perf-pill" class="perf-pill">加载中…</div>
+      </footer>
+    </div>
+
+    <div id="loading-overlay">
+      <div class="loader-box">
+        <div class="loader-ring"></div>
+        <div class="loader-title">正在编织 120×120m 牧歌样板切片…</div>
+        <div class="loader-sub" id="loading-detail">烘焙高精细 PBR 地形与 45,000 株风吹草叶</div>
+      </div>
+    </div>
+
+  </body>
+</html>
