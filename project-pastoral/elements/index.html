@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Project Pastoral · 牧歌计划 — 第二卷：世界要素设定集</title>
+<style>
+  :root {
+    --bg: #0c1219;
+    --bg2: #111924;
+    --card: #15202e;
+    --line: rgba(154, 184, 212, 0.16);
+    --line-strong: rgba(234, 185, 104, 0.42);
+    --text: #eaf0f6;
+    --muted: #98abc0;
+    --soft: #6f849b;
+    --gold: #eab968;
+    --emerald: #6ed39a;
+    --cyan: #7ad4ef;
+    --sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --serif: "Songti SC", "STSong", "Noto Serif CJK SC", Georgia, serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: radial-gradient(circle at 82% 2%, rgba(234, 185, 104, 0.08), transparent 44%),
+                radial-gradient(circle at 12% 20%, rgba(110, 211, 154, 0.07), transparent 42%),
+                var(--bg);
+    color: var(--text);
+    font: 15px/1.75 var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 24px 20px 88px; }
+
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px; margin-bottom: 22px;
+  }
+  .nav-group { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .crumb-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 14px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--card);
+    color: var(--text); text-decoration: none; font-size: 13px;
+    transition: border-color .15s, transform .15s;
+  }
+  .crumb-btn:hover { border-color: var(--cyan); transform: translateY(-1px); }
+  .crumb-btn.active {
+    border-color: var(--line-strong);
+    background: rgba(234, 185, 104, 0.14);
+    color: var(--gold); font-weight: 600;
+  }
+  .crumb-btn.primary {
+    border-color: rgba(110, 211, 154, 0.45);
+    background: rgba(110, 211, 154, 0.14);
+    color: var(--emerald); font-weight: 600;
+  }
+
+  .hero {
+    position: relative; border-radius: 20px; overflow: hidden;
+    border: 1px solid var(--line); background: var(--card);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+  }
+  .hero-media {
+    position: relative; aspect-ratio: 21/9; min-height: 240px; max-height: 410px; width: 100%;
+    background: url("./images/elem_landmark_window_overlook.jpg") center 48% / cover no-repeat;
+  }
+  .hero-media::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(12,18,25,0.12) 0%, rgba(12,18,25,0.68) 64%, #15202e 100%);
+  }
+  .hero-body { padding: 0 28px 28px; position: relative; margin-top: -54px; z-index: 2; }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .badge {
+    font-size: 12px; padding: 3px 11px; border-radius: 999px;
+    border: 1px solid var(--line); background: rgba(12, 18, 25, 0.78);
+    color: var(--cyan); backdrop-filter: blur(8px);
+  }
+  .badge.gold { color: var(--gold); border-color: rgba(234, 185, 104, 0.36); }
+  .badge.emerald { color: var(--emerald); border-color: rgba(110, 211, 154, 0.38); }
+  .hero h1 {
+    font: 600 38px/1.2 var(--serif); letter-spacing: 0.02em;
+    color: #fff; margin-bottom: 8px;
+  }
+  .hero h1 span { color: var(--gold); font-weight: 500; }
+  .hero-sub { color: var(--muted); font-size: 15px; max-width: 840px; margin-bottom: 20px; }
+
+  .swatch-strip {
+    display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px;
+    padding-top: 14px; border-top: 1px solid var(--line);
+  }
+  .swatch-item {
+    background: rgba(12, 18, 25, 0.6); border: 1px solid var(--line);
+    border-radius: 10px; padding: 8px 10px; display: flex; align-items: center; gap: 8px;
+  }
+  .swatch-chip {
+    width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.22);
+  }
+  .swatch-meta { min-width: 0; }
+  .swatch-meta strong { display: block; font-size: 11.5px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .swatch-meta span { display: block; font-size: 10.5px; color: var(--soft); font-family: monospace; }
+
+  .filter-wrap {
+    margin-top: 28px; display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .filter-bar {
+    display: inline-flex; flex-wrap: wrap; gap: 6px; padding: 5px;
+    border-radius: 999px; background: var(--card); border: 1px solid var(--line);
+  }
+  .filter-btn {
+    border: 0; background: transparent; color: var(--muted); cursor: pointer;
+    padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 600;
+    transition: all .15s;
+  }
+  .filter-btn:hover { color: #fff; }
+  .filter-btn.active { background: var(--gold); color: #16120c; }
+  .filter-hint { font-size: 12.5px; color: var(--soft); }
+
+  .section-block { margin-top: 38px; }
+  .section-block.hidden-section { display: none; }
+
+  .section-head {
+    margin-bottom: 18px; display: flex; align-items: flex-end; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 10px;
+  }
+  .section-head h2 { font: 600 24px/1.25 var(--serif); color: #fff; }
+  .section-head p { font-size: 13px; color: var(--muted); }
+
+  .art-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-bottom: 18px; }
+  .art-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .art-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    overflow: hidden; cursor: pointer; transition: transform .18s, border-color .18s;
+    display: flex; flex-direction: column;
+  }
+  .art-card:hover { transform: translateY(-3px); border-color: var(--line-strong); }
+  .art-thumb {
+    position: relative; aspect-ratio: 16/9; overflow: hidden; background: #191f28;
+  }
+  .art-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+  .art-card:hover .art-thumb img { transform: scale(1.02); }
+  .art-cap { padding: 14px 16px 16px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .art-cap-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .art-cap h3 { font-size: 15.5px; color: #fff; font-weight: 600; }
+  .art-tag {
+    font-size: 11px; padding: 2px 9px; border-radius: 999px; font-weight: 600;
+    background: rgba(234, 185, 104, 0.14); color: var(--gold); white-space: nowrap;
+  }
+  .art-cap p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  .table-wrap {
+    width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--line); border-radius: 14px; background: var(--card);
+    margin-bottom: 12px;
+  }
+  table { width: 100%; border-collapse: collapse; min-width: 680px; font-size: 13.5px; }
+  th, td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: rgba(12, 18, 25, 0.68); color: var(--gold); font-weight: 600; font-size: 12.5px; }
+  tr:last-child td { border-bottom: none; }
+  td strong { color: #fff; }
+
+  .cta-box {
+    margin-top: 42px; padding: 24px; border-radius: 18px;
+    border: 1px solid rgba(110, 211, 154, 0.35);
+    background: linear-gradient(135deg, rgba(21, 32, 46, 0.95), rgba(18, 44, 48, 0.85));
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  }
+  .cta-box h3 { font: 600 20px/1.3 var(--serif); color: #fff; margin-bottom: 4px; }
+  .cta-box p { color: var(--muted); font-size: 13.5px; max-width: 680px; }
+  .cta-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 22px; border-radius: 999px;
+    background: var(--emerald); color: #0a1410; font-weight: 700;
+    text-decoration: none; font-size: 14px; transition: transform .15s;
+  }
+  .cta-btn:hover { transform: translateY(-2px); }
+
+  footer {
+    margin-top: 52px; padding-top: 20px; border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    font-size: 13px; color: var(--soft);
+  }
+  footer a { color: var(--cyan); text-decoration: none; }
+
+  .lightbox {
+    position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 20px;
+    background: rgba(6, 10, 15, 0.92); backdrop-filter: blur(10px);
+  }
+  .lightbox.hidden { display: none; }
+  .lightbox-inner { position: relative; max-width: 1120px; width: 100%; text-align: center; }
+  .lightbox img { max-width: 100%; max-height: 76vh; border-radius: 12px; border: 1px solid var(--line); }
+  .lightbox-title { margin-top: 12px; color: #fff; font-size: 16px; font-weight: 600; }
+  .lightbox-cap { margin-top: 4px; color: var(--muted); font-size: 13.5px; max-width: 820px; margin-inline: auto; }
+  .lb-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line);
+    background: rgba(15, 23, 33, 0.85); color: #fff; font-size: 20px; cursor: pointer;
+  }
+  .lb-prev { left: 10px; }
+  .lb-next { right: 10px; }
+  .lb-close {
+    position: fixed; top: 18px; right: 20px; width: 40px; height: 40px;
+    border-radius: 50%; border: 1px solid var(--line);
+    background: rgba(15, 23, 33, 0.9); color: #fff; font-size: 18px; cursor: pointer;
+  }
+
+  @media (max-width: 980px) {
+    .swatch-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .art-grid.three { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 720px) {
+    .wrap { padding: 16px 14px 64px; }
+    .hero-body { padding: 0 16px 20px; margin-top: -36px; }
+    .hero h1 { font-size: 26px; }
+    .swatch-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .art-grid, .art-grid.three { grid-template-columns: 1fr; }
+    .filter-bar { border-radius: 16px; width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar">
+    <div class="nav-group">
+      <a class="crumb-btn" href="../../">← not suck here</a>
+      <a class="crumb-btn" href="../">📖 第一卷 · 世界总纲</a>
+      <span class="crumb-btn active">🎨 第二卷 · 要素图鉴</span>
+    </div>
+    <a class="crumb-btn primary" href="../../project-pastoral-demo/">🎮 试玩 3D 中段 Demo</a>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-media" role="img" aria-label="42° 星海巨窗观星台全景概念原画"></div>
+    <div class="hero-body">
+      <div class="hero-badges">
+        <span class="badge gold">统一游戏原画风 · Concept Artbook</span>
+        <span class="badge">近未来轻量田园移民基调</span>
+        <span class="badge emerald">1:1 真实比例尺 · 1.70 m 基准</span>
+        <span class="badge">5 大门类 × 12 张核心设定图</span>
+      </div>
+      <h1>Project Pastoral · <span>第二卷：世界要素设定集</span></h1>
+      <p class="hero-sub">
+        承接《牧歌计划》第一卷 <code>R = 1000 m × L = 6 km</code> 奥尼尔圆筒总纲，本卷按统一「明快水粉原画 + 暖棕褐描线」美术口吻与近未来轻量化太空移民质感，系统定型人物、经纬度建筑与公共节点、牧场与生态动物、三气候带植物与作物周期，以及星海巨窗与 0G 枢纽等标志景观。
+      </p>
+      <div class="swatch-strip" aria-label="核心材质与色彩母版">
+        <div class="swatch-item">
+          <div class="swatch-chip" style="background:#EFE8D8"></div>
+          <div class="swatch-meta"><strong>未漂白亚麻</strong><span>#EFE8D8</span></div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-chip" style="background:#9C6E46"></div>
+          <div class="swatch-meta"><strong>雪松原木</strong><span>#9C6E46</span></div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-chip" style="background:#343A42"></div>
+          <div class="swatch-meta"><strong>北欧炭化木</strong><span>#343A42</span></div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-chip" style="background:#F4EFE4"></div>
+          <div class="swatch-meta"><strong>石灰白墙</strong><span>#F4EFE4</span></div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-chip" style="background:#BC613E"></div>
+          <div class="swatch-meta"><strong>陶土瓦红</strong><span>#BC613E</span></div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-chip" style="background:#2E3642"></div>
+          <div class="swatch-meta"><strong>轨道暗钢</strong><span>#2E3642</span></div>
+        </div>
+        <div class="swatch-item">
+          <div class="swatch-chip" style="background:#5BAFD6"></div>
+          <div class="swatch-meta"><strong>星海窗蓝</strong><span>#5BAFD6</span></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="filter-wrap">
+    <div class="filter-bar" role="tablist" aria-label="按门类筛选要素">
+      <button class="filter-btn active" data-cat="all">全部门类 (12)</button>
+      <button class="filter-btn" data-cat="char">I. 人物体系 (2)</button>
+      <button class="filter-btn" data-cat="arch">II. 建筑与节点 (3)</button>
+      <button class="filter-btn" data-cat="fauna">III. 动物生态 (2)</button>
+      <button class="filter-btn" data-cat="flora">IV. 植物与作物 (2)</button>
+      <button class="filter-btn" data-cat="landmark">V. 景观与载具 (3)</button>
+    </div>
+    <span class="filter-hint">点击任意设定图可进入高清灯箱 · 支持 ← / → 切换</span>
+  </div>
+
+  <!-- I. 人物体系 -->
+  <section class="section-block" data-cat="char" id="sec-char">
+    <div class="section-head">
+      <h2>I. 人物体系 · 近未来轻量田园移民</h2>
+      <p>亚麻/帆布天然织物为主体，仅在关键交互位置点缀腕表遥测、碳纤农具与轻量滑翔翼</p>
+    </div>
+    <div class="art-grid">
+      <article class="art-card" data-title="主角三视图与随身轻量化装备" data-desc="身高 1.70 m 的青年圆筒移民：正面 / 四分之三侧 / 背面站姿，配备亚麻护翼滑翔伞（可在 1G 下从坡壁缓降）、碳纤多功能植苗铲、手持式种子光谱检测仪与柳编背篓。">
+        <div class="art-thumb"><img src="./images/elem_char_protagonist.jpg" alt="主角三视图与随身轻量化装备" /></div>
+        <div class="art-cap">
+          <div class="art-cap-top"><h3>01 · 主角三视图与随身轻量化装备</h3><span class="art-tag">人物基准 1.70 m</span></div>
+          <p>亚麻工装罩衫叠穿青灰衬衣、陶土色围巾与藤编宽檐帽；左腕嵌青铜玻璃气象手环，右侧拆解展示滑翔伞、碳纤园艺铲、种子扫描仪与收获背篓。</p>
+        </div>
+      </article>
+      <article class="art-card" data-title="社区核心 NPC 身高对比群像" data-desc="四位锚定圆筒日常生活脉搏的居民（统一水平地面与标尺刻度）：植物生态师（1.66 m）、轻轨电车司机（1.73 m）、退休航天员兼棒球教练（1.84 m）、北端 0G 枢纽向导（1.76 m）。">
+        <div class="art-thumb"><img src="./images/elem_char_npcs.jpg" alt="社区核心 NPC 身高对比群像" /></div>
+        <div class="art-cap">
+          <div class="art-cap-top"><h3>02 · 社区核心 NPC 身高对比群像</h3><span class="art-tag">4 职业原型</span></div>
+          <p>生态农艺师掌心悬停微型授粉蜂群无人机；电车司机佩磁力扳手；老宇航员教练携老式圆筒徽章球衣演示科氏力曲球；北端向导着磁吸靴与保暖防风衣。</p>
+        </div>
+      </article>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>角色原型</th><th>标准身高 (1:1)</th><th>材质与科技点缀</th><th>所属社区位置 / 核心交互职责</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>主角 · 新晋农场拓荒者</strong></td><td><code>1.70 m</code>（眼高 <code>1.58 m</code>）</td><td>未漂白亚麻罩衫、碳纤滑翔翼、腕带大气与重力遥测仪</td><td>个人 <code>80×80 m</code> 农场起步，自由步行至 <code>20 m</code> 绿道串门及全域飞行探索</td></tr>
+          <tr><td><strong>林禾 · 植物生态农艺师</strong></td><td><code>1.66 m</code></td><td>鼠尾草绿帆布围裙、玻璃种子试管、黄铜授粉微无人机</td><td>驻守温室与绿道驿站，提供地球经纬度风貌种子配方与花期诊断</td></tr>
+          <tr><td><strong>周澜 · 环谷轻轨电车长</strong></td><td><code>1.73 m</code></td><td>乳白深蓝拼接制服、黄铜工牌挂绳、紧凑磁力轨距扳手</td><td>驾驶 <code>22.2 m</code> 纯白三节电车往返「南湾—谷地—北雪岸」<code>6 km</code> 主干线</td></tr>
+          <tr><td><strong>陈牧 · 退休宇航员棒球教练</strong></td><td><code>1.84 m</code></td><td>复古条纹球衣（轨道环肩章）、全牛皮捕手手套与白蜡木棒</td><td>中段社区棒球场导师，引导玩家理解 <code>0.95 RPM</code> 垂直抛球与侧偏轨迹</td></tr>
+          <tr><td><strong>诺阿 · 北端 0G 枢纽向导</strong></td><td><code>1.76 m</code></td><td>天蓝轻量保温防风帕卡、可拆防眩目风镜、低磁阻吸附靴</td><td>驻守 <code>5.8–6.0 km</code> 北端盖斜坡缆车站，指导低重力滑翔与中央港起降</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- II. 建筑与公共节点 -->
+  <section class="section-block" data-cat="arch" id="sec-arch">
+    <div class="section-head">
+      <h2>II. 建筑与公共节点 · 统一结构骨 × 经纬度表皮</h2>
+      <p>所有私人农场严格落入 <code>80×80 m</code> 地块与 <code>20 m</code> 四向门洞绿道红线，附带微缩行人标定门廊体量</p>
+    </div>
+    <div class="art-grid three">
+      <article class="art-card" data-title="中段温带庄园 vs 北端北欧地热农舍" data-desc="左侧为托斯卡纳式白灰泥×雪松木梁双层宅院与葡萄藤廊架；右侧为北欧炭化黑木尖顶小屋配暖光弧形地热玻璃温室（可在高纬雪季培育番茄与香草）。">
+        <div class="art-thumb"><img src="./images/elem_arch_farms_temperate_nordic.jpg" alt="中段温带庄园与北欧地热农舍" /></div>
+        <div class="art-cap">
+          <div class="art-cap-top"><h3>03 · 温带庄园 × 北欧地热温室</h3><span class="art-tag">建筑对照 A</span></div>
+          <p>微缩旅人立于石板门廊前标尺 <code>1:1</code> 尺度；木栅栏留出宽阔 <code>6 m</code> 门洞无缝接入 <code>20 m</code> 社区绿道。</p>
+        </div>
+      </article>
+      <article class="art-card" data-title="东亚竹林茶居 vs 南湾滨海阶梯白屋" data-desc="左侧为京都/川西木构灰瓦茶居，挑出外廊直临锦鲤睡莲石池与阶梯茶畦；右侧为南湾亚热带白墙百叶遮阳海景别墅，带无边雨水碧池与三角梅花拱门。">
+        <div class="art-thumb"><img src="./images/elem_arch_farms_asia_coastal.jpg" alt="东亚竹林茶居与南湾滨海白屋" /></div>
+        <div class="art-cap">
+          <div class="art-cap-top"><h3>04 · 东亚茶居 × 南湾海崖别墅</h3><span class="art-tag">建筑对照 B</span></div>
+          <p>玩家输入东亚或低纬海岸经纬度时，同一结构基座可瞬间替换为深挑檐外廊或通风木百叶海景台地。</p>
+        </div>
+      </article>
+      <article class="art-card" data-title="中段三大公共社交节点模块" data-desc="左上是木构玻璃悬挑轻轨站台；左下为 20 m 公共绿道交汇点（攀援玫瑰木花架、彩色邻里信箱、单车停靠架）；右侧是社区棒球场本垒侧白漆三层木看台与教练休息棚。">
+        <div class="art-thumb"><img src="./images/elem_arch_public_nodes.jpg" alt="中段公共社交节点模块" /></div>
+        <div class="art-cap">
+          <div class="art-cap-top"><h3>05 · 轻轨站 × 绿道花架 × 棒球看台</h3><span class="art-tag">公共设施 3 件套</span></div>
+          <p>打通串门仪式感的关键节点：无需传送或读图，骑车或步行穿过玫瑰花架即到邻居家信箱门口。</p>
+        </div>
+      </article>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>建筑 / 公共模块</th><th>占地红线 (1:1)</th><th>檐口 / 总高</th><th>核心材质与生态联动</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>温带双层田园农舍</strong></td><td><code>13.5 × 9.6 m</code>（配藤架露台）</td><td>檐高 <code>6.2 m</code> / 脊高 <code>9.4 m</code></td><td>石灰白灰泥 + 蜂蜜色雪松梁 + 红陶筒瓦；南向推拉落地窗采纳漫射天光</td></tr>
+          <tr><td><strong>北欧地热玻璃农舍</strong></td><td>木屋 <code>12 × 9 m</code> + 温室 <code>12 × 9.6 m</code></td><td>尖顶 <code>8.6 m</code> / 拱棚 <code>4.8 m</code></td><td>炭化防腐冷杉外墙 + 双层弧形钢框玻璃大棚；内部四季恒温暖光补光</td></tr>
+          <tr><td><strong>东亚茶居锦鲤庭院</strong></td><td>主屋 <code>14 × 10 m</code> + 莲池 <code>10 × 7 m</code></td><td>单半层脊高 <code>7.4 m</code></td><td>深炭灰瓦顶、和纸推拉障子门、挑出石池的木质外廊与阶梯茶畦墙</td></tr>
+          <tr><td><strong>南湾海崖白墙别墅</strong></td><td>退台 <code>15 × 13 m</code> + 蓄水碧池</td><td>总高 <code>8.2 m</code></td><td>耐盐雾白墙 + 可调角度雪松百叶窗 + 三角梅花架石阶直通沙滩</td></tr>
+          <tr><td><strong>轻轨林荫玻璃站台</strong></td><td>长 <code>26 m</code> × 宽 <code>4.2 m</code></td><td>挑檐高 <code>3.7 m</code></td><td>石板抬高月台 + 弧形木肋晴天玻璃雨棚 + 双轨镶嵌道床</td></tr>
+          <tr><td><strong>20 m 绿道邻里交汇站</strong></td><td>节点广场 <code>10 × 10 m</code></td><td>花架高 <code>3.2 m</code></td><td>青石拼花路口、攀援月季木廊架、四色邻里木信箱群与单车停放架</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- III. 动物生态 -->
+  <section class="section-block" data-cat="fauna" id="sec-fauna">
+    <div class="section-head">
+      <h2>III. 动物生态 · 牧场伴侣与圆筒微生态链</h2>
+      <p>畜牧动物沿用 3D Demo 实测肩高比例；野生动物负责维系授粉、控虫与水陆生境循环</p>
+    </div>
+    <div class="art-grid">
+      <article class="art-card" data-title="农场饲养牲畜与伴侣动物图鉴" data-desc="依真实身高并排站立的农场五组伙伴：佩戴黄铜牛铃的花斑奶牛、羊驼与绵羊、背负帆布鞍囊的栗色骑乘马、佩戴陶土围巾与微光项圈牌的柴犬，以及散步白鸭、芦花鸡与鸡蛋竹篮。">
+        <div class="art-thumb"><img src="./images/elem_fauna_livestock.jpg" alt="农场饲养牲畜与伴侣动物图鉴" /></div>
+        <div class="art-cap">
+          <div class="art-cap-top"><h3>06 · 牧场牲畜与伴侣动物群像</h3><span class="art-tag">5 组饲养动物</span></div>
+          <p>与线上 3D Demo 中段农场模型一一对应，覆盖产奶、剪绒、长距离骑乘串门、看家引路与庭院蛋禽生态。</p>
+        </div>
+      </article>
+      <article class="art-card" data-title="奥尼尔圆筒野生与功能性生态物种" data-desc="适应 2 km 直径圆筒微风与人工水系的野生种群：借助筒内上升环流滑翔的信天翁与雨燕、北段雪林银梢赤狐、谷地草坡梅花狍鹿、溪池锦鲤，以及雪松模块化蜂箱与黄金蜜蜂。">
+        <div class="art-thumb"><img src="./images/elem_fauna_wildlife.jpg" alt="奥尼尔圆筒野生与功能性生态物种" /></div>
+        <div class="art-cap">
+          <div class="art-cap-top"><h3>07 · 环流飞鸟 × 雪林野兽 × 授粉蜂箱</h3><span class="art-tag">闭环生物链</span></div>
+          <p>圆筒内部没有外部天敌迁徙路径，需要由白嘴信天翁、雨燕、授粉蜜蜂与溪流锦鲤构成稳定的生态调节网。</p>
+        </div>
+      </article>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>物种名称</th><th>真实体尺 (肩高/翼展)</th><th>生境分区</th><th>生态与玩法交互</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>花斑奶牛 / 绵羊与羊驼</strong></td><td>奶牛高 <code>1.42 m</code> · 羊驼 <code>1.25 m</code></td><td>中段牧场 / 北欧草甸</td><td>可梳毛、采集鲜乳与羊毛原料，在 <code>80×80 m</code> 围栏内缓步巡游</td></tr>
+          <tr><td><strong>栗色牧场骑乘马</strong></td><td>肩高 <code>1.62 m</code>（带帆布鞍囊）</td><td>谷地大道与绿道全网</td><td>替代走路与短途货运，可挂载两个收获货箱跨区串门</td></tr>
+          <tr><td><strong>牧歌田园柴犬</strong></td><td>体高 <code>0.68 m</code></td><td>随行全境</td><td>佩发微光定位项圈牌，能协助嗅探松露、成熟作物或领路访友</td></tr>
+          <tr><td><strong>环流信天翁与家燕</strong></td><td>信天翁翼展 <code>2.2 m</code> · 雨燕 <code>0.38 m</code></td><td>筒内低空云带（离地 <code>80–400 m</code>）</td><td>借圆筒自转微风盘旋，飞行中可追踪它们找到高空上升热气流</td></tr>
+          <tr><td><strong>雪林赤狐与林间狍鹿</strong></td><td>赤狐肩高 <code>0.42 m</code> · 狍鹿 <code>0.78 m</code></td><td>北段雪杉林带与中段溪畔</td><td>晨昏出没，控制林下啮齿与过度茂密嫩枝；不主动惊扰可静观留影</td></tr>
+          <tr><td><strong>溪池锦鲤与雪松蜂群</strong></td><td>锦鲤长 <code>0.55 m</code> · 蜂箱 <code>0.65×0.55 m</code></td><td>东亚水院、灌溉溪与所有花田</td><td>蜜蜂是果树、薰衣草与温室番茄自然授粉的核心产出倍增器</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- IV. 植物与作物 -->
+  <section class="section-block" data-cat="flora" id="sec-flora">
+    <div class="section-head">
+      <h2>IV. 植物与作物 · 轴向三气候带植被谱系</h2>
+      <p>利用 <code>6 km</code> 轴向温度梯度在同一直径内自然分层：热带椰林 → 温带百果 → 高纬雪杉与温室番茄</p>
+    </div>
+    <div class="art-grid">
+      <article class="art-card" data-title="南中北三气候带乔灌木身高谱" data-desc="自左至右严格按 1:1 株高并置（4 m 矮树至 16 m 高木）：南段椰棕/凤凰木/柠檬柑橘 → 中段地中海丝柏/大道栎枫/垂枝粉樱/翠竹 → 北段积雪云杉/白桦与苔藓石楠岩块。">
+        <div class="art-thumb"><img src="./images/elem_flora_trees_biomes.jpg" alt="南中北三气候带乔灌木身高谱" /></div>
+        <div class="art-cap">
+          <div class="art-cap-top"><h3>08 · 南中北三气候带植被身高谱</h3><span class="art-tag">10 类地貌植物</span></div>
+          <p>同一张标高参考线直观校对树冠尺度：细长托斯卡纳丝柏形成纵轴天际节奏，大冠幅大道枫树负责街景遮阴。</p>
+        </div>
+      </article>
+      <article class="art-card" data-title="五大农作物四阶段生长与采收图鉴" data-desc="5 行清晰对比幼苗 → 抽枝展叶 → 开花挂果 → 成熟采收与竹木果篮/束扎成品：葡萄架、宇治茶树丛、普罗旺斯薰衣草、北海道金麦、地热温室吊蔓番茄与高山草莓。">
+        <div class="art-thumb"><img src="./images/elem_flora_crops_lifecycle.jpg" alt="五大农作物四阶段生长与采收图鉴" /></div>
+        <div class="art-cap">
+          <div class="art-cap-top"><h3>09 · 五大农作物四阶段生长图谱</h3><span class="art-tag">幼苗 → 采收 4 阶</span></div>
+          <p>直接对应各经纬度农场的经济产出物：葡萄箱、采茶竹篓、干花扎束、小麦捆与温室红番茄草莓木盒。</p>
+        </div>
+      </article>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>气候带 / 植物组</th><th>典型品种与高度 (1:1)</th><th>收获物 / 视觉特征</th><th>土壤与浇灌偏好</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>南段亚热带乔木 (0–1.8 km)</strong></td><td>椰子树 <code>15 m</code> · 凤凰木 <code>10 m</code> · 柠檬树 <code>4.2 m</code></td><td>鲜椰、橙红花冠剪影、黄柠檬鲜果</td><td>高日照与海风湿度，耐沙质海崖排水坡土</td></tr>
+          <tr><td><strong>中段温带与东亚木 (1.8–4.4 km)</strong></td><td>丝柏 <code>14 m</code> · 大道栎/枫 <code>11 m</code> · 垂樱 <code>6.5 m</code> · 竹林 <code>13 m</code></td><td>纵向地标剪影、夏季林荫道与春季落樱花雨</td><td>肥沃壤土与灌溉暗渠微湿养护</td></tr>
+          <tr><td><strong>北段寒带与苔原 (4.4–5.8 km)</strong></td><td>积雪挪威云杉 <code>15 m</code> · 银白桦 <code>10 m</code> · 石楠玄武岩 <code>1.2 m</code></td><td>冬季挂雪层积特效、秋日金叶与苔藓岩块地被</td><td>耐寒砾质火山岩土，无需人工加温</td></tr>
+          <tr><td><strong>葡萄 / 茶 / 薰衣草 / 金麦</strong></td><td>棚架高 <code>2.0 m</code> · 茶丛 <code>1.1 m</code> · 小麦 <code>1.2 m</code></td><td>4 阶段可视化抽穗、开花变色与打包果篮成品</td><td>随经纬度农场风格自动匹配种子轮作包</td></tr>
+          <tr><td><strong>地热温室吊蔓番茄与草莓</strong></td><td>棚内立架高 <code>1.9 m</code> · 悬垂草莓蔓 <code>0.45 m</code></td><td>零下雪岸也可常年收获亮红串番茄与高山甜草莓</td><td>高纬 <code>|Lat| ≥ 57°</code> 农场专属封闭滴灌补光床</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- V. 特殊景观、载具与巨构道具 -->
+  <section class="section-block" data-cat="landmark" id="sec-landmark">
+    <div class="section-head">
+      <h2>V. 特殊景观、载具与巨构道具</h2>
+      <p>把科幻大尺度留给头顶与窗外——平视脚下是安静精致的木石与白电车，抬头是星海、巨行星与 0G 枢纽</p>
+    </div>
+    <div class="art-grid three">
+      <article class="art-card" data-title="42° 星海观测巨窗与湖畔栈道" data-desc="全幅概念原画：站在东侧 32° 边缘全平的雪松木观景台上，穿过弧形暗钢穹顶骨架直面漆黑繁星宇宙里的金色环状气态巨行星与伴飞暗钢奥尼尔圆筒，左侧草坡农舍顺着弧面高悬头顶。">
+        <div class="art-thumb"><img src="./images/elem_landmark_window_overlook.jpg" alt="42° 星海观测巨窗与湖畔栈道" /></div>
+        <div class="art-cap">
+          <div class="art-cap-top"><h3>10 · 42° 星海观测巨窗观星台</h3><span class="art-tag">特殊地标 A</span></div>
+          <p>装备黄铜望远镜、暖光玻灯柱与湖岸芦苇长椅，在 1G 平地体感下直视深空天体。</p>
+        </div>
+      </article>
+      <article class="art-card" data-title="北端盖 1G→0G 阶梯缆车与中央枢纽厅" data-desc="全幅概念原画：从雪杉皑皑的北端谷地出发，沿弧形玻璃花坛阶梯与倾斜玻璃缆车不断向旋转轴心攀爬——重力逐步归零，最终抵达光芒倾泻的 0G 中心港，张开薄纱翼在空中失重飘游。">
+        <div class="art-thumb"><img src="./images/elem_landmark_endcap_0g.jpg" alt="北端盖 1G→0G 阶梯缆车与中央枢纽厅" /></div>
+        <div class="art-cap">
+          <div class="art-cap-top"><h3>11 · 北端盖 0G 枢纽与阶梯缆车</h3><span class="art-tag">特殊地标 B</span></div>
+          <p>全圆筒唯一能真实体验到「上坡」与「体重变轻直至失重漂浮」的标志性竖向景观奇观。</p>
+        </div>
+      </article>
+      <article class="art-card" data-title="日常载具 × 科氏力道具设定图" data-desc="上方为带 1.70 m 比例剪影的三节流线纯白轻轨电车；下方从左至右：静音电动农用小货车、薄荷蓝花篮单车、机械科氏力抛球机与横栅校准架、邻里木信箱群、崖边滑翔翼跳台。">
+        <div class="art-thumb"><img src="./images/elem_vehicles_props.jpg" alt="日常载具与科氏力道具设定图" /></div>
+        <div class="art-cap">
+          <div class="art-cap-top"><h3>12 · 轻轨电车 × 单车 × 科氏力抛球机</h3><span class="art-tag">载具与道具</span></div>
+          <p>既满足 <code>6 km</code> 轴向通勤与 <code>20 m</code> 绿道悠闲骑行，也承担旋转物理学演示与悬崖起飞功能。</p>
+        </div>
+      </article>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>地标 / 载具 / 道具</th><th>标准规格 (1:1)</th><th>材质与运行机制</th><th>游戏内体验锚点</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>42° 观测巨窗与栈道</strong></td><td>窗扇张角 <code>42°</code>（跨弧长 <code>733 m</code>）</td><td>阳极氧化暗钢弧肋 + 双层高透星海玻璃 + 雪松栈道</td><td>无论站着、坐长椅或架望远镜，皆可直视气态巨行星大气环与姊妹船队</td></tr>
+          <tr><td><strong>北端盖 0G 阶梯与缆车</strong></td><td>高程跨度 <code>1000 m</code>（斜长径 <code>200 m</code>）</td><td>对角玻璃登山缆车 + 分段式植物花坛台阶 + 轴心圆环大厅</td><td>沿壁爬升过程重力从 <code>1.0 G</code> 平滑降至 <code>0 G</code>，枢纽区开启无束缚滑翔悬浮</td></tr>
+          <tr><td><strong>纯白三节轻轨电车</strong></td><td>总长 <code>22.2 m</code> × 宽 <code>2.55 m</code> × 高 <code>3.1 m</code></td><td>哑光奶白车身、雪松门框、青蓝细腰线、静音直线感应驱动</td><td>贴合地面双轨贯穿全谷地，可在任一站台免费登车饱览头顶倒悬村落</td></tr>
+          <tr><td><strong>电动小型农用货车 / 单车</strong></td><td>小货车 <code>3.6×1.55 m</code> · 单车轮径 <code>0.68 m</code></td><td>鼠尾草白货斗配木框箱；薄荷蓝弯梁车架配藤编野花篮</td><td>绿道内轻载运输农产品或慢速拜访百米外邻居农舍</td></tr>
+          <tr><td><strong>机械科氏力抛球校准机</strong></td><td>机身高 <code>1.35 m</code> · 竖栅标尺高 <code>2.8 m</code></td><td>黄铜齿轮抛射漏斗 + 木质竖向参考标靶框</td><td>在社区棒球场以固定初速 <code>18 m/s</code> 垂直上抛，肉眼对比理想垂直与顺转弯曲轨迹</td></tr>
+          <tr><td><strong>崖边滑翔翼跳台</strong></td><td>木挑台宽 <code>3.8 m</code> × 伸出 <code>4.4 m</code></td><td>重型防腐雪松斜撑木台 + 琥珀色边缘风向指示微光灯</td><td>部署于高坡草甸与北端梯田缘，提供极佳起跳视野接续主角滑翔翼</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="cta-box">
+    <div>
+      <h3>继续浏览世界总纲或直接进入 1:1 3D 中段 Demo</h3>
+      <p>第一卷记录了奥尼尔圆筒的半径、转速与三气候带世界观双风格概念画；3D Demo 已将本卷中段主角、轻轨、经纬度农场、动物、植物、棒球场与 42° 巨窗真实跑通。</p>
+    </div>
+    <div class="cta-actions">
+      <a class="crumb-btn" href="../">📖 返回第一卷 · 世界总纲</a>
+      <a class="cta-btn" href="../../project-pastoral-demo/">🎮 立即试玩 3D 中段 Demo</a>
+    </div>
+  </div>
+
+  <footer>
+    <span>Project Pastoral · 牧歌计划 — Volume II: Elements Art Bible</span>
+    <span>Published on <a href="https://notsuck.here/">notsuck.here</a> · Source on <a href="https://github.com/oldashes/notsuck.here">GitHub</a></span>
+  </footer>
+</div>
+
+<div class="lightbox hidden" id="lightbox" role="dialog" aria-modal="true" aria-label="概念设定图高清预览">
+  <button class="lb-close" id="lb-close" aria-label="关闭灯箱">✕</button>
+  <div class="lightbox-inner">
+    <button class="lb-btn lb-prev" id="lb-prev" aria-label="上一张">‹</button>
+    <img id="lb-img" alt="概念设定图高清放大预览" />
+    <button class="lb-btn lb-next" id="lb-next" aria-label="下一张">›</button>
+    <div class="lightbox-title" id="lb-title"></div>
+    <div class="lightbox-cap" id="lb-desc"></div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const filterBtns = [...document.querySelectorAll('.filter-btn')];
+  const sections = [...document.querySelectorAll('.section-block')];
+  const cards = [...document.querySelectorAll('.art-card')];
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  const lbTitle = document.getElementById('lb-title');
+  const lbDesc = document.getElementById('lb-desc');
+  let activeCards = [...cards];
+  let curIndex = 0;
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.cat;
+      filterBtns.forEach((b) => b.classList.toggle('active', b === btn));
+      sections.forEach((sec) => {
+        const match = cat === 'all' || sec.dataset.cat === cat;
+        sec.classList.toggle('hidden-section', !match);
+      });
+      activeCards = cards.filter((c) => {
+        const sec = c.closest('.section-block');
+        return sec && !sec.classList.contains('hidden-section');
+      });
+    });
+  });
+
+  function showLightbox(idx) {
+    if (!activeCards.length) return;
+    curIndex = (idx + activeCards.length) % activeCards.length;
+    const card = activeCards[curIndex];
+    const img = card.querySelector('img');
+    lbImg.src = img ? img.getAttribute('src') : '';
+    lbTitle.textContent = card.dataset.title || '';
+    lbDesc.textContent = card.dataset.desc || '';
+    lb.classList.remove('hidden');
+  }
+
+  cards.forEach((card) => {
+    card.addEventListener('click', () => {
+      activeCards = cards.filter((c) => {
+        const sec = c.closest('.section-block');
+        return sec && !sec.classList.contains('hidden-section');
+      });
+      const idx = activeCards.indexOf(card);
+      showLightbox(idx >= 0 ? idx : 0);
+    });
+  });
+
+  document.getElementById('lb-close').addEventListener('click', () => lb.classList.add('hidden'));
+  document.getElementById('lb-prev').addEventListener('click', () => showLightbox(curIndex - 1));
+  document.getElementById('lb-next').addEventListener('click', () => showLightbox(curIndex + 1));
+  lb.addEventListener('click', (e) => {
+    if (e.target === lb) lb.classList.add('hidden');
+  });
+  window.addEventListener('keydown', (e) => {
+    if (lb.classList.contains('hidden')) return;
+    if (e.key === 'Escape') lb.classList.add('hidden');
+    else if (e.key === 'ArrowLeft') showLightbox(curIndex - 1);
+    else if (e.key === 'ArrowRight') showLightbox(curIndex + 1);
+  });
+})();
+</script>
+</body>
+</html>
