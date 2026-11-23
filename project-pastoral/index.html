@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Project Pastoral · 牧歌计划 — 世界观设定集与概念原画</title>
+<style>
+  :root {
+    --bg: #0c1219;
+    --bg2: #111924;
+    --card: #15202e;
+    --card-soft: rgba(21, 32, 46, 0.85);
+    --line: rgba(154, 184, 212, 0.16);
+    --line-strong: rgba(234, 185, 104, 0.42);
+    --text: #eaf0f6;
+    --muted: #98abc0;
+    --soft: #6f849b;
+    --gold: #eab968;
+    --emerald: #6ed39a;
+    --cyan: #7ad4ef;
+    --sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --serif: "Songti SC", "STSong", "Noto Serif CJK SC", Georgia, serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: radial-gradient(circle at 80% 0%, rgba(122, 212, 239, 0.08), transparent 46%),
+                radial-gradient(circle at 12% 18%, rgba(234, 185, 104, 0.07), transparent 40%),
+                var(--bg);
+    color: var(--text);
+    font: 15px/1.75 var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 24px 20px 88px; }
+
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px; margin-bottom: 22px;
+  }
+  .crumb-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 14px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--card);
+    color: var(--text); text-decoration: none; font-size: 13px;
+    transition: border-color .15s, transform .15s;
+  }
+  .crumb-btn:hover { border-color: var(--cyan); transform: translateY(-1px); }
+  .crumb-btn.primary {
+    border-color: rgba(110, 211, 154, 0.45);
+    background: rgba(110, 211, 154, 0.12);
+    color: var(--emerald); font-weight: 600;
+  }
+
+  .hero {
+    position: relative; border-radius: 20px; overflow: hidden;
+    border: 1px solid var(--line); background: var(--card);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+  }
+  .hero-media { position: relative; aspect-ratio: 21/9; min-height: 260px; max-height: 440px; width: 100%; overflow: hidden; }
+  .hero-media img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(1.06); }
+  .hero-media::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(12,18,25,0.12) 0%, rgba(12,18,25,0.62) 60%, #15202e 100%);
+  }
+  .hero-body { padding: 0 28px 28px; position: relative; margin-top: -54px; z-index: 2; }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .badge {
+    font-size: 12px; padding: 3px 11px; border-radius: 999px;
+    border: 1px solid var(--line); background: rgba(12, 18, 25, 0.78);
+    color: var(--cyan); backdrop-filter: blur(8px);
+  }
+  .badge.gold { color: var(--gold); border-color: rgba(234, 185, 104, 0.36); }
+  .hero h1 {
+    font: 600 40px/1.18 var(--serif); letter-spacing: 0.02em;
+    color: #fff; margin-bottom: 8px;
+  }
+  .hero h1 span { color: var(--emerald); font-weight: 500; }
+  .hero-sub { color: var(--muted); font-size: 15.5px; max-width: 820px; margin-bottom: 22px; }
+
+  .kpi-grid {
+    display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px;
+  }
+  .kpi {
+    background: rgba(12, 18, 25, 0.65); border: 1px solid var(--line);
+    border-radius: 12px; padding: 12px 13px;
+  }
+  .kpi .k-label { font-size: 11.5px; color: var(--soft); }
+  .kpi .k-val { font-size: 15px; font-weight: 700; color: var(--text); margin-top: 3px; }
+  .kpi .k-note { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+
+  .section-head {
+    margin: 48px 0 18px; display: flex; align-items: flex-end; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 12px;
+  }
+  .section-head h2 { font: 600 24px/1.25 var(--serif); color: #fff; }
+  .section-head p { color: var(--muted); font-size: 13.5px; }
+
+  .filter-bar {
+    position: sticky; top: 10px; z-index: 20;
+    display: inline-flex; flex-wrap: wrap; gap: 6px;
+    padding: 6px; border-radius: 999px;
+    background: rgba(15, 23, 33, 0.9); border: 1px solid var(--line);
+    backdrop-filter: blur(12px); margin-bottom: 22px;
+  }
+  .filter-btn {
+    appearance: none; border: 1px solid transparent; background: transparent;
+    color: var(--muted); padding: 6px 14px; border-radius: 999px;
+    font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s;
+  }
+  .filter-btn:hover { color: var(--text); }
+  .filter-btn.active {
+    background: rgba(234, 185, 104, 0.16);
+    border-color: var(--line-strong); color: var(--gold);
+  }
+
+  .chapter {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 18px; padding: 22px; margin-bottom: 24px;
+  }
+  .chapter-meta { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+  .chapter-meta h3 { font: 600 19px/1.3 var(--serif); color: #fff; }
+  .chapter-loc { font-size: 12.5px; color: var(--cyan); font-weight: 600; }
+  .chapter-desc { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
+
+  .art-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .art-grid.single-col { grid-template-columns: 1fr; }
+  .art-card {
+    border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+    background: var(--bg2); cursor: zoom-in; transition: border-color .15s, transform .15s;
+  }
+  .art-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .art-card.hidden-card { display: none; }
+  .art-card .img-box { aspect-ratio: 16/9; width: 100%; overflow: hidden; background: #0a0f15; }
+  .art-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .25s ease; }
+  .art-card:hover img { transform: scale(1.02); }
+  .art-cap { padding: 12px 14px; }
+  .art-tag {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.03em;
+    padding: 2px 8px; border-radius: 6px; margin-bottom: 6px;
+  }
+  .art-tag.real { background: rgba(122, 212, 239, 0.14); color: var(--cyan); }
+  .art-tag.art { background: rgba(110, 211, 154, 0.14); color: var(--emerald); }
+  .art-cap p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  .climate-strip {
+    display: grid; grid-template-columns: 1.8fr 2.6fr 1.4fr 0.6fr;
+    border-radius: 14px; overflow: hidden; border: 1px solid var(--line);
+    margin: 18px 0 26px;
+  }
+  .climate-seg { padding: 14px 14px; font-size: 12.5px; }
+  .climate-seg strong { display: block; font-size: 14px; margin-bottom: 4px; color: #fff; }
+  .climate-seg span { display: block; color: rgba(255,255,255,0.82); font-size: 12px; }
+  .seg-south { background: linear-gradient(135deg, #13546b, #1d7d74); }
+  .seg-mid   { background: linear-gradient(135deg, #2d6b45, #578748); }
+  .seg-north { background: linear-gradient(135deg, #2a4b6e, #3f6d96); }
+  .seg-hub   { background: linear-gradient(135deg, #3c3a5e, #595585); }
+
+  .table-wrap {
+    width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--line); border-radius: 14px; background: var(--card);
+    margin-bottom: 26px;
+  }
+  table { width: 100%; border-collapse: collapse; min-width: 640px; font-size: 13.5px; }
+  th, td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: rgba(12, 18, 25, 0.65); color: var(--gold); font-weight: 600; font-size: 12.5px; }
+  tr:last-child td { border-bottom: none; }
+  td strong { color: #fff; }
+
+  .pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 12px; }
+  .pillar {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; padding: 18px;
+  }
+  .pillar h4 { font-size: 15.5px; color: var(--gold); margin-bottom: 8px; }
+  .pillar p { font-size: 13.5px; color: var(--muted); }
+
+  .cta-box {
+    margin-top: 38px; padding: 24px; border-radius: 18px;
+    border: 1px solid rgba(110, 211, 154, 0.35);
+    background: linear-gradient(135deg, rgba(21, 32, 46, 0.95), rgba(18, 44, 48, 0.85));
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  }
+  .cta-box h3 { font: 600 20px/1.3 var(--serif); color: #fff; margin-bottom: 4px; }
+  .cta-box p { color: var(--muted); font-size: 13.5px; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 22px; border-radius: 999px;
+    background: var(--emerald); color: #0a1410; font-weight: 700;
+    text-decoration: none; font-size: 14px; transition: transform .15s;
+  }
+  .cta-btn:hover { transform: translateY(-2px); }
+
+  footer {
+    margin-top: 52px; padding-top: 20px; border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    font-size: 13px; color: var(--soft);
+  }
+  footer a { color: var(--cyan); text-decoration: none; }
+
+  .lightbox {
+    position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 20px;
+    background: rgba(6, 10, 15, 0.92); backdrop-filter: blur(10px);
+  }
+  .lightbox.hidden { display: none; }
+  .lightbox-inner { position: relative; max-width: 1120px; width: 100%; text-align: center; }
+  .lightbox img { max-width: 100%; max-height: 78vh; border-radius: 12px; border: 1px solid var(--line); }
+  .lightbox-cap { margin-top: 12px; color: var(--muted); font-size: 14px; }
+  .lb-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line);
+    background: rgba(15, 23, 33, 0.85); color: #fff; font-size: 20px; cursor: pointer;
+  }
+  .lb-prev { left: 10px; }
+  .lb-next { right: 10px; }
+  .lb-close {
+    position: fixed; top: 18px; right: 20px; width: 40px; height: 40px;
+    border-radius: 50%; border: 1px solid var(--line);
+    background: rgba(15, 23, 33, 0.9); color: #fff; font-size: 18px; cursor: pointer;
+  }
+
+  @media (max-width: 960px) {
+    .kpi-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .pillars { grid-template-columns: 1fr; }
+    .climate-strip { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 720px) {
+    .wrap { padding: 16px 14px 64px; }
+    .hero-body { padding: 0 16px 20px; margin-top: -36px; }
+    .hero h1 { font-size: 28px; }
+    .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .art-grid { grid-template-columns: 1fr; }
+    .chapter { padding: 16px; }
+    .filter-bar { border-radius: 16px; width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar">
+    <a class="crumb-btn" href="../">← not suck here</a>
+    <a class="crumb-btn primary" href="../darrowby-diorama/">▶ 试玩 3D 物理原型</a>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-media">
+      <img src="./images/concept_real_bay_panorama.jpg" alt="Project Pastoral 南端碧湾瀑布峡谷概念全景" />
+    </div>
+    <div class="hero-body">
+      <div class="hero-badges">
+        <span class="badge gold">World Bible v1.0 · 2026-11-23</span>
+        <span class="badge">Ark-01 Pastoral · 牧歌一号方舟</span>
+        <span class="badge">WebGL 3D 开放世界企划</span>
+      </div>
+      <h1>Project Pastoral · <span>牧歌计划</span></h1>
+      <p class="hero-sub">
+        外冷内暖的奥尼尔圆筒生态方舟——外壳是深邃厚重的硬核工业钢甲，内壁则是绕环带状巨行星航行的 32 km² 田园山河、无边界千户个人农场与渐进失重太空港。
+      </p>
+
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="k-label">圆筒工程尺度</div>
+          <div class="k-val">Ø 2 km × L 6 km</div>
+          <div class="k-note">长径比 3 : 1</div>
+        </div>
+        <div class="kpi">
+          <div class="k-label">有效生态陆地</div>
+          <div class="k-val">≈ 32 km²</div>
+          <div class="k-note">60% 公域奇观 / 40% 聚落</div>
+        </div>
+        <div class="kpi">
+          <div class="k-label">离心重力与转速</div>
+          <div class="k-val">0.95 RPM · 1.0 G</div>
+          <div class="k-note">63.4 秒/圈（低于眩晕阈值）</div>
+        </div>
+        <div class="kpi">
+          <div class="k-label">单户个人农场</div>
+          <div class="k-val">80 m × 80 m</div>
+          <div class="k-note">含 20m 邻里绿道 1 公顷</div>
+        </div>
+        <div class="kpi">
+          <div class="k-label">社区容纳与社交</div>
+          <div class="k-val">1 000 ~ 1 300 户</div>
+          <div class="k-note">推门零读图直接串门</div>
+        </div>
+        <div class="kpi">
+          <div class="k-label">采光与天象奇观</div>
+          <div class="k-val">42° 单侧弧窗</div>
+          <div class="k-note">窗外巨行星随自转缓缓掠过</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="section-head">
+    <div>
+      <h2>一、概念原画对照集（写实电影 × 游戏原画）</h2>
+      <p>点击任意画作可全屏鉴赏细节；可使用上方按钮一键切换双画风对照</p>
+    </div>
+  </div>
+
+  <div class="filter-bar" role="group" aria-label="画风筛选">
+    <button class="filter-btn active" data-filter="both">✨ 双画风并排对比</button>
+    <button class="filter-btn" data-filter="real">🎬 仅看写实电影</button>
+    <button class="filter-btn" data-filter="art">🎨 仅看游戏原画</button>
+  </div>
+
+  <article class="chapter">
+    <div class="chapter-meta">
+      <h3>01 · 南端 · 碧湾瀑布峡谷</h3>
+      <span class="chapter-loc">轴向 0 ~ 1.8 km · 亚热带海岸带（22–28°C）</span>
+    </div>
+    <p class="chapter-desc">对应悉尼海湾、广州、地中海等低纬或暖冬坐标。谷底铺开 400 m 宽碧蓝泻湖与 280 m 跨湾吊桥，左侧 80 m 红岩双瀑与金色梯田顺筒壁爬升，右侧单侧弧窗框住带红斑的气态巨行星。</p>
+    <div class="art-grid">
+      <figure class="art-card" data-style="real" data-caption="南端碧湾瀑布峡谷 · 写实电影概念：草坡骑行道、现代木玻林间小屋、280m 跨湾吊桥、80m 红岩双瀑与头顶 300° 倒悬山河">
+        <div class="img-box"><img src="./images/concept_real_bay_panorama.jpg" alt="写实风格南端碧湾瀑布峡谷" loading="eager" /></div>
+        <figcaption class="art-cap">
+          <span class="art-tag real">🎬 写实电影概念</span>
+          <p>IMAX 级日光与蓝白大气透视：前景骑行小径、280 m 跨湾吊桥、80 m 红岩双瀑与单侧土星级巨行星长窗。</p>
+        </figcaption>
+      </figure>
+      <figure class="art-card" data-style="art" data-caption="南端碧湾瀑布峡谷 · 游戏原画风格：吉卜力 × 塞尔达旷野级明快光影，高可读性水碧泻湖与倒悬河谷轮廓">
+        <div class="img-box"><img src="./images/concept_art_bay_panorama.jpg" alt="游戏原画风格南端碧湾瀑布峡谷" loading="eager" /></div>
+        <figcaption class="art-cap">
+          <span class="art-tag art">🎨 游戏原画风格</span>
+          <p>通透明快的绘本手绘光影：保留同款 2 km × 6 km 空间纵深，建筑与地形剪影更适配实时 WebGL 渲染。</p>
+        </figcaption>
+      </figure>
+    </div>
+  </article>
+
+  <article class="chapter">
+    <div class="chapter-meta">
+      <h3>02 · 中段 · 1:1 个人农场、无边界邻里与电车棒球镇</h3>
+      <span class="chapter-loc">轴向 1.8 ~ 4.4 km · 温带田园谷地（12–22°C）</span>
+    </div>
+    <p class="chapter-desc">以人体 1.72 m 为铁尺：单户 80×80 m 农场囊括木玻二层主宅、玻璃花房、3 m 溪流木桥、麦田、羊群与门前单车；跨过 20 m 石墙绿道即可直抵邻居家；白色有轨电车沿轴驶过社区棒球场。</p>
+    <div class="art-grid">
+      <figure class="art-card" data-style="real" data-caption="中段 1:1 个人农场与电车棒球镇 · 写实电影概念：80×80m 木玻农庄、温室、溪桥羊群、20m 共享石径邻居家与白色有轨电车">
+        <div class="img-box"><img src="./images/concept_real_farm_tram.jpg" alt="写实风格个人农场与有轨电车" loading="eager" /></div>
+        <figcaption class="art-cap">
+          <span class="art-tag real">🎬 写实电影概念</span>
+          <p>真实人类视平线尺度下的农庄院落与邻里绿道，右侧电车驶过正在进行科里奥利力棒球的社区公园。</p>
+        </figcaption>
+      </figure>
+      <figure class="art-card" data-style="art" data-caption="中段 1:1 个人农场与电车棒球镇 · 游戏原画风格：温暖手绘木玻农舍、碎石短墙单车与远景有轨电车、棒球公园">
+        <div class="img-box"><img src="./images/concept_art_farm_tram.jpg" alt="游戏原画风格个人农场与有轨电车" loading="eager" /></div>
+        <figcaption class="art-cap">
+          <span class="art-tag art">🎨 游戏原画风格</span>
+          <p>吉卜力质感的手绘细节：清晰区分个人建造网格、邻里共享公共小溪与社区基础设施。</p>
+        </figcaption>
+      </figure>
+    </div>
+  </article>
+
+  <article class="chapter">
+    <div class="chapter-meta">
+      <h3>03 · 北段 · 高纬冰雪峡湾与北端盖 0G 港口</h3>
+      <span class="chapter-loc">轴向 4.4 ~ 6.0 km · 北欧雪原带（-10 ~ 4°C）→ 0G 枢纽</span>
+    </div>
+    <p class="chapter-desc">接纳冰岛、芬兰、北海道、哈尔滨等经纬度的农场迁入。陡坡现代北欧木屋透出暖光、雪地冒烟地热温泉池伴随羊群与驯鹿，有轨电车沿河开往雪被半球端盖，攀爬越陡越轻直至中心轴 0G 港。</p>
+    <div class="art-grid">
+      <figure class="art-card" data-style="real" data-caption="北段冰雪峡湾与端盖 0G 港口 · 写实电影概念：北欧现代木屋、冒烟碧蓝地热温泉池、雪地白色电车驶向同心圆零重力端盖港口">
+        <div class="img-box"><img src="./images/concept_real_nordic_fjord.jpg" alt="写实风格北段冰雪峡湾与端盖港口" loading="eager" /></div>
+        <figcaption class="art-cap">
+          <span class="art-tag real">🎬 写实电影概念</span>
+          <p>冷峻冬日青蓝雪影衬托地热温泉蒸汽与暖灯室内，远方可见雪白半球端盖逐级攀升至零重力太空港。</p>
+        </figcaption>
+      </figure>
+      <figure class="art-card" data-style="art" data-caption="北段冰雪峡湾与端盖 0G 港口 · 游戏原画风格：冷暖强对比的北欧雪原农庄、驯鹿羊群、白色电车与端盖零重力环">
+        <div class="img-box"><img src="./images/concept_art_nordic_fjord.jpg" alt="游戏原画风格北段冰雪峡湾与端盖港口" loading="eager" /></div>
+        <figcaption class="art-cap">
+          <span class="art-tag art">🎨 游戏原画风格</span>
+          <p>极地冰雪童话色调：清楚呈现 400 m 自然冷暖过渡后，筒壁怎样顺半球曲面向旋转中轴收敛。</p>
+        </figcaption>
+      </figure>
+    </div>
+  </article>
+
+  <article class="chapter">
+    <div class="chapter-meta">
+      <h3>04 · 外太空视角 · 硬核工业外壳与姊妹方舟舰队</h3>
+      <span class="chapter-loc">L5 / 巨行星环带轨道 · 模块化钢铁巨构群</span>
+    </div>
+    <p class="chapter-desc">去掉传统三块大反光翼，回归重装模块化深色装甲、散热/光伏阵列与端盖同心圆 0G 对接口。唯一一条单侧弧窗透出牧歌田园的生机；远方姊妹圆筒方舟靠穿梭机彼此相连。</p>
+    <div class="art-grid">
+      <figure class="art-card" data-style="real" data-caption="外太空工业外壳与姊妹方舟 · 写实电影概念：重型钢甲与桁架、端盖零重力港口、单条绿意长窗与远景姊妹圆筒环绕带环巨行星">
+        <div class="img-box"><img src="./images/concept_real_exterior_fleet.jpg" alt="写实风格工业外壳与带环巨行星" loading="eager" /></div>
+        <figcaption class="art-cap">
+          <span class="art-tag real">🎬 写实电影概念</span>
+          <p>冰冷工业装甲与窗内生机田园形成极致反差，穿梭机驶向端盖 0G 港口，姊妹方舟悬于冰晶行星环上方。</p>
+        </figcaption>
+      </figure>
+      <figure class="art-card" data-style="art" data-caption="外太空工业外壳与姊妹方舟 · 游戏原画风格：新海诚式宇宙锐利光影，重型钢铁外壳对比明亮田园生态长窗">
+        <div class="img-box"><img src="./images/concept_art_exterior_fleet.jpg" alt="游戏原画风格工业外壳与带环巨行星" loading="eager" /></div>
+        <figcaption class="art-cap">
+          <span class="art-tag art">🎨 游戏原画风格</span>
+          <p>璀璨冰环与星云光影下清晰的巨构体块与窗内立体景观，为高空太空巡航视图定下明确渲染目标。</p>
+        </figcaption>
+      </figure>
+    </div>
+  </article>
+
+  <div class="section-head">
+    <div>
+      <h2>二、核心设定与统一比例尺设计总纲</h2>
+      <p>全站严格执行 1 场景单位 = 1 米，确保人物、屋舍、水系与 2 km 巨构在同一几何基准下自洽运转</p>
+    </div>
+  </div>
+
+  <div class="climate-strip" aria-label="6 公里轴向气候梯度带">
+    <div class="climate-seg seg-south">
+      <strong>南段 · 碧湾海岸带</strong>
+      <span>0 ~ 1.8 km · 22–28°C · 悉尼/广州/地中海坐标</span>
+    </div>
+    <div class="climate-seg seg-mid">
+      <strong>中段 · 温带田园谷</strong>
+      <span>1.8 ~ 4.4 km · 12–22°C · 上海/约克/京都/瑞士坐标</span>
+    </div>
+    <div class="climate-seg seg-north">
+      <strong>北段 · 冰雪峡湾带</strong>
+      <span>4.4 ~ 5.8 km · -10–4°C · 冰岛/芬兰/北海道坐标</span>
+    </div>
+    <div class="climate-seg seg-hub">
+      <strong>北端盖港口</strong>
+      <span>5.8 ~ 6.0 km · 渐进失重到 0G 航天港</span>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>系统层级</th>
+          <th>核心元素</th>
+          <th>统一真实尺寸（1 单位 = 1 米）</th>
+          <th>空间与玩法职能</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>生命标尺</strong></td>
+          <td>角色 / 动物</td>
+          <td>人物高 `1.72 m`（眼高 `1.60 m`）；犬/狐 `0.5–0.7 m`；羊/驯鹿 `1.0–1.3 m`；马/牛 `1.6–1.8 m`</td>
+          <td>全作所有门窗、踏步、护栏、栅栏的不可破坏基准尺</td>
+        </tr>
+        <tr>
+          <td><strong>个人建筑</strong></td>
+          <td>Solarpunk 住宅 / 温室</td>
+          <td>单层层高 `3.2 m`；1–2 层主宅总高 `4.5–8.0 m`，面宽 `8–14 m`；花房 `6–10 m`</td>
+          <td>统一原木+玻璃+石材现代生态语言，仅随气候改变屋脊坡度与挑檐</td>
+        </tr>
+        <tr>
+          <td><strong>公共交通</strong></td>
+          <td>绿道 / 有轨电车 / 棒球场</td>
+          <td>绿道宽 `3.5 m`；电车林荫道宽 `14 m`；白色电车 `2.6 × 24 m`；棒球场半径 `85 m`</td>
+          <td>自行车短途串门、电车 3 分钟纵贯南北、棒球场专测科里奥利力弧线</td>
+        </tr>
+        <tr>
+          <td><strong>水系地貌</strong></td>
+          <td>小溪 / 河流 / 碧湾吊桥</td>
+          <td>小溪宽 `2–5 m`；主干河流 `25–55 m`；南碧湾 `400 × 900 m`；吊桥长 `280 m`；红岩崖 `80 m`</td>
+          <td>小溪穿行邻里缓冲带，大河盘旋至头顶倒悬，构成远景银蓝脉络</td>
+        </tr>
+        <tr>
+          <td><strong>植被梯田</strong></td>
+          <td>乔木 / 梯田起伏</td>
+          <td>松/橡/蓝花楹树高 `8–18 m`；缓丘高 `15–55 m`；单级梯田高 `2–4 m`</td>
+          <td>柔化筒壁横截圆弧，建立从地面到崖壁的真实过渡层次</td>
+        </tr>
+        <tr>
+          <td><strong>大气宇宙</strong></td>
+          <td>积云 / 弧窗 / 巨行星</td>
+          <td>积云悬浮离地 `450–700 m`；单侧弧窗占圆周 `42°`（宽 `730 m`）；外壳装甲厚 `45 m`</td>
+          <td>中轴线性光源+蓝白大气透视，窗外带环巨行星提供宇宙坐标感</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pillars">
+    <section class="pillar">
+      <h4>1. 单户 80×80 m + 共享绿道</h4>
+      <p>核心区 `6 400 m²` 可同时容纳主宅、温室、3m 溪流、农田果园与牧场（步行横穿 40 秒、骑车 7 秒），外留 20m 邻里石径与行道树缓冲区，完美适配全球经纬度截取的 `100×100 m` OSM 真实街区地貌。</p>
+    </section>
+    <section class="pillar">
+      <h4>2. 零读图无缝串门生态</h4>
+      <p>全筒 60% 永久保留为碧湾、瀑布、公园等公共奇观，40% 规划为约 1 000–1 300 户农场。推门 15 秒步行走进邻居家；空闲地块由 NPC 原住民农庄预填充。前端采用 250 m 半径流式 1:1 高模 + 远景 LOD 方案。</p>
+    </section>
+    <section class="pillar">
+      <h4>3. 真物理 × 姊妹方舟扩容</h4>
+      <p>筒壁全程离心平地、北端盖爬坡渐进失重直达 0G 中心港、顺逆转跑步重度差与垂直抛球科里奥利偏转全物理可感；未来超过千人社区后，乘坐 0G 穿梭艇掠过巨行星环即可前往「牧歌二号」姊妹圆筒。</p>
+    </section>
+  </div>
+
+  <div class="cta-box">
+    <div>
+      <h3>已上线物理技术原型：Darrowby Diorama (v6)</h3>
+      <p>目前可直接在浏览器中体验 360° 共转平地、玻璃天窗栈桥、北端盖渐进失重到 0G 及科里奥利力垂直抛球模拟。</p>
+    </div>
+    <a class="cta-btn" href="../darrowby-diorama/">▶ 打开 3D 物理原型试玩</a>
+  </div>
+
+  <footer>
+    <span>Project Pastoral · 牧歌计划 — World Bible & Concept Gallery</span>
+    <span>Published on <a href="https://notsuck.here/">notsuck.here</a> · Source on <a href="https://github.com/oldashes/notsuck.here">GitHub</a></span>
+  </footer>
+</div>
+
+<div id="lightbox" class="lightbox hidden" role="dialog" aria-modal="true" aria-label="概念原画大图预览">
+  <button id="lb-close" class="lb-close" title="关闭 (Esc)">✕</button>
+  <button id="lb-prev" class="lb-btn lb-prev" title="上一张">‹</button>
+  <div class="lightbox-inner">
+    <img id="lb-img" src="" alt="" />
+    <div id="lb-cap" class="lightbox-cap"></div>
+  </div>
+  <button id="lb-next" class="lb-btn lb-next" title="下一张">›</button>
+</div>
+
+<script>
+  (function () {
+    var filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
+    var cards = Array.from(document.querySelectorAll('.art-card'));
+    var grids = Array.from(document.querySelectorAll('.art-grid'));
+
+    function applyFilter(mode) {
+      filterBtns.forEach(function (b) {
+        b.classList.toggle('active', b.getAttribute('data-filter') === mode);
+      });
+      cards.forEach(function (c) {
+        var st = c.getAttribute('data-style');
+        c.classList.toggle('hidden-card', mode !== 'both' && st !== mode);
+      });
+      grids.forEach(function (g) {
+        g.classList.toggle('single-col', mode !== 'both');
+      });
+    }
+
+    filterBtns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        applyFilter(b.getAttribute('data-filter') || 'both');
+      });
+    });
+
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lb-img');
+    var lbCap = document.getElementById('lb-cap');
+    var lbClose = document.getElementById('lb-close');
+    var lbPrev = document.getElementById('lb-prev');
+    var lbNext = document.getElementById('lb-next');
+    var currentIdx = 0;
+
+    function visibleCards() {
+      return cards.filter(function (c) { return !c.classList.contains('hidden-card'); });
+    }
+
+    function openAt(idx) {
+      var list = visibleCards();
+      if (!list.length) return;
+      currentIdx = (idx + list.length) % list.length;
+      var card = list[currentIdx];
+      var img = card.querySelector('img');
+      lbImg.src = img.getAttribute('src');
+      lbImg.alt = img.getAttribute('alt') || '';
+      lbCap.textContent = card.getAttribute('data-caption') || '';
+      lb.classList.remove('hidden');
+    }
+
+    cards.forEach(function (c) {
+      c.addEventListener('click', function () {
+        var list = visibleCards();
+        var i = list.indexOf(c);
+        openAt(i >= 0 ? i : 0);
+      });
+    });
+
+    lbClose.addEventListener('click', function () { lb.classList.add('hidden'); });
+    lbPrev.addEventListener('click', function (e) { e.stopPropagation(); openAt(currentIdx - 1); });
+    lbNext.addEventListener('click', function (e) { e.stopPropagation(); openAt(currentIdx + 1); });
+    lb.addEventListener('click', function (e) {
+      if (e.target === lb) lb.classList.add('hidden');
+    });
+    window.addEventListener('keydown', function (e) {
+      if (lb.classList.contains('hidden')) return;
+      if (e.key === 'Escape') lb.classList.add('hidden');
+      else if (e.key === 'ArrowLeft') openAt(currentIdx - 1);
+      else if (e.key === 'ArrowRight') openAt(currentIdx + 1);
+    });
+  })();
+</script>
+</body>
+</html>
