@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Darrowby Diorama · 可造景 3D 地域微缩箱庭</title>
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('clean') === '1') {
+          document.documentElement.classList.add('clean-mode');
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="./assets/index-D0chbAZX.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BZ4Pwm3O.css">
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="gl-canvas"></canvas>
+      <div id="space-pins" class="cylinder-pins"></div>
+
+      <div id="loading-badge" class="loading-badge">
+        <span class="dot"></span>
+        <span>正在构建库珀空间站与 3D 微缩街区...</span>
+      </div>
+
+      <div class="hud-overlay">
+        <!-- Top Bar -->
+        <header class="hud-top">
+          <div class="location-card">
+            <div class="loc-header">
+              <span class="loc-dot"></span>
+              <strong id="loc-name">悉尼 · 蓝花楹海湾（平地探索）</strong>
+              <span id="weather-pill" class="meta-pill">初夏 · 昼</span>
+              <span id="physics-pill" class="meta-pill physics-pill">1.00 G · 大陆带 A (0°)</span>
+            </div>
+            <div id="loc-sub" class="loc-sub">库珀空间站 · 360° 共转离心重力平地：可跨玻璃天窗栈桥环游、登端盖入 0G 枢纽</div>
+            <div id="field-note" class="field-note">WASD/摇杆自由走跑 · 顺转跑步增重/逆转减重 · Space 跳伞 · T 抛棒球看科里奥利弧线 · 近门按 E 进屋。</div>
+            <div id="legend-row" class="legend-row"></div>
+            <button id="btn-open-regions" class="loc-action-btn">🌍 切换地域 / 全球地名坐标</button>
+          </div>
+
+          <div class="top-controls">
+            <div class="pill-group mode-pill-group" role="group" aria-label="视角层级">
+              <button class="mode-btn" data-view="space">🛰️ 太空视角</button>
+              <button class="mode-btn active" data-view="ground">🚶 平地视角</button>
+              <button class="mode-btn" data-view="interior">🏠 室内视角</button>
+              <button class="mode-btn" data-view="plot">🏝️ 沙盘建造</button>
+            </div>
+            <div class="pill-group" role="group" aria-label="描边风格">
+              <button class="style-btn" data-style="pocket">📜 建筑师手绘</button>
+              <button class="style-btn" data-style="pixel">👾 像素描边</button>
+              <button class="style-btn active" data-style="hd">🎨 绘本描边</button>
+            </div>
+            <div class="pill-group">
+              <button id="btn-orbit-left" class="icon-btn" title="向左转向 / 旋转">↺</button>
+              <button id="btn-orbit-right" class="icon-btn" title="向右转向 / 旋转">↻</button>
+              <button id="btn-cam-reset" class="icon-btn" title="重置视角">🧭</button>
+            </div>
+          </div>
+        </header>
+
+        <!-- Bottom Floating Panels & Dock -->
+        <footer class="hud-bottom">
+          <!-- Set the Scene Popover -->
+          <section id="scene-popover" class="glass-panel scene-popover hidden">
+            <div class="panel-head">
+              <span>☀️ 场景氛围调节（天光 / 四季 / 气象 / 地方限定切片）</span>
+              <button id="btn-close-scene" class="close-btn">✕</button>
+            </div>
+            <div class="scene-cols">
+              <div class="scene-col">
+                <div class="col-title">时段与天象</div>
+                <button class="opt-btn" data-time="morning">🌅 清晨微曦</button>
+                <button class="opt-btn active" data-time="day">☀️ 晴朗白昼</button>
+                <button class="opt-btn" data-time="sunset">🌇 暖金暮色</button>
+                <button class="opt-btn" data-time="night">🌙 星夜灯火</button>
+                <button class="opt-btn" data-time="eclipse">🌗 日食掠影</button>
+              </div>
+              <div class="scene-col">
+                <div class="col-title">四季地貌</div>
+                <button class="opt-btn" data-season="spring">🌸 春生嫩绿</button>
+                <button class="opt-btn active" data-season="summer">🌻 盛夏芳草</button>
+                <button class="opt-btn" data-season="autumn">🍁 金秋落叶</button>
+                <button class="opt-btn" data-season="winter">❄️ 冬雪冰柱</button>
+              </div>
+              <div class="scene-col">
+                <div class="col-title">气象动态</div>
+                <button class="opt-btn" data-weather="clear">🌤️ 晴空</button>
+                <button class="opt-btn active" data-weather="breeze">🍃 微风拂草</button>
+                <button class="opt-btn" data-weather="rain">🌧️ 细雨如丝</button>
+                <button class="opt-btn" data-weather="snow">🌨️ 瑞雪纷飞</button>
+                <button id="btn-sync-live" class="sync-btn">📡 同步当地实况</button>
+              </div>
+            </div>
+            <div class="special-scene-block">
+              <div class="col-title">🏮 地方限定场景（Special Scenes）</div>
+              <div id="special-scene-row" class="special-scene-row"></div>
+            </div>
+          </section>
+
+          <!-- Custom Builder / Props Tray -->
+          <section id="build-drawer" class="glass-panel build-drawer hidden">
+            <div class="build-toolbar">
+              <div class="cat-tabs">
+                <button class="cat-btn active" data-cat="building">🏠 建筑</button>
+                <button class="cat-btn" data-cat="nature">🌳 植被物料</button>
+                <button class="cat-btn" data-cat="living">🐑 动物</button>
+              </div>
+              <div class="build-actions">
+                <button id="btn-rotate-piece" class="act-btn" title="旋转 90° (R)">🔄 旋转</button>
+                <button id="btn-delete-mode" class="act-btn">🗑️ 拆除</button>
+                <button id="btn-undo-piece" class="act-btn">↩️ 撤销</button>
+                <button id="btn-reset-region" class="act-btn">🧹 复原</button>
+                <button id="btn-close-build" class="close-btn">✕</button>
+              </div>
+            </div>
+            <div id="catalog-strip" class="catalog-strip"></div>
+            <div id="build-hint" class="build-hint">点击地面格点摆放建筑，单指/左键按住拖拽可 360° 旋转岛屿</div>
+          </section>
+
+          <!-- Space Destination Bar -->
+          <div id="space-bar" class="cylinder-bar hidden">
+            <div class="pill-group" role="group" aria-label="外太空降落选区">
+              <button class="space-dest-btn active" data-dest="sydney">🇦🇺 悉尼海湾</button>
+              <button class="space-dest-btn" data-dest="guangzhou">🏮 广州北京路</button>
+              <button class="space-dest-btn" data-dest="wangshi">🇨🇳 监利网市镇</button>
+              <button class="space-dest-btn" data-dest="darrowby">🇬🇧 约克达罗比</button>
+              <button class="space-dest-btn" data-dest="otaru">🇯🇵 小樽雪运河</button>
+            </div>
+          </div>
+
+          <!-- Ground Perspective Bar -->
+          <div id="ground-bar" class="cylinder-bar">
+            <div class="pill-group" role="group" aria-label="平地视线">
+              <button class="ground-cam-btn active" data-ground="street">👀 街景</button>
+              <button class="ground-cam-btn" data-ground="bridge">🌉 栈桥</button>
+              <button class="ground-cam-btn" data-ground="endcap">🏔️ 端盖</button>
+              <button class="ground-cam-btn" data-ground="sky">🔭 穹顶</button>
+              <button class="ground-cam-btn" data-ground="walk">🚶 漫步</button>
+            </div>
+          </div>
+
+          <!-- Interior Room Bar -->
+          <div id="interior-bar" class="cylinder-bar hidden">
+            <div class="pill-group" role="group" aria-label="建筑室内房间">
+              <button class="interior-btn active" data-room="tavern">☕ 观海驿站酒馆</button>
+              <button class="interior-btn" data-room="greenhouse">🌿 玻璃温室花房</button>
+            </div>
+          </div>
+
+          <!-- Camera Presets (Plot mode) -->
+          <div id="cam-presets" class="pill-group cam-presets hidden" role="group" aria-label="视角预设">
+            <button class="cam-btn active" data-cam="cinematic">🎬 全景</button>
+            <button class="cam-btn" data-cam="closeup">🌉 近景</button>
+            <button class="cam-btn" data-cam="street">🏘️ 街角</button>
+            <button class="cam-btn" data-cam="bird">🦅 鸟瞰</button>
+          </div>
+
+          <!-- Zelda-Style Touch Controls & Proximity Door Prompt -->
+          <div id="zelda-controls" class="zelda-controls">
+            <div id="move-joystick" class="move-joystick" aria-label="移动摇杆">
+              <div id="joy-knob" class="joy-knob"></div>
+            </div>
+            <div id="action-pad" class="action-pad">
+              <button id="btn-throw-ball" class="pad-mini-btn" title="垂直抛棒球测科里奥利偏转 (T)">⚾</button>
+              <button id="btn-sprint-toggle" class="pad-mini-btn" title="切换奔跑冲刺 (Shift)">🏃</button>
+              <button id="btn-jump-glide" class="pad-jump-btn" title="跳跃 / 空中展开滑翔伞 (Space)">⬆️ 跳</button>
+            </div>
+          </div>
+          <button id="door-prompt" class="door-prompt hidden">🚪 推门进入室内 (E)</button>
+
+          <!-- Main Floating Bottom Dock -->
+          <div class="dock-bar">
+            <button id="btn-dive-ground" class="dock-btn hidden">🚶 降落平地探索</button>
+            <button id="btn-enter-interior" class="dock-btn">🏠 推门进屋探索</button>
+            <button id="btn-enter-plot-mode" class="dock-btn">🛠️ 沙盘造景</button>
+            <button id="btn-exit-interior" class="dock-btn hidden">🚪 出门回街道</button>
+            <button id="btn-back-ground" class="dock-btn hidden">🚶 回到平地街景</button>
+            <button id="btn-toggle-build" class="dock-btn hidden">🧱 建造 / 物料</button>
+            <button id="btn-toggle-scene" class="dock-btn">☀️ 场景调节</button>
+            <div id="placed-count-pill" class="dock-count">共 30 件微缩物件</div>
+          </div>
+        </footer>
+      </div>
+
+      <!-- Region & Custom Lat/Lon Modal -->
+      <div id="region-modal" class="modal-backdrop hidden">
+        <div class="glass-panel modal-card">
+          <div class="panel-head">
+            <span>🌍 选择预设地块，或输入全球地名/经纬度生成并自动归入圆筒大陆带</span>
+            <button id="btn-close-regions" class="close-btn">✕</button>
+          </div>
+          <div class="preset-grid">
+            <button class="region-card active" data-region="sydney">
+              <div class="rc-title">🇦🇺 悉尼 · 蓝花楹海湾</div>
+              <div class="rc-desc">南半球仲夏盛放蓝花楹大道、白色歌剧帆影、红白灯塔与木栈道帆船（33.85°S, 151.22°E）</div>
+            </button>
+            <button class="region-card" data-region="darrowby">
+              <div class="rc-title">🇬🇧 约克郡 · 达罗比</div>
+              <div class="rc-desc">玻璃温室、石墙农舍、老风磨与牧场石桥（54.30°N, -2.00°E）</div>
+            </button>
+            <button class="region-card" data-region="wangshi">
+              <div class="rc-title">🇨🇳 湖北监利 · 网市镇</div>
+              <div class="rc-desc">白墙马头墙、红灯早茶摊、双拱桥与稻塘水乡（30.14°N, 113.09°E）</div>
+            </button>
+            <button class="region-card" data-region="otaru">
+              <div class="rc-title">🇯🇵 北海道 · 小樽运河</div>
+              <div class="rc-desc">砖石仓库群、煤气灯运河走廊、冬雪云杉与冰柱（43.19°N, 141.00°E）</div>
+            </button>
+          </div>
+
+          <div class="custom-coord-box">
+            <div class="col-title">全球真实街区与经纬度生成（OpenStreetMap + Open-Meteo · 自动匹配圆筒气候带）</div>
+            <div class="osm-quick-row">
+              <button class="osm-quick-chip" data-lat="23.1216" data-lon="113.2650" data-label="广州 · 北京路">🇨🇳 广州·北京路</button>
+              <button class="osm-quick-chip" data-lat="31.2162" data-lon="121.4404" data-label="上海 · 安福路">🇨🇳 上海·安福路</button>
+              <button class="osm-quick-chip" data-lat="52.3635" data-lon="4.8960" data-label="阿姆斯特丹运河">🇳🇱 阿姆斯特丹运河</button>
+              <button class="osm-quick-chip" data-lat="35.0061" data-lon="135.7751" data-label="京都 · 祇园白川">🇯🇵 京都·祇园白川</button>
+            </div>
+            <div class="place-search-row">
+              <input id="input-place" type="text" placeholder="输入全球任意地名，如：上海安福路 / Kyoto Gion" />
+            </div>
+            <div class="coord-inputs">
+              <label>纬度 Lat <input id="input-lat" type="number" step="0.0001" value="31.2162" /></label>
+              <label>经度 Lon <input id="input-lon" type="number" step="0.0001" value="121.4404" /></label>
+              <button id="btn-apply-coord" class="primary-btn">✨ 拉取真实 OSM 街区 + 实时天气</button>
+            </div>
+            <div id="coord-status" class="coord-status">提示：留空地名将直接按经纬度请求真实建筑/道路/水系与实况天气</div>
+            <div class="odbl-credit">Map data © OpenStreetMap contributors · Inspired by Pocket City (MIT)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
