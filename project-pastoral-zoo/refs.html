@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Project Pastoral · Batch-0+1 Route-B 参考图集 &amp; Trim Sheet</title>
+<title>Project Pastoral · 第二卷全量 Route-B 参考图集 &amp; Batch 0–2 材质总览</title>
 <style>
   :root {
     --bg: #0b1118;
@@ -65,7 +65,7 @@
   }
   h1 { font-size: clamp(24px, 3.6vw, 34px); letter-spacing: -0.02em; margin-bottom: 8px; }
   h1 span { color: var(--gold); }
-  .lead { color: var(--muted); max-width: 860px; font-size: 14.5px; }
+  .lead { color: var(--muted); max-width: 900px; font-size: 14.5px; }
 
   .code-box {
     margin-top: 16px; padding: 12px 15px; border-radius: 12px;
@@ -146,7 +146,7 @@
 
   <div class="topbar">
     <div class="nav-group">
-      <a class="pill primary" href="./">← 返回 3D 资产陈列馆（Asset Zoo）</a>
+      <a class="pill primary" href="./">← 返回 3D 资产陈列馆（38 件全量）</a>
       <a class="pill" href="../project-pastoral-godot/">奥尼尔农庄实时切片</a>
       <a class="pill" href="../project-pastoral/elements/">第二卷设定集</a>
     </div>
@@ -156,20 +156,20 @@
   </div>
 
   <section class="hero">
-    <span class="eyebrow">ROUTE-B COLLABORATION KIT · BATCH-0 + BATCH-1</span>
-    <h1>牧歌计划 <span>Route-B</span> 3D 生成参考包 &amp; 材质图集</h1>
+    <span class="eyebrow">ROUTE-B COLLABORATION KIT · COMPLETE VOLUME 2 (BATCH 0–4)</span>
+    <h1>牧歌计划 <span>Route-B</span> 全 12 位角色/动物参考包 &amp; Batch 0–2 材质总览</h1>
     <p class="lead">
-      本页汇总 Batch-0 + Batch-1 角色与伙伴的纯净白底（<code>#FFFFFF</code>）无影 A-Pose / 三视图参考包（可直接喂给 Tripo / Meshy / Hunyuan3D 等 Image-to-3D 工具），以及建筑 2×2 PBR Trim Sheet 与边缘去晕植物 Alpha 卡片。生成后的 <code>.glb</code> 可经仓库内的 <code>blender_src/ingest_route_b_glb.py</code> 一键归一化并无缝接入 Godot Asset Zoo。
+      本页汇总第二卷全部 12 位角色与动物（主角 1.70m、4 位社区 NPC、7 种牧场与荒野动物）的纯净白底（<code>#FFFFFF</code>）无地面投影 3D-Ready 影棚原画（可直接导入 Tripo / Meshy / Hunyuan3D 等 Image-to-3D 工具），以及 Batch 0–2 建筑 Trim Sheet 与 12 张边缘扩色去白边植物 Alpha 卡片。生成后的 <code>.glb</code> 可经仓库内 <code>blender_src/ingest_route_b_glb.py</code> 规范化至 <code>assets/models/batch4/&lt;id&gt;.glb</code>，Godot Asset Zoo 将自动无缝替换立牌展示。
     </p>
     <div class="code-box">
-      <b># Route-B 一键规范化入库命令（自动接地、缩放至 1.70m / 0.68m、减面、调哑光并导出 GLB）</b><br>
-      /Applications/Blender.app/Contents/MacOS/Blender --background --python blender_src/ingest_route_b_glb.py -- --input raw_protagonist.glb --output assets/models/batch0/char_protagonist.glb --target-height 1.70 --max-tris 12000
+      <b># Route-B 一键规范化入库命令（自动接地、精准缩放至目标身高、减面、调哑光并导出 GLB）</b><br>
+      /Applications/Blender.app/Contents/MacOS/Blender --background --python blender_src/ingest_route_b_glb.py -- --input raw_linhe.glb --output assets/models/batch4/npc_linhe.glb --target-height 1.66 --max-tris 12000
     </div>
   </section>
 
   <div class="sec-head">
-    <h2>01 · Route-B 角色 &amp; 动物伙伴 3D-Ready 参考包</h2>
-    <span>纯白无地影棚光 · 等高对齐三视图 · 去白边 RGBA 立绘定妆</span>
+    <h2>01 · Route-B 人物角色 3D-Ready 参考包（5 位 · 1.66m–1.84m）</h2>
+    <span>纯白无地影棚 A-Pose · 正交三视图 &amp; 零白边定妆立牌</span>
   </div>
 
   <div class="grid">
@@ -181,10 +181,74 @@
       <div class="card-body">
         <div class="card-title">主角正面 3D-Ready 影棚图</div>
         <div class="card-meta">protagonist_front_3d_ready.png · 1024×1024 RGB · 288 KB</div>
-        <p class="card-desc">对称 A-Pose、纯白背景无地面投影，适合单图 Image-to-3D 首选输入。</p>
+        <p class="card-desc">对称 A-Pose、宽檐草帽与本色亚麻工装，纯白背景无地面投影，适合单图 Image-to-3D。</p>
         <div class="dl-row">
           <a class="dl-btn" href="./kit/protagonist_front_3d_ready.png" download="protagonist_front_3d_ready.png">↓ 一键下载 PNG</a>
           <a class="dl-btn secondary" href="./kit/protagonist_front_3d_ready.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <span class="tag-pill">1.66 m · 植物农艺师</span>
+        <img src="./kit/npc_linhe_3d_ready.png" alt="Lin He 3D Ready" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">林禾 3D-Ready 影棚图</div>
+        <div class="card-meta">npc_linhe_3d_ready.png · 1024×1024 RGB · 306 KB</div>
+        <p class="card-desc">鼠尾草绿园艺围裙、腰间玻璃种子瓶与中性 A-Pose，适配 <code>npc_linhe.glb</code>（1.66 m）。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/npc_linhe_3d_ready.png" download="npc_linhe_3d_ready.png">↓ 一键下载 PNG</a>
+          <a class="dl-btn secondary" href="./kit/npc_linhe_3d_ready.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <span class="tag-pill">1.73 m · 轻轨列车长</span>
+        <img src="./kit/npc_zhoulan_3d_ready.png" alt="Zhou Lan 3D Ready" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">周澜 3D-Ready 影棚图</div>
+        <div class="card-meta">npc_zhoulan_3d_ready.png · 1024×1024 RGB · 259 KB</div>
+        <p class="card-desc">米白海军蓝列车长制服、黄铜哨与腰间扳手，纯白无影 A-Pose，适配 <code>npc_zhoulan.glb</code>（1.73 m）。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/npc_zhoulan_3d_ready.png" download="npc_zhoulan_3d_ready.png">↓ 一键下载 PNG</a>
+          <a class="dl-btn secondary" href="./kit/npc_zhoulan_3d_ready.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <span class="tag-pill">1.84 m · 社区棒球教练</span>
+        <img src="./kit/npc_chenmu_3d_ready.png" alt="Chen Mu 3D Ready" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">陈牧 3D-Ready 影棚图</div>
+        <div class="card-meta">npc_chenmu_3d_ready.png · 1024×1024 RGB · 356 KB</div>
+        <p class="card-desc">退役航天员条纹棒球服与轨道徽章，空手中性 A-Pose，适配 <code>npc_chenmu.glb</code>（1.84 m）。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/npc_chenmu_3d_ready.png" download="npc_chenmu_3d_ready.png">↓ 一键下载 PNG</a>
+          <a class="dl-btn secondary" href="./kit/npc_chenmu_3d_ready.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <span class="tag-pill">1.76 m · 北端 0G 向导</span>
+        <img src="./kit/npc_noah_3d_ready.png" alt="Noah 3D Ready" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">诺阿 3D-Ready 影棚图</div>
+        <div class="card-meta">npc_noah_3d_ready.png · 1024×1024 RGB · 308 KB</div>
+        <p class="card-desc">天蓝防风滑雪服、护目镜与磁性高山靴，纯白无影 A-Pose，适配 <code>npc_noah.glb</code>（1.76 m）。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/npc_noah_3d_ready.png" download="npc_noah_3d_ready.png">↓ 一键下载 PNG</a>
+          <a class="dl-btn secondary" href="./kit/npc_noah_3d_ready.png" target="_blank" rel="noopener">原图</a>
         </div>
       </div>
     </article>
@@ -213,14 +277,21 @@
       <div class="card-body">
         <div class="card-title">主角透明底定妆立牌（1.70m）</div>
         <div class="card-meta">protagonist_standee_alpha.png · 452×950 RGBA · 377 KB</div>
-        <p class="card-desc">紧密裁切并经边缘 RGB 扩色，用于 Godot Asset Zoo 09 号展位与 1.70m 黄铜尺标实时比高。</p>
+        <p class="card-desc">紧密裁切并经边缘 RGB 扩色，用于 Godot Asset Zoo 27 号展位与 1.70m 黄铜尺标实时比高。</p>
         <div class="dl-row">
           <a class="dl-btn" href="./kit/protagonist_standee_alpha.png" download="protagonist_standee_alpha.png">↓ 一键下载 RGBA</a>
           <a class="dl-btn secondary" href="./kit/protagonist_standee_alpha.png" target="_blank" rel="noopener">原图</a>
         </div>
       </div>
     </article>
+  </div>
 
+  <div class="sec-head">
+    <h2>02 · Route-B 牧场与荒野动物 3D-Ready 参考包（7 种 · 0.48m–2.00m）</h2>
+    <span>纯白无地面投影 · 完整四肢轮廓 · 直接对应 Asset Zoo 32–38 号展位</span>
+  </div>
+
+  <div class="grid">
     <article class="card">
       <div class="thumb">
         <span class="tag-pill">0.68 m · 柴犬 3/4 正面</span>
@@ -233,6 +304,102 @@
         <div class="dl-row">
           <a class="dl-btn" href="./kit/shiba_front_3d_ready.png" download="shiba_front_3d_ready.png">↓ 一键下载 PNG</a>
           <a class="dl-btn secondary" href="./kit/shiba_front_3d_ready.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <span class="tag-pill">1.55 m · 牧场乳牛</span>
+        <img src="./kit/animal_cow_3d_ready.png" alt="Cow 3D Ready" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">花斑奶牛 3D-Ready 影棚图</div>
+        <div class="card-meta">animal_cow_3d_ready.png · 1024×1024 RGB · 441 KB</div>
+        <p class="card-desc">棕白花斑奶牛配皮项圈铜铃，四足清晰分离无粘连，适配 <code>animal_cow.glb</code>（1.55 m）。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/animal_cow_3d_ready.png" download="animal_cow_3d_ready.png">↓ 一键下载 PNG</a>
+          <a class="dl-btn secondary" href="./kit/animal_cow_3d_ready.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <span class="tag-pill">1.25 m · 暖毛羊驼</span>
+        <img src="./kit/animal_alpaca_3d_ready.png" alt="Alpaca 3D Ready" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">牧场羊驼 3D-Ready 影棚图</div>
+        <div class="card-meta">animal_alpaca_3d_ready.png · 1024×1024 RGB · 340 KB</div>
+        <p class="card-desc">奶油白蓬松羊驼配彩编挽具，完整轮廓与纯白无影棚光，适配 <code>animal_alpaca.glb</code>（1.25 m）。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/animal_alpaca_3d_ready.png" download="animal_alpaca_3d_ready.png">↓ 一键下载 PNG</a>
+          <a class="dl-btn secondary" href="./kit/animal_alpaca_3d_ready.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <span class="tag-pill">2.00 m · 栗色骑乘马</span>
+        <img src="./kit/animal_horse_3d_ready.png" alt="Horse 3D Ready" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">栗色骑乘马 3D-Ready 影棚图</div>
+        <div class="card-meta">animal_horse_3d_ready.png · 1024×1024 RGB · 455 KB</div>
+        <p class="card-desc">深栗色骏马配皮革马鞍与鞍囊，缰绳环内透空清理干净，适配 <code>animal_horse.glb</code>（2.00 m）。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/animal_horse_3d_ready.png" download="animal_horse_3d_ready.png">↓ 一键下载 PNG</a>
+          <a class="dl-btn secondary" href="./kit/animal_horse_3d_ready.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <span class="tag-pill">0.48 m · 鸡鸭与蛋篮</span>
+        <img src="./kit/animal_poultry_3d_ready.png" alt="Poultry 3D Ready" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">白鸭鸡篮 3D-Ready 影棚图</div>
+        <div class="card-meta">animal_poultry_3d_ready.png · 1024×1024 RGB · 375 KB</div>
+        <p class="card-desc">柯尔鸭、棕羽母鸡与编织鸡蛋篮组合，篮提手透空洁净，适配 <code>animal_poultry.glb</code>（0.48 m）。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/animal_poultry_3d_ready.png" download="animal_poultry_3d_ready.png">↓ 一键下载 PNG</a>
+          <a class="dl-btn secondary" href="./kit/animal_poultry_3d_ready.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <span class="tag-pill">0.52 m · 北境林狐</span>
+        <img src="./kit/animal_fox_3d_ready.png" alt="Fox 3D Ready" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">雪林赤狐 3D-Ready 影棚图</div>
+        <div class="card-meta">animal_fox_3d_ready.png · 1024×1024 RGB · 372 KB</div>
+        <p class="card-desc">赭红白尖蓬尾赤狐，四足轻立，适合雪原林下生态 3D 生成，适配 <code>animal_fox.glb</code>（0.52 m）。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/animal_fox_3d_ready.png" download="animal_fox_3d_ready.png">↓ 一键下载 PNG</a>
+          <a class="dl-btn secondary" href="./kit/animal_fox_3d_ready.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <span class="tag-pill">0.98 m · 荒野狍鹿</span>
+        <img src="./kit/animal_deer_3d_ready.png" alt="Deer 3D Ready" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">林间狍鹿 3D-Ready 影棚图</div>
+        <div class="card-meta">animal_deer_3d_ready.png · 1024×1024 RGB · 328 KB</div>
+        <p class="card-desc">暖栗棕细蹄狍鹿与浅斑点幼感轮廓，适配 <code>animal_deer.glb</code>（0.98 m）。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/animal_deer_3d_ready.png" download="animal_deer_3d_ready.png">↓ 一键下载 PNG</a>
+          <a class="dl-btn secondary" href="./kit/animal_deer_3d_ready.png" target="_blank" rel="noopener">原图</a>
         </div>
       </div>
     </article>
@@ -261,7 +428,7 @@
       <div class="card-body">
         <div class="card-title">牧歌柴犬透明底定妆立牌（0.68m）</div>
         <div class="card-meta">shiba_standee_alpha.png · 627×843 RGBA · 462 KB</div>
-        <p class="card-desc">WebGL2 Mipmap 零白边镂空卡片，展示于 Godot Asset Zoo 10 号展位。</p>
+        <p class="card-desc">WebGL2 Mipmap 零白边镂空卡片，展示于 Godot Asset Zoo 32 号展位。</p>
         <div class="dl-row">
           <a class="dl-btn" href="./kit/shiba_standee_alpha.png" download="shiba_standee_alpha.png">↓ 一键下载 RGBA</a>
           <a class="dl-btn secondary" href="./kit/shiba_standee_alpha.png" target="_blank" rel="noopener">原图</a>
@@ -271,94 +438,110 @@
   </div>
 
   <div class="sec-head">
-    <h2>02 · Batch-0 手绘 Trim Sheet &amp; 植物 Alpha 卡片</h2>
-    <span>无双缝余弦无缝平铺 · 吉卜力/塞尔达手绘笔触 · Mipmap 去白边 RGBA</span>
+    <h2>03 · Batch-2 气候带树木、金麦与野花 Alpha 卡片（6 张）</h2>
+    <span>椰叶 / 橡枫 / 金叶白桦 / 积雪云杉 / 金麦芦苇 / 牧野花草 · 5 轮边缘扩色去白边</span>
   </div>
 
   <div class="grid wide">
     <article class="card">
-      <div class="thumb dark-tile">
-        <span class="tag-pill">2×2 建筑 PBR Trim Sheet</span>
-        <img src="./kit/trim_pastoral_albedo.png" alt="Trim Pastoral Albedo" />
+      <div class="thumb checker">
+        <span class="tag-pill">RGBA · 热带椰树</span>
+        <img src="./kit/leaf_palm_painted_alpha.png" alt="Leaf Palm Alpha" />
       </div>
       <div class="card-body">
-        <div class="card-title">牧歌建筑四象限 PBR 材质总表</div>
-        <div class="card-meta">trim_pastoral_albedo.png · 1024×1024 RGB · 1.34 MB</div>
-        <p class="card-desc">左上暖白灰泥 / 右上蜜桃雪松木板 / 左下干垒块石 / 右下地中海陶瓦，已烘焙至农舍 v2 与庭院道具。</p>
+        <div class="card-title">手绘热带椰树羽叶卡</div>
+        <div class="card-meta">leaf_palm_painted_alpha.png · 512×512 RGBA · 309 KB</div>
+        <p class="card-desc">羽状裂叶与阳光金绿笔触，驱动 08 号展位热带椰树弯曲树冠与树叶摆动。</p>
         <div class="dl-row">
-          <a class="dl-btn" href="./kit/trim_pastoral_albedo.png" download="trim_pastoral_albedo.png">↓ 一键下载 Trim Sheet</a>
-          <a class="dl-btn secondary" href="./kit/trim_pastoral_albedo.png" target="_blank" rel="noopener">原图</a>
+          <a class="dl-btn" href="./kit/leaf_palm_painted_alpha.png" download="leaf_palm_painted_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/leaf_palm_painted_alpha.png" target="_blank" rel="noopener">原图</a>
         </div>
       </div>
     </article>
 
     <article class="card">
       <div class="thumb checker">
-        <span class="tag-pill">RGBA · 樱花树冠</span>
-        <img src="./kit/leaf_cherry_painted_alpha.png" alt="Leaf Cherry Alpha" />
+        <span class="tag-pill">RGBA · 栎枫 / 丝柏 / 宇治茶</span>
+        <img src="./kit/leaf_oak_painted_alpha.png" alt="Leaf Oak Alpha" />
       </div>
       <div class="card-body">
-        <div class="card-title">手绘垂枝粉樱花枝卡</div>
-        <div class="card-meta">leaf_cherry_painted_alpha.png · 512×512 RGBA · 339 KB</div>
-        <p class="card-desc">淡粉与乳白花瓣、梅红花蕾与嫩橄榄叶，搭配球面法线与 `stylized_foliage.gdshader`。</p>
+        <div class="card-title">手绘大道栎枫浓绿叶簇卡</div>
+        <div class="card-meta">leaf_oak_painted_alpha.png · 512×512 RGBA · 256 KB</div>
+        <p class="card-desc">厚涂吉卜力栎枫叶团，服务大道栎枫 v2、地中海丝柏、宇治茶树篱与荒野灌木。</p>
         <div class="dl-row">
-          <a class="dl-btn" href="./kit/leaf_cherry_painted_alpha.png" download="leaf_cherry_painted_alpha.png">↓ 一键下载 RGBA</a>
-          <a class="dl-btn secondary" href="./kit/leaf_cherry_painted_alpha.png" target="_blank" rel="noopener">原图</a>
+          <a class="dl-btn" href="./kit/leaf_oak_painted_alpha.png" download="leaf_oak_painted_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/leaf_oak_painted_alpha.png" target="_blank" rel="noopener">原图</a>
         </div>
       </div>
     </article>
 
     <article class="card">
       <div class="thumb checker">
-        <span class="tag-pill">RGBA · 葡萄棚架</span>
-        <img src="./kit/leaf_grape_painted_alpha.png" alt="Leaf Grape Alpha" />
+        <span class="tag-pill">RGBA · 秋日金叶白桦</span>
+        <img src="./kit/leaf_birch_gold_painted_alpha.png" alt="Leaf Birch Gold Alpha" />
       </div>
       <div class="card-body">
-        <div class="card-title">葡萄藤叶与紫葡萄果串卡</div>
-        <div class="card-meta">leaf_grape_painted_alpha.png · 512×512 RGBA · 240 KB</div>
-        <p class="card-desc">宽掌状葡萄叶、卷须与深紫果串，服务葡萄架 4 阶段生长模型。</p>
+        <div class="card-title">秋日金叶白桦枝簇卡</div>
+        <div class="card-meta">leaf_birch_gold_painted_alpha.png · 512×512 RGBA · 189 KB</div>
+        <p class="card-desc">明快金黄与赭橙秋叶配合浅银细枝，用于 12 号展位双叉银桦树的通透树冠。</p>
         <div class="dl-row">
-          <a class="dl-btn" href="./kit/leaf_grape_painted_alpha.png" download="leaf_grape_painted_alpha.png">↓ 一键下载 RGBA</a>
-          <a class="dl-btn secondary" href="./kit/leaf_grape_painted_alpha.png" target="_blank" rel="noopener">原图</a>
+          <a class="dl-btn" href="./kit/leaf_birch_gold_painted_alpha.png" download="leaf_birch_gold_painted_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/leaf_birch_gold_painted_alpha.png" target="_blank" rel="noopener">原图</a>
         </div>
       </div>
     </article>
 
     <article class="card">
       <div class="thumb checker">
-        <span class="tag-pill">RGBA · 薰衣草花田</span>
-        <img src="./kit/leaf_lavender_painted_alpha.png" alt="Leaf Lavender Alpha" />
+        <span class="tag-pill">RGBA · 雪地挪威云杉</span>
+        <img src="./kit/leaf_spruce_snow_painted_alpha.png" alt="Leaf Spruce Snow Alpha" />
       </div>
       <div class="card-body">
-        <div class="card-title">普罗旺斯薰衣草花穗卡</div>
-        <div class="card-meta">leaf_lavender_painted_alpha.png · 512×512 RGBA · 277 KB</div>
-        <p class="card-desc">淡紫花穗与灰绿鼠尾草叶，清晰镂空茎间空隙无白边。</p>
+        <div class="card-title">雪地挪威云杉针叶卡</div>
+        <div class="card-meta">leaf_spruce_snow_painted_alpha.png · 512×512 RGBA · 310 KB</div>
+        <p class="card-desc">深松绿针叶覆薄雪霜冠，配合去白边内部反污染处理，完美保留顶部积雪质感。</p>
         <div class="dl-row">
-          <a class="dl-btn" href="./kit/leaf_lavender_painted_alpha.png" download="leaf_lavender_painted_alpha.png">↓ 一键下载 RGBA</a>
-          <a class="dl-btn secondary" href="./kit/leaf_lavender_painted_alpha.png" target="_blank" rel="noopener">原图</a>
+          <a class="dl-btn" href="./kit/leaf_spruce_snow_painted_alpha.png" download="leaf_spruce_snow_painted_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/leaf_spruce_snow_painted_alpha.png" target="_blank" rel="noopener">原图</a>
         </div>
       </div>
     </article>
 
     <article class="card">
       <div class="thumb checker">
-        <span class="tag-pill">RGBA · 玫瑰花架 &amp; 墙藤</span>
-        <img src="./kit/leaf_rose_vine_painted_alpha.png" alt="Leaf Rose Vine Alpha" />
+        <span class="tag-pill">RGBA · 北海道金麦 &amp; 芦苇</span>
+        <img src="./kit/leaf_wheat_reeds_painted_alpha.png" alt="Leaf Wheat Reeds Alpha" />
       </div>
       <div class="card-body">
-        <div class="card-title">攀援庭院玫瑰花藤卡</div>
-        <div class="card-meta">leaf_rose_vine_painted_alpha.png · 512×512 RGBA · 235 KB</div>
-        <p class="card-desc">奶油粉与浅绯重瓣玫瑰配合深橄榄叶，挂载于农舍 v2 外墙与 20m 绿道拱门花架。</p>
+        <div class="card-title">北海道金麦穗与湖畔芦苇卡</div>
+        <div class="card-meta">leaf_wheat_reeds_painted_alpha.png · 512×512 RGBA · 251 KB</div>
+        <p class="card-desc">清晰保留麦芒细丝与羽状芦苇穗，分区 UV 映射至 15 号金麦四阶与 17 号荒野沼泽。</p>
         <div class="dl-row">
-          <a class="dl-btn" href="./kit/leaf_rose_vine_painted_alpha.png" download="leaf_rose_vine_painted_alpha.png">↓ 一键下载 RGBA</a>
-          <a class="dl-btn secondary" href="./kit/leaf_rose_vine_painted_alpha.png" target="_blank" rel="noopener">原图</a>
+          <a class="dl-btn" href="./kit/leaf_wheat_reeds_painted_alpha.png" download="leaf_wheat_reeds_painted_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/leaf_wheat_reeds_painted_alpha.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb checker">
+        <span class="tag-pill">RGBA · 荒野草花群</span>
+        <img src="./kit/leaf_wildflowers_painted_alpha.png" alt="Leaf Wildflowers Alpha" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">田园雏菊金凤花野花簇卡</div>
+        <div class="card-meta">leaf_wildflowers_painted_alpha.png · 512×512 RGBA · 279 KB</div>
+        <p class="card-desc">白色雏菊、毛茛黄与珊瑚罂粟花丛，草叶间 V 型透空洁净，服务 17 号蜂箱荒野花丛。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/leaf_wildflowers_painted_alpha.png" download="leaf_wildflowers_painted_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/leaf_wildflowers_painted_alpha.png" target="_blank" rel="noopener">原图</a>
         </div>
       </div>
     </article>
   </div>
 
   <div class="sec-head">
-    <h2>03 · Batch-1 扩展建筑 Trim Sheet &amp; 气候带植物 Alpha 卡片</h2>
+    <h2>04 · Batch-1 扩展建筑 Trim Sheet &amp; 植物 Alpha 卡片（3 张）</h2>
     <span>北欧炭化木 / 东亚灰瓦 / 南湾白漆木 / 站台切石 · 三角梅 &amp; 翠竹去晕 RGBA</span>
   </div>
 
@@ -403,10 +586,97 @@
       <div class="card-body">
         <div class="card-title">东亚翠竹枝叶 Alpha 卡</div>
         <div class="card-meta">leaf_bamboo_painted_alpha.png · 512×512 RGBA · 274 KB</div>
-        <p class="card-desc">剑形竹叶与细竹枝节，零白边 Mipmap 扩色处理，搭配茶居水院锦鲤池畔竹丛与 `stylized_foliage.gdshader`。</p>
+        <p class="card-desc">剑形竹叶与细竹枝节，零白边 Mipmap 扩色处理，搭配茶居水院锦鲤池畔竹丛与 <code>stylized_foliage.gdshader</code>。</p>
         <div class="dl-row">
           <a class="dl-btn" href="./kit/leaf_bamboo_painted_alpha.png" download="leaf_bamboo_painted_alpha.png">↓ 一键下载 RGBA</a>
           <a class="dl-btn secondary" href="./kit/leaf_bamboo_painted_alpha.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="sec-head">
+    <h2>05 · Batch-0 基础建筑 Trim Sheet &amp; 植物 Alpha 卡片（5 张）</h2>
+    <span>无双缝余弦无缝平铺 · 吉卜力/塞尔达手绘笔触 · Mipmap 去白边 RGBA</span>
+  </div>
+
+  <div class="grid wide">
+    <article class="card">
+      <div class="thumb dark-tile">
+        <span class="tag-pill">2×2 建筑 PBR Trim Sheet</span>
+        <img src="./kit/trim_pastoral_albedo.png" alt="Trim Pastoral Albedo" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">牧歌建筑四象限 PBR 材质总表</div>
+        <div class="card-meta">trim_pastoral_albedo.png · 1024×1024 RGB · 1.31 MB</div>
+        <p class="card-desc">左上暖白灰泥 / 右上蜜桃雪松木板 / 左下干垒块石 / 右下地中海陶瓦，已烘焙至农舍 v2 与庭院道具。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/trim_pastoral_albedo.png" download="trim_pastoral_albedo.png">↓ 一键下载 Trim Sheet</a>
+          <a class="dl-btn secondary" href="./kit/trim_pastoral_albedo.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb checker">
+        <span class="tag-pill">RGBA · 樱花树冠</span>
+        <img src="./kit/leaf_cherry_painted_alpha.png" alt="Leaf Cherry Alpha" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">手绘垂枝粉樱花枝卡</div>
+        <div class="card-meta">leaf_cherry_painted_alpha.png · 512×512 RGBA · 339 KB</div>
+        <p class="card-desc">淡粉与乳白花瓣、梅红花蕾与嫩橄榄叶，搭配球面法线与 <code>stylized_foliage.gdshader</code>。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/leaf_cherry_painted_alpha.png" download="leaf_cherry_painted_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/leaf_cherry_painted_alpha.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb checker">
+        <span class="tag-pill">RGBA · 葡萄棚架</span>
+        <img src="./kit/leaf_grape_painted_alpha.png" alt="Leaf Grape Alpha" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">葡萄藤叶与紫葡萄果串卡</div>
+        <div class="card-meta">leaf_grape_painted_alpha.png · 512×512 RGBA · 240 KB</div>
+        <p class="card-desc">宽掌状葡萄叶、卷须与深紫果串，服务葡萄架 4 阶段生长模型与温室番茄叶。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/leaf_grape_painted_alpha.png" download="leaf_grape_painted_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/leaf_grape_painted_alpha.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb checker">
+        <span class="tag-pill">RGBA · 薰衣草花田</span>
+        <img src="./kit/leaf_lavender_painted_alpha.png" alt="Leaf Lavender Alpha" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">普罗旺斯薰衣草花穗卡</div>
+        <div class="card-meta">leaf_lavender_painted_alpha.png · 512×512 RGBA · 277 KB</div>
+        <p class="card-desc">淡紫花穗与灰绿鼠尾草叶，清晰镂空茎间空隙无白边。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/leaf_lavender_painted_alpha.png" download="leaf_lavender_painted_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/leaf_lavender_painted_alpha.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb checker">
+        <span class="tag-pill">RGBA · 玫瑰花架 &amp; 墙藤</span>
+        <img src="./kit/leaf_rose_vine_painted_alpha.png" alt="Leaf Rose Vine Alpha" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">攀援庭院玫瑰花藤卡</div>
+        <div class="card-meta">leaf_rose_vine_painted_alpha.png · 512×512 RGBA · 235 KB</div>
+        <p class="card-desc">奶油粉与浅绯重瓣玫瑰配合深橄榄叶，挂载于农舍 v2 外墙与 20m 绿道拱门花架。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/leaf_rose_vine_painted_alpha.png" download="leaf_rose_vine_painted_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/leaf_rose_vine_painted_alpha.png" target="_blank" rel="noopener">原图</a>
         </div>
       </div>
     </article>
