@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Project Pastoral · Batch-0 Route-B 参考图集 &amp; Trim Sheet</title>
+<style>
+  :root {
+    --bg: #0b1118;
+    --bg2: #111a24;
+    --glass: rgba(19, 29, 41, 0.72);
+    --line: rgba(164, 192, 218, 0.16);
+    --line-gold: rgba(234, 185, 104, 0.42);
+    --text: #edf2f7;
+    --muted: #98abc0;
+    --gold: #eab968;
+    --emerald: #6ed39a;
+    --cyan: #7ad4ef;
+    --sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background:
+      radial-gradient(circle at 86% 6%, rgba(234, 185, 104, 0.10), transparent 40%),
+      radial-gradient(circle at 12% 18%, rgba(110, 211, 154, 0.08), transparent 42%),
+      var(--bg);
+    color: var(--text);
+    font: 15px/1.65 var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 24px 20px 72px; }
+
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px; margin-bottom: 24px;
+  }
+  .nav-group { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 15px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--glass);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    color: var(--text); text-decoration: none; font-size: 13px;
+    transition: border-color .15s, transform .15s, background .15s;
+  }
+  .pill:hover { border-color: var(--cyan); transform: translateY(-1px); }
+  .pill.primary {
+    border-color: var(--line-gold);
+    background: rgba(234, 185, 104, 0.16);
+    color: var(--gold); font-weight: 600;
+  }
+
+  .hero {
+    border-radius: 20px; padding: 28px 30px; margin-bottom: 30px;
+    background: linear-gradient(135deg, rgba(22, 33, 47, 0.86), rgba(14, 21, 30, 0.90));
+    border: 1px solid var(--line);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
+  }
+  .eyebrow {
+    display: inline-block; font: 600 12px var(--mono); color: var(--emerald);
+    border: 1px solid rgba(110, 211, 154, 0.35); background: rgba(110, 211, 154, 0.10);
+    padding: 3px 10px; border-radius: 999px; margin-bottom: 12px;
+  }
+  h1 { font-size: clamp(24px, 3.6vw, 34px); letter-spacing: -0.02em; margin-bottom: 8px; }
+  h1 span { color: var(--gold); }
+  .lead { color: var(--muted); max-width: 860px; font-size: 14.5px; }
+
+  .code-box {
+    margin-top: 16px; padding: 12px 15px; border-radius: 12px;
+    background: rgba(8, 12, 18, 0.78); border: 1px solid var(--line);
+    font: 12.5px/1.6 var(--mono); color: #cde2f5; overflow-x: auto;
+  }
+  .code-box b { color: var(--gold); font-weight: 600; }
+
+  .sec-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 12px; flex-wrap: wrap; margin: 36px 0 16px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--line);
+  }
+  .sec-head h2 { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
+  .sec-head span { font-size: 13px; color: var(--muted); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 18px; }
+  .grid.wide { grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); }
+
+  .card {
+    display: flex; flex-direction: column;
+    border-radius: 16px; overflow: hidden;
+    background: var(--glass); border: 1px solid var(--line);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    transition: border-color .15s, transform .15s;
+  }
+  .card:hover { border-color: var(--line-gold); transform: translateY(-2px); }
+
+  .thumb {
+    position: relative; width: 100%; aspect-ratio: 4/3;
+    display: flex; align-items: center; justify-content: center; padding: 14px;
+    background: #ffffff;
+  }
+  .thumb.checker {
+    background-color: #1a232e;
+    background-image:
+      linear-gradient(45deg, rgba(255,255,255,0.06) 25%, transparent 25%),
+      linear-gradient(-45deg, rgba(255,255,255,0.06) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.06) 75%),
+      linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.06) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+  }
+  .thumb.dark-tile { background: #141c26; padding: 10px; }
+  .thumb img {
+    max-width: 100%; max-height: 100%; object-fit: contain;
+    border-radius: 6px;
+  }
+  .tag-pill {
+    position: absolute; left: 10px; top: 10px;
+    font: 600 11px var(--mono); padding: 3px 8px; border-radius: 6px;
+    background: rgba(11, 17, 24, 0.84); color: var(--gold);
+    border: 1px solid rgba(234, 185, 104, 0.35);
+  }
+
+  .card-body { padding: 15px 16px 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .card-title { font-size: 15.5px; font-weight: 700; color: #fff; }
+  .card-meta { font: 12px var(--mono); color: var(--muted); }
+  .card-desc { font-size: 13px; color: var(--muted); flex: 1; }
+  .dl-row { display: flex; gap: 8px; align-items: center; margin-top: 4px; }
+  .dl-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    flex: 1; padding: 9px 12px; border-radius: 10px;
+    background: rgba(234, 185, 104, 0.16); border: 1px solid var(--line-gold);
+    color: var(--gold); font-size: 13px; font-weight: 600; text-decoration: none;
+    transition: background .15s, transform .15s;
+  }
+  .dl-btn:hover { background: rgba(234, 185, 104, 0.28); transform: translateY(-1px); }
+  .dl-btn.secondary {
+    flex: 0 0 auto; padding: 9px 12px;
+    background: rgba(122, 212, 239, 0.10); border-color: rgba(122, 212, 239, 0.32);
+    color: var(--cyan); font-weight: 500;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="nav-group">
+      <a class="pill primary" href="./">← 返回 3D 资产陈列馆（Asset Zoo）</a>
+      <a class="pill" href="../project-pastoral-godot/">奥尼尔农庄实时切片</a>
+      <a class="pill" href="../project-pastoral/elements/">第二卷设定集</a>
+    </div>
+    <div class="nav-group">
+      <a class="pill" href="../">notsuck.here 首页</a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <span class="eyebrow">ROUTE-B COLLABORATION KIT · BATCH-0</span>
+    <h1>牧歌计划 <span>Route-B</span> 3D 生成参考包 &amp; 材质图集</h1>
+    <p class="lead">
+      本页汇总 Batch-0 角色与伙伴的纯净白底（<code>#FFFFFF</code>）无影 A-Pose / 三视图参考包（可直接喂给 Tripo / Meshy / Hunyuan3D 等 Image-to-3D 工具），以及建筑 2×2 PBR Trim Sheet 与边缘去晕植物 Alpha 卡片。生成后的 <code>.glb</code> 可经仓库内的 <code>blender_src/ingest_route_b_glb.py</code> 一键归一化并无缝接入 Godot Asset Zoo。
+    </p>
+    <div class="code-box">
+      <b># Route-B 一键规范化入库命令（自动接地、缩放至 1.70m / 0.68m、减面、调哑光并导出 GLB）</b><br>
+      /Applications/Blender.app/Contents/MacOS/Blender --background --python blender_src/ingest_route_b_glb.py -- --input raw_protagonist.glb --output assets/models/batch0/char_protagonist.glb --target-height 1.70 --max-tris 12000
+    </div>
+  </section>
+
+  <div class="sec-head">
+    <h2>01 · Route-B 角色 &amp; 动物伙伴 3D-Ready 参考包</h2>
+    <span>纯白无地影棚光 · 等高对齐三视图 · 去白边 RGBA 立绘定妆</span>
+  </div>
+
+  <div class="grid">
+    <article class="card">
+      <div class="thumb">
+        <span class="tag-pill">1.70 m · 主角正面 A-Pose</span>
+        <img src="./kit/protagonist_front_3d_ready.png" alt="Protagonist Front 3D Ready" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">主角正面 3D-Ready 影棚图</div>
+        <div class="card-meta">protagonist_front_3d_ready.png · 1024×1024 RGB · 288 KB</div>
+        <p class="card-desc">对称 A-Pose、纯白背景无地面投影，适合单图 Image-to-3D 首选输入。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/protagonist_front_3d_ready.png" download="protagonist_front_3d_ready.png">↓ 一键下载 PNG</a>
+          <a class="dl-btn secondary" href="./kit/protagonist_front_3d_ready.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <span class="tag-pill">1.70 m · 正 / 侧 / 背三视图</span>
+        <img src="./kit/protagonist_turnaround.png" alt="Protagonist Turnaround" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">主角正交三视图设定表</div>
+        <div class="card-meta">protagonist_turnaround.png · 1376×768 RGB · 481 KB</div>
+        <p class="card-desc">Front / Side / Back 基线对齐三视图，适合支持多视图约束的 3D 生成管线。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/protagonist_turnaround.png" download="protagonist_turnaround.png">↓ 一键下载 PNG</a>
+          <a class="dl-btn secondary" href="./kit/protagonist_turnaround.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb checker">
+        <span class="tag-pill">RGBA · 5 轮边缘扩色去晕</span>
+        <img src="./kit/protagonist_standee_alpha.png" alt="Protagonist Standee Alpha" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">主角透明底定妆立牌（1.70m）</div>
+        <div class="card-meta">protagonist_standee_alpha.png · 452×950 RGBA · 377 KB</div>
+        <p class="card-desc">紧密裁切并经边缘 RGB 扩色，用于 Godot Asset Zoo 09 号展位与 1.70m 黄铜尺标实时比高。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/protagonist_standee_alpha.png" download="protagonist_standee_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/protagonist_standee_alpha.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <span class="tag-pill">0.68 m · 柴犬 3/4 正面</span>
+        <img src="./kit/shiba_front_3d_ready.png" alt="Shiba Front 3D Ready" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">牧歌柴犬 3D-Ready 影棚图</div>
+        <div class="card-meta">shiba_front_3d_ready.png · 1024×1024 RGB · 359 KB</div>
+        <p class="card-desc">陶土色围巾与黄铜青色铭牌清晰完整，纯白底无阴影，可直接导入 3D 生成。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/shiba_front_3d_ready.png" download="shiba_front_3d_ready.png">↓ 一键下载 PNG</a>
+          <a class="dl-btn secondary" href="./kit/shiba_front_3d_ready.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <span class="tag-pill">0.68 m · 正 / 侧 / 背三视图</span>
+        <img src="./kit/shiba_turnaround.png" alt="Shiba Turnaround" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">牧歌柴犬正交三视图设定表</div>
+        <div class="card-meta">shiba_turnaround.png · 1376×768 RGB · 440 KB</div>
+        <p class="card-desc">四足落地、卷尾与围巾背面结构全覆盖，保障多角度生成几何闭环。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/shiba_turnaround.png" download="shiba_turnaround.png">↓ 一键下载 PNG</a>
+          <a class="dl-btn secondary" href="./kit/shiba_turnaround.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb checker">
+        <span class="tag-pill">RGBA · 5 轮边缘扩色去晕</span>
+        <img src="./kit/shiba_standee_alpha.png" alt="Shiba Standee Alpha" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">牧歌柴犬透明底定妆立牌（0.68m）</div>
+        <div class="card-meta">shiba_standee_alpha.png · 627×843 RGBA · 462 KB</div>
+        <p class="card-desc">WebGL2 Mipmap 零白边镂空卡片，展示于 Godot Asset Zoo 10 号展位。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/shiba_standee_alpha.png" download="shiba_standee_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/shiba_standee_alpha.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="sec-head">
+    <h2>02 · Batch-0 手绘 Trim Sheet &amp; 植物 Alpha 卡片</h2>
+    <span>无双缝余弦无缝平铺 · 吉卜力/塞尔达手绘笔触 · Mipmap 去白边 RGBA</span>
+  </div>
+
+  <div class="grid wide">
+    <article class="card">
+      <div class="thumb dark-tile">
+        <span class="tag-pill">2×2 建筑 PBR Trim Sheet</span>
+        <img src="./kit/trim_pastoral_albedo.png" alt="Trim Pastoral Albedo" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">牧歌建筑四象限 PBR 材质总表</div>
+        <div class="card-meta">trim_pastoral_albedo.png · 1024×1024 RGB · 1.34 MB</div>
+        <p class="card-desc">左上暖白灰泥 / 右上蜜桃雪松木板 / 左下干垒块石 / 右下地中海陶瓦，已烘焙至农舍 v2 与庭院道具。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/trim_pastoral_albedo.png" download="trim_pastoral_albedo.png">↓ 一键下载 Trim Sheet</a>
+          <a class="dl-btn secondary" href="./kit/trim_pastoral_albedo.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb checker">
+        <span class="tag-pill">RGBA · 樱花树冠</span>
+        <img src="./kit/leaf_cherry_painted_alpha.png" alt="Leaf Cherry Alpha" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">手绘垂枝粉樱花枝卡</div>
+        <div class="card-meta">leaf_cherry_painted_alpha.png · 512×512 RGBA · 339 KB</div>
+        <p class="card-desc">淡粉与乳白花瓣、梅红花蕾与嫩橄榄叶，搭配球面法线与 `stylized_foliage.gdshader`。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/leaf_cherry_painted_alpha.png" download="leaf_cherry_painted_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/leaf_cherry_painted_alpha.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb checker">
+        <span class="tag-pill">RGBA · 葡萄棚架</span>
+        <img src="./kit/leaf_grape_painted_alpha.png" alt="Leaf Grape Alpha" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">葡萄藤叶与紫葡萄果串卡</div>
+        <div class="card-meta">leaf_grape_painted_alpha.png · 512×512 RGBA · 240 KB</div>
+        <p class="card-desc">宽掌状葡萄叶、卷须与深紫果串，服务葡萄架 4 阶段生长模型。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/leaf_grape_painted_alpha.png" download="leaf_grape_painted_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/leaf_grape_painted_alpha.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb checker">
+        <span class="tag-pill">RGBA · 薰衣草花田</span>
+        <img src="./kit/leaf_lavender_painted_alpha.png" alt="Leaf Lavender Alpha" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">普罗旺斯薰衣草花穗卡</div>
+        <div class="card-meta">leaf_lavender_painted_alpha.png · 512×512 RGBA · 277 KB</div>
+        <p class="card-desc">淡紫花穗与灰绿鼠尾草叶，清晰镂空茎间空隙无白边。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/leaf_lavender_painted_alpha.png" download="leaf_lavender_painted_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/leaf_lavender_painted_alpha.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb checker">
+        <span class="tag-pill">RGBA · 玫瑰花架 &amp; 墙藤</span>
+        <img src="./kit/leaf_rose_vine_painted_alpha.png" alt="Leaf Rose Vine Alpha" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">攀援庭院玫瑰花藤卡</div>
+        <div class="card-meta">leaf_rose_vine_painted_alpha.png · 512×512 RGBA · 235 KB</div>
+        <p class="card-desc">奶油粉与浅绯重瓣玫瑰配合深橄榄叶，挂载于农舍 v2 外墙与 20m 绿道拱门花架。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/leaf_rose_vine_painted_alpha.png" download="leaf_rose_vine_painted_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/leaf_rose_vine_painted_alpha.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+</div>
+</body>
+</html>
