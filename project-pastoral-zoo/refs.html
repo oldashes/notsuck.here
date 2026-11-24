@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Project Pastoral · Batch-0 Route-B 参考图集 &amp; Trim Sheet</title>
+<title>Project Pastoral · Batch-0+1 Route-B 参考图集 &amp; Trim Sheet</title>
 <style>
   :root {
     --bg: #0b1118;
@@ -156,10 +156,10 @@
   </div>
 
   <section class="hero">
-    <span class="eyebrow">ROUTE-B COLLABORATION KIT · BATCH-0</span>
+    <span class="eyebrow">ROUTE-B COLLABORATION KIT · BATCH-0 + BATCH-1</span>
     <h1>牧歌计划 <span>Route-B</span> 3D 生成参考包 &amp; 材质图集</h1>
     <p class="lead">
-      本页汇总 Batch-0 角色与伙伴的纯净白底（<code>#FFFFFF</code>）无影 A-Pose / 三视图参考包（可直接喂给 Tripo / Meshy / Hunyuan3D 等 Image-to-3D 工具），以及建筑 2×2 PBR Trim Sheet 与边缘去晕植物 Alpha 卡片。生成后的 <code>.glb</code> 可经仓库内的 <code>blender_src/ingest_route_b_glb.py</code> 一键归一化并无缝接入 Godot Asset Zoo。
+      本页汇总 Batch-0 + Batch-1 角色与伙伴的纯净白底（<code>#FFFFFF</code>）无影 A-Pose / 三视图参考包（可直接喂给 Tripo / Meshy / Hunyuan3D 等 Image-to-3D 工具），以及建筑 2×2 PBR Trim Sheet 与边缘去晕植物 Alpha 卡片。生成后的 <code>.glb</code> 可经仓库内的 <code>blender_src/ingest_route_b_glb.py</code> 一键归一化并无缝接入 Godot Asset Zoo。
     </p>
     <div class="code-box">
       <b># Route-B 一键规范化入库命令（自动接地、缩放至 1.70m / 0.68m、减面、调哑光并导出 GLB）</b><br>
@@ -352,6 +352,61 @@
         <div class="dl-row">
           <a class="dl-btn" href="./kit/leaf_rose_vine_painted_alpha.png" download="leaf_rose_vine_painted_alpha.png">↓ 一键下载 RGBA</a>
           <a class="dl-btn secondary" href="./kit/leaf_rose_vine_painted_alpha.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="sec-head">
+    <h2>03 · Batch-1 扩展建筑 Trim Sheet &amp; 气候带植物 Alpha 卡片</h2>
+    <span>北欧炭化木 / 东亚灰瓦 / 南湾白漆木 / 站台切石 · 三角梅 &amp; 翠竹去晕 RGBA</span>
+  </div>
+
+  <div class="grid wide">
+    <article class="card">
+      <div class="thumb dark-tile">
+        <span class="tag-pill">Batch-1 2×2 PBR Trim Sheet</span>
+        <img src="./kit/trim_batch1_albedo.png" alt="Trim Batch-1 Albedo" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">Batch-1 气候带建筑四象限 PBR 总表</div>
+        <div class="card-meta">trim_batch1_albedo.png · 1024×1024 RGB · 1.20 MB</div>
+        <p class="card-desc">左上北欧炭化杉木 / 右上东亚深灰筒瓦 / 左下社区白漆木板 / 右下轻轨切石月台，用于 Batch-1 五大建筑与公共节点。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/trim_batch1_albedo.png" download="trim_batch1_albedo.png">↓ 一键下载 Trim Sheet</a>
+          <a class="dl-btn secondary" href="./kit/trim_batch1_albedo.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb checker">
+        <span class="tag-pill">RGBA · 南湾海崖别墅</span>
+        <img src="./kit/leaf_bougainvillea_painted_alpha.png" alt="Leaf Bougainvillea Alpha" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">南湾攀援三角梅花枝卡</div>
+        <div class="card-meta">leaf_bougainvillea_painted_alpha.png · 512×512 RGBA · 264 KB</div>
+        <p class="card-desc">洋红与珊瑚粉苞片配合嫩黄小蕊与橄榄绿叶，5 轮边缘扩色去白边，攀附于南湾海崖别墅白色拱门。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/leaf_bougainvillea_painted_alpha.png" download="leaf_bougainvillea_painted_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/leaf_bougainvillea_painted_alpha.png" target="_blank" rel="noopener">原图</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb checker">
+        <span class="tag-pill">RGBA · 东亚茶居水院</span>
+        <img src="./kit/leaf_bamboo_painted_alpha.png" alt="Leaf Bamboo Alpha" />
+      </div>
+      <div class="card-body">
+        <div class="card-title">东亚翠竹枝叶 Alpha 卡</div>
+        <div class="card-meta">leaf_bamboo_painted_alpha.png · 512×512 RGBA · 274 KB</div>
+        <p class="card-desc">剑形竹叶与细竹枝节，零白边 Mipmap 扩色处理，搭配茶居水院锦鲤池畔竹丛与 `stylized_foliage.gdshader`。</p>
+        <div class="dl-row">
+          <a class="dl-btn" href="./kit/leaf_bamboo_painted_alpha.png" download="leaf_bamboo_painted_alpha.png">↓ 一键下载 RGBA</a>
+          <a class="dl-btn secondary" href="./kit/leaf_bamboo_painted_alpha.png" target="_blank" rel="noopener">原图</a>
         </div>
       </div>
     </article>
