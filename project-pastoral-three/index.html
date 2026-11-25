@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Pastoral · 牧歌计划 Three.js 轻量可漫游版</title>
+    <script type="module" crossorigin src="./assets/index-CDZTSh5U.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/three-CuQ_Yg19.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-DGB2DlXF.css">
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <div id="hud">
+      <div class="hud-top-row">
+        <div class="glass-card hud-main">
+          <div class="hud-title-line">
+            <span class="hud-title">牧歌计划 · Three.js 轻量可漫游版</span>
+            <span class="hud-badge">38件流式加载</span>
+          </div>
+          <div id="hud-subtitle" class="hud-sub">◆ 塞尔达高清 · 暮金斜阳 · 第三人称跟随 · WASD 漫游 / 右拖右转 / E 互动</div>
+          <div id="hud-inv" class="hud-inv">第 1 天 · 背包：麦 2  薰 1  葡 0  茶 0  |  奶 0  蛋 0  毛 0</div>
+          <div id="seed-row" class="seed-row">
+            <button class="seed-btn active" data-seed="wheat">1小麦</button>
+            <button class="seed-btn" data-seed="lavender">2薰衣草</button>
+            <button class="seed-btn" data-seed="grape">3葡萄</button>
+            <button class="seed-btn" data-seed="tea_berry">4茶果</button>
+          </div>
+        </div>
+
+        <div class="hud-top-right">
+          <div id="stream-pill" class="glass-pill stream-pill">正在加载关键资产 0/43…</div>
+          <a id="link-godot-btn" class="glass-pill nav-pill" href="../project-pastoral-godot/">🎮 Godot 版</a>
+          <a id="link-zoo-btn" class="glass-pill nav-pill" href="../project-pastoral-zoo/">🏛️ 38 资产陈列馆</a>
+        </div>
+      </div>
+
+      <div id="toast-box" class="glass-card toast-box hidden"></div>
+
+      <div id="dialogue-box" class="glass-card dialogue-box hidden">
+        <div class="dialogue-head">
+          <span id="dialogue-name" class="dialogue-name"></span>
+          <button id="dialogue-close" class="mini-btn">关闭</button>
+        </div>
+        <div id="dialogue-text" class="dialogue-text"></div>
+      </div>
+
+      <div class="hud-bottom-stack">
+        <button id="interact-btn" class="interact-pill hidden">[E] 互动</button>
+        <div class="glass-card dock-bar">
+          <button id="btn-hd" class="dock-btn active">◆ 塞尔达高清</button>
+          <button id="btn-quack" class="dock-btn">★ Quack 像素</button>
+          <span class="dock-sep"></span>
+          <button class="dock-btn time-btn active" data-time="late_sun">暮金</button>
+          <button class="dock-btn time-btn" data-time="noon">晴午</button>
+          <button class="dock-btn time-btn" data-time="dusk">夜灯</button>
+          <button id="btn-next-day" class="dock-btn">☆ 次日(N)</button>
+          <span class="dock-sep"></span>
+          <button class="dock-btn cam-btn active" data-cam="follow">①跟随</button>
+          <button class="dock-btn cam-btn" data-cam="courtyard">②全景</button>
+          <button class="dock-btn cam-btn" data-cam="window">③巨窗</button>
+          <button class="dock-btn cam-btn" data-cam="quack_iso">④箱庭</button>
+          <button id="btn-invert" class="dock-btn">转镜:正常</button>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
