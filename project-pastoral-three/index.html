@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Project Pastoral · 牧歌计划 Three.js 轻量可漫游版</title>
-    <script type="module" crossorigin src="./assets/index-D_t0BXCK.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/three-CxPnOoPh.js">
-    <link rel="stylesheet" crossorigin href="./assets/index-DEUbMGKP.css">
+    <title>牧歌计划 · Project Pastoral</title>
+    <script type="module" crossorigin src="./assets/index-D53Bli_I.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/three-CrjgVEEJ.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-DNgQ3aDa.css">
   </head>
   <body>
     <canvas id="canvas" tabindex="0"></canvas>
@@ -15,10 +15,8 @@
       <div class="hud-top-row">
         <div class="glass-card hud-main">
           <div class="hud-title-line">
-            <span class="hud-title">牧歌计划 · Three.js 轻量可漫游版</span>
-            <span class="hud-badge">38件流式加载</span>
+            <span class="hud-title">牧歌谷</span>
           </div>
-          <div id="hud-subtitle" class="hud-sub">◆ 塞尔达高清 · 暮金斜阳 · 第三人称跟随 · WASD 漫游 / 右拖右转 / E 互动</div>
           <div id="hud-inv" class="hud-inv">第 1 天 · 背包：麦 2  薰 1  葡 0  茶 0  |  奶 0  蛋 0  毛 0</div>
           <div id="seed-row" class="seed-row">
             <button class="seed-btn active" data-seed="wheat">1小麦</button>
@@ -30,8 +28,45 @@
 
         <div class="hud-top-right">
           <div id="stream-pill" class="glass-pill stream-pill">正在加载关键资产 0/43…</div>
+          <div class="glass-pill time-pill">
+            <button class="dock-btn time-btn active" data-time="late_sun">暮金</button>
+            <button class="dock-btn time-btn" data-time="noon">晴午</button>
+            <button class="dock-btn time-btn" data-time="dusk">夜灯</button>
+          </div>
+          <button id="btn-drawer" class="glass-pill drawer-btn" title="设置面板 (Esc 关闭 · H 隐藏界面)">⚙</button>
+        </div>
+      </div>
+
+      <div id="settings-drawer" class="glass-card settings-drawer hidden">
+        <div id="hud-subtitle" class="hud-sub">◆ 塞尔达高清 · 暮金斜阳 · 第三人称跟随 · WASD 漫游 / 右拖右转 / E 互动</div>
+
+        <div class="drawer-group">
+          <span class="drawer-label">画面</span>
+          <button id="btn-hd" class="dock-btn active">◆ 高清油画</button>
+          <button id="btn-quack" class="dock-btn">★ Quack 像素</button>
+          <button id="btn-next-day" class="dock-btn">☆ 次日(N)</button>
+        </div>
+
+        <div class="drawer-group">
+          <span class="drawer-label">镜头</span>
+          <button class="dock-btn cam-btn active" data-cam="follow">①跟随</button>
+          <button class="dock-btn cam-btn" data-cam="courtyard">②全景</button>
+          <button class="dock-btn cam-btn" data-cam="window">③巨窗</button>
+          <button class="dock-btn cam-btn" data-cam="quack_iso">④箱庭</button>
+          <button id="btn-invert" class="dock-btn">转镜:正常</button>
+        </div>
+
+        <div class="drawer-group">
+          <span class="drawer-label">动作库</span>
+          <button class="dock-btn anim-btn active" data-anim="soldier">①Soldier</button>
+          <button class="dock-btn anim-btn" data-anim="ual">②UAL</button>
+          <button class="dock-btn anim-btn" data-anim="mixamo">③Xbot</button>
+          <button class="dock-btn anim-btn" data-anim="m2m">④M2M</button>
+        </div>
+
+        <div class="drawer-group drawer-links">
           <a id="link-godot-btn" class="glass-pill nav-pill" href="../project-pastoral-godot/">🎮 Godot 版</a>
-          <a id="link-zoo-btn" class="glass-pill nav-pill" href="../project-pastoral-zoo/">🏛️ 38 资产陈列馆</a>
+          <a id="link-zoo-btn" class="glass-pill nav-pill" href="../project-pastoral-zoo/">🏛️ 资产陈列馆</a>
         </div>
       </div>
 
@@ -51,26 +86,6 @@
 
       <div class="hud-bottom-stack">
         <button id="interact-btn" class="interact-pill hidden">[E] 互动</button>
-        <div class="glass-card dock-bar">
-          <button id="btn-hd" class="dock-btn active">◆ 塞尔达高清</button>
-          <button id="btn-quack" class="dock-btn">★ Quack 像素</button>
-          <span class="dock-sep"></span>
-          <button class="dock-btn time-btn active" data-time="late_sun">暮金</button>
-          <button class="dock-btn time-btn" data-time="noon">晴午</button>
-          <button class="dock-btn time-btn" data-time="dusk">夜灯</button>
-          <button id="btn-next-day" class="dock-btn">☆ 次日(N)</button>
-          <span class="dock-sep"></span>
-          <button class="dock-btn cam-btn active" data-cam="follow">①跟随</button>
-          <button class="dock-btn cam-btn" data-cam="courtyard">②全景</button>
-          <button class="dock-btn cam-btn" data-cam="window">③巨窗</button>
-          <button class="dock-btn cam-btn" data-cam="quack_iso">④箱庭</button>
-          <button id="btn-invert" class="dock-btn">转镜:正常</button>
-          <span class="dock-sep"></span>
-          <button class="dock-btn anim-btn active" data-anim="soldier">①Soldier</button>
-          <button class="dock-btn anim-btn" data-anim="ual">②UAL</button>
-          <button class="dock-btn anim-btn" data-anim="mixamo">③Xbot</button>
-          <button class="dock-btn anim-btn" data-anim="m2m">④M2M</button>
-        </div>
       </div>
     </div>
 
