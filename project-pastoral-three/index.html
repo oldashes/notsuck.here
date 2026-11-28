@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>牧歌计划 · Project Pastoral</title>
-    <script type="module" crossorigin src="./assets/index-chhoWb0g.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/three-CXOEWJlz.js">
-    <link rel="stylesheet" crossorigin href="./assets/index-Cu1EhnGj.css">
+    <script type="module" crossorigin src="./assets/index-CWG4VJis.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/three-BQapAWzf.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-DC4lK-vC.css">
   </head>
   <body>
     <canvas id="canvas" tabindex="0"></canvas>
@@ -27,17 +27,25 @@
         </div>
 
         <div class="hud-top-right">
-          <div id="stream-pill" class="glass-pill stream-pill">正在加载关键资产 0/32…</div>
-          <div class="glass-pill time-pill">
-            <button class="dock-btn time-btn active" data-time="late_sun">暮金</button>
-            <button class="dock-btn time-btn" data-time="noon">晴午</button>
-            <button class="dock-btn time-btn" data-time="dusk">夜灯</button>
-            <button class="dock-btn time-btn" data-time="rain">微雨</button>
+          <div class="hud-right-row">
+            <div id="stream-pill" class="glass-pill stream-pill">正在加载关键资产 0/32…</div>
+            <div class="glass-pill time-pill">
+              <button class="dock-btn time-btn active" data-time="late_sun">暮金</button>
+              <button class="dock-btn time-btn" data-time="noon">晴午</button>
+              <button class="dock-btn time-btn" data-time="dusk">夜灯</button>
+              <button class="dock-btn time-btn" data-time="rain">微雨</button>
+            </div>
+            <div class="hud-btn-group">
+              <button id="btn-journal" class="glass-pill drawer-btn journal-btn" title="牧歌日志 (J)" aria-label="牧歌日志">📖</button>
+              <button id="btn-audio" class="glass-pill drawer-btn audio-btn" title="声音开关 (M)" aria-label="声音开关">🔊</button>
+              <button id="btn-drawer" class="glass-pill drawer-btn" title="设置面板 (Esc 关闭 · H 隐藏界面)">⚙</button>
+            </div>
           </div>
-          <div class="hud-btn-group">
-            <button id="btn-journal" class="glass-pill drawer-btn journal-btn" title="牧歌日志 (J)" aria-label="牧歌日志">📖</button>
-            <button id="btn-audio" class="glass-pill drawer-btn audio-btn" title="声音开关 (M)" aria-label="声音开关">🔊</button>
-            <button id="btn-drawer" class="glass-pill drawer-btn" title="设置面板 (Esc 关闭 · H 隐藏界面)">⚙</button>
+          <div class="glass-pill cam-pill" role="group" aria-label="镜头视角">
+            <button class="dock-btn cam-btn active" data-cam="follow" title="第三人称跟随 (F1)">跟随</button>
+            <button class="dock-btn cam-btn" data-cam="courtyard" title="庭院全景 (F2)">全景</button>
+            <button class="dock-btn cam-btn" data-cam="pasture" title="东侧牧场 (F3)">牧场</button>
+            <button class="dock-btn cam-btn" data-cam="quack_iso" title="35° 正交箱庭 (F4)">箱庭</button>
           </div>
         </div>
       </div>
@@ -59,12 +67,9 @@
         </div>
 
         <div class="drawer-group">
-          <span class="drawer-label">镜头</span>
-          <button class="dock-btn cam-btn active" data-cam="follow">①跟随</button>
-          <button class="dock-btn cam-btn" data-cam="courtyard">②全景</button>
-          <button class="dock-btn cam-btn" data-cam="pasture">③牧场</button>
-          <button class="dock-btn cam-btn" data-cam="quack_iso">④箱庭</button>
+          <span class="drawer-label">操作</span>
           <button id="btn-invert" class="dock-btn">转镜:正常</button>
+          <button id="btn-quality" class="dock-btn">画质: 流畅</button>
         </div>
 
         <div class="drawer-group">
